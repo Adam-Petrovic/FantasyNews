@@ -6,7 +6,7 @@ Yibing Xia - jennifer1046
 
 Our group task is task 1  
 
-Alexandros is completing task 2  
+Alexandros Pratsos is completing task 2  
 Adam Petrovic is completing task 3  
 Evelyn Hughes is completing task 4  
 Hugo Fuhrer is completing task 5  
