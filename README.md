@@ -11,3 +11,5 @@ Adam Petrovic is completing task 3
 Evelyn Hughes is completing task 4  
 Hugo Fuhrer is completing task 5  
 Yibing Xia is completing task 6  
+
+Tasks/Project Blueprint can be found in this [link]([url](https://docs.google.com/document/d/1Q1Z9kBl2Huhp6V3-i3qPANTCCzPoLs2BD_COMZS6cts/edit?usp=sharing)) 
