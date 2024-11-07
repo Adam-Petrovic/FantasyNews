@@ -1,5 +1,5 @@
 Alexandros Pratsos - Pratsosa  
-Adam Petrovic - Adam Petrovic  
+Adam Petrovic - Adam-Petrovic  
 Evelyn Hughes - EveHughes  
 Hugo Fuhrer - Hugo-fuhrer  
 Yibing Xia - jennifer1046  
