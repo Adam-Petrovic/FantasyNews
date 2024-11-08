@@ -1,38 +1,20 @@
 package entity;
-import java.util.ArrayList;
-import java.util.List;
 
-public class User {
-    private String username;
-    private String password;
-    private List<User> friends;
+/**
+ * The representation of a user in our program.
+ */
+public interface User {
 
-    public User(String username, String password) {
-        this.username = username;
-        this.password = password;
-        this.friends = new ArrayList<>();
-    }
+    /**
+     * Returns the username of the user.
+     * @return the username of the user.
+     */
+    String getName();
 
-    public String getUsername() {
-        return username;
-    }
+    /**
+     * Returns the password of the user.
+     * @return the password of the user.
+     */
+    String getPassword();
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-    public String getPassword() {
-        return password;
-    }
-    public void setPassword(String password) {
-        this.password = password;
-    }
-    public List<User> getFriends() {
-        return friends;
-    }
-    public void setFriends(List<User> friends) {
-        this.friends = friends;
-    }
-    public void addFriend(User user) {
-        this.friends.add(user);
-    }
 }
