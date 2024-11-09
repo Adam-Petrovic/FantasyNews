@@ -7,9 +7,10 @@ public class SoloPlayInteractor implements SoloPlayInputBoundary{
         this.soloPlayPresenter = soloPlayPresenter;
     }
 
+
     @Override
     public void execute(SoloPlayInputData soloPlayInputData) {
-        soloPlayPresenter.showSoloPlay(soloPlayInputData.getUsername());
-
+        SoloPlayOutputData outputData = new SoloPlayOutputData(soloPlayInputData.getUsername());
+        soloPlayPresenter.showSoloPlay(outputData);
     }
 }

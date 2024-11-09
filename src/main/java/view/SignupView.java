@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
+import data_access.Constants;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupState;
 import interface_adapter.signup.SignupViewModel;
@@ -24,7 +25,7 @@ import interface_adapter.signup.SignupViewModel;
  * The View for the Signup Use Case.
  */
 public class SignupView extends JPanel implements ActionListener, PropertyChangeListener {
-    private final String viewName = "sign up";
+    private final String viewName = Constants.SIGN_UP_VIEW_NAME;
 
     private final SignupViewModel signupViewModel;
     private final JTextField usernameInputField = new JTextField(15);
@@ -59,6 +60,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         buttons.add(cancel);
 
         signUp.addActionListener(
+                // TODO: REFACTOR move to VM!
                 // This creates an anonymous subclass of ActionListener and instantiates it.
                 new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {

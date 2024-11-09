@@ -1,5 +1,5 @@
 package use_case.solo_play;
 
 public interface SoloPlayOutputBoundary {
-    void showSoloPlay(String username);
+    void showSoloPlay(SoloPlayOutputData soloPlayOutputData);
 }

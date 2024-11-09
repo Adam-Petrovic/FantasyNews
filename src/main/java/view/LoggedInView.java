@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import data_access.Constants;
 import interface_adapter.change_password.ChangePasswordController;
 import interface_adapter.change_password.LoggedInState;
 import interface_adapter.change_password.LoggedInViewModel;
@@ -22,7 +23,7 @@ import interface_adapter.solo_play.SoloPlayController;
  */
 public class LoggedInView extends JPanel implements PropertyChangeListener {
 
-    private final String viewName = "logged in";
+    private final String viewName = Constants.LOGGED_IN_VIEW_NAME;
     private final LoggedInViewModel loggedInViewModel;
     private LogoutController logoutController;
     private SoloPlayController soloPlayController;

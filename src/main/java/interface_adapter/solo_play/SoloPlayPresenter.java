@@ -7,6 +7,7 @@ import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.signup.SignupViewModel;
 import use_case.solo_play.SoloPlayOutputBoundary;
+import use_case.solo_play.SoloPlayOutputData;
 
 public class SoloPlayPresenter implements SoloPlayOutputBoundary {
 
@@ -21,7 +22,7 @@ public class SoloPlayPresenter implements SoloPlayOutputBoundary {
 
 
     @Override
-    public void showSoloPlay(String username) {
+    public void showSoloPlay(SoloPlayOutputData outputData) {
         final SoloPlayState soloPlayState = soloPlayViewModel.getState();
         soloPlayState.setUsername(soloPlayState.getUsername());
         this.soloPlayViewModel.setState(soloPlayState);
@@ -29,8 +30,5 @@ public class SoloPlayPresenter implements SoloPlayOutputBoundary {
 
         this.viewManagerModel.setState(soloPlayViewModel.getViewName());
         this.viewManagerModel.firePropertyChanged();
-
-        viewManagerModel.setState(soloPlayViewModel.getViewName());
-        viewManagerModel.firePropertyChanged();
     }
 }

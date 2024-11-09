@@ -2,7 +2,6 @@ package interface_adapter.solo_play;
 
 import use_case.solo_play.SoloPlayInputBoundary;
 import use_case.solo_play.SoloPlayInputData;
-import view.SoloPlayView;
 
 public class SoloPlayController {
     private final SoloPlayInputBoundary soloPlayUseCaseInteractor;

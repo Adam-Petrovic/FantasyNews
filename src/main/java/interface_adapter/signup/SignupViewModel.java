@@ -1,5 +1,6 @@
 package interface_adapter.signup;
 
+import data_access.Constants;
 import interface_adapter.ViewModel;
 
 /**
@@ -18,7 +19,7 @@ public class SignupViewModel extends ViewModel<SignupState> {
     public static final String TO_LOGIN_BUTTON_LABEL = "Go to Login";
 
     public SignupViewModel() {
-        super("sign up");
+        super(Constants.SIGN_UP_VIEW_NAME);
         setState(new SignupState());
     }
 

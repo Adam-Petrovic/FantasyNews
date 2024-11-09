@@ -1,5 +1,6 @@
 package view;
 
+import data_access.Constants;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.solo_play.SoloPlayController;
 import interface_adapter.solo_play.SoloPlayViewModel;
@@ -10,7 +11,7 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class SoloPlayView extends JPanel implements PropertyChangeListener {
-    private final String viewName = "solo play";
+    private final String viewName = Constants.SOLO_PLAY_VIEW_NAME;
     private final SoloPlayViewModel soloPlayViewModel;
     private SoloPlayController soloPlayController;
 
@@ -22,7 +23,7 @@ public class SoloPlayView extends JPanel implements PropertyChangeListener {
         // Initializing the JTable
         JTable wordsTable =
                 new JTable(soloPlayViewModel.getState().getWORDS(),
-                        soloPlayViewModel.getState().getCATEGORIES());
+                        Constants.CATEGORIES);
 
         JScrollPane jScrollPane = new JScrollPane();
         jScrollPane.getViewport().add(wordsTable, null);
