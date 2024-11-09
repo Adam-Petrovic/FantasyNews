@@ -21,6 +21,9 @@ import interface_adapter.logout.LogoutPresenter;
 import interface_adapter.signup.SignupController;
 import interface_adapter.signup.SignupPresenter;
 import interface_adapter.signup.SignupViewModel;
+import interface_adapter.solo_play.SoloPlayController;
+import interface_adapter.solo_play.SoloPlayPresenter;
+import interface_adapter.solo_play.SoloPlayViewModel;
 import use_case.change_password.ChangePasswordInputBoundary;
 import use_case.change_password.ChangePasswordInteractor;
 import use_case.change_password.ChangePasswordOutputBoundary;
@@ -33,10 +36,10 @@ import use_case.logout.LogoutOutputBoundary;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
-import view.LoggedInView;
-import view.LoginView;
-import view.SignupView;
-import view.ViewManager;
+import use_case.solo_play.SoloPlayInputBoundary;
+import use_case.solo_play.SoloPlayInteractor;
+import use_case.solo_play.SoloPlayOutputBoundary;
+import view.*;
 
 /**
  * The AppBuilder class is responsible for putting together the pieces of
@@ -66,6 +69,8 @@ public class AppBuilder {
     private LoggedInViewModel loggedInViewModel;
     private LoggedInView loggedInView;
     private LoginView loginView;
+    private SoloPlayViewModel soloPlayViewModel;
+    private SoloPlayView soloPlayView;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -79,6 +84,30 @@ public class AppBuilder {
         signupViewModel = new SignupViewModel();
         signupView = new SignupView(signupViewModel);
         cardPanel.add(signupView, signupView.getViewName());
+        return this;
+    }
+
+    /**
+     * Adds the Signup View to the application.
+     * @return this builder
+     */
+    public AppBuilder addSoloPlayView() {
+        soloPlayViewModel = new SoloPlayViewModel();
+        soloPlayView = new SoloPlayView(soloPlayViewModel);
+        cardPanel.add(soloPlayView, soloPlayView.getViewName());
+        return this;
+    }
+
+    /**
+     * Adds the Signup Use Case to the application.
+     * @return this builder
+     */
+    public AppBuilder addSoloPlayUseCase() {
+        final SoloPlayOutputBoundary soloPlayOutputBoundary = new SoloPlayPresenter(viewManagerModel,soloPlayViewModel);
+        final SoloPlayInputBoundary soloPlayInteractor = new SoloPlayInteractor(soloPlayOutputBoundary);
+
+        final SoloPlayController controller = new SoloPlayController(soloPlayInteractor);
+        loggedInView.setSoloPlayController(controller);
         return this;
     }
 
@@ -138,18 +167,18 @@ public class AppBuilder {
      * Adds the Change Password Use Case to the application.
      * @return this builder
      */
-    public AppBuilder addChangePasswordUseCase() {
-        final ChangePasswordOutputBoundary changePasswordOutputBoundary =
-                new ChangePasswordPresenter(loggedInViewModel);
-
-        final ChangePasswordInputBoundary changePasswordInteractor =
-                new ChangePasswordInteractor(userDataAccessObject, changePasswordOutputBoundary, userFactory);
-
-        final ChangePasswordController changePasswordController =
-                new ChangePasswordController(changePasswordInteractor);
-        loggedInView.setChangePasswordController(changePasswordController);
-        return this;
-    }
+//    public AppBuilder addChangePasswordUseCase() {
+//        final ChangePasswordOutputBoundary changePasswordOutputBoundary =
+//                new ChangePasswordPresenter(loggedInViewModel);
+//
+//        final ChangePasswordInputBoundary changePasswordInteractor =
+//                new ChangePasswordInteractor(userDataAccessObject, changePasswordOutputBoundary, userFactory);
+//
+//        final ChangePasswordController changePasswordController =
+//                new ChangePasswordController(changePasswordInteractor);
+//        loggedInView.setChangePasswordController(changePasswordController);
+//        return this;
+//    }
 
     /**
      * Adds the Logout Use Case to the application.

@@ -20,7 +20,8 @@ public class Main {
                                             .addSignupUseCase()
                                             .addLoginUseCase()
                                             .addLogoutUseCase()
-                                            .addChangePasswordUseCase()
+                                            .addSoloPlayView()
+                                            .addSoloPlayUseCase()
                                             .build();
 
         application.pack();
