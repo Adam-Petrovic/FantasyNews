@@ -37,6 +37,7 @@ public class CommonUser implements User {
     @Override
     public String[] getWords() {
         return new String[0];
+    }
 
     public ArrayList<String> getSoloWordsDrafted() {
         return soloWordsDrafted;
