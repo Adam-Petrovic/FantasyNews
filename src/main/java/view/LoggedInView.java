@@ -10,91 +10,65 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 
+import data_access.Constants;
 import interface_adapter.change_password.ChangePasswordController;
 import interface_adapter.change_password.LoggedInState;
 import interface_adapter.change_password.LoggedInViewModel;
 import interface_adapter.logout.LogoutController;
+import interface_adapter.solo_play.SoloPlayController;
 
 /**
  * The View for when the user is logged into the program.
  */
 public class LoggedInView extends JPanel implements PropertyChangeListener {
 
-    private final String viewName = "logged in";
+    private final String viewName = Constants.LOGGED_IN_VIEW_NAME;
     private final LoggedInViewModel loggedInViewModel;
-    private final JLabel passwordErrorField = new JLabel();
-    private ChangePasswordController changePasswordController;
     private LogoutController logoutController;
-
-    private final JLabel username;
+    private SoloPlayController soloPlayController;
+    private final JLabel greeting;
 
     private final JButton logOut;
 
-    private final JTextField passwordInputField = new JTextField(15);
-    private final JButton changePassword;
+    private final JButton soloPlay;
 
     public LoggedInView(LoggedInViewModel loggedInViewModel) {
         this.loggedInViewModel = loggedInViewModel;
         this.loggedInViewModel.addPropertyChangeListener(this);
 
-        final JLabel title = new JLabel("Logged In Screen");
-        title.setAlignmentX(Component.CENTER_ALIGNMENT);
-
-        final LabelTextPanel passwordInfo = new LabelTextPanel(
-                new JLabel("Password"), passwordInputField);
-
-        final JLabel usernameInfo = new JLabel("Currently logged in: ");
-        username = new JLabel();
+        greeting = new JLabel("WRONG MSG!");
+        greeting.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         final JPanel buttons = new JPanel();
-        logOut = new JButton("Log Out");
+        logOut = new JButton(loggedInViewModel.LOG_OUT_LABEL);
         buttons.add(logOut);
 
-        changePassword = new JButton("Change Password");
-        buttons.add(changePassword);
+        soloPlay = new JButton(loggedInViewModel.SOLO_PLAY_LABEL);
+        buttons.add(soloPlay);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        passwordInputField.getDocument().addDocumentListener(new DocumentListener() {
+//        changePassword.addActionListener(
+//                // This creates an anonymous subclass of ActionListener and instantiates it.
+//                evt -> {
+//                    if (evt.getSource().equals(changePassword)) {
+//                        final LoggedInState currentState = loggedInViewModel.getState();
+//
+//                        this.changePasswordController.execute(
+//                                currentState.getUsername(),
+//                                currentState.getPassword()
+//                        );
+//                    }
+//                }
+//        );
 
-            private void documentListenerHelper() {
-                final LoggedInState currentState = loggedInViewModel.getState();
-                currentState.setPassword(passwordInputField.getText());
-                loggedInViewModel.setState(currentState);
-            }
-
-            @Override
-            public void insertUpdate(DocumentEvent e) {
-                documentListenerHelper();
-            }
-
-            @Override
-            public void removeUpdate(DocumentEvent e) {
-                documentListenerHelper();
-            }
-
-            @Override
-            public void changedUpdate(DocumentEvent e) {
-                documentListenerHelper();
-            }
-        });
-
-        changePassword.addActionListener(
-                // This creates an anonymous subclass of ActionListener and instantiates it.
+        soloPlay.addActionListener(
                 evt -> {
-                    if (evt.getSource().equals(changePassword)) {
-                        final LoggedInState currentState = loggedInViewModel.getState();
-
-                        this.changePasswordController.execute(
-                                currentState.getUsername(),
-                                currentState.getPassword()
-                        );
+                    if (evt.getSource().equals(soloPlay)) {
+                        soloPlayController.execute(loggedInViewModel.getState().getUsername());
                     }
-                }
-        );
+                });
 
         logOut.addActionListener(
                 // This creates an anonymous subclass of ActionListener and instantiates it.
@@ -105,12 +79,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 }
         );
 
-        this.add(title);
-        this.add(usernameInfo);
-        this.add(username);
-
-        this.add(passwordInfo);
-        this.add(passwordErrorField);
+        this.add(greeting);
         this.add(buttons);
     }
 
@@ -118,7 +87,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("state")) {
             final LoggedInState state = (LoggedInState) evt.getNewValue();
-            username.setText(state.getUsername());
+            greeting.setText(loggedInViewModel.GREETING + " " + state.getUsername());
         }
         else if (evt.getPropertyName().equals("password")) {
             final LoggedInState state = (LoggedInState) evt.getNewValue();
@@ -131,11 +100,10 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         return viewName;
     }
 
-    public void setChangePasswordController(ChangePasswordController changePasswordController) {
-        this.changePasswordController = changePasswordController;
-    }
-
     public void setLogoutController(LogoutController logoutController) {
         this.logoutController = logoutController;
     }
+
+    public void setSoloPlayController(SoloPlayController soloPlayController) {
+        this.soloPlayController = soloPlayController;}
 }

@@ -1,5 +1,6 @@
 package interface_adapter.login;
 
+import data_access.Constants;
 import interface_adapter.ViewModel;
 
 /**
@@ -8,7 +9,7 @@ import interface_adapter.ViewModel;
 public class LoginViewModel extends ViewModel<LoginState> {
 
     public LoginViewModel() {
-        super("log in");
+        super(Constants.LOG_IN_VIEW_NAME);
         setState(new LoginState());
     }
 
