@@ -34,6 +34,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private final JButton soloPlay;
 
     public LoggedInView(LoggedInViewModel loggedInViewModel) {
+
         this.loggedInViewModel = loggedInViewModel;
         this.loggedInViewModel.addPropertyChangeListener(this);
 
