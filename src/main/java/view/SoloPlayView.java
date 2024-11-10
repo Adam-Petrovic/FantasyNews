@@ -1,11 +1,16 @@
 package view;
 
 import data_access.Constants;
+import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.solo_play.SoloPlayController;
+import interface_adapter.solo_play.SoloPlayState;
 import interface_adapter.solo_play.SoloPlayViewModel;
+import interface_adapter.add_word.AddWordController;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -14,7 +19,7 @@ public class SoloPlayView extends JPanel implements PropertyChangeListener {
     private final String viewName = Constants.SOLO_PLAY_VIEW_NAME;
     private final SoloPlayViewModel soloPlayViewModel;
     private SoloPlayController soloPlayController;
-
+    private AddWordController addWordController;
 
     public SoloPlayView(SoloPlayViewModel soloPlayViewModel) {
         this.soloPlayViewModel = soloPlayViewModel;
@@ -44,6 +49,38 @@ public class SoloPlayView extends JPanel implements PropertyChangeListener {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(jScrollPane);
         this.add(userOptions);
+
+        addWord.addActionListener(
+                evt -> {
+                    if (evt.getSource().equals(addWord)) {
+                        System.out.println("test");
+                        addWordController.execute(soloPlayViewModel.getState().getWord());
+                    }
+                });
+
+        wordInput.getDocument().addDocumentListener(new DocumentListener() {
+
+            private void documentListenerHelper() {
+                final SoloPlayState currentState = soloPlayViewModel.getState();
+                currentState.setWord(new String(wordInput.getText()));
+                soloPlayViewModel.setState(currentState);
+            }
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                documentListenerHelper();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                documentListenerHelper();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                documentListenerHelper();
+            }
+        });
     }
 
     @Override
@@ -57,5 +94,9 @@ public class SoloPlayView extends JPanel implements PropertyChangeListener {
 
     public String getViewName(){
         return viewName;
+    }
+
+    public void setAddWordController(AddWordController controller) {
+        this.addWordController = controller;
     }
 }
