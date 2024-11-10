@@ -38,4 +38,4 @@ build/
 .DS_Store
 
 ### Our API TOKEN! ###
-token.txt
+guardianAPIToken.txt
