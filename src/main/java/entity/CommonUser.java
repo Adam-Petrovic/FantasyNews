@@ -1,8 +1,12 @@
 package entity;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
 import data_access.Constants;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 
 /**
  * A simple implementation of the User interface.
@@ -11,17 +15,42 @@ public class CommonUser implements User {
 
     private final String name;
     private final String password;
+    private int points = 0;
+    private final HashMap<String, String> words = new HashMap<>();
 
-    private final String[] words = new String[Constants.NUM_CATEGORIES];
 
-    private ArrayList<String> soloWordsDrafted;
-    private int soloPoints;
 
-    public CommonUser(String name, String password) {
+    public CommonUser(String name, String password, String[] draftedWords) throws InstantiationError {
         this.name = name;
         this.password = password;
-        this.soloPoints = 0;
-        this.soloWordsDrafted = new ArrayList<String>();
+
+        if (draftedWords.length > Constants.NUM_CATEGORIES) {
+            throw new InstantiationError("Inputted Words are too long");
+        }
+
+        else if (hasDuplicates(draftedWords)) {
+            throw new InstantiationError("Duplicated words in drafted word list");
+        }
+
+        else {
+            createWordMap(draftedWords);
+        }
+    }
+
+    private void createWordMap(String[] draftedWords) {
+        for (int index = 0; index < Constants.NUM_CATEGORIES; index++) {
+            if (draftedWords[index].isEmpty()) {
+                this.words.put(Constants.CATEGORIES[index], "EMPTY");
+            }
+            else {
+                this.words.put(Constants.CATEGORIES[index], draftedWords[index]);
+            }
+        }
+    }
+
+    private boolean hasDuplicates(String[] draftedWords) {
+        Set<String> simplifiedWords = new HashSet<>(List.of(draftedWords));
+        return draftedWords.length == simplifiedWords.size();
     }
 
     @Override
@@ -35,24 +64,29 @@ public class CommonUser implements User {
     }
 
     @Override
+    public String getWordFromCategory(String category) {
+        return this.words.get(category);
+    }
+
+    @Override
+    public void swapWords(String category, String word) {
+        this.words.replace(category, word);
+    }
+
+    @Override
     public String[] getWords() {
-        return new String[0];
+        return words.values().toArray(new String[0]);
     }
 
-    public ArrayList<String> getSoloWordsDrafted() {
-        return soloWordsDrafted;
+    @Override
+    public void setPoints(int points) {
+        this.points = points;
     }
 
-    public void setSoloWordsDrafted(ArrayList<String> soloWordsDrafted) {
-        this.soloWordsDrafted = soloWordsDrafted;
+    @Override
+    public int getPoints() {
+        return points;
     }
 
-    public int getSoloPoints() {
-        return soloPoints;
-    }
-
-    public void setSoloPoints(int soloPoints) {
-        this.soloPoints = soloPoints;
-    }
 
 }
