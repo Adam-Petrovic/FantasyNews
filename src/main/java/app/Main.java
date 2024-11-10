@@ -22,6 +22,7 @@ public class Main {
                                             .addLogoutUseCase()
                                             .addSoloPlayView()
                                             .addSoloPlayUseCase()
+                                            .addAddWordUseCase()
                                             .build();
 
         application.pack();

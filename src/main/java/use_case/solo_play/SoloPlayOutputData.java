@@ -7,4 +7,6 @@ public class SoloPlayOutputData {
     public SoloPlayOutputData(String username) {
         this.username = username;
     }
+
+    public String getUsername() { return username; }
 }
