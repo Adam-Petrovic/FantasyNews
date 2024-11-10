@@ -1,6 +1,83 @@
 package data_access;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.temporal.TemporalAdjusters;
+import java.util.Scanner;
+
+import org.json.JSONObject;
+
 public class GuardianDataAccessObject {
 
+    private final String apiKey;
+    private final HttpClient client;
+
+
+    public GuardianDataAccessObject(String apiKey) {
+        this.apiKey = apiKey;
+        this.client = HttpClient.newHttpClient();
+    }
+
+    private int countApperances(String word) {
+        try{
+            JSONObject response = fetchArticles(word).getJSONObject("response");
+            return response.getInt("total");
+        }
+
+        catch (IOException | InterruptedException e) {
+            return 0;
+        }
+    }
+
+
+    private JSONObject fetchArticles(String query) throws IOException, InterruptedException {
+        // Construct the URL with parameters
+        String url = Constants.GUARDIAN_API_URL
+                + getPreviousMonday()
+                + "&q=" + query
+                + "&api-key=" + apiKey;
+
+
+        // Build the HTTP request
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(url))
+                .GET()
+                .build();
+
+        // Send the request and handle the response
+        HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+        if (response.statusCode() == 200) {
+            // Parse and return the JSON response
+            return new JSONObject(response.body());
+        } else {
+            // Print error message and return null if the request fails
+            System.err.println("Error " + response.statusCode() + ": " + response.body());
+            return null;
+        }
+    }
+
+    private String getPreviousMonday(){
+        return LocalDate.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY)).toString();
+    }
+
+
+    public static void main(String[] args) {
+        try {
+            String apiKey = new Scanner(new File("guardianAPIToken.txt")).nextLine();
+            GuardianDataAccessObject apiClient = new GuardianDataAccessObject(apiKey);
+            System.out.println(apiClient.countApperances("football"));
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("Need to find API token, and call the file GuardianAPIToken");
+        }
+    }
 
 }
