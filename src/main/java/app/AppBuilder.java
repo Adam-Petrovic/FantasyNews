@@ -10,6 +10,8 @@ import data_access.InMemoryUserDataAccessObject;
 import entity.CommonUserFactory;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.add_word.AddWordController;
+import interface_adapter.add_word.AddWordPresenter;
 import interface_adapter.change_password.ChangePasswordController;
 import interface_adapter.change_password.ChangePasswordPresenter;
 import interface_adapter.change_password.LoggedInViewModel;
@@ -24,6 +26,9 @@ import interface_adapter.signup.SignupViewModel;
 import interface_adapter.solo_play.SoloPlayController;
 import interface_adapter.solo_play.SoloPlayPresenter;
 import interface_adapter.solo_play.SoloPlayViewModel;
+import use_case.add_word.AddWordInputBoundary;
+import use_case.add_word.AddWordInteractor;
+import use_case.add_word.AddWordOutputBoundary;
 import use_case.change_password.ChangePasswordInputBoundary;
 import use_case.change_password.ChangePasswordInteractor;
 import use_case.change_password.ChangePasswordOutputBoundary;
@@ -98,6 +103,13 @@ public class AppBuilder {
         return this;
     }
 
+    public AppBuilder addAddWordUseCase() {
+        final AddWordOutputBoundary addWordPresenter = new AddWordPresenter(viewManagerModel, soloPlayViewModel);
+        final AddWordInputBoundary addWordInteractor = new AddWordInteractor(addWordPresenter);
+        final AddWordController controller = new AddWordController(addWordInteractor);
+        soloPlayView.setAddWordController(controller);
+        return this;
+    }
     /**
      * Adds the Signup Use Case to the application.
      * @return this builder
