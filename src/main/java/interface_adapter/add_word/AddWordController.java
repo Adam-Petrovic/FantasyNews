@@ -14,4 +14,8 @@ public class AddWordController {
         final AddWordInputData addWordInputData = new AddWordInputData(word);
         addWordInteractor.execute(addWordInputData);
     }
+
+    public void refreshSoloPlayView() {
+        addWordInteractor.refreshSoloPlayView();
+    }
 }

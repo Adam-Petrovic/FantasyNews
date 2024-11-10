@@ -10,4 +10,8 @@ public class AddWordInteractor implements AddWordInputBoundary{
         addWordPresenter.addWord(addWordOutputData);
     }
 
+    @Override
+    public void refreshSoloPlayView() {
+        addWordPresenter.refreshSoloPlayView();
+    }
 }

@@ -25,4 +25,10 @@ public class AddWordPresenter implements AddWordOutputBoundary {
         this.viewManagerModel.setState(soloPlayViewModel.getViewName());
         this.viewManagerModel.firePropertyChanged();
     }
+
+    @Override
+    public void refreshSoloPlayView() {
+        viewManagerModel.setState(soloPlayViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
+    }
 }

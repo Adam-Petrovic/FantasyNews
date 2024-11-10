@@ -20,18 +20,20 @@ public class SoloPlayView extends JPanel implements PropertyChangeListener {
     private final SoloPlayViewModel soloPlayViewModel;
     private SoloPlayController soloPlayController;
     private AddWordController addWordController;
+    private JScrollPane jScrollPane;
+    private JTable wordsTable;
 
     public SoloPlayView(SoloPlayViewModel soloPlayViewModel) {
         this.soloPlayViewModel = soloPlayViewModel;
         this.soloPlayViewModel.addPropertyChangeListener(this);
 
         // Initializing the JTable
-        JTable wordsTable =
+        wordsTable =
                 new JTable(soloPlayViewModel.getState().getWORDS(),
                         Constants.CATEGORIES);
 
-        JScrollPane jScrollPane = new JScrollPane();
-        jScrollPane.getViewport().add(wordsTable, null);
+        jScrollPane = new JScrollPane();
+//        jScrollPane.getViewport().add(wordsTable, null);
 
         JPanel userOptions = new JPanel();
         userOptions.setLayout(new BoxLayout(userOptions, BoxLayout.X_AXIS));
@@ -53,8 +55,10 @@ public class SoloPlayView extends JPanel implements PropertyChangeListener {
         addWord.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(addWord)) {
-                        System.out.println("test");
+                        System.out.println("Add Button Pressed");
                         addWordController.execute(soloPlayViewModel.getState().getWord());
+                        //addWordController.refreshSoloPlayView();
+                        soloPlayViewModel.firePropertyChanged();
                     }
                 });
 
@@ -63,6 +67,7 @@ public class SoloPlayView extends JPanel implements PropertyChangeListener {
             private void documentListenerHelper() {
                 final SoloPlayState currentState = soloPlayViewModel.getState();
                 currentState.setWord(new String(wordInput.getText()));
+                System.out.println(currentState.getWord());
                 soloPlayViewModel.setState(currentState);
             }
 
@@ -85,7 +90,7 @@ public class SoloPlayView extends JPanel implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-
+        jScrollPane.getViewport().add(wordsTable, null);
     }
 
     public void setSoloPlayController(SoloPlayController soloPlayController){
