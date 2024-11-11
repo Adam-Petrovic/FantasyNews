@@ -6,7 +6,7 @@ public class AddWordInteractor implements AddWordInputBoundary{
     public AddWordInteractor(AddWordOutputBoundary addWordPresenter) {this.addWordPresenter = addWordPresenter;}
 
     public void execute(AddWordInputData addWordInputData) {
-        AddWordOutputData addWordOutputData = new AddWordOutputData(addWordInputData.getWord());
+        AddWordOutputData addWordOutputData = new AddWordOutputData(addWordInputData.getWord(), addWordInputData.getSelectedCell());
         addWordPresenter.addWord(addWordOutputData);
     }
 

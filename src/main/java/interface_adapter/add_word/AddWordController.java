@@ -10,8 +10,8 @@ public class AddWordController {
         this.addWordInteractor = addWordInteractor;
     }
 
-    public void execute(String word) {
-        final AddWordInputData addWordInputData = new AddWordInputData(word);
+    public void execute(String word, Integer[] selectedCell) {
+        final AddWordInputData addWordInputData = new AddWordInputData(word, selectedCell);
         addWordInteractor.execute(addWordInputData);
     }
 
