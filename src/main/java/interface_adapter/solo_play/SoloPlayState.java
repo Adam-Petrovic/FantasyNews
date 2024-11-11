@@ -1,41 +1,41 @@
 package interface_adapter.solo_play;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import entity.User;
+
 
 public class SoloPlayState {
-    private String username = "";
-    private String[][] WORDS = {{"USR1", "Volleyball", "Gattaca", "Green Party", "Cevapi"},
-                                {"USR2", "Equestrian", "Star Wars", "House Party!", "Karađorđeva šnicla"}};
-    private String word;
-    // private ArrayList<String> WORDS = new ArrayList<String>("Hi");
+    private User user;
+    private String inputtedWord;
 
     public String getUsername() {
-        return username;
+        return user.getName();
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public String[] getWORDS() {
+        return user.getWords();
     }
 
-    public String[][] getWORDS() {
-        return WORDS;
+    public String getWordFromCategory (String category) {
+        return user.getWordFromCategory(category);
     }
 
-    public void setWORDS(String[][] WORDS) {
-        this.WORDS = WORDS;
+    public void setInputtedWord (String inputtedWord) {
+        this.inputtedWord = inputtedWord;
     }
 
-    public String getWord (){
-        return this.word;
+    public void swapWord(String category, String word){
+        user.swapWords(category, word);
     }
 
-    public void setWord (String word) {
-        this.word = word;
-    }
-    public void setWORD() {
-        this.WORDS[0][0] = this.word;
+    public void setUser(User user) {
+        this.user = user;
     }
 
+    public User getUser() {
+        return user;
+    }
 
+    public String getInputtedWord(){
+        return this.inputtedWord;
+    }
 }
