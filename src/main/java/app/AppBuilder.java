@@ -1,11 +1,15 @@
 package app;
 
 import java.awt.CardLayout;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Scanner;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import data_access.GuardianDataAccessObject;
 import data_access.InMemoryUserDataAccessObject;
 import entity.CommonUserFactory;
 import entity.UserFactory;
@@ -26,6 +30,8 @@ import interface_adapter.signup.SignupViewModel;
 import interface_adapter.solo_play.SoloPlayController;
 import interface_adapter.solo_play.SoloPlayPresenter;
 import interface_adapter.solo_play.SoloPlayViewModel;
+import interface_adapter.update_points.UpdatePointsController;
+import interface_adapter.update_points.UpdatePointsPresenter;
 import use_case.add_word.AddWordInputBoundary;
 import use_case.add_word.AddWordInteractor;
 import use_case.add_word.AddWordOutputBoundary;
@@ -44,6 +50,9 @@ import use_case.signup.SignupOutputBoundary;
 import use_case.solo_play.SoloPlayInputBoundary;
 import use_case.solo_play.SoloPlayInteractor;
 import use_case.solo_play.SoloPlayOutputBoundary;
+import use_case.update_solo_points.UpdatePointsInputBoundary;
+import use_case.update_solo_points.UpdatePointsInteractor;
+import use_case.update_solo_points.UpdatePointsOutputBoundary;
 import view.*;
 
 /**
@@ -117,10 +126,33 @@ public class AppBuilder {
     public AppBuilder addSoloPlayUseCase() {
         final SoloPlayOutputBoundary soloPlayPresenter = new SoloPlayPresenter(viewManagerModel,soloPlayViewModel);
         final SoloPlayInputBoundary soloPlayInteractor = new SoloPlayInteractor(soloPlayPresenter, userFactory);
+        final SoloPlayController soloPlayController = new SoloPlayController(soloPlayInteractor);
 
-        final SoloPlayController controller = new SoloPlayController(soloPlayInteractor);
-        loggedInView.setSoloPlayController(controller);
+        final UpdatePointsOutputBoundary updatePointsPresenter = new UpdatePointsPresenter(viewManagerModel,
+                                                                                           soloPlayViewModel);
+        try {
+            final GuardianDataAccessObject guardianDataAccessObject = makeGuardianDataAccessObject();
+            final UpdatePointsInputBoundary updatePointsInteractor = new UpdatePointsInteractor(guardianDataAccessObject, updatePointsPresenter);
+            final UpdatePointsController updatePointsController = new UpdatePointsController(updatePointsInteractor);
+            loggedInView.setSoloPlayController(soloPlayController);
+            soloPlayView.setUpdatePointsConroller(updatePointsController);
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         return this;
+    }
+
+    private GuardianDataAccessObject makeGuardianDataAccessObject() throws FileNotFoundException {
+        try {
+            String apiKey = new Scanner(new File("guardianAPIToken.txt")).nextLine();
+            return new GuardianDataAccessObject(apiKey);
+        }
+
+        catch (FileNotFoundException e) {
+            System.out.println("Need to find API token, and call the file GuardianAPIToken");
+            return null;
+        }
     }
 
     /**

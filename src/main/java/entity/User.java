@@ -23,8 +23,15 @@ public interface User {
 
     String[] getWords();
 
-    void setPoints(int points);
+    void setLeaguePoints(int leaguePoints);
 
-    int getPoints();
+    int getLeaguePoints();
+
+    int getPointsForCategory(String category);
+
+    Integer[] getAllPoints();
+
+    void setCategoryPoints(String category, int categoryPoints);
+
 
 }

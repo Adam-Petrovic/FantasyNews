@@ -13,8 +13,9 @@ import java.time.temporal.TemporalAdjusters;
 import java.util.Scanner;
 
 import org.json.JSONObject;
+import use_case.update_solo_points.UpdatePointsDataAccessInterface;
 
-public class GuardianDataAccessObject {
+public class GuardianDataAccessObject implements UpdatePointsDataAccessInterface {
 
     private final String apiKey;
     private final HttpClient client;
@@ -39,11 +40,13 @@ public class GuardianDataAccessObject {
 
     private JSONObject fetchArticles(String query) throws IOException, InterruptedException {
         // Construct the URL with parameters
+        String searchTerm = query.replace(" ", "%20");
         String url = Constants.GUARDIAN_API_URL
                 + getPreviousMonday()
-                + "&q=" + query
+                + "&q=" + searchTerm
                 + "&api-key=" + apiKey;
 
+        System.out.println(url);
 
         // Build the HTTP request
         HttpRequest request = HttpRequest.newBuilder()
@@ -68,16 +71,8 @@ public class GuardianDataAccessObject {
         return LocalDate.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY)).toString();
     }
 
-
-    public static void main(String[] args) {
-        try {
-            String apiKey = new Scanner(new File("guardianAPIToken.txt")).nextLine();
-            GuardianDataAccessObject apiClient = new GuardianDataAccessObject(apiKey);
-            System.out.println(apiClient.countApperances("football"));
-        }
-        catch (FileNotFoundException e) {
-            System.out.println("Need to find API token, and call the file GuardianAPIToken");
-        }
+    @Override
+    public int getPointsForCategory(String word) {
+        return countApperances(word);
     }
-
 }
