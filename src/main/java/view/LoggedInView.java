@@ -67,7 +67,8 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         soloPlay.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(soloPlay)) {
-                        soloPlayController.execute(loggedInViewModel.getState().getUsername());
+                        soloPlayController.execute(loggedInViewModel.getState().getUsername(),
+                                loggedInViewModel.getState().getPassword());
                     }
                 });
 

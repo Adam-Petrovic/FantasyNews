@@ -11,8 +11,8 @@ public class SoloPlayController {
         this.soloPlayUseCaseInteractor = soloPlayUseCaseInteractor;
     }
 
-    public void execute(String username){
-        final SoloPlayInputData soloPlayInputData = new SoloPlayInputData(username);
+    public void execute(String username, String password) {
+        final SoloPlayInputData soloPlayInputData = new SoloPlayInputData(username, password);
 
         soloPlayUseCaseInteractor.execute(soloPlayInputData);
     }

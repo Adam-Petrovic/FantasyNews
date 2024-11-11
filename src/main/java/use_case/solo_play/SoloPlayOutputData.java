@@ -1,12 +1,14 @@
 package use_case.solo_play;
 
+import entity.User;
+
 public class SoloPlayOutputData {
 
-    private final String username;
+    private final User user;
 
-    public SoloPlayOutputData(String username) {
-        this.username = username;
+    public SoloPlayOutputData(User user) {
+        this.user = user;
     }
 
-    public String getUsername() { return username; }
+    public User getUser() { return this.user; }
 }

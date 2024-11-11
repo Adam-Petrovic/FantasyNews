@@ -116,7 +116,7 @@ public class AppBuilder {
      */
     public AppBuilder addSoloPlayUseCase() {
         final SoloPlayOutputBoundary soloPlayPresenter = new SoloPlayPresenter(viewManagerModel,soloPlayViewModel);
-        final SoloPlayInputBoundary soloPlayInteractor = new SoloPlayInteractor(soloPlayPresenter);
+        final SoloPlayInputBoundary soloPlayInteractor = new SoloPlayInteractor(soloPlayPresenter, userFactory);
 
         final SoloPlayController controller = new SoloPlayController(soloPlayInteractor);
         loggedInView.setSoloPlayController(controller);

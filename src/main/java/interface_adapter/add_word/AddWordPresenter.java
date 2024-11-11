@@ -18,8 +18,7 @@ public class AddWordPresenter implements AddWordOutputBoundary {
 
     public void addWord(AddWordOutputData addWordOutputData) {
         final SoloPlayState soloPlayState = soloPlayViewModel.getState();
-        //soloPlayState.setWORD(addWordOutputData.getWord());
-        soloPlayState.setWORD();
+        soloPlayState.setInputtedWord(addWordOutputData.getWord());
         this.soloPlayViewModel.setState(soloPlayState);
         this.soloPlayViewModel.firePropertyChanged();
         this.viewManagerModel.setState(soloPlayViewModel.getViewName());

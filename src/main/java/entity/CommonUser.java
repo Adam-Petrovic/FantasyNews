@@ -20,31 +20,27 @@ public class CommonUser implements User {
 
 
 
-    public CommonUser(String name, String password, String[] draftedWords) throws InstantiationError {
+    public CommonUser(String name, String password) {
         this.name = name;
         this.password = password;
+        createWordMap();
+//        if (draftedWords.length > Constants.NUM_CATEGORIES) {
+//            throw new InstantiationError("Inputted Words are too long");
+//        }
+//
+//        else if (hasDuplicates(draftedWords)) {
+//            throw new InstantiationError("Duplicated words in drafted word list");
+//        }
 
-        if (draftedWords.length > Constants.NUM_CATEGORIES) {
-            throw new InstantiationError("Inputted Words are too long");
-        }
-
-        else if (hasDuplicates(draftedWords)) {
-            throw new InstantiationError("Duplicated words in drafted word list");
-        }
-
-        else {
-            createWordMap(draftedWords);
-        }
+//        else {
+//            createWordMap(draftedWords);
+//        }
     }
 
-    private void createWordMap(String[] draftedWords) {
+    private void createWordMap() {
+        String[] terms = {"Volleyball", "Gattaca", "Green Party", "Leaves", "Jokic"};
         for (int index = 0; index < Constants.NUM_CATEGORIES; index++) {
-            if (draftedWords[index].isEmpty()) {
-                this.words.put(Constants.CATEGORIES[index], "EMPTY");
-            }
-            else {
-                this.words.put(Constants.CATEGORIES[index], draftedWords[index]);
-            }
+            this.words.put(Constants.CATEGORIES[index], terms[index]);
         }
     }
 
@@ -75,7 +71,11 @@ public class CommonUser implements User {
 
     @Override
     public String[] getWords() {
-        return words.values().toArray(new String[0]);
+        String[] words = new String[Constants.NUM_CATEGORIES];
+        for(int index = 0; index < Constants.NUM_CATEGORIES; index++) {
+            words[index] = this.words.get(Constants.CATEGORIES[index]);
+        }
+        return words;
     }
 
     @Override
