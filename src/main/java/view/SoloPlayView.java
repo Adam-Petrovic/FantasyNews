@@ -8,6 +8,7 @@ import interface_adapter.solo_play.SoloPlayController;
 import interface_adapter.solo_play.SoloPlayState;
 import interface_adapter.solo_play.SoloPlayViewModel;
 import interface_adapter.add_word.AddWordController;
+import use_case.signup.SignupOutputBoundary;
 //import use_case.update_points.UpdatePointsController;
 
 import javax.swing.*;
@@ -54,10 +55,11 @@ public class SoloPlayView extends JPanel implements PropertyChangeListener {
         addWord.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(addWord)) {
-                        System.out.println("Add Button Pressed");
-                        addWordController.execute(soloPlayViewModel.getState().getInputtedWord());
+                        //System.out.println("Add Button Pressed");
+                        soloPlayViewModel.getState().setSelectedCell(new Integer[] {wordsTable.getSelectedRow(), wordsTable.getSelectedColumn()});
+                        addWordController.execute(soloPlayViewModel.getState().getInputtedWord(), soloPlayViewModel.getState().getSelectedCell());
 //                        //addWordController.refreshSoloPlayView();
-//                        soloPlayViewModel.firePropertyChanged();
+                //          soloPlayViewModel.firePropertyChanged();
                     }
                 });
 
@@ -102,6 +104,13 @@ public class SoloPlayView extends JPanel implements PropertyChangeListener {
         this.user = soloPlayViewModel.getState().getUser();
 
         String[][] wordsEntry = {user.getWords()};
+
+        Integer[] selectedCell = soloPlayViewModel.getState().getSelectedCell();
+
+        if (! selectedCell[0].equals(-1) && ! selectedCell[1].equals(-1)) {
+            wordsEntry[selectedCell[0]][selectedCell[1]] = soloPlayViewModel.getState().getInputtedWord();
+        }
+
         wordsTable = new JTable(wordsEntry, Constants.CATEGORIES);
         jScrollPane.add(wordsTable);
         jScrollPane.setViewportView(wordsTable);
