@@ -1,7 +1,6 @@
 package entity;
 import data_access.Constants;
 
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -15,8 +14,9 @@ public class CommonUser implements User {
 
     private final String name;
     private final String password;
-    private int points = 0;
+    private int leaguePoints = 0;
     private final HashMap<String, String> words = new HashMap<>();
+    private final HashMap<String,Integer> wordPointsForCategory = new HashMap<>();
 
 
 
@@ -38,9 +38,11 @@ public class CommonUser implements User {
     }
 
     private void createWordMap() {
+
         String[] terms = {"Volleyball", "Gattaca", "Green Party", "Leaves", "Jokic"};
         for (int index = 0; index < Constants.NUM_CATEGORIES; index++) {
             this.words.put(Constants.CATEGORIES[index], terms[index]);
+            this.wordPointsForCategory.put(Constants.CATEGORIES[index], 0);
         }
     }
 
@@ -79,13 +81,32 @@ public class CommonUser implements User {
     }
 
     @Override
-    public void setPoints(int points) {
-        this.points = points;
+    public void setLeaguePoints(int leaguePoints) {
+        this.leaguePoints = leaguePoints;
     }
 
     @Override
-    public int getPoints() {
-        return points;
+    public int getLeaguePoints() {
+        return leaguePoints;
+    }
+
+    @Override
+    public int getPointsForCategory(String category) {
+        return this.wordPointsForCategory.get(category);
+    }
+
+    @Override
+    public Integer[] getAllPoints(){
+        Integer[] words = new Integer[Constants.NUM_CATEGORIES];
+        for(int index = 0; index < Constants.NUM_CATEGORIES; index++) {
+            words[index] = (Integer) this.wordPointsForCategory.get(Constants.CATEGORIES[index]);
+        }
+        return words;
+    }
+
+    @Override
+    public void setCategoryPoints(String category, int points) {
+        this.wordPointsForCategory.replace(category, points);
     }
 
 

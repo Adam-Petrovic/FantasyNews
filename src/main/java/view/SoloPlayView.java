@@ -8,6 +8,7 @@ import interface_adapter.solo_play.SoloPlayController;
 import interface_adapter.solo_play.SoloPlayState;
 import interface_adapter.solo_play.SoloPlayViewModel;
 import interface_adapter.add_word.AddWordController;
+import interface_adapter.update_points.UpdatePointsController;
 import use_case.signup.SignupOutputBoundary;
 //import use_case.update_points.UpdatePointsController;
 
@@ -22,7 +23,7 @@ public class SoloPlayView extends JPanel implements PropertyChangeListener {
     private final String viewName = Constants.SOLO_PLAY_VIEW_NAME;
     private final SoloPlayViewModel soloPlayViewModel;
     private AddWordController addWordController;
-//    private UpdatePointsController updatePointsConroller;
+    private UpdatePointsController updatePointsConroller;
     private JScrollPane jScrollPane;
     private JTable wordsTable;
     private User user;
@@ -67,7 +68,7 @@ public class SoloPlayView extends JPanel implements PropertyChangeListener {
                 evt -> {
                     if (evt.getSource().equals(updateScores)) {
                         System.out.println("Update Button Pressed");
-
+                        updatePointsConroller.execute(this.user);
                     }
                 }
         );
@@ -103,7 +104,7 @@ public class SoloPlayView extends JPanel implements PropertyChangeListener {
 
         this.user = soloPlayViewModel.getState().getUser();
 
-        String[][] wordsEntry = {user.getWords()};
+        Object[][] wordsEntry = {user.getWords(), user.getAllPoints()};
 
         Integer[] selectedCell = soloPlayViewModel.getState().getSelectedCell();
 
@@ -123,9 +124,9 @@ public class SoloPlayView extends JPanel implements PropertyChangeListener {
     public void setAddWordController(AddWordController controller) {
         this.addWordController = controller;
     }
-//
-//    public void setUpdatePointsConroller(UpdatePointsController controller) {
-//        this.updatePointsConroller = controller;
-//    }
+
+    public void setUpdatePointsConroller(UpdatePointsController controller) {
+        this.updatePointsConroller = controller;
+    }
 
 }
