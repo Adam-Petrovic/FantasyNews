@@ -17,6 +17,14 @@ public interface User {
      */
     String getPassword();
 
+    String getWordFromCategory(String category);
+
+    void swapWords(String category, String word);
+
     String[] getWords();
+
+    void setPoints(int points);
+
+    int getPoints();
 
 }
