@@ -6,6 +6,7 @@ import entity.User;
 public class SoloPlayState {
     private User user;
     private String inputtedWord;
+    private Integer[] selectedCell = {-1, -1};
 
     public String getUsername() {
         return user.getName();
@@ -23,6 +24,10 @@ public class SoloPlayState {
         this.inputtedWord = inputtedWord;
     }
 
+    public void setSelectedCell (Integer[] selectedCell) {
+        this.selectedCell = selectedCell;
+    }
+
     public void swapWord(String category, String word){
         user.swapWords(category, word);
     }
@@ -37,5 +42,9 @@ public class SoloPlayState {
 
     public String getInputtedWord(){
         return this.inputtedWord;
+    }
+
+    public Integer[] getSelectedCell(){
+        return this.selectedCell;
     }
 }
