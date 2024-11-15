@@ -19,6 +19,8 @@ import interface_adapter.add_word.AddWordPresenter;
 import interface_adapter.change_password.ChangePasswordController;
 import interface_adapter.change_password.ChangePasswordPresenter;
 import interface_adapter.change_password.LoggedInViewModel;
+import interface_adapter.goHome.GoHomeController;
+import interface_adapter.goHome.GoHomePresenter;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
@@ -38,6 +40,7 @@ import use_case.add_word.AddWordOutputBoundary;
 import use_case.change_password.ChangePasswordInputBoundary;
 import use_case.change_password.ChangePasswordInteractor;
 import use_case.change_password.ChangePasswordOutputBoundary;
+import use_case.goHome.GoHomeOutputBoundary;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
@@ -123,6 +126,14 @@ public class AppBuilder {
      * Adds the Signup Use Case to the application.
      * @return this builder
      */
+
+    public AppBuilder addGoHomeUseCase(){
+        final GoHomeOutputBoundary goHomePresenter = new GoHomePresenter(viewManagerModel, loggedInViewModel);
+        final GoHomeController goHomeController = new GoHomeController(goHomePresenter);
+        soloPlayView.setGoHomeController(goHomeController);
+        return this;
+    }
+
     public AppBuilder addSoloPlayUseCase() {
         final SoloPlayOutputBoundary soloPlayPresenter = new SoloPlayPresenter(viewManagerModel,soloPlayViewModel);
         final SoloPlayInputBoundary soloPlayInteractor = new SoloPlayInteractor(soloPlayPresenter, userDataAccessObject);
@@ -154,6 +165,7 @@ public class AppBuilder {
             return null;
         }
     }
+
 
     /**
      * Adds the Login View to the application.
