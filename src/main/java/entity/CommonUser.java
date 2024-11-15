@@ -37,9 +37,22 @@ public class CommonUser implements User {
 //        }
     }
 
+    public CommonUser(String name, String password, String[] terms) {
+        this.name = name;
+        this.password = password;
+        createWordMap(terms);
+    }
+
     private void createWordMap() {
 
         String[] terms = {"Volleyball", "Gattaca", "Green Party", "Leaves", "Jokic"};
+        for (int index = 0; index < Constants.NUM_CATEGORIES; index++) {
+            this.words.put(Constants.CATEGORIES[index], terms[index]);
+            this.wordPointsForCategory.put(Constants.CATEGORIES[index], 0);
+        }
+    }
+
+    private void createWordMap(String[] terms) {
         for (int index = 0; index < Constants.NUM_CATEGORIES; index++) {
             this.words.put(Constants.CATEGORIES[index], terms[index]);
             this.wordPointsForCategory.put(Constants.CATEGORIES[index], 0);
