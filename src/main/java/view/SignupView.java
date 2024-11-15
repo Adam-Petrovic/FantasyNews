@@ -25,7 +25,6 @@ import interface_adapter.signup.SignupViewModel;
  * The View for the Signup Use Case.
  */
 public class SignupView extends JPanel implements ActionListener, PropertyChangeListener {
-    private final String viewName = Constants.SIGN_UP_VIEW_NAME;
 
     private final SignupViewModel signupViewModel;
     private final JTextField usernameInputField = new JTextField(15);
@@ -60,9 +59,7 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         buttons.add(cancel);
 
         signUp.addActionListener(
-                // TODO: REFACTOR move to VM!
-                // This creates an anonymous subclass of ActionListener and instantiates it.
-                new ActionListener() {
+               new ActionListener() {
                     public void actionPerformed(ActionEvent evt) {
                         if (evt.getSource().equals(signUp)) {
                             final SignupState currentState = signupViewModel.getState();
@@ -189,10 +186,6 @@ public class SignupView extends JPanel implements ActionListener, PropertyChange
         if (state.getUsernameError() != null) {
             JOptionPane.showMessageDialog(this, state.getUsernameError());
         }
-    }
-
-    public String getViewName() {
-        return viewName;
     }
 
     public void setSignupController(SignupController controller) {

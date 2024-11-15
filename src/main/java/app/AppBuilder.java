@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
+import data_access.Constants;
 import data_access.GuardianDataAccessObject;
 import data_access.InMemoryUserDataAccessObject;
 import entity.CommonUserFactory;
@@ -16,11 +17,9 @@ import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.add_word.AddWordController;
 import interface_adapter.add_word.AddWordPresenter;
-import interface_adapter.change_password.ChangePasswordController;
-import interface_adapter.change_password.ChangePasswordPresenter;
 import interface_adapter.change_password.LoggedInViewModel;
-import interface_adapter.goHome.GoHomeController;
-import interface_adapter.goHome.GoHomePresenter;
+import interface_adapter.go_home.GoHomeController;
+import interface_adapter.go_home.GoHomePresenter;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
@@ -32,14 +31,14 @@ import interface_adapter.signup.SignupViewModel;
 import interface_adapter.solo_play.SoloPlayController;
 import interface_adapter.solo_play.SoloPlayPresenter;
 import interface_adapter.solo_play.SoloPlayViewModel;
+import interface_adapter.to_league.LeagueController;
+import interface_adapter.to_league.LeaguePresenter;
+import interface_adapter.to_league.LeagueViewModel;
 import interface_adapter.update_points.UpdatePointsController;
 import interface_adapter.update_points.UpdatePointsPresenter;
 import use_case.add_word.AddWordInputBoundary;
 import use_case.add_word.AddWordInteractor;
 import use_case.add_word.AddWordOutputBoundary;
-import use_case.change_password.ChangePasswordInputBoundary;
-import use_case.change_password.ChangePasswordInteractor;
-import use_case.change_password.ChangePasswordOutputBoundary;
 import use_case.goHome.GoHomeOutputBoundary;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInteractor;
@@ -53,6 +52,7 @@ import use_case.signup.SignupOutputBoundary;
 import use_case.solo_play.SoloPlayInputBoundary;
 import use_case.solo_play.SoloPlayInteractor;
 import use_case.solo_play.SoloPlayOutputBoundary;
+import use_case.to_league.LeagueOutputBoundary;
 import use_case.update_solo_points.UpdatePointsInputBoundary;
 import use_case.update_solo_points.UpdatePointsInteractor;
 import use_case.update_solo_points.UpdatePointsOutputBoundary;
@@ -84,10 +84,13 @@ public class AppBuilder {
     private SignupViewModel signupViewModel;
     private LoginViewModel loginViewModel;
     private LoggedInViewModel loggedInViewModel;
+    private LeagueViewModel leagueViewModel;
+
     private LoggedInView loggedInView;
     private LoginView loginView;
     private SoloPlayViewModel soloPlayViewModel;
     private SoloPlayView soloPlayView;
+    private LeagueView leagueView;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -100,7 +103,7 @@ public class AppBuilder {
     public AppBuilder addSignupView() {
         signupViewModel = new SignupViewModel();
         signupView = new SignupView(signupViewModel);
-        cardPanel.add(signupView, signupView.getViewName());
+        cardPanel.add(signupView, Constants.SIGN_UP_VIEW_NAME);
         return this;
     }
 
@@ -111,7 +114,7 @@ public class AppBuilder {
     public AppBuilder addSoloPlayView() {
         soloPlayViewModel = new SoloPlayViewModel();
         soloPlayView = new SoloPlayView(soloPlayViewModel);
-        cardPanel.add(soloPlayView, soloPlayView.getViewName());
+        cardPanel.add(soloPlayView, Constants.SOLO_PLAY_VIEW_NAME);
         return this;
     }
 
@@ -131,6 +134,20 @@ public class AppBuilder {
         final GoHomeOutputBoundary goHomePresenter = new GoHomePresenter(viewManagerModel, loggedInViewModel);
         final GoHomeController goHomeController = new GoHomeController(goHomePresenter);
         soloPlayView.setGoHomeController(goHomeController);
+        return this;
+    }
+
+    public AppBuilder addToLeagueView(){
+        leagueViewModel = new LeagueViewModel();
+        leagueView = new LeagueView(leagueViewModel);
+        cardPanel.add(leagueView, Constants.LEAGUE_VIEW_NAME);
+        return this;
+    }
+
+    public AppBuilder addToLeagueUseCase(){
+        final LeagueOutputBoundary leaguePresenter = new LeaguePresenter(viewManagerModel, leagueViewModel);
+        final LeagueController leagueController = new LeagueController(leaguePresenter);
+        loggedInView.setToLeagueController(leagueController);
         return this;
     }
 
@@ -172,7 +189,7 @@ public class AppBuilder {
     public AppBuilder addLoginView() {
         loginViewModel = new LoginViewModel();
         loginView = new LoginView(loginViewModel);
-        cardPanel.add(loginView, loginView.getViewName());
+        cardPanel.add(loginView, Constants.LOG_IN_VIEW_NAME);
         return this;
     }
 
@@ -183,7 +200,7 @@ public class AppBuilder {
     public AppBuilder addLoggedInView() {
         loggedInViewModel = new LoggedInViewModel();
         loggedInView = new LoggedInView(loggedInViewModel);
-        cardPanel.add(loggedInView, loggedInView.getViewName());
+        cardPanel.add(loggedInView, Constants.LOGGED_IN_VIEW_NAME);
         return this;
     }
 
@@ -260,7 +277,7 @@ public class AppBuilder {
 
         application.add(cardPanel);
 
-        viewManagerModel.setState(signupView.getViewName());
+        viewManagerModel.setState(Constants.SIGN_UP_VIEW_NAME);
         viewManagerModel.firePropertyChanged();
 
         return application;

@@ -24,6 +24,8 @@ public class Main {
                                             .addSoloPlayUseCase()
                                             .addAddWordUseCase()
                                             .addGoHomeUseCase()
+                                            .addToLeagueView()
+                                            .addToLeagueUseCase()
                                             .build();
 
         application.pack();

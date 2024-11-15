@@ -1,4 +1,4 @@
-package interface_adapter.goHome;
+package interface_adapter.go_home;
 
 import use_case.goHome.GoHomeOutputBoundary;
 

@@ -9,44 +9,45 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import data_access.Constants;
-import interface_adapter.change_password.ChangePasswordController;
 import interface_adapter.change_password.LoggedInState;
 import interface_adapter.change_password.LoggedInViewModel;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.solo_play.SoloPlayController;
+import interface_adapter.to_league.LeagueController;
 
 /**
  * The View for when the user is logged into the program.
  */
 public class LoggedInView extends JPanel implements PropertyChangeListener {
 
-    private final String viewName = Constants.LOGGED_IN_VIEW_NAME;
     private final LoggedInViewModel loggedInViewModel;
     private LogoutController logoutController;
     private SoloPlayController soloPlayController;
+    private LeagueController leagueController;
+
     private final JLabel greeting;
-
     private final JButton logOut;
-
     private final JButton soloPlay;
+    private final JButton toLeague;
 
     public LoggedInView(LoggedInViewModel loggedInViewModel) {
-
         this.loggedInViewModel = loggedInViewModel;
         this.loggedInViewModel.addPropertyChangeListener(this);
 
-        greeting = new JLabel("WRONG MSG!");
+        greeting = new JLabel();
         greeting.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         final JPanel buttons = new JPanel();
-        logOut = new JButton(loggedInViewModel.LOG_OUT_LABEL);
+        logOut = new JButton(LoggedInViewModel.LOG_OUT_LABEL);
         buttons.add(logOut);
 
-        soloPlay = new JButton(loggedInViewModel.SOLO_PLAY_LABEL);
+        soloPlay = new JButton(LoggedInViewModel.SOLO_PLAY_LABEL);
         buttons.add(soloPlay);
+
+        toLeague = new JButton("My League");
+        buttons.add(toLeague);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -80,6 +81,15 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 }
         );
 
+        toLeague.addActionListener(
+                evt -> {
+                    if (evt.getSource().equals(toLeague)) {
+                        leagueController.execute();
+                    }
+                }
+        );
+
+
         this.add(greeting);
         this.add(buttons);
     }
@@ -88,7 +98,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
         if (evt.getPropertyName().equals("state")) {
             final LoggedInState state = (LoggedInState) evt.getNewValue();
-            greeting.setText(loggedInViewModel.GREETING + " " + state.getUsername());
+            greeting.setText(LoggedInViewModel.GREETING + " " + state.getUsername());
         }
         else if (evt.getPropertyName().equals("password")) {
             final LoggedInState state = (LoggedInState) evt.getNewValue();
@@ -97,14 +107,12 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
     }
 
-    public String getViewName() {
-        return viewName;
-    }
-
     public void setLogoutController(LogoutController logoutController) {
         this.logoutController = logoutController;
     }
 
-    public void setSoloPlayController(SoloPlayController soloPlayController) {
-        this.soloPlayController = soloPlayController;}
+    public void setSoloPlayController(SoloPlayController soloPlayController) {this.soloPlayController = soloPlayController;
+    }
+
+    public void setToLeagueController(LeagueController toLeagueController) {this.leagueController = toLeagueController;}
 }
