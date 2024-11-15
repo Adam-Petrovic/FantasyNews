@@ -108,15 +108,3 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     public void setSoloPlayController(SoloPlayController soloPlayController) {
         this.soloPlayController = soloPlayController;}
 }
-
-src/main/java/interface_adapter/add_word/AddWordPresenter.java
-src/main/java/interface_adapter/solo_play/SoloPlayController.java
-src/main/java/use_case/add_word/AddWordInputBoundary.java
-src/main/java/use_case/add_word/AddWordInputData.java
-src/main/java/use_case/add_word/AddWordInteractor.java
-src/main/java/use_case/add_word/AddWordOutputBoundary.java
-src/main/java/use_case/solo_play/SoloPlayInputData.java
-src/main/java/use_case/solo_play/SoloPlayInteractor.java
-src/main/java/use_case/solo_play/SoloPlayUserDataAccessInterface.java
-src/main/java/view/LoggedInView.java
-src/main/java/view/SoloPlayView.java
