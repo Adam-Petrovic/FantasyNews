@@ -12,6 +12,7 @@ import javax.swing.WindowConstants;
 import data_access.Constants;
 import data_access.GuardianDataAccessObject;
 import data_access.InMemoryUserDataAccessObject;
+import data_access.PantryUserDataAccessObject;
 import entity.CommonUserFactory;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
@@ -79,7 +80,8 @@ public class AppBuilder {
 
     // thought question: is the hard dependency below a problem?
     private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
-
+    //private final PantryUserDataAccessObject userDataAccessObject = new PantryUserDataAccessObject(userFactory);
+    //uncomment the line above in order to use the Pantry API userDAO :)
     private SignupView signupView;
     private SignupViewModel signupViewModel;
     private LoginViewModel loginViewModel;
