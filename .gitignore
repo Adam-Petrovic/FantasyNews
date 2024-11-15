@@ -39,3 +39,6 @@ build/
 
 ### Our API TOKEN! ###
 guardianAPIToken.txt
+
+### Pantry API Key ###
+pantryAPIkey.txt
