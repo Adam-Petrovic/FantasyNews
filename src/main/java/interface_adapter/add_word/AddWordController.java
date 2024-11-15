@@ -10,12 +10,9 @@ public class AddWordController {
         this.addWordInteractor = addWordInteractor;
     }
 
-    public void execute(String word, Integer[] selectedCell) {
-        final AddWordInputData addWordInputData = new AddWordInputData(word, selectedCell);
+    public void execute(String username, String category, String newWord) {
+        final AddWordInputData addWordInputData = new AddWordInputData(username, category, newWord);
         addWordInteractor.execute(addWordInputData);
     }
 
-    public void refreshSoloPlayView() {
-        addWordInteractor.refreshSoloPlayView();
-    }
 }

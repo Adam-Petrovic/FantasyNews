@@ -114,7 +114,7 @@ public class AppBuilder {
 
     public AppBuilder addAddWordUseCase() {
         final AddWordOutputBoundary addWordPresenter = new AddWordPresenter(viewManagerModel, soloPlayViewModel);
-        final AddWordInputBoundary addWordInteractor = new AddWordInteractor(addWordPresenter);
+        final AddWordInputBoundary addWordInteractor = new AddWordInteractor(addWordPresenter, userDataAccessObject);
         final AddWordController controller = new AddWordController(addWordInteractor);
         soloPlayView.setAddWordController(controller);
         return this;
@@ -125,7 +125,7 @@ public class AppBuilder {
      */
     public AppBuilder addSoloPlayUseCase() {
         final SoloPlayOutputBoundary soloPlayPresenter = new SoloPlayPresenter(viewManagerModel,soloPlayViewModel);
-        final SoloPlayInputBoundary soloPlayInteractor = new SoloPlayInteractor(soloPlayPresenter, userFactory);
+        final SoloPlayInputBoundary soloPlayInteractor = new SoloPlayInteractor(soloPlayPresenter, userDataAccessObject);
         final SoloPlayController soloPlayController = new SoloPlayController(soloPlayInteractor);
 
         final UpdatePointsOutputBoundary updatePointsPresenter = new UpdatePointsPresenter(viewManagerModel,
