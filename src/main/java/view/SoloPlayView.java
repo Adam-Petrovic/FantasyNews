@@ -137,9 +137,6 @@ public class SoloPlayView extends JPanel implements PropertyChangeListener {
         this.addWordController = controller;
     }
 
-    public void setUpdatePointsConroller(UpdatePointsController controller) {
-        this.updatePointsConroller = controller;
-    }
 
     public void setUpdatePointsConroller(UpdatePointsController controller) {
         this.updatePointsConroller = controller;
