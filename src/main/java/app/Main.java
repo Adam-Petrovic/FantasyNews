@@ -23,6 +23,7 @@ public class Main {
                                             .addSoloPlayView()
                                             .addSoloPlayUseCase()
                                             .addAddWordUseCase()
+                                            .addGoHomeUseCase()
                                             .build();
 
         application.pack();

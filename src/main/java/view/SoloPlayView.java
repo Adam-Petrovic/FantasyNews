@@ -2,6 +2,7 @@ package view;
 
 import data_access.Constants;
 import entity.User;
+import interface_adapter.goHome.GoHomeController;
 import interface_adapter.login.LoginState;
 import interface_adapter.login.LoginViewModel;
 import interface_adapter.solo_play.SoloPlayController;
@@ -27,6 +28,7 @@ public class SoloPlayView extends JPanel implements PropertyChangeListener {
     private JScrollPane jScrollPane;
     private JTable wordsTable;
     private User user;
+    private GoHomeController goHomeController;
 
     public SoloPlayView(SoloPlayViewModel soloPlayViewModel) {
         this.soloPlayViewModel = soloPlayViewModel;
@@ -38,6 +40,9 @@ public class SoloPlayView extends JPanel implements PropertyChangeListener {
         jScrollPane = new JScrollPane();
         JPanel userOptions = new JPanel();
         userOptions.setLayout(new BoxLayout(userOptions, BoxLayout.X_AXIS));
+
+        JButton goHomeButton = new JButton("Go Home");
+        userOptions.add(goHomeButton);
 
         JTextField wordInput = new JTextField(10);
         userOptions.add(wordInput);
@@ -52,6 +57,13 @@ public class SoloPlayView extends JPanel implements PropertyChangeListener {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(jScrollPane);
         this.add(userOptions);
+
+        goHomeButton.addActionListener(
+                evt -> {
+                    if (evt.getSource() == goHomeButton) {
+                        goHomeController.execute();
+                    }
+                });
 
         addWord.addActionListener(
                 evt -> {
@@ -112,6 +124,7 @@ public class SoloPlayView extends JPanel implements PropertyChangeListener {
         }
 
         wordsTable = new JTable(wordsEntry, Constants.CATEGORIES);
+        wordsTable.setDefaultEditor(Object.class, null);
         jScrollPane.add(wordsTable);
         jScrollPane.setViewportView(wordsTable);
     }
@@ -128,4 +141,11 @@ public class SoloPlayView extends JPanel implements PropertyChangeListener {
         this.updatePointsConroller = controller;
     }
 
+    public void setUpdatePointsConroller(UpdatePointsController controller) {
+        this.updatePointsConroller = controller;
+    }
+
+    public void setGoHomeController(GoHomeController goHomeController){
+        this.goHomeController = goHomeController;
+    }
 }
