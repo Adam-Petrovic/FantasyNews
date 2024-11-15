@@ -4,7 +4,6 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.solo_play.SoloPlayState;
 import interface_adapter.solo_play.SoloPlayViewModel;
 import use_case.add_word.AddWordOutputBoundary;
-import use_case.add_word.AddWordOutputData;
 
 public class AddWordPresenter implements AddWordOutputBoundary {
 
@@ -16,19 +15,14 @@ public class AddWordPresenter implements AddWordOutputBoundary {
         this.soloPlayViewModel = viewModel;
     }
 
-    public void addWord(AddWordOutputData addWordOutputData) {
+    @Override
+    public void execute() {
         final SoloPlayState soloPlayState = soloPlayViewModel.getState();
-        soloPlayState.setInputtedWord(addWordOutputData.getWord());
-        soloPlayState.setSelectedCell(addWordOutputData.getSelectedCell());
         this.soloPlayViewModel.setState(soloPlayState);
         this.soloPlayViewModel.firePropertyChanged();
+
         this.viewManagerModel.setState(soloPlayViewModel.getViewName());
         this.viewManagerModel.firePropertyChanged();
     }
 
-    @Override
-    public void refreshSoloPlayView() {
-        viewManagerModel.setState(soloPlayViewModel.getViewName());
-        viewManagerModel.firePropertyChanged();
-    }
 }

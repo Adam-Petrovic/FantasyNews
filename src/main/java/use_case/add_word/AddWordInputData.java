@@ -2,17 +2,26 @@ package use_case.add_word;
 
 public class AddWordInputData {
 
-    private final String word;
-    private final Integer[] selectedCell;
 
-    public AddWordInputData(String word, Integer[] selectedCell) {
-        this.word = word;
-        this.selectedCell = selectedCell;
+    private final String username;
+    private final String category;
+    private final String newWord;
+
+    public AddWordInputData(String username, String category, String newWord) {
+        this.username = username;
+        this.category = category;
+        this.newWord = newWord;
     }
 
-    String getWord() {
-        return word;
+    String getUsername() {
+        return username;
     }
 
-    Integer[] getSelectedCell() {return selectedCell;}
+    public String getCategory() {
+        return category;
+    }
+
+    public String getNewWord() {
+        return newWord;
+    }
 }

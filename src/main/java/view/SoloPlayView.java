@@ -56,11 +56,10 @@ public class SoloPlayView extends JPanel implements PropertyChangeListener {
         addWord.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(addWord)) {
-                        //System.out.println("Add Button Pressed");
-                        soloPlayViewModel.getState().setSelectedCell(new Integer[] {wordsTable.getSelectedRow(), wordsTable.getSelectedColumn()});
-                        addWordController.execute(soloPlayViewModel.getState().getInputtedWord(), soloPlayViewModel.getState().getSelectedCell());
-//                        //addWordController.refreshSoloPlayView();
-                //          soloPlayViewModel.firePropertyChanged();
+                        String category = Constants.CATEGORIES[wordsTable.getSelectedColumn()];
+                        String newWord = soloPlayViewModel.getState().getInputtedWord();
+                        addWordController.execute(user.getName(), category, newWord);
+
                     }
                 });
 
