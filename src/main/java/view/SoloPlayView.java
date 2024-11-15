@@ -141,6 +141,10 @@ public class SoloPlayView extends JPanel implements PropertyChangeListener {
         this.updatePointsConroller = controller;
     }
 
+    public void setUpdatePointsConroller(UpdatePointsController controller) {
+        this.updatePointsConroller = controller;
+    }
+
     public void setGoHomeController(GoHomeController goHomeController){
         this.goHomeController = goHomeController;
     }

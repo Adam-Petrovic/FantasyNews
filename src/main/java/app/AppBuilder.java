@@ -147,7 +147,6 @@ public class AppBuilder {
             final UpdatePointsController updatePointsController = new UpdatePointsController(updatePointsInteractor);
             loggedInView.setSoloPlayController(soloPlayController);
             soloPlayView.setUpdatePointsConroller(updatePointsController);
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -165,7 +164,6 @@ public class AppBuilder {
             return null;
         }
     }
-
 
     /**
      * Adds the Login View to the application.
