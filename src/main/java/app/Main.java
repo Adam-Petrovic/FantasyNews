@@ -27,5 +27,26 @@ public class Main {
 
         application.pack();
         application.setVisible(true);
+        /*
+        a
+        a
+        aa
+        a
+
+        a
+        a
+        a
+        aa
+        a
+        a
+        a
+        a
+
+        a
+        a
+        aa
+        a
+
+         */
     }
 }
