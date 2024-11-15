@@ -13,7 +13,9 @@ public class AddWordInteractor implements AddWordInputBoundary{
         this.addWordPresenter = addWordPresenter;
         this.userDataAccessInterface = userDataAccessInterface;
     }
-
+    /*
+    This interactor calls the swap words method in User in order to change the User's stored data
+    */
     public void execute(AddWordInputData addWordInputData) {
         User user = userDataAccessInterface.get(addWordInputData.getUsername());
         user.swapWords(addWordInputData.getCategory(), addWordInputData.getNewWord());
