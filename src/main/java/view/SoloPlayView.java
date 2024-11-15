@@ -2,26 +2,20 @@ package view;
 
 import data_access.Constants;
 import entity.User;
-import interface_adapter.goHome.GoHomeController;
-import interface_adapter.login.LoginState;
-import interface_adapter.login.LoginViewModel;
-import interface_adapter.solo_play.SoloPlayController;
+import interface_adapter.go_home.GoHomeController;
 import interface_adapter.solo_play.SoloPlayState;
 import interface_adapter.solo_play.SoloPlayViewModel;
 import interface_adapter.add_word.AddWordController;
+import interface_adapter.to_league.LeagueController;
 import interface_adapter.update_points.UpdatePointsController;
-import use_case.signup.SignupOutputBoundary;
-//import use_case.update_points.UpdatePointsController;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import java.awt.*;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
 public class SoloPlayView extends JPanel implements PropertyChangeListener {
-    private final String viewName = Constants.SOLO_PLAY_VIEW_NAME;
     private final SoloPlayViewModel soloPlayViewModel;
     private AddWordController addWordController;
     private UpdatePointsController updatePointsConroller;
@@ -41,7 +35,7 @@ public class SoloPlayView extends JPanel implements PropertyChangeListener {
         JPanel userOptions = new JPanel();
         userOptions.setLayout(new BoxLayout(userOptions, BoxLayout.X_AXIS));
 
-        JButton goHomeButton = new JButton("Go Home");
+        JButton goHomeButton = new JButton("←");
         userOptions.add(goHomeButton);
 
         JTextField wordInput = new JTextField(10);
@@ -60,7 +54,7 @@ public class SoloPlayView extends JPanel implements PropertyChangeListener {
 
         goHomeButton.addActionListener(
                 evt -> {
-                    if (evt.getSource() == goHomeButton) {
+                    if (evt.getSource().equals(goHomeButton)) {
                         goHomeController.execute();
                     }
                 });
@@ -78,7 +72,6 @@ public class SoloPlayView extends JPanel implements PropertyChangeListener {
         updateScores.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(updateScores)) {
-                        System.out.println("Update Button Pressed");
                         updatePointsConroller.execute(this.user);
                     }
                 }
@@ -88,8 +81,7 @@ public class SoloPlayView extends JPanel implements PropertyChangeListener {
 
             private void documentListenerHelper() {
                 final SoloPlayState currentState = soloPlayViewModel.getState();
-                currentState.setInputtedWord(new String(wordInput.getText()));
-                System.out.println(currentState.getInputtedWord());
+                currentState.setInputtedWord(wordInput.getText());
                 soloPlayViewModel.setState(currentState);
             }
 
@@ -129,10 +121,6 @@ public class SoloPlayView extends JPanel implements PropertyChangeListener {
         jScrollPane.setViewportView(wordsTable);
     }
 
-    public String getViewName(){
-        return viewName;
-    }
-
     public void setAddWordController(AddWordController controller) {
         this.addWordController = controller;
     }
@@ -145,4 +133,6 @@ public class SoloPlayView extends JPanel implements PropertyChangeListener {
     public void setGoHomeController(GoHomeController goHomeController){
         this.goHomeController = goHomeController;
     }
+
+
 }

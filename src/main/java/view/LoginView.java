@@ -25,7 +25,6 @@ import interface_adapter.login.LoginViewModel;
  */
 public class LoginView extends JPanel implements ActionListener, PropertyChangeListener {
 
-    public final static String viewName = Constants.LOG_IN_VIEW_NAME;
     private final LoginViewModel loginViewModel;
 
     private final JTextField usernameInputField = new JTextField(15);
@@ -149,10 +148,6 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
     private void setFields(LoginState state) {
         usernameInputField.setText(state.getUsername());
         passwordInputField.setText(state.getPassword());
-    }
-
-    public String getViewName() {
-        return viewName;
     }
 
     public void setLoginController(LoginController loginController) {
