@@ -23,6 +23,8 @@ public interface User {
 
     String[] getWords();
 
+    void setWords(String[] words);
+
     void setLeaguePoints(int leaguePoints);
 
     int getLeaguePoints();
