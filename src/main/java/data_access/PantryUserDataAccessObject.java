@@ -90,6 +90,11 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
     }
 
     @Override
+    public void setWord(String category, String word) {
+
+    }
+
+    @Override
     public void setCurrentUsername(String name) {
         this.currentUsername = name;
     }

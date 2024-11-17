@@ -35,6 +35,11 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
     }
 
     @Override
+    public void setWord(String category, String word) {
+
+    }
+
+    @Override
     public User get(String username) {
         return users.get(username);
     }
