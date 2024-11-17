@@ -124,8 +124,10 @@ public class CommonUser implements User {
     }
 
     @Override
-    public void setCategoryPoints(String category, int points) {
-        this.wordPointsForCategory.replace(category, points);
+    public void setPoints(int[] points) {
+        for(int index = 0; index < Constants.NUM_CATEGORIES; index++) {
+            this.wordPointsForCategory.replace(Constants.CATEGORIES[index], points[index]);
+        }
     }
 
 

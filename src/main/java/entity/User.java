@@ -33,7 +33,7 @@ public interface User {
 
     Integer[] getAllPoints();
 
-    void setCategoryPoints(String category, int categoryPoints);
+    void setPoints(int[] points);
 
 
 }
