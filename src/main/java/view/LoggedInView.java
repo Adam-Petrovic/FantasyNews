@@ -31,6 +31,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private final JButton logOut;
     private final JButton soloPlay;
     private final JButton toLeague;
+    private final JButton addFriends;
 
     public LoggedInView(LoggedInViewModel loggedInViewModel) {
         this.loggedInViewModel = loggedInViewModel;
@@ -48,6 +49,9 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
         toLeague = new JButton("My League");
         buttons.add(toLeague);
+
+        addFriends = new JButton("Add Friends");
+        buttons.add(addFriends);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 

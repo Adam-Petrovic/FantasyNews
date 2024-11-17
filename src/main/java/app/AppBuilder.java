@@ -16,6 +16,7 @@ import data_access.PantryUserDataAccessObject;
 import entity.CommonUserFactory;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.add_friends.AddFriendsViewModel;
 import interface_adapter.add_word.AddWordController;
 import interface_adapter.add_word.AddWordPresenter;
 import interface_adapter.change_password.LoggedInViewModel;
@@ -79,20 +80,23 @@ public class AppBuilder {
     private final ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
     // thought question: is the hard dependency below a problem?
-    //private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
-    private final PantryUserDataAccessObject userDataAccessObject = new PantryUserDataAccessObject(userFactory);
+    private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
+    //private final PantryUserDataAccessObject userDataAccessObject = new PantryUserDataAccessObject(userFactory);
     //uncomment the line above in order to use the Pantry API userDAO :)
     private SignupView signupView;
     private SignupViewModel signupViewModel;
     private LoginViewModel loginViewModel;
     private LoggedInViewModel loggedInViewModel;
     private LeagueViewModel leagueViewModel;
+    private AddFriendsViewModel addFriendsViewModel;
+
 
     private LoggedInView loggedInView;
     private LoginView loginView;
     private SoloPlayViewModel soloPlayViewModel;
     private SoloPlayView soloPlayView;
     private LeagueView leagueView;
+    private AddFriendsView addFriendsView;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -136,6 +140,17 @@ public class AppBuilder {
         final GoHomeOutputBoundary goHomePresenter = new GoHomePresenter(viewManagerModel, loggedInViewModel);
         final GoHomeController goHomeController = new GoHomeController(goHomePresenter);
         soloPlayView.setGoHomeController(goHomeController);
+        return this;
+    }
+
+    /**
+     * adds the add friends view
+      * @return
+     */
+    public AppBuilder addAddFriendsView(){
+        addFriendsViewModel = new AddFriendsViewModel();
+        addFriendsView = new AddFriendsView(addFriendsViewModel);
+        cardPanel.add(leagueView, Constants.LEAGUE_VIEW_NAME);
         return this;
     }
 

@@ -1,4 +1,5 @@
 package use_case.add_friends;
 
-public class AddFriendsOutputBoundary {
+public interface AddFriendsOutputBoundary {
+    void execute();
 }
