@@ -93,6 +93,12 @@ public class CommonUser implements User {
         return words;
     }
 
+    public void setWords(String[] newWords) {
+        for(int index = 0; index < Constants.NUM_CATEGORIES; index++) {
+            words.replace(Constants.CATEGORIES[index],  newWords[index]);
+        }
+    }
+
     @Override
     public void setLeaguePoints(int leaguePoints) {
         this.leaguePoints = leaguePoints;

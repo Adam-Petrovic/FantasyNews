@@ -22,7 +22,6 @@ import use_case.logout.LogoutUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 import use_case.solo_play.SoloPlayUserDataAccessInterface;
 
-import data_access.Constants;
 
 /**
  * The DAO for user data.
@@ -61,7 +60,7 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
     @Override
     public User get(String username) {
         // Make an API call to get the user object.
-        System.out.println(username);
+        //System.out.println(username);
         final String fullURL = API_URL + pantryID + "/basket/" + username;
         final OkHttpClient client = new OkHttpClient().newBuilder().build();
         final Request request = new Request.Builder()
@@ -76,7 +75,12 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
             if (response.isSuccessful()) {
 
                 final String password = responseBody.getString(PASSWORD);
-                return userFactory.create(username, password);
+                final JSONObject wordsDict = responseBody.getJSONObject(WORDS);
+                final String[] words = new String[Constants.NUM_CATEGORIES];
+                for (int index = 0; index < Constants.NUM_CATEGORIES; index++) {
+                    words[index] = wordsDict.getString(Constants.CATEGORIES[index]);
+                }
+                return userFactory.create(username, password, words);
             }
             else {
                 System.out.println("username does not exist");
@@ -146,7 +150,7 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
         try {
             final Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
-                System.out.println("successful signup!");
+                System.out.println("successful update!");
             }
             else {
                 System.out.println("unsuccessful signup!");

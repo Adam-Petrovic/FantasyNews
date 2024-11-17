@@ -1,9 +1,11 @@
 package interface_adapter.add_word;
 
+
 import interface_adapter.ViewManagerModel;
 import interface_adapter.solo_play.SoloPlayState;
 import interface_adapter.solo_play.SoloPlayViewModel;
 import use_case.add_word.AddWordOutputBoundary;
+import use_case.add_word.AddWordOutputData;
 
 public class AddWordPresenter implements AddWordOutputBoundary {
 
@@ -16,8 +18,10 @@ public class AddWordPresenter implements AddWordOutputBoundary {
     }
 
     @Override
-    public void execute() {
+    public void execute(AddWordOutputData addWordOutputData) {
         final SoloPlayState soloPlayState = soloPlayViewModel.getState();
+        soloPlayViewModel.getState().getUser().setWords(addWordOutputData.getWords());
+        //soloPlayState.setUser(user);
         this.soloPlayViewModel.setState(soloPlayState);
         this.soloPlayViewModel.firePropertyChanged();
 
