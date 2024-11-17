@@ -16,13 +16,14 @@ public class UpdatePointsInteractor implements UpdatePointsInputBoundary{
 
     @Override
     public void execute(UpdatePointsInputData updatePointsInputData) {
+        int[] points = new int[Constants.NUM_CATEGORIES];
         User user = updatePointsInputData.getUser();
-        for(String category : Constants.CATEGORIES) {
-            int pointsInCategory = guardianDataAccessObject.getPointsForCategory(user.getWordFromCategory(category));
-            user.setCategoryPoints(category, pointsInCategory);
+        for(int index = 0; index < Constants.NUM_CATEGORIES; index++) {
+            points[index] =
+                    guardianDataAccessObject.getPointsForCategory(user.getWordFromCategory(Constants.CATEGORIES[index]));
         }
-
-        updatePointsPresenter.execute();
+        UpdatePointsOutputData outputData = new UpdatePointsOutputData(points);
+        updatePointsPresenter.execute(outputData);
     }
 
 
