@@ -17,6 +17,7 @@ import interface_adapter.change_password.LoggedInViewModel;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.solo_play.SoloPlayController;
 import interface_adapter.to_league.LeagueController;
+import interface_adapter.to_rankings.RankingsController;
 
 /**
  * The View for when the user is logged into the program.
@@ -27,12 +28,14 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private LogoutController logoutController;
     private SoloPlayController soloPlayController;
     private LeagueController leagueController;
+    private RankingsController rankingsController;
     private AddFriendsController addFriendsController;
 
     private final JLabel greeting;
     private final JButton logOut;
     private final JButton soloPlay;
     private final JButton toLeague;
+    private final JButton toRankings;
     private final JButton addFriends;
 
     public LoggedInView(LoggedInViewModel loggedInViewModel) {
@@ -52,8 +55,12 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         toLeague = new JButton("My League");
         buttons.add(toLeague);
 
+        toRankings = new JButton("Rankings");
+        buttons.add(toRankings);
+      
         addFriends = new JButton("Friends");
         buttons.add(addFriends);
+
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -95,10 +102,19 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 }
         );
 
+
+        toRankings.addActionListener(
+                evt -> {
+                    if (evt.getSource().equals(toRankings)) {
+                        rankingsController.execute();
+                    }
+                });
+
         addFriends.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(addFriends)) {
                         addFriendsController.execute();
+
                     }
                 }
         );
@@ -130,7 +146,10 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
     public void setToLeagueController(LeagueController toLeagueController) {this.leagueController = toLeagueController;}
 
+    public void setToRankingsController(RankingsController toRankingsController) {this.rankingsController = toRankingsController;}
+
     public void setAddFriendsController(AddFriendsController addFriendsController) {
         this.addFriendsController = addFriendsController;
     }
+
 }
