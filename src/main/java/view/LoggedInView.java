@@ -107,6 +107,8 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 evt -> {
                     if (evt.getSource().equals(toRankings)) {
                         rankingsController.execute();
+                    }
+                });
 
         addFriends.addActionListener(
                 evt -> {
