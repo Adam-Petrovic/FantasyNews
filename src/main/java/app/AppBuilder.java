@@ -35,6 +35,10 @@ import interface_adapter.solo_play.SoloPlayViewModel;
 import interface_adapter.to_league.LeagueController;
 import interface_adapter.to_league.LeaguePresenter;
 import interface_adapter.to_league.LeagueViewModel;
+import interface_adapter.to_rankings.RankingsController;
+import interface_adapter.to_rankings.RankingsViewModel;
+import interface_adapter.to_rankings.RankingsPresenter;
+import interface_adapter.to_rankings.RankingsViewModel;
 import interface_adapter.update_points.UpdatePointsController;
 import interface_adapter.update_points.UpdatePointsPresenter;
 import use_case.add_word.AddWordInputBoundary;
@@ -54,6 +58,7 @@ import use_case.solo_play.SoloPlayInputBoundary;
 import use_case.solo_play.SoloPlayInteractor;
 import use_case.solo_play.SoloPlayOutputBoundary;
 import use_case.to_league.LeagueOutputBoundary;
+import use_case.to_rankings.RankingsOutputBoundary;
 import use_case.update_solo_points.UpdatePointsInputBoundary;
 import use_case.update_solo_points.UpdatePointsInteractor;
 import use_case.update_solo_points.UpdatePointsOutputBoundary;
@@ -87,12 +92,14 @@ public class AppBuilder {
     private LoginViewModel loginViewModel;
     private LoggedInViewModel loggedInViewModel;
     private LeagueViewModel leagueViewModel;
+    private RankingsViewModel rankingsViewModel;
 
     private LoggedInView loggedInView;
     private LoginView loginView;
     private SoloPlayViewModel soloPlayViewModel;
     private SoloPlayView soloPlayView;
     private LeagueView leagueView;
+    private RankingsView rankingsView;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -150,6 +157,20 @@ public class AppBuilder {
         final LeagueOutputBoundary leaguePresenter = new LeaguePresenter(viewManagerModel, leagueViewModel);
         final LeagueController leagueController = new LeagueController(leaguePresenter);
         loggedInView.setToLeagueController(leagueController);
+        return this;
+    }
+
+    public AppBuilder addToRankingsView(){
+        rankingsViewModel = new RankingsViewModel();
+        rankingsView = new RankingsView(rankingsViewModel);
+        cardPanel.add(rankingsView, Constants.RANKINGS_VIEW_NAME);
+        return this;
+    }
+
+    public AppBuilder addToRankingsUseCase(){
+        final RankingsOutputBoundary rankingsPresenter = new RankingsPresenter(viewManagerModel, rankingsViewModel);
+        final RankingsController rankingsController = new RankingsController(rankingsPresenter);
+        loggedInView.setToRankingsController(rankingsController);
         return this;
     }
 
