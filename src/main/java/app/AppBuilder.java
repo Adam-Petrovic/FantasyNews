@@ -16,6 +16,8 @@ import data_access.PantryUserDataAccessObject;
 import entity.CommonUserFactory;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.add_friends.AddFriendsController;
+import interface_adapter.add_friends.AddFriendsPresenter;
 import interface_adapter.add_friends.AddFriendsViewModel;
 import interface_adapter.add_word.AddWordController;
 import interface_adapter.add_word.AddWordPresenter;
@@ -38,6 +40,7 @@ import interface_adapter.to_league.LeaguePresenter;
 import interface_adapter.to_league.LeagueViewModel;
 import interface_adapter.update_points.UpdatePointsController;
 import interface_adapter.update_points.UpdatePointsPresenter;
+import use_case.add_friends.AddFriendsOutputBoundary;
 import use_case.add_word.AddWordInputBoundary;
 import use_case.add_word.AddWordInteractor;
 import use_case.add_word.AddWordOutputBoundary;
@@ -143,14 +146,19 @@ public class AppBuilder {
         return this;
     }
 
-    /**
-     * adds the add friends view
-      * @return
-     */
+    //add friends view
     public AppBuilder addAddFriendsView(){
         addFriendsViewModel = new AddFriendsViewModel();
         addFriendsView = new AddFriendsView(addFriendsViewModel);
-        cardPanel.add(leagueView, Constants.LEAGUE_VIEW_NAME);
+        cardPanel.add(addFriendsView, Constants.ADD_FRIENDS_VIEW_NAME);
+        return this;
+    }
+
+    //add friends use case
+    public AppBuilder addAddFriendsUseCase(){
+        final AddFriendsOutputBoundary addFriendsPresenter = new AddFriendsPresenter(viewManagerModel, addFriendsViewModel);
+        final AddFriendsController addFriendsController = new AddFriendsController(addFriendsPresenter);
+        loggedInView.setAddFriendsController(addFriendsController);
         return this;
     }
 
