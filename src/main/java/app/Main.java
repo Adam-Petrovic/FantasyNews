@@ -26,6 +26,8 @@ public class Main {
                                             .addGoHomeUseCase()
                                             .addToLeagueView()
                                             .addToLeagueUseCase()
+                                            .addAddFriendsView()
+                                            .addAddFriendsUseCase()
                                             .build();
 
         application.pack();

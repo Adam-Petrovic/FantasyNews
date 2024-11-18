@@ -52,7 +52,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         toLeague = new JButton("My League");
         buttons.add(toLeague);
 
-        addFriends = new JButton("Add Friends");
+        addFriends = new JButton("Friends");
         buttons.add(addFriends);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -95,13 +95,13 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 }
         );
 
-//        addFriends.addActionListener(
-//                evt -> {
-//                    if (evt.getSource().equals(addFriends)) {
-//                        addFriendsController.execute();
-//                    }
-//                }
-//        );
+        addFriends.addActionListener(
+                evt -> {
+                    if (evt.getSource().equals(addFriends)) {
+                        addFriendsController.execute();
+                    }
+                }
+        );
 
 
         this.add(greeting);
@@ -129,4 +129,8 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     }
 
     public void setToLeagueController(LeagueController toLeagueController) {this.leagueController = toLeagueController;}
+
+    public void setAddFriendsController(AddFriendsController addFriendsController) {
+        this.addFriendsController = addFriendsController;
+    }
 }

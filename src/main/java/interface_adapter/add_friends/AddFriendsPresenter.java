@@ -1,16 +1,24 @@
 package interface_adapter.add_friends;
 
+import interface_adapter.ViewManagerModel;
 import use_case.add_friends.AddFriendsOutputBoundary;
-import use_case.add_friends.AddFriendsOutputData;
 
-public class AddFriendsPresenter implements AddFriendsOutputBoundary {
-    @Override
-    public void prepareSuccessView(AddFriendsOutputData outputData) {
 
+public class AddFriendsPresenter implements AddFriendsOutputBoundary{
+    private final ViewManagerModel viewManagerModel;
+    private final AddFriendsViewModel addFriendsViewModel;
+
+    public AddFriendsPresenter(ViewManagerModel viewManagerModel, AddFriendsViewModel addFriendsViewModel) {
+        this.viewManagerModel = viewManagerModel;
+        this.addFriendsViewModel = addFriendsViewModel;
     }
 
-    @Override
-    public void prepareFailView(String errorMessage) {
+    public void execute() {
+        final AddFriendsState addFriendsState = addFriendsViewModel.getState();
+        addFriendsViewModel.setState(addFriendsState);
+
+        viewManagerModel.setState(addFriendsViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
 
     }
 }
