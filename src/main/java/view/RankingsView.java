@@ -1,6 +1,7 @@
 package view;
 
 import interface_adapter.to_rankings.RankingsViewModel;
+import interface_adapter.update_rankings.UpdateRankingsController;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -10,7 +11,10 @@ import java.beans.PropertyChangeListener;
 
 public class RankingsView extends JPanel implements PropertyChangeListener {
     private final RankingsViewModel rankingsViewModel;
+    private UpdateRankingsController updateRankingsController;
+
     public RankingsView(RankingsViewModel rankingsViewModel) {
+        //rankings table
         this.rankingsViewModel = rankingsViewModel;
 
         JPanel mainPanel = new JPanel();
@@ -35,6 +39,17 @@ public class RankingsView extends JPanel implements PropertyChangeListener {
 
         wordsScrollPane.setPreferredSize(dw);
         indexScrollPane.setPreferredSize(du);
+
+        //update rankings button
+        JButton updateRankings = new JButton("Update Rankings");
+        mainPanel.add(updateRankings);
+
+        updateRankings.addActionListener(evt -> {
+            if (evt.getSource() == updateRankings) {
+                updateRankingsController.execute();
+            }
+        });
+
 
         mainPanel.setVisible(true);
         this.add(mainPanel);
