@@ -1,6 +1,7 @@
 package entity;
 import data_access.Constants;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -17,6 +18,7 @@ public class CommonUser implements User {
     private int leaguePoints = 0;
     private final HashMap<String, String> words = new HashMap<>();
     private final HashMap<String,Integer> wordPointsForCategory = new HashMap<>();
+    private List<User> friends = new ArrayList<>();
 
 
 
@@ -130,5 +132,8 @@ public class CommonUser implements User {
         }
     }
 
-
+    @Override
+    public void addFriend(User user) {
+        this.friends.add(user);
+    }
 }

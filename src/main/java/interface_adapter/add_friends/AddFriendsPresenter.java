@@ -2,6 +2,7 @@ package interface_adapter.add_friends;
 
 import interface_adapter.ViewManagerModel;
 import use_case.add_friends.AddFriendsOutputBoundary;
+import use_case.add_friends.AddFriendsOutputData;
 
 
 public class AddFriendsPresenter implements AddFriendsOutputBoundary{
@@ -13,9 +14,11 @@ public class AddFriendsPresenter implements AddFriendsOutputBoundary{
         this.addFriendsViewModel = addFriendsViewModel;
     }
 
-    public void execute() {
+    public void execute(AddFriendsOutputData addFriendsOutputData) {
         final AddFriendsState addFriendsState = addFriendsViewModel.getState();
-        addFriendsViewModel.setState(addFriendsState);
+        addFriendsState.setUser(addFriendsOutputData.getUser());
+        this.addFriendsViewModel.setState(addFriendsState);
+        this.addFriendsViewModel.firePropertyChanged();
 
         viewManagerModel.setState(addFriendsViewModel.getViewName());
         viewManagerModel.firePropertyChanged();

@@ -113,7 +113,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         addFriends.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(addFriends)) {
-                        addFriendsController.execute();
+                        addFriendsController.execute(loggedInViewModel.getState().getUsername());
 
                     }
                 }

@@ -16,6 +16,8 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import use_case.add_friends.AddFriendsUserDataAccessInterface;
+import use_case.add_new_friend.AddNewFriendUserDataAccessInterface;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
@@ -30,7 +32,9 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
         LoginUserDataAccessInterface,
         ChangePasswordUserDataAccessInterface,
         LogoutUserDataAccessInterface,
-        SoloPlayUserDataAccessInterface {
+        SoloPlayUserDataAccessInterface,
+        AddFriendsUserDataAccessInterface,
+        AddNewFriendUserDataAccessInterface {
     private static final int SUCCESS_CODE = 200;
     private static final String CONTENT_TYPE_LABEL = "Content-Type";
     private static final String CONTENT_TYPE_JSON = "application/json";
