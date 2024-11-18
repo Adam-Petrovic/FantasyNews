@@ -35,5 +35,6 @@ public interface User {
 
     void setPoints(int[] points);
 
+    void addFriend(User user);
 
 }

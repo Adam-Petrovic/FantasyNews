@@ -1,17 +1,13 @@
 package use_case.add_friends;
 
-import java.util.ArrayList;
-import java.util.List;
 import entity.User;
 
 public class AddFriendsOutputData {
-    private List<User> friends;
+    private final User user;
 
-    public AddFriendsOutputData(List<User> friends) {
-        this.friends = new ArrayList<>(friends);
+    public AddFriendsOutputData(User user) {
+        this.user = user;
     }
 
-    public List<User> getFriends() {
-        return friends;
-    }
+    public User getUser() { return this.user; }
 }

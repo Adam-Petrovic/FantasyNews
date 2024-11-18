@@ -30,6 +30,7 @@ public class Main {
                                             .addToRankingsUseCase()
                                             .addAddFriendsView()
                                             .addAddFriendsUseCase()
+                                            .addAddNewFriendUseCase()
                                             .build();
 
         application.pack();

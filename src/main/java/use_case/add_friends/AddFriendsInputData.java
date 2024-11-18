@@ -1,13 +1,13 @@
 package use_case.add_friends;
 
 public class AddFriendsInputData {
-    private final String friend_username;
+    private final String username;
 
-    public AddFriendsInputData(String friend_username) {
-        this.friend_username = friend_username;
+    public AddFriendsInputData(String username) {
+        this.username = username;
     }
 
-    public String getFriend_username() {
-        return friend_username;
+    public String getUsername() {
+        return username;
     }
 }

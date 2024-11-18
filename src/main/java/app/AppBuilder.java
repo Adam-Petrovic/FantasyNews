@@ -19,6 +19,8 @@ import interface_adapter.ViewManagerModel;
 import interface_adapter.add_friends.AddFriendsController;
 import interface_adapter.add_friends.AddFriendsPresenter;
 import interface_adapter.add_friends.AddFriendsViewModel;
+import interface_adapter.add_new_friend.AddNewFriendController;
+import interface_adapter.add_new_friend.AddNewFriendPresenter;
 import interface_adapter.add_word.AddWordController;
 import interface_adapter.add_word.AddWordPresenter;
 import interface_adapter.change_password.LoggedInViewModel;
@@ -44,7 +46,12 @@ import interface_adapter.to_rankings.RankingsPresenter;
 import interface_adapter.to_rankings.RankingsViewModel;
 import interface_adapter.update_points.UpdatePointsController;
 import interface_adapter.update_points.UpdatePointsPresenter;
+import use_case.add_friends.AddFriendsInputBoundary;
+import use_case.add_friends.AddFriendsInteractor;
 import use_case.add_friends.AddFriendsOutputBoundary;
+import use_case.add_new_friend.AddNewFriendInputBoundary;
+import use_case.add_new_friend.AddNewFriendInteractor;
+import use_case.add_new_friend.AddNewFriendOutputBoundary;
 import use_case.add_word.AddWordInputBoundary;
 import use_case.add_word.AddWordInteractor;
 import use_case.add_word.AddWordOutputBoundary;
@@ -163,8 +170,17 @@ public class AppBuilder {
     //add friends use case
     public AppBuilder addAddFriendsUseCase(){
         final AddFriendsOutputBoundary addFriendsPresenter = new AddFriendsPresenter(viewManagerModel, addFriendsViewModel);
-        final AddFriendsController addFriendsController = new AddFriendsController(addFriendsPresenter);
+        final AddFriendsInputBoundary addFriendsInteractor = new AddFriendsInteractor(addFriendsPresenter, userDataAccessObject);
+        final AddFriendsController addFriendsController = new AddFriendsController(addFriendsInteractor);
         loggedInView.setAddFriendsController(addFriendsController);
+        return this;
+    }
+
+    public AppBuilder addAddNewFriendUseCase() {
+        final AddNewFriendOutputBoundary addNewFriendPresenter = new AddNewFriendPresenter(viewManagerModel, addFriendsViewModel);
+        final AddNewFriendInputBoundary addNewFriendInteractor = new AddNewFriendInteractor(addNewFriendPresenter, userDataAccessObject);
+        final AddNewFriendController controller = new AddNewFriendController(addNewFriendInteractor);
+        addFriendsView.setAddNewFriendController(controller);
         return this;
     }
 
