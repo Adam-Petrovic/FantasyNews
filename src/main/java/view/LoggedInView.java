@@ -11,6 +11,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import data_access.Constants;
+import interface_adapter.add_friends.AddFriendsController;
 import interface_adapter.change_password.LoggedInState;
 import interface_adapter.change_password.LoggedInViewModel;
 import interface_adapter.logout.LogoutController;
@@ -26,11 +27,13 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private LogoutController logoutController;
     private SoloPlayController soloPlayController;
     private LeagueController leagueController;
+    private AddFriendsController addFriendsController;
 
     private final JLabel greeting;
     private final JButton logOut;
     private final JButton soloPlay;
     private final JButton toLeague;
+    private final JButton addFriends;
 
     public LoggedInView(LoggedInViewModel loggedInViewModel) {
         this.loggedInViewModel = loggedInViewModel;
@@ -48,6 +51,9 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
         toLeague = new JButton("My League");
         buttons.add(toLeague);
+
+        addFriends = new JButton("Add Friends");
+        buttons.add(addFriends);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -88,6 +94,14 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                     }
                 }
         );
+
+//        addFriends.addActionListener(
+//                evt -> {
+//                    if (evt.getSource().equals(addFriends)) {
+//                        addFriendsController.execute();
+//                    }
+//                }
+//        );
 
 
         this.add(greeting);
