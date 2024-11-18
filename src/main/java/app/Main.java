@@ -28,6 +28,8 @@ public class Main {
                                             .addToLeagueUseCase()
                                             .addToRankingsView()
                                             .addToRankingsUseCase()
+                                            .addAddFriendsView()
+                                            .addAddFriendsUseCase()
                                             .build();
 
         application.pack();

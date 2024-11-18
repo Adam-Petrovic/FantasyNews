@@ -16,6 +16,9 @@ import data_access.PantryUserDataAccessObject;
 import entity.CommonUserFactory;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
+import interface_adapter.add_friends.AddFriendsController;
+import interface_adapter.add_friends.AddFriendsPresenter;
+import interface_adapter.add_friends.AddFriendsViewModel;
 import interface_adapter.add_word.AddWordController;
 import interface_adapter.add_word.AddWordPresenter;
 import interface_adapter.change_password.LoggedInViewModel;
@@ -41,6 +44,7 @@ import interface_adapter.to_rankings.RankingsPresenter;
 import interface_adapter.to_rankings.RankingsViewModel;
 import interface_adapter.update_points.UpdatePointsController;
 import interface_adapter.update_points.UpdatePointsPresenter;
+import use_case.add_friends.AddFriendsOutputBoundary;
 import use_case.add_word.AddWordInputBoundary;
 import use_case.add_word.AddWordInteractor;
 import use_case.add_word.AddWordOutputBoundary;
@@ -84,8 +88,8 @@ public class AppBuilder {
     private final ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
     // thought question: is the hard dependency below a problem?
-    //private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
-    private final PantryUserDataAccessObject userDataAccessObject = new PantryUserDataAccessObject(userFactory);
+    private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
+    //private final PantryUserDataAccessObject userDataAccessObject = new PantryUserDataAccessObject(userFactory);
     //uncomment the line above in order to use the Pantry API userDAO :)
     private SignupView signupView;
     private SignupViewModel signupViewModel;
@@ -93,6 +97,7 @@ public class AppBuilder {
     private LoggedInViewModel loggedInViewModel;
     private LeagueViewModel leagueViewModel;
     private RankingsViewModel rankingsViewModel;
+    private AddFriendsViewModel addFriendsViewModel;
 
     private LoggedInView loggedInView;
     private LoginView loginView;
@@ -100,6 +105,7 @@ public class AppBuilder {
     private SoloPlayView soloPlayView;
     private LeagueView leagueView;
     private RankingsView rankingsView;
+    private AddFriendsView addFriendsView;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -143,6 +149,22 @@ public class AppBuilder {
         final GoHomeOutputBoundary goHomePresenter = new GoHomePresenter(viewManagerModel, loggedInViewModel);
         final GoHomeController goHomeController = new GoHomeController(goHomePresenter);
         soloPlayView.setGoHomeController(goHomeController);
+        return this;
+    }
+
+    //add friends view
+    public AppBuilder addAddFriendsView(){
+        addFriendsViewModel = new AddFriendsViewModel();
+        addFriendsView = new AddFriendsView(addFriendsViewModel);
+        cardPanel.add(addFriendsView, Constants.ADD_FRIENDS_VIEW_NAME);
+        return this;
+    }
+
+    //add friends use case
+    public AppBuilder addAddFriendsUseCase(){
+        final AddFriendsOutputBoundary addFriendsPresenter = new AddFriendsPresenter(viewManagerModel, addFriendsViewModel);
+        final AddFriendsController addFriendsController = new AddFriendsController(addFriendsPresenter);
+        loggedInView.setAddFriendsController(addFriendsController);
         return this;
     }
 
