@@ -156,6 +156,7 @@ public class AppBuilder {
         final GoHomeOutputBoundary goHomePresenter = new GoHomePresenter(viewManagerModel, loggedInViewModel);
         final GoHomeController goHomeController = new GoHomeController(goHomePresenter);
         soloPlayView.setGoHomeController(goHomeController);
+        addFriendsView.setGoHomeController(goHomeController);
         return this;
     }
 
