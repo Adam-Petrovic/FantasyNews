@@ -23,12 +23,12 @@ public class Main {
                                             .addSoloPlayView()
                                             .addSoloPlayUseCase()
                                             .addAddWordUseCase()
+                                            .addAddFriendsView()
                                             .addGoHomeUseCase()
                                             .addToLeagueView()
                                             .addToLeagueUseCase()
                                             .addToRankingsView()
                                             .addToRankingsUseCase()
-                                            .addAddFriendsView()
                                             .addAddFriendsUseCase()
                                             .addAddNewFriendUseCase()
                                             .build();
