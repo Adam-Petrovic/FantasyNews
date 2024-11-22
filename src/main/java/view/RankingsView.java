@@ -1,5 +1,7 @@
 package view;
 
+import entity.League;
+import entity.User;
 import interface_adapter.to_rankings.RankingsViewModel;
 import interface_adapter.update_rankings.UpdateRankingsController;
 
@@ -12,10 +14,14 @@ import java.beans.PropertyChangeListener;
 public class RankingsView extends JPanel implements PropertyChangeListener {
     private final RankingsViewModel rankingsViewModel;
     private UpdateRankingsController updateRankingsController;
+    private User user;
+    private League league;
 
     public RankingsView(RankingsViewModel rankingsViewModel) {
         //rankings table
         this.rankingsViewModel = rankingsViewModel;
+        //this.user = rankingsViewModel.getState().getUser();
+        this.league = rankingsViewModel.getState().getLeague();
 
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
@@ -46,7 +52,7 @@ public class RankingsView extends JPanel implements PropertyChangeListener {
 
         updateRankings.addActionListener(evt -> {
             if (evt.getSource() == updateRankings) {
-                updateRankingsController.execute();
+                updateRankingsController.execute(this.league);
             }
         });
 
