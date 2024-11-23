@@ -31,6 +31,8 @@ public class Main {
                                             .addToRankingsUseCase()
                                             .addAddFriendsUseCase()
                                             .addAddNewFriendUseCase()
+                                            .addDraftView()
+                                            .addDraftUseCase()
                                             .build();
 
         application.pack();

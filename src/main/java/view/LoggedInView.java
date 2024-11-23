@@ -14,6 +14,7 @@ import data_access.Constants;
 import interface_adapter.add_friends.AddFriendsController;
 import interface_adapter.change_password.LoggedInState;
 import interface_adapter.change_password.LoggedInViewModel;
+import interface_adapter.draft.DraftController;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.solo_play.SoloPlayController;
 import interface_adapter.to_league.LeagueController;
@@ -30,6 +31,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private LeagueController leagueController;
     private RankingsController rankingsController;
     private AddFriendsController addFriendsController;
+    private DraftController draftController;
 
     private final JLabel greeting;
     private final JButton logOut;
@@ -37,6 +39,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private final JButton toLeague;
     private final JButton toRankings;
     private final JButton addFriends;
+    private final JButton draft;
 
     public LoggedInView(LoggedInViewModel loggedInViewModel) {
         this.loggedInViewModel = loggedInViewModel;
@@ -60,6 +63,9 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
       
         addFriends = new JButton("Friends");
         buttons.add(addFriends);
+
+        draft = new JButton("Draft");
+        buttons.add(draft);
 
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -119,6 +125,15 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 }
         );
 
+        draft.addActionListener(
+                // This creates an anonymous subclass of ActionListener and instantiates it.
+                evt -> {
+                    if (evt.getSource().equals(draft)) {
+                        draftController.execute(loggedInViewModel.getState().getUsername());
+                    }
+                }
+        );
+
 
         this.add(greeting);
         this.add(buttons);
@@ -150,6 +165,10 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
     public void setAddFriendsController(AddFriendsController addFriendsController) {
         this.addFriendsController = addFriendsController;
+    }
+
+    public void setDraftController(DraftController draftController){
+        this.draftController = draftController;
     }
 
 }
