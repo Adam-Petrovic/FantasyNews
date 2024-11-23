@@ -6,7 +6,9 @@ import interface_adapter.add_friends.AddFriendsState;
 import interface_adapter.add_friends.AddFriendsViewModel;
 import interface_adapter.add_friends.AddFriendsController;
 import interface_adapter.add_new_friend.AddNewFriendController;
+import interface_adapter.go_home.GoHomeController;
 import interface_adapter.signup.SignupState;
+import interface_adapter.solo_play.SoloPlayState;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -19,13 +21,37 @@ import java.beans.PropertyChangeListener;
 
 public class AddFriendsView extends JPanel implements ActionListener, PropertyChangeListener {
     private final AddFriendsViewModel addFriendsViewModel;
-
+    private JScrollPane jScrollPane;
+    private JTable friendsTable;
+    private User user;
     private final JTextField usernameInputField = new JTextField(15);
     private final JLabel usernameErrorField = new JLabel();
     private AddNewFriendController addNewFriendController;
+    private GoHomeController goHomeController;
 
     public AddFriendsView(AddFriendsViewModel addFriendsViewModel) {
         this.addFriendsViewModel = addFriendsViewModel;
+        this.addFriendsViewModel.addPropertyChangeListener(this);
+        this.user = addFriendsViewModel.getState().getUser();
+
+        jScrollPane = new JScrollPane();
+        JPanel userOptions = new JPanel();
+        userOptions.setLayout(new BoxLayout(userOptions, BoxLayout.X_AXIS));
+
+        JButton goHomeButton = new JButton("←");
+        userOptions.add(goHomeButton);
+
+        //JTextField wordInput = new JTextField(10);
+        final LabelTextPanel friend_usernameInfo = new LabelTextPanel(
+                new JLabel("Enter friend username"), usernameInputField);
+        userOptions.add(friend_usernameInfo);
+
+        JButton addFriend = new JButton("Add Friend");
+        userOptions.add(addFriend);
+
+        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        this.add(jScrollPane);
+        this.add(userOptions);
 
         JPanel mainPanel = new JPanel();
 
@@ -33,21 +59,29 @@ public class AddFriendsView extends JPanel implements ActionListener, PropertyCh
 
         JPanel addFriendsPanel = new JPanel();
         addFriendsPanel.setLayout(new BoxLayout(addFriendsPanel, BoxLayout.Y_AXIS));
-        JButton addFriendButton = new JButton("Add Friend");
-        addFriendButton.setAlignmentX(Component.CENTER_ALIGNMENT);
-        addFriendsPanel.add(addFriendButton);
+        //JButton addFriendButton = new JButton("Add Friend");
+        addFriend.setAlignmentX(Component.CENTER_ALIGNMENT);
+        addFriendsPanel.add(addFriend);
         //addFriendsPanel.add(new JTextField("enter friend code"));
-        final LabelTextPanel friend_usernameInfo = new LabelTextPanel(
-                new JLabel("Enter friend username"), usernameInputField);
-        mainPanel.add(addFriendsPanel);
-        this.add(friend_usernameInfo);
 
-        addFriendButton.addActionListener(
+        mainPanel.add(addFriendsPanel);
+
+        addFriend.addActionListener(
                 evt -> {
-                    if (evt.getSource().equals(addFriendButton)) {
-                        addNewFriendController.execute(usernameInputField.getText());
+                    if (evt.getSource().equals(addFriend)) {
+                        String friend = addFriendsViewModel.getState().getFriend_username();
+                        addNewFriendController.execute(friend);
                     }
                 });
+
+        goHomeButton.addActionListener(
+                evt -> {
+                    if (evt.getSource().equals(goHomeButton)) {
+                        goHomeController.execute();
+                    }
+                });
+
+        addFriendListener();
 
         String[] userTitle = {"Friends"};
         String[][] usernames =  {{"usr1"}, {"usr2"}, {"usr3"}};
@@ -62,6 +96,32 @@ public class AddFriendsView extends JPanel implements ActionListener, PropertyCh
 
     }
 
+    private void addFriendListener() {
+        usernameInputField.getDocument().addDocumentListener(new DocumentListener() {
+
+            private void documentListenerHelper() {
+                final AddFriendsState currentState = addFriendsViewModel.getState();
+                currentState.setFriend_username(usernameInputField.getText());
+                addFriendsViewModel.setState(currentState);
+            }
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                documentListenerHelper();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                documentListenerHelper();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                documentListenerHelper();
+            }
+        });
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -74,5 +134,9 @@ public class AddFriendsView extends JPanel implements ActionListener, PropertyCh
 
     public void setAddNewFriendController(AddNewFriendController addNewFriendController) {
         this.addNewFriendController = addNewFriendController;
+    }
+
+    public void setGoHomeController(GoHomeController goHomeController) {
+        this.goHomeController = goHomeController;
     }
 }
