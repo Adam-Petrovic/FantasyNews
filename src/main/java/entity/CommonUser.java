@@ -133,7 +133,11 @@ public class CommonUser implements User {
     }
 
     @Override
-    public void addFriend(User user) {
-        this.friends.add(user);
+    public void addFriend(User friend) {
+        this.friends.add(friend);
+    }
+
+    public List<User> getFriends() {
+        return friends;
     }
 }
