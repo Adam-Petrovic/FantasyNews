@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 import entity.League;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -51,7 +52,7 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
     private static final String WORDS = "words";
     private static final String POINTS = "points";
     private static final String MESSAGE = "message";
-    private static final String LEAGUE = "league";
+    private static final String LEAGUES = "leagues";
     private final UserFactory userFactory;
     private static final String API_URL = "https://getpantry.cloud/apiv1/pantry/";
     private static String pantryID;
@@ -86,6 +87,13 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
             final JSONObject responseBody = new JSONObject(response.body().string());
             System.out.println(responseBody);
             if (response.isSuccessful()) {
+                //gets leagueIDs
+                final JSONArray leaguesArray = responseBody.getJSONArray(LEAGUES);
+                final ArrayList<String> leagues = new ArrayList<String>();
+                for(int i = 0; i < leaguesArray.length(); i++) {
+                    leagues.add(leaguesArray.getString(i));
+                }
+                System.out.println("current leagues: " + leagues);
 
                 final String password = responseBody.getString(PASSWORD);
                 final JSONObject wordsDict = responseBody.getJSONObject(WORDS);
@@ -93,7 +101,7 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
                 for (int index = 0; index < Constants.NUM_CATEGORIES; index++) {
                     words[index] = wordsDict.getString(Constants.CATEGORIES[index]);
                 }
-                return userFactory.create(username, password, words);
+                return userFactory.create(username, password, words, leagues);
             }
             else {
                 System.out.println("username does not exist");
@@ -143,7 +151,7 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
         final MediaType mediaType = MediaType.parse(CONTENT_TYPE_JSON);
         final JSONObject requestBody = new JSONObject();
         requestBody.put(PASSWORD, user.getPassword());
-        requestBody.put(LEAGUE, user.getLeagueID());
+        requestBody.put(LEAGUES, user.getLeagueID());
         HashMap<String, String> words = new HashMap<String, String>();
         HashMap<String, Integer> wordPointsForCategory = new HashMap<String, Integer>();
 

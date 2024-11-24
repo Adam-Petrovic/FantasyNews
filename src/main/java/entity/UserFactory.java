@@ -1,5 +1,7 @@
 package entity;
 
+import java.util.ArrayList;
+
 /**
  * Factory for creating users.
  */
@@ -14,4 +16,6 @@ public interface UserFactory {
     User create(String name, String password);
 
     User create(String name, String password, String[] words);
+
+    User create(String name, String password, String[] words, ArrayList<String> leagueIDs);
 }
