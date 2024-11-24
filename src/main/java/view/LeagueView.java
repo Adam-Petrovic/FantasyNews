@@ -1,11 +1,7 @@
 package view;
 
-import data_access.Constants;
-import entity.User;
-import interface_adapter.add_friends.AddFriendsState;
+import entity.League;
 import interface_adapter.create_league.CreateLeagueController;
-import interface_adapter.signup.SignupState;
-import interface_adapter.to_league.LeagueController;
 import interface_adapter.to_league.LeagueState;
 import interface_adapter.to_league.LeagueViewModel;
 
@@ -22,26 +18,40 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
     private final LeagueViewModel leagueViewModel;
     private CreateLeagueController createLeagueController;
 
-    private JLabel league;
-    private JTextField newLeagueID;
-    private JPanel realFinalPanel;
+    //visuals
+    private JLabel leagueLabel;
+    private JTextField createLeagueID;
+    private JButton createLeagueButton;
+    private JPanel createLeaguePanel;
+    private JPanel displayLeaguePanel;
+    private JTable displayLeagueTable;
+    private JPanel mainPanel;
+    private League league;
 
     public LeagueView(LeagueViewModel leagueViewModel) {
         this.leagueViewModel = leagueViewModel;
         this.leagueViewModel.addPropertyChangeListener(this);
+        this.league = leagueViewModel.getState().getLeague();
 
         //create new league panel;
-        JPanel createLeaguePanel = new JPanel();
-        JButton createLeague = new JButton("Create League");
-        this.newLeagueID = new JTextField("Enter League ID");
-        createLeaguePanel.add(createLeague);
-        createLeaguePanel.add(newLeagueID);
+        createLeaguePanel = new JPanel();
+        createLeaguePanel.setLayout(new BoxLayout(createLeaguePanel, BoxLayout.Y_AXIS));
 
-        JPanel mainPanel = new JPanel();
-        this.league = new JLabel("League: " + leagueViewModel.getState().getLeagueID());
-        mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
-        String[] userTitle = {"User"};
-        String[][] usernames =  {{"usr1"}, {"usr2"}, {"usr3"}};
+        createLeagueID = new JTextField("Enter New League ID");
+        createLeaguePanel.add(createLeagueID);
+
+        createLeagueButton = new JButton("Create New League");
+        createLeaguePanel.add(createLeagueButton);
+
+        //displayLeaguePanel
+        displayLeaguePanel = new JPanel();
+        displayLeaguePanel.setLayout(new BoxLayout(displayLeaguePanel, BoxLayout.Y_AXIS));
+
+        this.leagueLabel = new JLabel("League ID: " + leagueViewModel.getState().getLeagueID());
+        displayLeaguePanel.add(leagueLabel);
+
+        String[] userTitle = {"Member"};
+        String [][] usernames = new String[3][1];
         JTable userTable = new JTable(usernames, userTitle);
 
         String[] topicsTitle = {"Food", "Mood", "Dude!"};
@@ -49,8 +59,8 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
         JTable wordsTable = new JTable(words, topicsTitle);
         JScrollPane wordsScrollPane = new JScrollPane(wordsTable);
         JScrollPane userScrollPane = new JScrollPane(userTable);
-        mainPanel.add(userScrollPane);
-        mainPanel.add(wordsScrollPane);
+        displayLeaguePanel.add(userScrollPane);
+        displayLeaguePanel.add(wordsScrollPane);
         userTable.setDefaultEditor(Object.class, null);
 
         Dimension dw = new Dimension(words[0].length * 100, words[0].length * 150);
@@ -59,24 +69,17 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
         userScrollPane.setPreferredSize(du);
         wordsScrollPane.setPreferredSize(dw);
 
-        JPanel finalPanel = new JPanel();
-        finalPanel.add(createLeaguePanel);
-        finalPanel.add(mainPanel);
+        this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+        this.add(createLeaguePanel);
+        this.add(displayLeaguePanel);
 
-        this.realFinalPanel = new JPanel();
-        realFinalPanel.setLayout(new BoxLayout(realFinalPanel, BoxLayout.Y_AXIS));
-        realFinalPanel.add(league);
-        realFinalPanel.add(finalPanel);
-
-        realFinalPanel.setVisible(true);
-        this.add(realFinalPanel);
 
         //buttons
-        createLeague.addActionListener(
+        createLeagueButton.addActionListener(
                 evt -> {
-                    if (evt.getSource().equals(createLeague)) {
+                    if (evt.getSource().equals(createLeagueButton)) {
                         String username = leagueViewModel.getState().getUsername();
-                        createLeagueController.execute(username, newLeagueID.getText());
+                        createLeagueController.execute(username, createLeagueID.getText());
                     }
                 }
         );
@@ -85,11 +88,11 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
     }
 
     private void createLeagueListener() {
-        newLeagueID.getDocument().addDocumentListener(new DocumentListener() {
+        createLeagueID.getDocument().addDocumentListener(new DocumentListener() {
 
             private void documentListenerHelper() {
                 LeagueState currentState = leagueViewModel.getState();
-                currentState.setLeagueID(newLeagueID.getText());
+                currentState.setLeagueID(createLeagueID.getText());
                 leagueViewModel.setState(currentState);
             }
 
@@ -118,8 +121,7 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         System.out.println("here!");
-        System.out.println("league state says: " + leagueViewModel.getState().getLeagueID());
-        this.league.setText("League: " + leagueViewModel.getState().getLeagueID());
+        this.leagueLabel.setText("League: " + leagueViewModel.getState().getLeagueID());
     }
 
     public void setCreateLeagueController(CreateLeagueController controller) {

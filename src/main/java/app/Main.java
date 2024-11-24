@@ -27,13 +27,13 @@ public class Main {
                                             .addGoHomeUseCase()
                                             .addToLeagueView()
                                             .addToLeagueUseCase()
+                                            .addCreateLeagueUseCase()
                                             .addToRankingsView()
                                             .addToRankingsUseCase()
                                             .addAddFriendsUseCase()
                                             .addAddNewFriendUseCase()
                                             .addDraftView()
                                             .addDraftUseCase()
-                                            .addCreateLeagueUseCase()
                                             .build();
 
         application.pack();

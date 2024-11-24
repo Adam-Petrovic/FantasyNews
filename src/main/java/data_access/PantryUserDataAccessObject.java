@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import entity.League;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -221,12 +222,17 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
     }
 
     @Override
-    public void setLeague(String username, String leagueID) {
+    public void setUserLeague(String username, String leagueID) {
         System.out.println("leagueID: " + leagueID);
     }
 
     @Override
     public boolean inLeague(String username) {
         return false;
+    }
+
+    @Override
+    public League getLeague(String leagueID) {
+        return new League();
     }
 }

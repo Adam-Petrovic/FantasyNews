@@ -1,8 +1,10 @@
 package use_case.create_league;
 
-public interface CreateLeagueUserDataAccessInterface {
-    public void setLeague(String username, String leagueID);
-    public boolean inLeague(String username);
+import entity.League;
 
+public interface CreateLeagueUserDataAccessInterface {
+    public void setUserLeague(String username, String leagueID);
+    public boolean inLeague(String username);
+    public League getLeague(String leagueID);
     }
 
