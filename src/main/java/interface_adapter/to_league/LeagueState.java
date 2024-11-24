@@ -2,22 +2,44 @@ package interface_adapter.to_league;
 
 import entity.League;
 
+import java.util.ArrayList;
+
 public class LeagueState {
-    private String leagueID;
-    private League league;
+    private ArrayList<String> leagueIDs;
+    private ArrayList<League> leagues;
     private String username;
 
-    public String getLeagueID() {
-        return leagueID;
+    public ArrayList<String> getLeagueIDs() {
+        return leagueIDs;
     }
-    public void setLeagueID(String leagueID) {
-        this.leagueID = leagueID;
+    public void setLeagueIDs(ArrayList<String> leagueID) {
+        this.leagueIDs = leagueID;
     }
-    public League getLeague(){
-        return league;
+    public ArrayList<League> getLeagues(){
+        return leagues;
     }
-    public void setLeague(League league) {
-        this.league = league;
+    public void setLeagues(ArrayList<League> leagues) {
+        this.leagues = leagues;
+    }
+
+    public void addLeague(League league){
+        if(this.leagues != null){
+            this.leagues.add(league);
+        }
+        else{
+            this.leagues = new ArrayList<>();
+            this.leagues.add(league);
+        }
+    }
+
+    public void addLeagueID(String leagueID){
+        if(this.leagueIDs != null){
+            this.leagueIDs.add(leagueID);
+        }
+        else{
+            this.leagueIDs = new ArrayList<>();
+            this.leagueIDs.add(leagueID);
+        }
     }
 
     public String getUsername() {

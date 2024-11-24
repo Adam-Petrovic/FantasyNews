@@ -21,21 +21,32 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
     private CreateLeagueController createLeagueController;
 
     //visuals
-    private JLabel leagueLabel;
+    //create league panel
     private JTextField createLeagueID;
     private JButton createLeagueButton;
     private JPanel createLeaguePanel;
+
+    //join league panel
+    private JTextField joinLeagueID;
+    private JButton joinLeagueButton;
+    private JPanel joinLeaguePanel;
+
+    //go home panel
+    private JButton goHome;
+
+    //league display panel
+    private ArrayList<JLabel> leagueLabels;
     private JPanel displayLeaguePanel;
-    private JTable displayLeagueTable;
-    private JScrollPane displayLeagueScorePane;
-    private JPanel mainPanel;
-    private League league;
+    private JTabbedPane displayLeagueTabs;
+    private ArrayList<JTable> displayLeagueTable;
+    private ArrayList<JScrollPane> displayLeagueScorePane;
+    private ArrayList<League> leagues;
 
     public LeagueView(LeagueViewModel leagueViewModel) {
         this.leagueViewModel = leagueViewModel;
         this.leagueViewModel.addPropertyChangeListener(this);
         //might need to pass in user too TvT
-        this.league = leagueViewModel.getState().getLeague();
+        this.leagues = (leagueViewModel.getState().getLeagues());
 
         //create new league panel;
         createLeaguePanel = new JPanel();
@@ -51,12 +62,8 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
         displayLeaguePanel = new JPanel();
         displayLeaguePanel.setLayout(new BoxLayout(displayLeaguePanel, BoxLayout.Y_AXIS));
 
-        this.leagueLabel = new JLabel("League ID: " + leagueViewModel.getState().getLeagueID());
-        displayLeaguePanel.add(leagueLabel);
-        displayLeaguePanel.add(new JLabel("not currently in a league"));
-
-        this.displayLeagueScorePane = new JScrollPane();
-        displayLeaguePanel.add(displayLeagueScorePane);
+        displayLeagueTabs = new JTabbedPane();
+        displayLeaguePanel.add(displayLeagueTabs);
 
         this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
         this.add(createLeaguePanel);
@@ -81,7 +88,7 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
 
             private void documentListenerHelper() {
                 LeagueState currentState = leagueViewModel.getState();
-                currentState.setLeagueID(createLeagueID.getText());
+                currentState.getLeagueIDs().add(createLeagueID.getText());
                 leagueViewModel.setState(currentState);
             }
 
@@ -109,26 +116,40 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
     //updating the league display yasssss
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        this.league = leagueViewModel.getState().getLeague();
-        this.leagueLabel.setText("League: " + leagueViewModel.getState().getLeagueID());
+        this.leagues = leagueViewModel.getState().getLeagues();
+        this.displayLeaguePanel.remove(displayLeagueTabs);
+        this.displayLeagueTabs = new JTabbedPane();
 
-        ArrayList<User> users = this.league.getUsers();
+        for (League league : this.leagues){
+            JScrollPane leagueScrollPane = makeLeagueScrollPane(league);
+            displayLeagueTabs.add(league.getId(), leagueScrollPane);
+        }
+
+        displayLeaguePanel.add(displayLeagueTabs);
+        displayLeaguePanel.revalidate();
+        displayLeaguePanel.repaint();
+    }
+
+    public void setCreateLeagueController(CreateLeagueController controller) {
+        this.createLeagueController = controller;
+    }
+
+    public JScrollPane makeLeagueScrollPane(League league){
+        JScrollPane leagueScrollPane = new JScrollPane();
+        ArrayList<User> users = league.getUsers();
         String[] columnNames = {"Member", "Points"};
         String[][] info = new String[users.size()][2];
 
         for(int i = 0; i < users.size(); i++) {
             info[i][0] = users.get(i).getName();
+            System.out.println(users.get(i).getName());
             info[i][1] = String.valueOf(users.get(i).getLeaguePoints());
         }
 
-        this.displayLeagueTable = new JTable(info, columnNames);
-        displayLeagueTable.setDefaultEditor(Object.class, null);
-        this.displayLeagueScorePane = new JScrollPane(displayLeagueTable);
+        JTable leagueTable = new JTable(info, columnNames);
+        leagueTable.setDefaultEditor(Object.class, null);
+        leagueScrollPane.setViewportView(leagueTable);
 
-
-    }
-
-    public void setCreateLeagueController(CreateLeagueController controller) {
-        this.createLeagueController = controller;
+        return leagueScrollPane;
     }
 }
