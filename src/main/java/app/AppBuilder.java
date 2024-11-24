@@ -24,6 +24,8 @@ import interface_adapter.add_new_friend.AddNewFriendPresenter;
 import interface_adapter.add_word.AddWordController;
 import interface_adapter.add_word.AddWordPresenter;
 import interface_adapter.change_password.LoggedInViewModel;
+import interface_adapter.create_league.CreateLeagueController;
+import interface_adapter.create_league.CreateLeaguePresenter;
 import interface_adapter.draft.DraftController;
 import interface_adapter.draft.DraftPresenter;
 import interface_adapter.draft.DraftViewModel;
@@ -58,6 +60,9 @@ import use_case.add_new_friend.AddNewFriendOutputBoundary;
 import use_case.add_word.AddWordInputBoundary;
 import use_case.add_word.AddWordInteractor;
 import use_case.add_word.AddWordOutputBoundary;
+import use_case.create_league.CreateLeagueInputBoundary;
+import use_case.create_league.CreateLeagueInteractor;
+import use_case.create_league.CreateLeagueOutputBoundary;
 import use_case.draft.DraftInputBoundary;
 import use_case.draft.DraftInteractor;
 import use_case.draft.DraftOutputBoundary;
@@ -130,12 +135,21 @@ public class AppBuilder {
         cardPanel.setLayout(cardLayout);
     }
 
+    public AppBuilder addCreateLeagueUseCase(){
+        final CreateLeagueOutputBoundary createLeaguePresenter = new CreateLeaguePresenter(viewManagerModel, leagueViewModel);
+        final CreateLeagueInputBoundary createLeagueInteractor = new CreateLeagueInteractor(createLeaguePresenter, userDataAccessObject);
+        final CreateLeagueController controller = new CreateLeagueController(createLeagueInteractor);
+        leagueView.setCreateLeagueController(controller);
+        return this;
+    }
+
     public AppBuilder addDraftView(){
         draftViewModel = new DraftViewModel();
         draftView = new DraftView(draftViewModel);
         cardPanel.add(draftView, "draft");
         return this;
     }
+
 
     public AppBuilder addDraftUseCase(){
         final DraftOutputBoundary draftPresenter = new DraftPresenter(viewManagerModel, draftViewModel);
