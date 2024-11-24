@@ -76,7 +76,9 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
         displayLeaguePanel.setLayout(new BoxLayout(displayLeaguePanel, BoxLayout.Y_AXIS));
         displayLeagueTabs = new JTabbedPane();
         displayLeaguePanel.add(displayLeagueTabs);
-        displayLeagueTabs.add(new JLabel(new ImageIcon("Meow.jpg")));
+        JLabel catPhoto = new JLabel(new ImageIcon("Meow.jpg"));
+        catPhoto.setPreferredSize(new Dimension(100, 400));
+        displayLeagueTabs.add(catPhoto);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(displayLeaguePanel);
