@@ -3,6 +3,7 @@ package data_access;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -221,9 +222,13 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
         return this.currentUsername;
     }
 
+    //league functions
     @Override
-    public void setUserLeague(String username, String leagueID) {
-        System.out.println("leagueID: " + leagueID);
+    public ArrayList<String> updateUserLeagues(String username, String leagueID) {
+        ArrayList<String> meow = new ArrayList<>();
+        meow.add("meow");
+        meow.add("meow");
+        return meow;
     }
 
     @Override
@@ -235,4 +240,10 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
     public League getLeague(String leagueID) {
         return new League();
     }
+
+    @Override
+    public boolean leagueExist(String leagueID) {
+        return false;
+    }
+
 }

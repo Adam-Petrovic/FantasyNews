@@ -21,10 +21,8 @@ public class CreateLeaguePresenter implements CreateLeagueOutputBoundary {
     }
 
     public void prepareSuccessView(CreateLeagueOutputData createLeagueOutputData) {
-        //updating state... maybe should add a "add league"?
         final LeagueState leagueState = leagueViewModel.getState();
-        leagueState.addLeague(createLeagueOutputData.getLeague());
-        leagueState.addLeagueID(createLeagueOutputData.getLeagueID());
+        leagueState.setLeagues(createLeagueOutputData.getLeagues());
 
         //setting viewModel to state
         leagueViewModel.setState(leagueState);

@@ -1,7 +1,10 @@
 package use_case.create_league;
 
 import entity.League;
+import entity.User;
 import use_case.signup.SignupOutputBoundary;
+
+import java.util.ArrayList;
 
 public class CreateLeagueInteractor implements CreateLeagueInputBoundary{
     private CreateLeagueOutputBoundary createLeaguePresenter;
@@ -16,10 +19,13 @@ public class CreateLeagueInteractor implements CreateLeagueInputBoundary{
     public void execute(CreateLeagueInputData createLeagueInputData){
         String username = createLeagueInputData.getUsername();
         String leagueID = createLeagueInputData.getLeagueID();
-        if(!userDataAccessInterface.inLeague(username)){
-            userDataAccessInterface.setUserLeague(username, leagueID);
-            League league = userDataAccessInterface.getLeague(leagueID);
-            CreateLeagueOutputData createLeagueOutputData = new CreateLeagueOutputData(username, leagueID, league);
+
+        if(!userDataAccessInterface.leagueExist(leagueID)){
+            ArrayList<String> leagueIDs = userDataAccessInterface.updateUserLeagues(username, leagueID);
+            ArrayList<League> leagues = new ArrayList<>();
+            for(String id : leagueIDs)
+                leagues.add(userDataAccessInterface.getLeague(id));
+            CreateLeagueOutputData createLeagueOutputData = new CreateLeagueOutputData(username, leagues);
             createLeaguePresenter.prepareSuccessView(createLeagueOutputData);
         }
         else{

@@ -22,26 +22,6 @@ public class LeagueState {
         this.leagues = leagues;
     }
 
-    public void addLeague(League league){
-        if(this.leagues != null){
-            this.leagues.add(league);
-        }
-        else{
-            this.leagues = new ArrayList<>();
-            this.leagues.add(league);
-        }
-    }
-
-    public void addLeagueID(String leagueID){
-        if(this.leagueIDs != null){
-            this.leagueIDs.add(leagueID);
-        }
-        else{
-            this.leagueIDs = new ArrayList<>();
-            this.leagueIDs.add(leagueID);
-        }
-    }
-
     public String getUsername() {
         return username;
     }
