@@ -66,6 +66,7 @@ public class AddFriendsView extends JPanel implements ActionListener, PropertyCh
                 evt -> {
                     if (evt.getSource().equals(addFriend)) {
                         String friend = addFriendsViewModel.getState().getFriend_username();
+                        addFriendsViewModel.getState().setFriend_usernameError(null);
                         addNewFriendController.execute(friend);
                     }
                 });
@@ -126,6 +127,10 @@ public class AddFriendsView extends JPanel implements ActionListener, PropertyCh
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         this.user = addFriendsViewModel.getState().getUser();
+        final AddFriendsState state = (AddFriendsState) evt.getNewValue();
+        if(state.getFriend_usernameError() != null) {
+            JOptionPane.showMessageDialog(this, state.getFriend_usernameError());
+        }
 
         String[] columnNames = {"Friends", "Points"};
         Object[][] data = new Object[user.getFriends().size()][2];
@@ -139,6 +144,7 @@ public class AddFriendsView extends JPanel implements ActionListener, PropertyCh
         friendsTable.setDefaultEditor(Object.class, null);
         jScrollPane.add(friendsTable);
         jScrollPane.setViewportView(friendsTable);
+
     }
 
     public void setAddNewFriendController(AddNewFriendController addNewFriendController) {
