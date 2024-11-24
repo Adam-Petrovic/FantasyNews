@@ -19,12 +19,14 @@ public class CommonUser implements User {
     private final HashMap<String, String> words = new HashMap<>();
     private final HashMap<String,Integer> wordPointsForCategory = new HashMap<>();
     private List<User> friends = new ArrayList<>();
+    private String leagueID;
 
 
 
     public CommonUser(String name, String password) {
         this.name = name;
         this.password = password;
+        this.leagueID = "";
         createWordMap();
 //        if (draftedWords.length > Constants.NUM_CATEGORIES) {
 //            throw new InstantiationError("Inputted Words are too long");
@@ -42,6 +44,7 @@ public class CommonUser implements User {
     public CommonUser(String name, String password, String[] terms) {
         this.name = name;
         this.password = password;
+        this.leagueID = "";
         createWordMap(terms);
     }
 

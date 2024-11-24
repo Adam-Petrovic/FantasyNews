@@ -1,6 +1,8 @@
 package view;
 
 import data_access.Constants;
+import interface_adapter.create_league.CreateLeagueController;
+import interface_adapter.to_league.LeagueController;
 import interface_adapter.to_league.LeagueViewModel;
 
 import javax.swing.*;
@@ -12,8 +14,16 @@ import java.beans.PropertyChangeListener;
 
 public class LeagueView  extends JPanel implements ActionListener, PropertyChangeListener {
     private final LeagueViewModel leagueViewModel;
+    private CreateLeagueController leagueController;
+
     public LeagueView(LeagueViewModel leagueViewModel) {
         this.leagueViewModel = leagueViewModel;
+        //create new league panel
+        JPanel createLeaguePanel = new JPanel();
+        JButton createLeague = new JButton("Create League");
+        JTextField newLeagueID = new JTextField("Enter League ID");
+        createLeaguePanel.add(createLeague);
+        createLeaguePanel.add(newLeagueID);
 
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
@@ -36,8 +46,12 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
         userScrollPane.setPreferredSize(du);
         wordsScrollPane.setPreferredSize(dw);
 
-        mainPanel.setVisible(true);
-        this.add(mainPanel);
+        JPanel finalPanel = new JPanel();
+        finalPanel.add(createLeaguePanel);
+        finalPanel.add(mainPanel);
+
+        finalPanel.setVisible(true);
+        this.add(finalPanel);
 
 
     }
@@ -50,5 +64,9 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
 
+    }
+
+    public void setCreateLeagueController(CreateLeagueController controller) {
+        this.leagueController = controller;
     }
 }

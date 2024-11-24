@@ -33,6 +33,7 @@ public class Main {
                                             .addAddNewFriendUseCase()
                                             .addDraftView()
                                             .addDraftUseCase()
+                                            .addCreateLeagueUseCase()
                                             .build();
 
         application.pack();
