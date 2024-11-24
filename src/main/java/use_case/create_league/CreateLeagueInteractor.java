@@ -18,6 +18,8 @@ public class CreateLeagueInteractor implements CreateLeagueInputBoundary{
             CreateLeagueOutputData createLeagueOutputData = new CreateLeagueOutputData(username, leagueID);
             createLeaguePresenter.prepareSuccessView(createLeagueOutputData);
         }
-        System.out.println("rip");
+        else{
+            System.out.println("rip");
+        }
     }
 }

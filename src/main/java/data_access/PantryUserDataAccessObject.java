@@ -49,6 +49,7 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
     private static final String WORDS = "words";
     private static final String POINTS = "points";
     private static final String MESSAGE = "message";
+    private static final String LEAGUE = "league";
     private final UserFactory userFactory;
     private static final String API_URL = "https://getpantry.cloud/apiv1/pantry/";
     private static String pantryID;
@@ -140,6 +141,7 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
         final MediaType mediaType = MediaType.parse(CONTENT_TYPE_JSON);
         final JSONObject requestBody = new JSONObject();
         requestBody.put(PASSWORD, user.getPassword());
+        requestBody.put(LEAGUE, user.getLeagueID());
         HashMap<String, String> words = new HashMap<String, String>();
         HashMap<String, Integer> wordPointsForCategory = new HashMap<String, Integer>();
 
@@ -220,7 +222,7 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
 
     @Override
     public void setLeague(String username, String leagueID) {
-        System.out.println("meow!");
+        System.out.println("leagueID: " + leagueID);
     }
 
     @Override

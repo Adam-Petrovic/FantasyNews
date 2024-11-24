@@ -40,4 +40,6 @@ public interface User {
     void addFriend(User friend);
 
     List<User> getFriends();
+
+    String getLeagueID();
 }

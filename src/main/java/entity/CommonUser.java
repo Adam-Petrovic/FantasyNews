@@ -22,7 +22,6 @@ public class CommonUser implements User {
     private String leagueID;
 
 
-
     public CommonUser(String name, String password) {
         this.name = name;
         this.password = password;
@@ -142,5 +141,9 @@ public class CommonUser implements User {
 
     public List<User> getFriends() {
         return friends;
+    }
+
+    public String getLeagueID(){
+        return this.leagueID;
     }
 }

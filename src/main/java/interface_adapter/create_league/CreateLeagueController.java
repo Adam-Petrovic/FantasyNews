@@ -10,7 +10,8 @@ public class CreateLeagueController {
         this.createLeagueInteractor = createLeagueInteractor;
     }
 
-    public void execute(CreateLeagueInputData createLeagueInputData) {
+    public void execute(String username, String leagueID) {
+        CreateLeagueInputData createLeagueInputData = new CreateLeagueInputData(username, leagueID);
         createLeagueInteractor.execute(createLeagueInputData);
     }
 }
