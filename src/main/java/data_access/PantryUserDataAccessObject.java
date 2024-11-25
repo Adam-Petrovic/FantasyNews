@@ -74,7 +74,6 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
     @Override
     public User get(String username) {
         // Make an API call to get the user object.
-        System.out.println("User: " + username);
         final String fullURL = API_URL + pantryID + "/basket/" + username;
         final OkHttpClient client = new OkHttpClient().newBuilder().build();
         final Request request = new Request.Builder()
@@ -82,21 +81,16 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
                 .get()
                 .build();
         try {
-            System.out.println("here");
             final Response response = client.newCall(request).execute();
-
-            System.out.println("made it past execute");
+            System.out.println("trying to use get(user)");
             final JSONObject responseBody = new JSONObject(response.body().string());
-            System.out.println(responseBody);
             if (response.isSuccessful()) {
                 //gets leagueIDs
-
                 final JSONArray leaguesArray = responseBody.getJSONArray(LEAGUES);
                 final ArrayList<String> leagues = new ArrayList<String>();
                 for(int i = 0; i < leaguesArray.length(); i++) {
                     leagues.add(leaguesArray.getString(i));
                 }
-                System.out.println("current leagues: " + leagues);
 
                 final String password = responseBody.getString(PASSWORD);
                 final JSONObject wordsDict = responseBody.getJSONObject(WORDS);
@@ -112,6 +106,7 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
             }
         }
         catch (IOException | JSONException ex) {
+            System.out.println("fuck you");
             throw new RuntimeException(ex);
         }
     }
@@ -154,7 +149,7 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
         final MediaType mediaType = MediaType.parse(CONTENT_TYPE_JSON);
         final JSONObject requestBody = new JSONObject();
         requestBody.put(PASSWORD, user.getPassword());
-        requestBody.put(LEAGUES, user.getLeagueID());
+        requestBody.put(LEAGUES, user.getLeagueIDs());
         HashMap<String, String> words = new HashMap<String, String>();
         HashMap<String, Integer> wordPointsForCategory = new HashMap<String, Integer>();
 
@@ -235,24 +230,21 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
 
     //league functions
     @Override
-    public ArrayList<String> updateUserLeagues(String username, String leagueID) {
-        //gets initial league list & updates it
-        ArrayList<String> leagues = getUserLeagues(username);
-        leagues.add(leagueID);
+    public ArrayList<String> updateUserLeagues(User user, String leagueID) {
+        //updates user object locally
+        user.getLeagueIDs().add(leagueID);
 
-        //updates league list in database
-        addLeague(username, leagues);
-        System.out.println("added league");
+        //updates user's league list in database
+        addLeague(user, user.getLeagueIDs());
 
-
-        //return updated league list
-        return getUserLeagues(username);
+        return user.getLeagueIDs();
     }
 
     @Override
-    public League getLeague(String leagueID) {
+    //for testing
+    public League getLeague(User user, String leagueID) {
         ArrayList<User> users = new ArrayList();
-        users.add(get(this.currentUsername));
+        users.add(user);
         return new League(leagueID, users);
     }
 
@@ -261,15 +253,42 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
         return false;
     }
 
-    public void addLeague(String username, ArrayList<String> leagues) {
-        User user = get(username);
-        user.setLeagueIDs(leagues);
-        save(user);
-    }
+    public void addLeague(User user, ArrayList<String> updatedLeagues) {
+        final OkHttpClient client = new OkHttpClient().newBuilder().build();
+        final MediaType mediaType = MediaType.parse("application/json");
 
-    public ArrayList<String> getUserLeagues(String username){
-        //could make more efficient by directly accessing league data in user basket?
-        System.out.println(username);
-        return get(username).getLeagueID();
-    };
+        try {
+            // Update the user's leagues in JSON
+            final JSONObject requestBody = new JSONObject();
+            requestBody.put(LEAGUES, updatedLeagues);
+
+            // Preserve other fields
+            requestBody.put(PASSWORD, user.getPassword());
+            HashMap<String, String> words = new HashMap<>();
+            String[] terms = user.getWords();
+            for (int index = 0; index < Constants.NUM_CATEGORIES; index++) {
+                words.put(Constants.CATEGORIES[index], terms[index]);
+            }
+            requestBody.put(WORDS, words);
+
+            // Make the POST request to update the basket
+            final RequestBody body = RequestBody.create(requestBody.toString(), mediaType);
+            final Request request = new Request.Builder()
+                    .url(API_URL + pantryID + "/basket/" + user.getName())
+                    .method("POST", body)
+                    .addHeader(CONTENT_TYPE_LABEL, CONTENT_TYPE_JSON)
+                    .build();
+
+            final Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                System.out.println("Successfully updated leagues for user: " + user.getName());
+            } else {
+                System.out.println("Failed to update leagues. Status code: " + response.code());
+                throw new RuntimeException("Failed to update leagues: " + response.message());
+            }
+        } catch (IOException | JSONException ex) {
+            throw new RuntimeException("Error updating leagues for user: " + user.getName(), ex);
+        }
+
+    }
 }

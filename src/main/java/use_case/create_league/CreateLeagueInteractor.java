@@ -21,11 +21,14 @@ public class CreateLeagueInteractor implements CreateLeagueInputBoundary{
         String leagueID = createLeagueInputData.getLeagueID();
 
         if(!userDataAccessInterface.leagueExist(leagueID)){
-            ArrayList<String> leagueIDs = userDataAccessInterface.updateUserLeagues(username, leagueID);
+            User user = userDataAccessInterface.get(username);
+            ArrayList<String> leagueIDs = userDataAccessInterface.updateUserLeagues(user, leagueID);
+            System.out.println("made it here");
+            System.out.println("leagues rn: " + leagueIDs);
             ArrayList<League> leagues = new ArrayList<>();
             for(String id : leagueIDs)
-                leagues.add(userDataAccessInterface.getLeague(id));
-            CreateLeagueOutputData createLeagueOutputData = new CreateLeagueOutputData(username, leagues);
+                leagues.add(userDataAccessInterface.getLeague(user, id));
+            CreateLeagueOutputData createLeagueOutputData = new CreateLeagueOutputData(user.getName(), leagues);
             createLeaguePresenter.prepareSuccessView(createLeagueOutputData);
         }
         else{

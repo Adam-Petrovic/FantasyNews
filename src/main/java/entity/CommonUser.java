@@ -150,10 +150,6 @@ public class CommonUser implements User {
     }
 
     @Override
-    public ArrayList<String> getLeagueID() {
-        return this.leagueIDs;
-    }
-
     public ArrayList<String> getLeagueIDs(){
         return this.leagueIDs;
     }
