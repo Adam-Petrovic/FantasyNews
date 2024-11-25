@@ -15,6 +15,7 @@ public class CreateLeagueController {
         createLeagueInteractor.execute(createLeagueInputData);
     }
 
+    //execute for when switching into view
     public void execute(String username){
         CreateLeagueInputData createLeagueInputData = new CreateLeagueInputData(username, null);
         createLeagueInteractor.execute(createLeagueInputData);

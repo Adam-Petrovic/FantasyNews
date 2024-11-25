@@ -8,6 +8,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import use_case.create_league.CreateLeagueLeagueDataAccessInterface;
+import use_case.join_league.JoinLeagueLeagueDataAccessInterface;
+import use_case.join_league.JoinLeagueUserDataAccessInterface;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,7 +19,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
 
-public class PantryLeagueDataAccessObject implements CreateLeagueLeagueDataAccessInterface {
+public class PantryLeagueDataAccessObject implements CreateLeagueLeagueDataAccessInterface,
+        JoinLeagueLeagueDataAccessInterface {
     private final LeagueFactory leagueFactory;
 
     private static final int SUCCESS_CODE = 200;
@@ -89,6 +92,10 @@ public class PantryLeagueDataAccessObject implements CreateLeagueLeagueDataAcces
         catch (IOException | JSONException ex) {
             throw new RuntimeException(ex);
         }
+    }
+
+    @Override
+    public void updateLeagueUsers(User user, String leagueID) {
     }
 
     //saves league

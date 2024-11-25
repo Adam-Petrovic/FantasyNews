@@ -4,6 +4,7 @@ import entity.League;
 import entity.User;
 import interface_adapter.create_league.CreateLeagueController;
 import interface_adapter.go_home.GoHomeController;
+import interface_adapter.join_league.JoinLeagueController;
 import interface_adapter.signup.SignupState;
 import interface_adapter.to_league.LeagueState;
 import interface_adapter.to_league.LeagueViewModel;
@@ -23,6 +24,7 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
     private final LeagueViewModel leagueViewModel;
     private CreateLeagueController createLeagueController;
     private GoHomeController goHomeController;
+    private JoinLeagueController joinLeagueController;
 
     //visuals
 
@@ -104,6 +106,16 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
                 }
         );
 
+        joinLeagueButton.addActionListener(
+                evt -> {
+                    if (evt.getSource().equals(joinLeagueButton)) {
+                        String username = leagueViewModel.getState().getUsername();
+                        leagueViewModel.getState().setErrorMessage(null);
+                        joinLeagueController.execute(username, createLeagueID.getText());
+                    }
+                }
+        );
+
        // createLeagueListener();
     }
 
@@ -166,6 +178,10 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
 
     public void setGoHomeController(GoHomeController controller){
         this.goHomeController = controller;
+    }
+
+    public void setJoinLeagueController(JoinLeagueController joinLeagueController){
+        this.joinLeagueController = joinLeagueController;
     }
 
     public JScrollPane makeLeagueScrollPane(League league){

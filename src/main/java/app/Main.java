@@ -34,6 +34,7 @@ public class Main {
                                             .addAddNewFriendUseCase()
                                             .addDraftView()
                                             .addDraftUseCase()
+                                            .addJoinLeagueUseCase()
                                             .build();
 
         application.pack();

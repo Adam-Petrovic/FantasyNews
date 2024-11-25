@@ -29,6 +29,7 @@ import interface_adapter.draft.DraftPresenter;
 import interface_adapter.draft.DraftViewModel;
 import interface_adapter.go_home.GoHomeController;
 import interface_adapter.go_home.GoHomePresenter;
+import interface_adapter.join_league.JoinLeagueController;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
@@ -65,6 +66,8 @@ import use_case.draft.DraftInputBoundary;
 import use_case.draft.DraftInteractor;
 import use_case.draft.DraftOutputBoundary;
 import use_case.goHome.GoHomeOutputBoundary;
+import use_case.join_league.JoinLeagueInputBoundary;
+import use_case.join_league.JoinLeagueInteractor;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
@@ -133,6 +136,15 @@ public class AppBuilder {
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
+    }
+
+    public AppBuilder addJoinLeagueUseCase() {
+        final CreateLeagueOutputBoundary createLeaguePresenter = new CreateLeaguePresenter(viewManagerModel, leagueViewModel);
+        final JoinLeagueInputBoundary joinLeagueInteractor = new JoinLeagueInteractor(createLeaguePresenter,
+                userDataAccessObject, leagueDataAccessObject);
+        final JoinLeagueController controller = new JoinLeagueController(joinLeagueInteractor);
+        leagueView.setJoinLeagueController(controller);
+        return this;
     }
 
     public AppBuilder addCreateLeagueUseCase(){
