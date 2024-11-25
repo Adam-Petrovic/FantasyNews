@@ -9,11 +9,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-import data_access.Constants;
-import data_access.GuardianDataAccessObject;
-import data_access.InMemoryUserDataAccessObject;
-import data_access.PantryUserDataAccessObject;
+import data_access.*;
 import entity.CommonUserFactory;
+import entity.LeagueFactory;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.add_friends.AddFriendsController;
@@ -106,12 +104,14 @@ public class AppBuilder {
     private final CardLayout cardLayout = new CardLayout();
     // thought question: is the hard dependency below a problem?
     private final UserFactory userFactory = new CommonUserFactory();
+    private final LeagueFactory leagueFactory = new LeagueFactory();
     private final ViewManagerModel viewManagerModel = new ViewManagerModel();
     private final ViewManager viewManager = new ViewManager(cardPanel, cardLayout, viewManagerModel);
 
     // thought question: is the hard dependency below a problem?
     //private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
     private final PantryUserDataAccessObject userDataAccessObject = new PantryUserDataAccessObject(userFactory);
+    private final PantryLeagueDataAccessObject leagueDataAccessObject = new PantryLeagueDataAccessObject(leagueFactory);
     //uncomment the line above in order to use the Pantry API userDAO :)
     private SignupView signupView;
     private SignupViewModel signupViewModel;
@@ -137,7 +137,8 @@ public class AppBuilder {
 
     public AppBuilder addCreateLeagueUseCase(){
         final CreateLeagueOutputBoundary createLeaguePresenter = new CreateLeaguePresenter(viewManagerModel, leagueViewModel);
-        final CreateLeagueInputBoundary createLeagueInteractor = new CreateLeagueInteractor(createLeaguePresenter, userDataAccessObject);
+        final CreateLeagueInputBoundary createLeagueInteractor = new CreateLeagueInteractor(createLeaguePresenter,
+                userDataAccessObject, leagueDataAccessObject);
         final CreateLeagueController controller = new CreateLeagueController(createLeagueInteractor);
         loggedInView.setCreateLeagueController(controller);
         leagueView.setCreateLeagueController(controller);
