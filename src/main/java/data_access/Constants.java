@@ -9,6 +9,6 @@ public class Constants {
     public static final String LOG_IN_VIEW_NAME = "log_in";
     public static final String SIGN_UP_VIEW_NAME = "sign_up";
     public static final String GUARDIAN_API_URL = "https://content.guardianapis.com/search?from-date=";
-
+    public static final String[] DEFAULT_TERMS = {"Volleyball", "Gattaca", "Green Party", "Leaves", "Jokic"};
 
 }

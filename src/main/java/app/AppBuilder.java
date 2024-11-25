@@ -11,10 +11,9 @@ import javax.swing.WindowConstants;
 
 import data_access.Constants;
 import data_access.GuardianDataAccessObject;
-import data_access.InMemoryUserDataAccessObject;
 import data_access.PantryUserDataAccessObject;
-import entity.CommonUserFactory;
-import entity.UserFactory;
+import entity.Users.CommonUserFactory;
+import entity.Users.UserFactory;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.add_word.AddWordController;
 import interface_adapter.add_word.AddWordPresenter;

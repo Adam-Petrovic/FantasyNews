@@ -1,7 +1,6 @@
 package use_case.add_word;
 
-import entity.User;
-import interface_adapter.ViewModel;
+import entity.Users.User;
 import use_case.solo_play.SoloPlayUserDataAccessInterface;
 
 public class AddWordInteractor implements AddWordInputBoundary{

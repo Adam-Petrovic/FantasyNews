@@ -2,10 +2,8 @@ package use_case.update_solo_points;
 
 import data_access.Constants;
 import data_access.GuardianDataAccessObject;
-import data_access.InMemoryUserDataAccessObject;
-import data_access.PantryUserDataAccessObject;
-import entity.CommonUser;
-import entity.User;
+import entity.Users.CommonUser;
+import entity.Users.User;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

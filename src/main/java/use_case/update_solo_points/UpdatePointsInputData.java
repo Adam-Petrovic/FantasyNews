@@ -1,6 +1,6 @@
 package use_case.update_solo_points;
 
-import entity.User;
+import entity.Users.User;
 
 public class UpdatePointsInputData {
     private final User user;

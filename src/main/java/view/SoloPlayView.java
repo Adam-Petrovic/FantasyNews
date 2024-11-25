@@ -1,12 +1,11 @@
 package view;
 
 import data_access.Constants;
-import entity.User;
+import entity.Users.User;
 import interface_adapter.go_home.GoHomeController;
 import interface_adapter.solo_play.SoloPlayState;
 import interface_adapter.solo_play.SoloPlayViewModel;
 import interface_adapter.add_word.AddWordController;
-import interface_adapter.to_league.LeagueController;
 import interface_adapter.update_points.UpdatePointsController;
 
 import javax.swing.*;

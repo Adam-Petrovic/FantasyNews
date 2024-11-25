@@ -2,7 +2,7 @@ package use_case.update_solo_points;
 
 import data_access.Constants;
 import data_access.GuardianDataAccessObject;
-import entity.User;
+import entity.Users.User;
 
 public class UpdatePointsInteractor implements UpdatePointsInputBoundary{
     private final GuardianDataAccessObject guardianDataAccessObject;

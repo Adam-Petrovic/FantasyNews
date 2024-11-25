@@ -1,6 +1,6 @@
 package interface_adapter.update_points;
 
-import entity.User;
+import entity.Users.User;
 import use_case.update_solo_points.UpdatePointsInputBoundary;
 import use_case.update_solo_points.UpdatePointsInputData;
 

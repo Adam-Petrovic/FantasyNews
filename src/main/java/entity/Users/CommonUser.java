@@ -1,4 +1,4 @@
-package entity;
+package entity.Users;
 import data_access.Constants;
 
 import java.util.HashMap;
@@ -24,17 +24,6 @@ public class CommonUser implements User {
         this.name = name;
         this.password = password;
         createWordMap();
-//        if (draftedWords.length > Constants.NUM_CATEGORIES) {
-//            throw new InstantiationError("Inputted Words are too long");
-//        }
-//
-//        else if (hasDuplicates(draftedWords)) {
-//            throw new InstantiationError("Duplicated words in drafted word list");
-//        }
-
-//        else {
-//            createWordMap(draftedWords);
-//        }
     }
 
     public CommonUser(String name, String password, String[] terms) {
@@ -45,7 +34,7 @@ public class CommonUser implements User {
 
     private void createWordMap() {
 
-        String[] terms = {"Volleyball", "Gattaca", "Green Party", "Leaves", "Jokic"};
+        String[] terms = Constants.DEFAULT_TERMS;
         for (int index = 0; index < Constants.NUM_CATEGORIES; index++) {
             this.words.put(Constants.CATEGORIES[index], terms[index]);
             this.wordPointsForCategory.put(Constants.CATEGORIES[index], 0);
@@ -59,10 +48,10 @@ public class CommonUser implements User {
         }
     }
 
-    private boolean hasDuplicates(String[] draftedWords) {
-        Set<String> simplifiedWords = new HashSet<>(List.of(draftedWords));
-        return draftedWords.length == simplifiedWords.size();
-    }
+//    private boolean hasDuplicates(String[] draftedWords) {
+//        Set<String> simplifiedWords = new HashSet<>(List.of(draftedWords));
+//        return draftedWords.length == simplifiedWords.size();
+//    }
 
     @Override
     public String getName() {
@@ -128,6 +117,11 @@ public class CommonUser implements User {
         for(int index = 0; index < Constants.NUM_CATEGORIES; index++) {
             this.wordPointsForCategory.replace(Constants.CATEGORIES[index], points[index]);
         }
+
+    }
+
+    public HashMap getWordMap(){
+        return this.words;
     }
 
 

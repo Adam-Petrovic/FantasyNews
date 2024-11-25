@@ -1,10 +1,6 @@
 package use_case.solo_play;
 
-import data_access.GuardianDataAccessObject;
-import entity.CommonUserFactory;
-import entity.User;
-import entity.UserFactory;
-import use_case.login.LoginUserDataAccessInterface;
+import entity.Users.User;
 
 public class SoloPlayInteractor implements SoloPlayInputBoundary{
     private final SoloPlayOutputBoundary soloPlayPresenter;

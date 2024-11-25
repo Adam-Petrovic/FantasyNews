@@ -9,8 +9,8 @@ import java.util.Scanner;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import entity.User;
-import entity.UserFactory;
+import entity.Users.User;
+import entity.Users.UserFactory;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;

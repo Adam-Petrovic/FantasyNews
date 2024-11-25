@@ -1,6 +1,6 @@
 package interface_adapter.solo_play;
 
-import entity.User;
+import entity.Users.User;
 
 
 public class SoloPlayState {

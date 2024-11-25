@@ -1,4 +1,4 @@
-package entity;
+package entity.Users;
 
 /**
  * Factory for creating CommonUser objects.
