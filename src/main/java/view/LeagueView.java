@@ -4,6 +4,7 @@ import entity.League;
 import entity.User;
 import interface_adapter.create_league.CreateLeagueController;
 import interface_adapter.go_home.GoHomeController;
+import interface_adapter.signup.SignupState;
 import interface_adapter.to_league.LeagueState;
 import interface_adapter.to_league.LeagueViewModel;
 
@@ -89,6 +90,7 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
                 evt -> {
                     if (evt.getSource().equals(createLeagueButton)) {
                         String username = leagueViewModel.getState().getUsername();
+                        leagueViewModel.getState().setErrorMessage(null);
                         createLeagueController.execute(username, createLeagueID.getText());
                     }
                 }
@@ -138,6 +140,12 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
     //updating the league display yasssss
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        final LeagueState state = (LeagueState) evt.getNewValue();
+        if (state.getErrorMessage() != null) {
+            JOptionPane.showMessageDialog(this, state.getErrorMessage());
+            return;
+        }
+
         this.leagues = leagueViewModel.getState().getLeagues();
         this.displayLeaguePanel.remove(displayLeagueTabs);
         this.displayLeagueTabs = new JTabbedPane();

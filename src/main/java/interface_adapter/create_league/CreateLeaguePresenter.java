@@ -32,4 +32,11 @@ public class CreateLeaguePresenter implements CreateLeagueOutputBoundary {
         viewManagerModel.setState(leagueViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
     }
+
+    public void prepareFailureView(String errorMessage) {
+        final LeagueState leagueState = leagueViewModel.getState();
+        leagueState.setErrorMessage(errorMessage);
+        leagueViewModel.setState(leagueState);
+        leagueViewModel.firePropertyChanged();
+    }
 }
