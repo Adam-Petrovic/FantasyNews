@@ -2,26 +2,22 @@ package use_case.create_league;
 
 import entity.League;
 
+import java.util.ArrayList;
+
 public class CreateLeagueOutputData {
     private final String username;
-    private final String leagueID;
-    private final League league;
+    private final ArrayList<League> leagues;
 
-    public CreateLeagueOutputData(String username, String leagueID, League league) {
+    public CreateLeagueOutputData(String username, ArrayList<League> leagues) {
         this.username = username;
-        this.leagueID = leagueID;
-        this.league = league;
+        this.leagues = leagues;
     }
 
     public String getUsername() {
         return username;
     }
 
-    public String getLeagueID() {
-        return leagueID;
-    }
-
-    public League getLeague() {
-        return league;
+    public ArrayList<League> getLeagues() {
+        return leagues;
     }
 }

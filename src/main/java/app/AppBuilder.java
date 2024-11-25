@@ -197,6 +197,7 @@ public class AppBuilder {
         final GoHomeController goHomeController = new GoHomeController(goHomePresenter);
         soloPlayView.setGoHomeController(goHomeController);
         addFriendsView.setGoHomeController(goHomeController);
+        leagueView.setGoHomeController(goHomeController);
         return this;
     }
 
