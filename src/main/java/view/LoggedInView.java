@@ -103,7 +103,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         toLeague.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(toLeague)) {
-                        leagueController.execute();
+                        leagueController.execute(loggedInViewModel.getState().getUsername());
                     }
                 }
         );
@@ -120,7 +120,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 evt -> {
                     if (evt.getSource().equals(addFriends)) {
                         addFriendsController.execute(loggedInViewModel.getState().getUsername());
-
                     }
                 }
         );

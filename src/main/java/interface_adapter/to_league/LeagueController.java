@@ -8,6 +8,10 @@ public class LeagueController {
         this.leaguePresenter = leaguePresenter;
     }
 
+    public void execute(String username){
+        leaguePresenter.execute(username);
+    }
+
     public void execute(){
         leaguePresenter.execute();
     }
