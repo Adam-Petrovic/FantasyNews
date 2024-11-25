@@ -19,9 +19,11 @@ public class RankingsView extends JPanel implements PropertyChangeListener {
 
     public RankingsView(RankingsViewModel rankingsViewModel) {
         //rankings table
+        this.league = new League();
         this.rankingsViewModel = rankingsViewModel;
+        rankingsViewModel.getState().setLeague(this.league);
         //this.user = rankingsViewModel.getState().getUser();
-        this.league = rankingsViewModel.getState().getLeague();
+        //this.league = rankingsViewModel.getState().getLeague();
 
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.X_AXIS));
@@ -67,4 +69,9 @@ public class RankingsView extends JPanel implements PropertyChangeListener {
     public void propertyChange(PropertyChangeEvent evt) {
 
     }
+
+    public void setUpdateRankingsController(UpdateRankingsController updateRankingsController) {
+        this.updateRankingsController = updateRankingsController;
+    }
+
 }

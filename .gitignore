@@ -7,6 +7,7 @@ target/
 .idea/modules.xml
 .idea/jarRepositories.xml
 .idea/compiler.xml
+.idea/misc.xml
 .idea/libraries/
 *.iws
 *.iml
@@ -42,4 +43,4 @@ guardianAPIToken.txt
 
 ### Pantry API Key ###
 pantryAPIkey.txt
-pantryAPIkeypersonal.txt
+pantryAPIkeyLeague.txt

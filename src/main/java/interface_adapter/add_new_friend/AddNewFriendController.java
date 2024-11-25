@@ -10,8 +10,8 @@ public class AddNewFriendController {
         this.addNewFriendInteractor = addNewFriendInteractor;
     }
 
-    public void execute(String friend_username) {
-        final AddNewFriendInputData addNewFriendInputData = new AddNewFriendInputData(friend_username);
+    public void execute(String friend_username, String username) {
+        final AddNewFriendInputData addNewFriendInputData = new AddNewFriendInputData(friend_username, username);
         addNewFriendInteractor.execute(addNewFriendInputData);
     }
 }

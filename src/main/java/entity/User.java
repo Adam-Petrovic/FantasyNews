@@ -1,5 +1,6 @@
 package entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -41,5 +42,9 @@ public interface User {
 
     List<User> getFriends();
 
-    String getLeagueID();
+    ArrayList<String> getLeagueIDs();
+
+    public void setLeagueIDs(ArrayList<String> leagueIDs);
+
+    public String [] getLeagueWords();
 }

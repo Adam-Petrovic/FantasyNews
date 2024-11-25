@@ -14,4 +14,9 @@ public class CreateLeagueController {
         CreateLeagueInputData createLeagueInputData = new CreateLeagueInputData(username, leagueID);
         createLeagueInteractor.execute(createLeagueInputData);
     }
+
+    public void execute(String username){
+        CreateLeagueInputData createLeagueInputData = new CreateLeagueInputData(username, null);
+        createLeagueInteractor.execute(createLeagueInputData);
+    }
 }
