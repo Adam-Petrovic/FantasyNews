@@ -63,7 +63,7 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
         this.userFactory = userFactory;
         try {
         // if you run into an issue here, it menas that you don't have your pantry API key, text Alex to get it
-            this.pantryID = new Scanner(new File("pantryAPIkey.txt")).nextLine();
+            this.pantryID = new Scanner(new File("pantryAPIkeypersonal.txt")).nextLine();
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -74,7 +74,7 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
     @Override
     public User get(String username) {
         // Make an API call to get the user object.
-        //System.out.println(username);
+        System.out.println("User: " + username);
         final String fullURL = API_URL + pantryID + "/basket/" + username;
         final OkHttpClient client = new OkHttpClient().newBuilder().build();
         final Request request = new Request.Builder()
@@ -82,12 +82,15 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
                 .get()
                 .build();
         try {
+            System.out.println("here");
             final Response response = client.newCall(request).execute();
 
+            System.out.println("made it past execute");
             final JSONObject responseBody = new JSONObject(response.body().string());
             System.out.println(responseBody);
             if (response.isSuccessful()) {
                 //gets leagueIDs
+
                 final JSONArray leaguesArray = responseBody.getJSONArray(LEAGUES);
                 final ArrayList<String> leagues = new ArrayList<String>();
                 for(int i = 0; i < leaguesArray.length(); i++) {
@@ -233,20 +236,24 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
     //league functions
     @Override
     public ArrayList<String> updateUserLeagues(String username, String leagueID) {
-        ArrayList<String> meow = new ArrayList<>();
-        meow.add("meow");
-        meow.add("meow");
-        return meow;
-    }
+        //gets initial league list & updates it
+        ArrayList<String> leagues = getUserLeagues(username);
+        leagues.add(leagueID);
 
-    @Override
-    public boolean inLeague(String username) {
-        return false;
+        //updates league list in database
+        addLeague(username, leagues);
+        System.out.println("added league");
+
+
+        //return updated league list
+        return getUserLeagues(username);
     }
 
     @Override
     public League getLeague(String leagueID) {
-        return new League();
+        ArrayList<User> users = new ArrayList();
+        users.add(get(this.currentUsername));
+        return new League(leagueID, users);
     }
 
     @Override
@@ -254,4 +261,15 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
         return false;
     }
 
+    public void addLeague(String username, ArrayList<String> leagues) {
+        User user = get(username);
+        user.setLeagueIDs(leagues);
+        save(user);
+    }
+
+    public ArrayList<String> getUserLeagues(String username){
+        //could make more efficient by directly accessing league data in user basket?
+        System.out.println(username);
+        return get(username).getLeagueID();
+    };
 }

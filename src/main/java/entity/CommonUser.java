@@ -157,4 +157,8 @@ public class CommonUser implements User {
     public ArrayList<String> getLeagueIDs(){
         return this.leagueIDs;
     }
+
+    public void setLeagueIDs(ArrayList<String> leagueIDs) {
+        this.leagueIDs = leagueIDs;
+    }
 }

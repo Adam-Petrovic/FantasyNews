@@ -43,4 +43,6 @@ public interface User {
     List<User> getFriends();
 
     ArrayList<String> getLeagueID();
+
+    public void setLeagueIDs(ArrayList<String> leagueIDs);
 }

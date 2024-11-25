@@ -9,10 +9,8 @@ public interface CreateLeagueUserDataAccessInterface {
     //updates user's array list of id's and returns it
     public ArrayList<String> updateUserLeagues(String username, String leagueID);
     
-    public boolean inLeague(String username);
     public League getLeague(String leagueID);
     public User get(String username);
-
     boolean leagueExist(String leagueID);
 }
 

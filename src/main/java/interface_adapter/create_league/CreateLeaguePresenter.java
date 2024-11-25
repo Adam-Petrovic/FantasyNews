@@ -23,6 +23,7 @@ public class CreateLeaguePresenter implements CreateLeagueOutputBoundary {
     public void prepareSuccessView(CreateLeagueOutputData createLeagueOutputData) {
         final LeagueState leagueState = leagueViewModel.getState();
         leagueState.setLeagues(createLeagueOutputData.getLeagues());
+        leagueState.setUsername(createLeagueOutputData.getUsername());
 
         //setting viewModel to state
         leagueViewModel.setState(leagueState);
