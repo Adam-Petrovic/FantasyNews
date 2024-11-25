@@ -8,6 +8,7 @@ public class LeagueState {
     private ArrayList<String> leagueIDs;
     private ArrayList<League> leagues;
     private String username;
+    private String errorMessage;
 
     public ArrayList<String> getLeagueIDs() {
         return leagueIDs;
@@ -28,6 +29,14 @@ public class LeagueState {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
+    public String getErrorMessage() {
+        return errorMessage;
     }
 
 }

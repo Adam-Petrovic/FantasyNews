@@ -47,6 +47,7 @@ public class CreateLeagueInteractor implements CreateLeagueInputBoundary{
         }
         else{
             System.out.println("league already exists -- join that hoe");
+            createLeaguePresenter.prepareFailureView("League Already Exists");
         }
     }
 
