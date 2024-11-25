@@ -63,7 +63,7 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
         this.userFactory = userFactory;
         try {
         // if you run into an issue here, it menas that you don't have your pantry API key, text Alex to get it
-            this.pantryID = new Scanner(new File("pantryAPIkeypersonal.txt")).nextLine();
+            this.pantryID = new Scanner(new File("pantryAPIkey.txt")).nextLine();
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -106,7 +106,6 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
             }
         }
         catch (IOException | JSONException ex) {
-            System.out.println("fuck you");
             throw new RuntimeException(ex);
         }
     }
