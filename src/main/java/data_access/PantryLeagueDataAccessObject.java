@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import use_case.create_league.CreateLeagueLeagueDataAccessInterface;
+import use_case.update_rankings.UpdateRankingsLeagueDataAccessInterface;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,7 +18,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
 
-public class PantryLeagueDataAccessObject implements CreateLeagueLeagueDataAccessInterface {
+public class PantryLeagueDataAccessObject implements CreateLeagueLeagueDataAccessInterface, UpdateRankingsLeagueDataAccessInterface {
     private final LeagueFactory leagueFactory;
 
     private static final int SUCCESS_CODE = 200;

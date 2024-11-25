@@ -3,14 +3,14 @@ package use_case.update_rankings;
 import entity.League;
 
 public class UpdateRankingsInputData {
-    private final League league;
+    private final String leagueID;
 
-    public UpdateRankingsInputData(League league) {
-        this.league = league;
+    public UpdateRankingsInputData(String leagueID) {
+        this.leagueID = leagueID;
     }
 
-    public League getLeague() {
-        return league;
+    public String getLeague() {
+        return leagueID;
     }
 }
 

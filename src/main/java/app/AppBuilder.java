@@ -83,6 +83,7 @@ import use_case.to_league.LeagueOutputBoundary;
 import use_case.to_rankings.RankingsOutputBoundary;
 import use_case.update_rankings.UpdateRankingsInputBoundary;
 import use_case.update_rankings.UpdateRankingsInteractor;
+import use_case.update_rankings.UpdateRankingsLeagueDataAccessInterface;
 import use_case.update_rankings.UpdateRankingsOutputBoundary;
 import use_case.update_solo_points.UpdatePointsInputBoundary;
 import use_case.update_solo_points.UpdatePointsInteractor;
@@ -262,7 +263,7 @@ public class AppBuilder {
 
         try {
             final GuardianDataAccessObject guardianDataAccessObject = makeGuardianDataAccessObject();
-            final UpdateRankingsInputBoundary updateRankingsInteractor = new UpdateRankingsInteractor(guardianDataAccessObject, updateRankingsPresenter);
+            final UpdateRankingsInputBoundary updateRankingsInteractor = new UpdateRankingsInteractor(guardianDataAccessObject, updateRankingsPresenter, leagueDataAccessObject, userDataAccessObject);
             final UpdateRankingsController updateRankingsController = new UpdateRankingsController(updateRankingsInteractor);
             rankingsView.setUpdateRankingsController(updateRankingsController);
             loggedInView.setToRankingsController(rankingsController);

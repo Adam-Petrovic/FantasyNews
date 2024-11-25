@@ -52,9 +52,12 @@ public class RankingsView extends JPanel implements PropertyChangeListener {
         JButton updateRankings = new JButton("Update Rankings");
         mainPanel.add(updateRankings);
 
+        JTextField rankingsLeagueID = new JTextField("Enter League ID");
+        mainPanel.add(rankingsLeagueID);
+
         updateRankings.addActionListener(evt -> {
             if (evt.getSource() == updateRankings) {
-                updateRankingsController.execute(this.league);
+                updateRankingsController.execute(rankingsLeagueID.getText());
             }
         });
 
