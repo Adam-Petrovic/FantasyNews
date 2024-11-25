@@ -5,6 +5,7 @@ import entity.User;
 import use_case.signup.SignupOutputBoundary;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.concurrent.TimeUnit;
 
 public class CreateLeagueInteractor implements CreateLeagueInputBoundary{
@@ -25,7 +26,7 @@ public class CreateLeagueInteractor implements CreateLeagueInputBoundary{
         String leagueID = createLeagueInputData.getLeagueID();
 
         if(!leagueDataAccessInterface.leagueExist(leagueID)){
-            sleep(2);
+            sleep(3);
             User user = userDataAccessInterface.get(username);
             sleep(2);
             leagueDataAccessInterface.saveNewLeague(user, leagueID);
@@ -34,7 +35,8 @@ public class CreateLeagueInteractor implements CreateLeagueInputBoundary{
             sleep(2);
             ArrayList<League> leagues = new ArrayList<>();
             for(String id : leagueIDs) {
-                leagues.add(createLeague(id, leagueDataAccessInterface.getLeagueUsers(id)));
+                sleep(3);
+                leagues.add(createLeague(id, leagueDataAccessInterface.getLeagueUsers(id), leagueDataAccessInterface.getData(id)));
             }
             //if no leagues, don't update the view & change my nice cat jpg :(
             if(leagues.isEmpty()){
@@ -58,13 +60,15 @@ public class CreateLeagueInteractor implements CreateLeagueInputBoundary{
     }
 
     //creates league from usernames given by league database
-    public League createLeague(String id, ArrayList<String> usernames){
+    public League createLeague(String id, ArrayList<String> usernames, HashMap<String, String[]> data){
         ArrayList<User> users = new ArrayList();
-        for (String username : usernames) {
+        HashMap<User, String[]> finalData = new HashMap<>();
+        for(String username: data.keySet()){
             sleep(3);
             User user = userDataAccessInterface.get(username);
             users.add(user);
+            finalData.put(user, data.get(username));
         }
-        return new League(id, users);
+        return new League(id, users, finalData);
     }
 }

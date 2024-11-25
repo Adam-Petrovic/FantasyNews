@@ -13,6 +13,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Scanner;
 
 public class PantryLeagueDataAccessObject implements CreateLeagueLeagueDataAccessInterface {
@@ -23,6 +25,7 @@ public class PantryLeagueDataAccessObject implements CreateLeagueLeagueDataAcces
     private static final String CONTENT_TYPE_JSON = "application/json";
     private static final String STATUS_CODE_LABEL = "status_code";
     private static final String USERS = "users";
+    private static final String DATA = "data";
     private static final String API_URL = "https://getpantry.cloud/apiv1/pantry/";
     private static String pantryID;
 
@@ -104,6 +107,9 @@ public class PantryLeagueDataAccessObject implements CreateLeagueLeagueDataAcces
         ArrayList<String> usernames = new ArrayList<>();
         usernames.add(user.getName());
         requestBody.put(USERS, usernames);
+        HashMap<String, String[]> data = new HashMap<String, String[]>();
+        data.put(user.getName(), new String[]{"woof", "meow"});
+        requestBody.put(DATA, data);
 
         final RequestBody body = RequestBody.create(requestBody.toString(), mediaType);
         final Request request = new Request.Builder()
@@ -122,6 +128,47 @@ public class PantryLeagueDataAccessObject implements CreateLeagueLeagueDataAcces
         }
         catch (IOException | JSONException ex) {
             System.out.println("error in creation");
+            throw new RuntimeException(ex);
+        }
+    }
+
+    @Override
+    public HashMap<String, String[]> getData(String leagueID) {
+        // Make an API call to get the user object.
+        final String fullURL = API_URL + pantryID + "/basket/" + leagueID;
+        final OkHttpClient client = new OkHttpClient().newBuilder().build();
+        final Request request = new Request.Builder()
+                .url(fullURL)
+                .get()
+                .build();
+        try {
+            final Response response = client.newCall(request).execute();
+            final JSONObject responseBody = new JSONObject(response.body().string());
+            if (response.isSuccessful()) {
+                //gets data, turn back into HashMap
+                final HashMap <String, String[]> data = new HashMap<String, String[]>();
+                final JSONObject dataArray = responseBody.getJSONObject(DATA);
+
+                //iterate through users
+                Iterator<String> usernames = dataArray.keys();
+                while(usernames.hasNext()){
+                    //get words
+                    final String username = usernames.next();
+                    final JSONArray wordData = dataArray.getJSONArray(username);
+                    String[] words = new String[wordData.length()];
+                    for(int i = 0; i < wordData.length(); i++){
+                        words[i] = wordData.getString(i);
+                    }
+                    data.put(username, words);
+                }
+                return data;
+            }
+            else {
+                System.out.println("user does not exist");
+                throw new RuntimeException("league does not exist");
+            }
+        }
+        catch (IOException | JSONException ex) {
             throw new RuntimeException(ex);
         }
     }
