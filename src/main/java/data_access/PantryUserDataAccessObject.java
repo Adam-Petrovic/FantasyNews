@@ -230,6 +230,12 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
     //league functions
     @Override
     public ArrayList<String> updateUserLeagues(User user, String leagueID) {
+        //case where just switched into the pane
+        //also means can't create a league without a name!
+        if(leagueID == null){
+            return user.getLeagueIDs();
+        }
+
         //updates user object locally
         user.getLeagueIDs().add(leagueID);
 

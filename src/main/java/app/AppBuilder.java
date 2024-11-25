@@ -139,6 +139,7 @@ public class AppBuilder {
         final CreateLeagueOutputBoundary createLeaguePresenter = new CreateLeaguePresenter(viewManagerModel, leagueViewModel);
         final CreateLeagueInputBoundary createLeagueInteractor = new CreateLeagueInteractor(createLeaguePresenter, userDataAccessObject);
         final CreateLeagueController controller = new CreateLeagueController(createLeagueInteractor);
+        loggedInView.setCreateLeagueController(controller);
         leagueView.setCreateLeagueController(controller);
         return this;
     }
