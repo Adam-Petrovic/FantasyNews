@@ -163,12 +163,14 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
     public JScrollPane makeLeagueScrollPane(League league){
         JScrollPane leagueScrollPane = new JScrollPane();
         ArrayList<User> users = league.getUsers();
-        String[] columnNames = {"Member", "Points"};
-        String[][] info = new String[users.size()][2];
+        String[] columnNames = {"Member", "Words", "Points"};
+        String[][] info = new String[users.size()][3];
 
         for(int i = 0; i < users.size(); i++) {
             info[i][0] = users.get(i).getName();
-            info[i][1] = String.valueOf(users.get(i).getLeaguePoints());
+            String[] words = league.getData().get(users.get(i));
+            info[i][1] = words[0] + ", " + words[1];
+            info[i][2] = String.valueOf(users.get(i).getLeaguePoints());
         }
 
         JTable leagueTable = new JTable(info, columnNames);

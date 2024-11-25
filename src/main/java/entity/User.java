@@ -45,4 +45,6 @@ public interface User {
     ArrayList<String> getLeagueIDs();
 
     public void setLeagueIDs(ArrayList<String> leagueIDs);
+
+    public String [] getLeagueWords();
 }
