@@ -15,8 +15,9 @@ public class AddNewFriendInteractor implements AddNewFriendInputBoundary{
             final AddNewFriendOutputData addNewFriendOutputData = new AddNewFriendOutputData(userDataAccessObject.get(addNewFriendInputData.getFriend_username()));
             addNewFriendPresenter.prepareSuccessView(addNewFriendOutputData);
         }
-        else {
+        else if (!userDataAccessObject.existsByName(addNewFriendInputData.getFriend_username())) {
             addNewFriendPresenter.prepareFailView("User " + addNewFriendInputData.getFriend_username() + " not found.");
         }
+        //else if ()
     }
 }
