@@ -14,6 +14,7 @@ import data_access.Constants;
 import interface_adapter.add_friends.AddFriendsController;
 import interface_adapter.change_password.LoggedInState;
 import interface_adapter.change_password.LoggedInViewModel;
+import interface_adapter.create_league.CreateLeagueController;
 import interface_adapter.draft.DraftController;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.solo_play.SoloPlayController;
@@ -29,6 +30,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private LogoutController logoutController;
     private SoloPlayController soloPlayController;
     private LeagueController leagueController;
+    private CreateLeagueController createLeagueController;
     private RankingsController rankingsController;
     private AddFriendsController addFriendsController;
     private DraftController draftController;
@@ -104,6 +106,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 evt -> {
                     if (evt.getSource().equals(toLeague)) {
                         leagueController.execute(loggedInViewModel.getState().getUsername());
+                        createLeagueController.execute(loggedInViewModel.getState().getUsername());
                     }
                 }
         );
@@ -168,6 +171,10 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
     public void setDraftController(DraftController draftController){
         this.draftController = draftController;
+    }
+
+    public void setCreateLeagueController(CreateLeagueController createLeagueController){
+        this.createLeagueController = createLeagueController;
     }
 
 }
