@@ -168,7 +168,6 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
 
         for(int i = 0; i < users.size(); i++) {
             info[i][0] = users.get(i).getName();
-            System.out.println(users.get(i).getName());
             info[i][1] = String.valueOf(users.get(i).getLeaguePoints());
         }
 

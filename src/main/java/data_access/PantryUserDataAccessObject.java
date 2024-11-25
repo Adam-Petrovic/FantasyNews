@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import entity.CommonUser;
 import entity.League;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -82,7 +83,6 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
                 .build();
         try {
             final Response response = client.newCall(request).execute();
-            System.out.println("trying to use get(user)");
             final JSONObject responseBody = new JSONObject(response.body().string());
             if (response.isSuccessful()) {
                 //gets leagueIDs
@@ -250,6 +250,7 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
     public League getLeague(User user, String leagueID) {
         ArrayList<User> users = new ArrayList();
         users.add(user);
+        users.add(new CommonUser("meow", "meow"));
         return new League(leagueID, users);
     }
 
@@ -258,6 +259,7 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
         return false;
     }
 
+    //adds leagueID to user's league list in basket
     public void addLeague(User user, ArrayList<String> updatedLeagues) {
         final OkHttpClient client = new OkHttpClient().newBuilder().build();
         final MediaType mediaType = MediaType.parse("application/json");
