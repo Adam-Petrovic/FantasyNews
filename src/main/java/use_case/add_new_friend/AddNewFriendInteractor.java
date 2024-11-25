@@ -16,7 +16,7 @@ public class AddNewFriendInteractor implements AddNewFriendInputBoundary{
             addNewFriendPresenter.prepareSuccessView(addNewFriendOutputData);
         }
         else {
-            addNewFriendPresenter.prepareFailView("User not found.");
+            addNewFriendPresenter.prepareFailView("User " + addNewFriendInputData.getFriend_username() + " not found.");
         }
     }
 }

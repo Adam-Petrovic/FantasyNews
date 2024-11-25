@@ -1,5 +1,7 @@
 package entity;
 
+import java.util.List;
+
 /**
  * The representation of a user in our program.
  */
@@ -35,6 +37,9 @@ public interface User {
 
     void setPoints(int[] points);
 
-    void addFriend(User user);
+    void addFriend(User friend);
 
+    List<User> getFriends();
+
+    String getLeagueID();
 }

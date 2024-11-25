@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import entity.League;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,8 +20,11 @@ import okhttp3.Response;
 import use_case.add_friends.AddFriendsUserDataAccessInterface;
 import use_case.add_new_friend.AddNewFriendUserDataAccessInterface;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
+import use_case.create_league.CreateLeagueUserDataAccessInterface;
+import use_case.draft.DraftUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
+import use_case.signup.SignupOutputBoundary;
 import use_case.signup.SignupUserDataAccessInterface;
 import use_case.solo_play.SoloPlayUserDataAccessInterface;
 
@@ -34,7 +38,9 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
         LogoutUserDataAccessInterface,
         SoloPlayUserDataAccessInterface,
         AddFriendsUserDataAccessInterface,
-        AddNewFriendUserDataAccessInterface {
+        AddNewFriendUserDataAccessInterface,
+        DraftUserDataAccessInterface,
+        CreateLeagueUserDataAccessInterface{
     private static final int SUCCESS_CODE = 200;
     private static final String CONTENT_TYPE_LABEL = "Content-Type";
     private static final String CONTENT_TYPE_JSON = "application/json";
@@ -44,6 +50,7 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
     private static final String WORDS = "words";
     private static final String POINTS = "points";
     private static final String MESSAGE = "message";
+    private static final String LEAGUE = "league";
     private final UserFactory userFactory;
     private static final String API_URL = "https://getpantry.cloud/apiv1/pantry/";
     private static String pantryID;
@@ -135,6 +142,7 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
         final MediaType mediaType = MediaType.parse(CONTENT_TYPE_JSON);
         final JSONObject requestBody = new JSONObject();
         requestBody.put(PASSWORD, user.getPassword());
+        requestBody.put(LEAGUE, user.getLeagueID());
         HashMap<String, String> words = new HashMap<String, String>();
         HashMap<String, Integer> wordPointsForCategory = new HashMap<String, Integer>();
 
@@ -211,5 +219,20 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
     @Override
     public String getCurrentUsername() {
         return this.currentUsername;
+    }
+
+    @Override
+    public void setUserLeague(String username, String leagueID) {
+        System.out.println("leagueID: " + leagueID);
+    }
+
+    @Override
+    public boolean inLeague(String username) {
+        return false;
+    }
+
+    @Override
+    public League getLeague(String leagueID) {
+        return new League();
     }
 }

@@ -24,6 +24,11 @@ import interface_adapter.add_new_friend.AddNewFriendPresenter;
 import interface_adapter.add_word.AddWordController;
 import interface_adapter.add_word.AddWordPresenter;
 import interface_adapter.change_password.LoggedInViewModel;
+import interface_adapter.create_league.CreateLeagueController;
+import interface_adapter.create_league.CreateLeaguePresenter;
+import interface_adapter.draft.DraftController;
+import interface_adapter.draft.DraftPresenter;
+import interface_adapter.draft.DraftViewModel;
 import interface_adapter.go_home.GoHomeController;
 import interface_adapter.go_home.GoHomePresenter;
 import interface_adapter.login.LoginController;
@@ -55,6 +60,12 @@ import use_case.add_new_friend.AddNewFriendOutputBoundary;
 import use_case.add_word.AddWordInputBoundary;
 import use_case.add_word.AddWordInteractor;
 import use_case.add_word.AddWordOutputBoundary;
+import use_case.create_league.CreateLeagueInputBoundary;
+import use_case.create_league.CreateLeagueInteractor;
+import use_case.create_league.CreateLeagueOutputBoundary;
+import use_case.draft.DraftInputBoundary;
+import use_case.draft.DraftInteractor;
+import use_case.draft.DraftOutputBoundary;
 import use_case.goHome.GoHomeOutputBoundary;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInteractor;
@@ -73,6 +84,10 @@ import use_case.to_rankings.RankingsOutputBoundary;
 import use_case.update_solo_points.UpdatePointsInputBoundary;
 import use_case.update_solo_points.UpdatePointsInteractor;
 import use_case.update_solo_points.UpdatePointsOutputBoundary;
+
+//import entity.*;
+//import interface_adapter.*;
+//import use_case.*;
 import view.*;
 
 /**
@@ -105,6 +120,7 @@ public class AppBuilder {
     private LeagueViewModel leagueViewModel;
     private RankingsViewModel rankingsViewModel;
     private AddFriendsViewModel addFriendsViewModel;
+    private DraftViewModel draftViewModel;
 
     private LoggedInView loggedInView;
     private LoginView loginView;
@@ -113,11 +129,35 @@ public class AppBuilder {
     private LeagueView leagueView;
     private RankingsView rankingsView;
     private AddFriendsView addFriendsView;
+    private DraftView draftView;
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
     }
 
+    public AppBuilder addCreateLeagueUseCase(){
+        final CreateLeagueOutputBoundary createLeaguePresenter = new CreateLeaguePresenter(viewManagerModel, leagueViewModel);
+        final CreateLeagueInputBoundary createLeagueInteractor = new CreateLeagueInteractor(createLeaguePresenter, userDataAccessObject);
+        final CreateLeagueController controller = new CreateLeagueController(createLeagueInteractor);
+        leagueView.setCreateLeagueController(controller);
+        return this;
+    }
+
+    public AppBuilder addDraftView(){
+        draftViewModel = new DraftViewModel();
+        draftView = new DraftView(draftViewModel);
+        cardPanel.add(draftView, "draft");
+        return this;
+    }
+
+
+    public AppBuilder addDraftUseCase(){
+        final DraftOutputBoundary draftPresenter = new DraftPresenter(viewManagerModel, draftViewModel);
+        final DraftInputBoundary draftInteractor = new DraftInteractor(draftPresenter, userDataAccessObject);
+        final DraftController controller = new DraftController(draftInteractor);
+        loggedInView.setDraftController(controller);
+        return this;
+    }
     /**
      * Adds the Signup View to the application.
      * @return this builder
@@ -156,6 +196,7 @@ public class AppBuilder {
         final GoHomeOutputBoundary goHomePresenter = new GoHomePresenter(viewManagerModel, loggedInViewModel);
         final GoHomeController goHomeController = new GoHomeController(goHomePresenter);
         soloPlayView.setGoHomeController(goHomeController);
+        addFriendsView.setGoHomeController(goHomeController);
         return this;
     }
 
