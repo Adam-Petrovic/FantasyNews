@@ -67,7 +67,7 @@ public class AddFriendsView extends JPanel implements ActionListener, PropertyCh
                     if (evt.getSource().equals(addFriend)) {
                         String friend = addFriendsViewModel.getState().getFriend_username();
                         addFriendsViewModel.getState().setFriend_usernameError(null);
-                        addNewFriendController.execute(friend);
+                        addNewFriendController.execute(friend, addFriendsViewModel.getState().getUsername());
                     }
                 });
 
