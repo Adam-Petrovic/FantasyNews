@@ -14,6 +14,7 @@ import use_case.logout.LogoutUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 import use_case.solo_play.SoloPlayUserDataAccessInterface;
 import use_case.update_leagues.UpdateLeaguesUserDataAccessInterface;
+import use_case.update_rankings.UpdateRankingsUserDataAccessInterface;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -29,7 +30,8 @@ public class NewPantryUserDataAccessObject implements SignupUserDataAccessInterf
                                                         LogoutUserDataAccessInterface,
                                                         SoloPlayUserDataAccessInterface,
                                                         AddFriendsUserDataAccessInterface,
-                                                        UpdateLeaguesUserDataAccessInterface {
+                                                        UpdateLeaguesUserDataAccessInterface,
+                                                        UpdateRankingsUserDataAccessInterface {
     private static final int SUCCESS_CODE = 200;
     private static final String CONTENT_TYPE_LABEL = "Content-Type";
     private static final String CONTENT_TYPE_JSON = "application/json";
@@ -216,7 +218,7 @@ public class NewPantryUserDataAccessObject implements SignupUserDataAccessInterf
                 System.out.println("saved user data");
             } else {
                 System.out.println("failed to save user data");
-                throw new RuntimeException("Failed to update user: " + response.message());
+                throw new RuntimeException("failed to save user: " + response.message());
             }
         } catch (IOException | JSONException ex) {
             throw new RuntimeException("Error", ex);

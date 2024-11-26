@@ -25,11 +25,12 @@ public class UpdateLeaguesInteractor implements UpdateLeaguesInputBoundary{
         ArrayList<String> userLeagueIDList;
         //join league
         if(updateLeaguesInputData.isJoin()){
+            System.out.println("here");
             if (!leagueDataAccessObject.LeagueExists(leagueID)) {
                 updateLeaguesPresenter.prepareFailView("League Does Not Exist");
                 return;
             }
-            //update user league list & returns updated list of leagues
+            //update user league list & returns list of leagues
             userLeagueIDList = userDataAccessObject.addLeague(username,  leagueID);
             //update league's list of users
             leagueDataAccessObject.addUserToLeague(leagueID, username);
@@ -47,7 +48,6 @@ public class UpdateLeaguesInteractor implements UpdateLeaguesInputBoundary{
         }
         //no leagues, then keep original view, so no presenter needed
         if(userLeagueIDList.isEmpty()){
-            System.out.println("empty");
             return;
         }
         ArrayList<League> userLeagueList = leagueDataAccessObject.getLeagues(userLeagueIDList);
