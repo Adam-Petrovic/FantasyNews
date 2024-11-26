@@ -6,6 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import use_case.update_leagues.UpdateLeaguesLeagueDataAccessInterface;
+import use_case.update_rankings.UpdateRankingsLeagueDataAccessInterface;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,7 +14,8 @@ import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.TimeUnit;
 
-public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataAccessInterface {
+public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataAccessInterface,
+        UpdateRankingsLeagueDataAccessInterface {
 
 
     private static final int SUCCESS_CODE = 200;
@@ -40,13 +42,22 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
+    }
 
+    //should probably be combined into one: getLeague so less API calls?
+    @Override
+    public ArrayList<String> getLeagueUsers(String leagueID) {
+        return null;
+    }
+
+    @Override
+    public HashMap<String, String[]> getData(String leagueID) {
+        return null;
     }
 
     @Override
     public void saveNewLeague(String leagueID, String username) {
         if(leagueID.equals("")){
-            System.out.println("here");
             return;
         }
 
@@ -79,10 +90,12 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
         for(int i = 0; i < jsonUsers.length(); i++) {
             usernames.add(jsonUsers.getString(i));
         }
+        usernames.add(username);
         leagueData.put(USERS, usernames);
         save(allLeagueData);
     }
 
+    //prevents multiple calls to get
     @Override
     public ArrayList<League> getLeagues(ArrayList<String> userLeagueIDList) {
         ArrayList<League> leagues = new ArrayList<>();
@@ -107,7 +120,7 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
 
     //gets entire basket (all league data)
     public JSONObject get() {
-        sleep(2);
+        sleep(3);
         // Make an API call to get the user object.
         final String fullURL = API_URL + key + "/basket/" + BASKET_NAME;
         final OkHttpClient client = new OkHttpClient().newBuilder().build();
@@ -153,7 +166,7 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
                 System.out.println("saved league data");
             } else {
                 System.out.println("failed to save league data");
-                throw new RuntimeException("Failed to update leagues: " + response.message());
+                throw new RuntimeException("failed to update league: " + response.message());
             }
         } catch (IOException | JSONException ex) {
             throw new RuntimeException("Error", ex);

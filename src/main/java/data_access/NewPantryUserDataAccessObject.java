@@ -14,6 +14,7 @@ import use_case.logout.LogoutUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 import use_case.solo_play.SoloPlayUserDataAccessInterface;
 import use_case.update_leagues.UpdateLeaguesUserDataAccessInterface;
+import use_case.update_rankings.UpdateRankingsUserDataAccessInterface;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -29,7 +30,8 @@ public class NewPantryUserDataAccessObject implements SignupUserDataAccessInterf
                                                         LogoutUserDataAccessInterface,
                                                         SoloPlayUserDataAccessInterface,
                                                         AddFriendsUserDataAccessInterface,
-                                                        UpdateLeaguesUserDataAccessInterface {
+                                                        UpdateLeaguesUserDataAccessInterface,
+                                                        UpdateRankingsUserDataAccessInterface {
     private static final int SUCCESS_CODE = 200;
     private static final String CONTENT_TYPE_LABEL = "Content-Type";
     private static final String CONTENT_TYPE_JSON = "application/json";
@@ -98,6 +100,17 @@ public class NewPantryUserDataAccessObject implements SignupUserDataAccessInterf
         userData.put(LEAGUES, leagueIDs);
         save(allUserData);
         return leagueIDs;
+    }
+
+    @Override
+    public boolean userInLeague(String username, String leagueID) {
+        JSONObject allUserData = get();
+        JSONObject userData = allUserData.getJSONObject(username);
+        JSONArray jsonLeagues = userData.getJSONArray(LEAGUES);
+        if(toArrayList(jsonLeagues).contains(leagueID)){
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -216,7 +229,7 @@ public class NewPantryUserDataAccessObject implements SignupUserDataAccessInterf
                 System.out.println("saved user data");
             } else {
                 System.out.println("failed to save user data");
-                throw new RuntimeException("Failed to update user: " + response.message());
+                throw new RuntimeException("failed to save user: " + response.message());
             }
         } catch (IOException | JSONException ex) {
             throw new RuntimeException("Error", ex);
@@ -229,5 +242,13 @@ public class NewPantryUserDataAccessObject implements SignupUserDataAccessInterf
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public <T> ArrayList<T> toArrayList(JSONArray jsonArray){
+        ArrayList<T> arrayList = new ArrayList<>();
+        for(int i = 0; i < jsonArray.length(); i++){
+            arrayList.add((T) jsonArray.get(i));
+        }
+        return arrayList;
     }
 }

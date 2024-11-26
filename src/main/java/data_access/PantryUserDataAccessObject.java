@@ -44,7 +44,7 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
         AddFriendsUserDataAccessInterface,
         DraftUserDataAccessInterface,
         UpdateLeaguesUserDataAccessInterface,
-        UpdateRankingsUserDataAccessInterface {
+        UpdateRankingsUserDataAccessInterface{
 
     private static final int SUCCESS_CODE = 200;
     private static final String CONTENT_TYPE_LABEL = "Content-Type";
@@ -296,5 +296,10 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
     @Override
     public ArrayList<String> addLeague(String username, String leagueID) {
         return null;
+    }
+
+    @Override
+    public boolean userInLeague(String username, String leagueID) {
+        return false;
     }
 }
