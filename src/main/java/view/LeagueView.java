@@ -188,7 +188,7 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
             info[i][0] = users.get(i);
             String[] words = league.getData().get(users.get(i));
             info[i][1] = words[0] + ", " + words[1];
-            //have database store points too?
+            //have database store user league points too?
             //info[i][2] = String.valueOf(0);
         }
 
