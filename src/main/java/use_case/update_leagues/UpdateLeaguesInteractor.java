@@ -1,6 +1,7 @@
 package use_case.update_leagues;
 
 import entity.League;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -23,38 +24,56 @@ public class UpdateLeaguesInteractor implements UpdateLeaguesInputBoundary{
         String leagueID = updateLeaguesInputData.getLeagueID();
 
         ArrayList<League> userLeagueList = new ArrayList<League>();
+        JSONObject leagueData = leagueDataAccessObject.get();
+        JSONObject userData = userDataAccessObject.get();
         //join league
         if(updateLeaguesInputData.isJoin()){
-            if (!leagueDataAccessObject.leagueExists(leagueID)) {
+            if (!leagueExists(leagueData, leagueID)) {
                 updateLeaguesPresenter.prepareFailView("League Does Not Exist");
                 return;
             }
             //update user league list & returns updated list of leagues
-            userLeagueList = userDataAccessObject.addLeague(username,  leagueID);
-
+            userLeagueList = addLeague(userData, username,  leagueID);
             //update league's list of users
-            leagueDataAccessObject.addUserToLeague(leagueID, username);
+            addUserToLeague(leagueData, leagueID, username);
         }
-
         //create league (if not joining, then creating)
         else{
-            if (!leagueDataAccessObject.leagueExists(leagueID)) {
+            if (leagueExists(leagueData, leagueID)) {
                 updateLeaguesPresenter.prepareFailView("League Already Exists");
                 return;
             }
             //update user league list & returns updated list of leagues
-            userLeagueList = userDataAccessObject.addLeague(username,  leagueID);
-
+            userLeagueList = addLeague(userData, username,  leagueID);
             //creates new league
-            leagueDataAccessObject.saveNewLeague(leagueID, username);
+            saveNewLeague(leagueData, leagueID, username);
         }
-
         //no leagues, then keep original view, so no presenter needed
         if(userLeagueList.isEmpty()){
             return;
         }
+        leagueDataAccessObject.save(leagueData);
+        userDataAccessObject.save(userData);
 
         UpdateLeaguesOutputData updateLeaguesOutputData = new UpdateLeaguesOutputData(username, userLeagueList);
         this.updateLeaguesPresenter.prepareSuccessView(updateLeaguesOutputData);
     }
+
+    public boolean leagueExists(JSONObject leagueData, String leagueID){
+        return true;
+    }
+
+    public ArrayList<League> addLeague(JSONObject userData, String username, String leagueID){
+        return null;
+    }
+
+    public void addUserToLeague(JSONObject leagueData, String leagueID, String username){
+
+    }
+
+    public void saveNewLeague(JSONObject leagueData, String leagueID, String username){
+
+    }
+
+
 }

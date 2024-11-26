@@ -21,7 +21,7 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 public class PantryLeagueDataAccessObject implements CreateLeagueLeagueDataAccessInterface,
-        JoinLeagueLeagueDataAccessInterface, UpdateLeaguesLeagueDataAccessInterface {
+        JoinLeagueLeagueDataAccessInterface {
     private final LeagueFactory leagueFactory;
 
     private static final int SUCCESS_CODE = 200;
@@ -179,20 +179,5 @@ public class PantryLeagueDataAccessObject implements CreateLeagueLeagueDataAcces
         catch (IOException | JSONException ex) {
             throw new RuntimeException(ex);
         }
-    }
-
-    @Override
-    public void addUserToLeague(String leagueID, String username) {
-
-    }
-
-    @Override
-    public void saveNewLeague(String leagueID, String username) {
-
-    }
-
-    @Override
-    public boolean leagueExists(String leagueID) {
-        return false;
     }
 }

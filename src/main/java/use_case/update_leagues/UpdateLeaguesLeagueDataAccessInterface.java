@@ -1,7 +1,8 @@
 package use_case.update_leagues;
 
+import org.json.JSONObject;
+
 public interface UpdateLeaguesLeagueDataAccessInterface {
-    void addUserToLeague(String leagueID, String username);
-    void saveNewLeague(String leagueID, String username);
-    boolean leagueExists(String leagueID);
+    JSONObject get(String type);
+    void save(JSONObject jsonObject, String type);
 }
