@@ -21,7 +21,8 @@ import java.util.Iterator;
 import java.util.Scanner;
 
 
-public class PantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataAccessInterface {
+public class PantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataAccessInterface,
+        UpdateRankingsLeagueDataAccessInterface {
 
     private final LeagueFactory leagueFactory;
 

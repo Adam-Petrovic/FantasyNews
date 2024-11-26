@@ -12,7 +12,6 @@ import java.util.concurrent.TimeUnit;
 
 public class UpdateRankingsInteractor implements UpdateRankingsInputBoundary{
     private final GuardianDataAccessObject guardianDataAccessObject;
-    private final UpdateRankingsDataAccessInterface userDataAccessObject;
     private final UpdateRankingsOutputBoundary updateRankingsPresenter;
     private final UpdateRankingsLeagueDataAccessInterface leagueDataAccessInterface;
     private final UpdateRankingsUserDataAccessInterface userDataAccessInterface;
@@ -20,10 +19,10 @@ public class UpdateRankingsInteractor implements UpdateRankingsInputBoundary{
 
     public UpdateRankingsInteractor(GuardianDataAccessObject guardianDataAccessObject,
                                     UpdateRankingsOutputBoundary updateRankingsPresenter,
-                                    UpdateRankingsDataAccessInterface userDataAccessObject) {
+                                    UpdateRankingsLeagueDataAccessInterface leagueDataAccessInterface,
+                                    UpdateRankingsUserDataAccessInterface userDataAccessInterface) {
 
         this.guardianDataAccessObject = guardianDataAccessObject;
-        this.userDataAccessObject = userDataAccessObject;
         this.updateRankingsPresenter = updateRankingsPresenter;
         this.leagueDataAccessInterface = leagueDataAccessInterface;
         this.userDataAccessInterface = userDataAccessInterface;
@@ -41,7 +40,7 @@ public class UpdateRankingsInteractor implements UpdateRankingsInputBoundary{
     @Override
     public void execute(UpdateRankingsInputData updateRankingsInputData) {
 
-        ArrayList<User> leagueUsers = userDataAccessObject.getUsers(updateRankingsInputData.getLeague().getUsers());
+        //ArrayList<User> leagueUsers = userDataAccessInterface.getUsers(updateRankingsInputData.getLeague().getUsers());
 
         String leagueID = updateRankingsInputData.getLeague();
         ArrayList<User> leagueUsers = new ArrayList<>();
