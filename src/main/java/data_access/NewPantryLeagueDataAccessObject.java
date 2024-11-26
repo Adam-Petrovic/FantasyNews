@@ -56,6 +56,7 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
         save(leagueData);
     }
 
+    //gets entire basket (all league data)
     public JSONObject get() {
         // Make an API call to get the user object.
         final String fullURL = API_URL + key + "/basket/" + BASKET_NAME;
@@ -68,7 +69,6 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
             final Response response = client.newCall(request).execute();
             final JSONObject responseBody = new JSONObject(response.body().string());
             if (response.isSuccessful()) {
-                //gets data, turn back into HashMap
                 return responseBody;
             }
             else {
@@ -81,6 +81,7 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
         }
     }
 
+    //saves entire basket (all league data)
     public void save(JSONObject jsonObject) {
         final OkHttpClient client = new OkHttpClient().newBuilder().build();
         final MediaType mediaType = MediaType.parse("application/json");

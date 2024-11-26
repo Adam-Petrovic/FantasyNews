@@ -43,7 +43,6 @@ public class NewPantryUserDataAccessObject implements UpdateLeaguesUserDataAcces
 
     //gets all the basket data
     public JSONObject get() {
-        // Make an API call to get the user object.
         final String fullURL = API_URL + key + "/basket/" + BASKET_NAME;
         final OkHttpClient client = new OkHttpClient().newBuilder().build();
         final Request request = new Request.Builder()
@@ -54,7 +53,6 @@ public class NewPantryUserDataAccessObject implements UpdateLeaguesUserDataAcces
             final Response response = client.newCall(request).execute();
             final JSONObject responseBody = new JSONObject(response.body().string());
             if (response.isSuccessful()) {
-                //gets data, turn back into HashMap
                 return responseBody;
             }
             else {
