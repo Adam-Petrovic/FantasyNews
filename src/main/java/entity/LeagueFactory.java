@@ -7,8 +7,8 @@ public class LeagueFactory {
         return new League();
     }
 
-    public League create(String leagueName, ArrayList<User> users){
-        return new League(leagueName, users);
+    public League create(String leagueName, ArrayList<String> usernames){
+        return new League(leagueName, usernames);
     }
 
 }

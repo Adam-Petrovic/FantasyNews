@@ -7,8 +7,10 @@ import okhttp3.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import use_case.create_league.CreateLeagueLeagueDataAccessInterface;
+
+import use_case.update_leagues.UpdateLeaguesLeagueDataAccessInterface;
 import use_case.update_rankings.UpdateRankingsLeagueDataAccessInterface;
+
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -18,7 +20,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
 
-public class PantryLeagueDataAccessObject implements CreateLeagueLeagueDataAccessInterface, UpdateRankingsLeagueDataAccessInterface {
+
+public class PantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataAccessInterface {
+
     private final LeagueFactory leagueFactory;
 
     private static final int SUCCESS_CODE = 200;
@@ -42,7 +46,7 @@ public class PantryLeagueDataAccessObject implements CreateLeagueLeagueDataAcces
 
 
     //returns list of usernames in league
-    @Override
+
     public ArrayList<String> getLeagueUsers(String leagueID) {
         // Make an API call to get the user object.
         final String fullURL = API_URL + pantryID + "/basket/" + leagueID;
@@ -74,7 +78,7 @@ public class PantryLeagueDataAccessObject implements CreateLeagueLeagueDataAcces
     }
 
     //returns whether leagueID is in use
-    @Override
+
     public boolean leagueExist(String leagueID) {
         final String fullURL = API_URL + pantryID + "/basket/" + leagueID;
         final OkHttpClient client = new OkHttpClient().newBuilder().build();
@@ -92,8 +96,12 @@ public class PantryLeagueDataAccessObject implements CreateLeagueLeagueDataAcces
         }
     }
 
+
+    public void updateLeagueUsers(User user, String leagueID) {
+    }
+
     //saves league
-    @Override
+
     public void saveNewLeague(User user, String leagueID) {
         if(leagueID == null){
             return;
@@ -133,7 +141,7 @@ public class PantryLeagueDataAccessObject implements CreateLeagueLeagueDataAcces
         }
     }
 
-    @Override
+
     public HashMap<String, String[]> getData(String leagueID) {
         // Make an API call to get the user object.
         final String fullURL = API_URL + pantryID + "/basket/" + leagueID;
@@ -172,5 +180,25 @@ public class PantryLeagueDataAccessObject implements CreateLeagueLeagueDataAcces
         catch (IOException | JSONException ex) {
             throw new RuntimeException(ex);
         }
+    }
+
+    @Override
+    public void saveNewLeague(String leagueID, String username) {
+
+    }
+
+    @Override
+    public boolean LeagueExists(String leagueID) {
+        return false;
+    }
+
+    @Override
+    public void addUserToLeague(String leagueID, String username) {
+
+    }
+
+    @Override
+    public ArrayList<League> getLeagues(ArrayList<String> userLeagueIDList) {
+        return null;
     }
 }
