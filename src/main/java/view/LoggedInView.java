@@ -57,7 +57,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         soloPlay = new JButton(LoggedInViewModel.SOLO_PLAY_LABEL);
         buttons.add(soloPlay);
 
-        toLeague = new JButton("My League");
+        toLeague = new JButton("My Leagues");
         buttons.add(toLeague);
 
         toRankings = new JButton("Rankings");

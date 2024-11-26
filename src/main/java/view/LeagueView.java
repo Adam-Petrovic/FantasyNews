@@ -109,7 +109,7 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
                     if (evt.getSource().equals(joinLeagueButton)) {
                         String username = leagueViewModel.getState().getUsername();
                         leagueViewModel.getState().setErrorMessage(null);
-                        updateLeaguesController.execute(username, createLeagueID.getText(), true);
+                        updateLeaguesController.execute(username, joinLeagueID.getText(), true);
                     }
                 }
         );

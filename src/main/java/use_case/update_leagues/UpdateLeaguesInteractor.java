@@ -22,12 +22,20 @@ public class UpdateLeaguesInteractor implements UpdateLeaguesInputBoundary{
     public void execute(UpdateLeaguesInputData updateLeaguesInputData) {
         String username = updateLeaguesInputData.getUsername();
         String leagueID = updateLeaguesInputData.getLeagueID();
+
+        boolean leagueExists = leagueDataAccessObject.LeagueExists(leagueID);
+        boolean userInLeague = userDataAccessObject.userInLeague(username, leagueID);
+
+
         ArrayList<String> userLeagueIDList;
         //join league
         if(updateLeaguesInputData.isJoin()){
-            System.out.println("here");
-            if (!leagueDataAccessObject.LeagueExists(leagueID)) {
+            if (!leagueExists) {
                 updateLeaguesPresenter.prepareFailView("League Does Not Exist");
+                return;
+            }
+            if(userInLeague){
+                updateLeaguesPresenter.prepareFailView("Already In League");
                 return;
             }
             //update user league list & returns list of leagues
@@ -37,7 +45,7 @@ public class UpdateLeaguesInteractor implements UpdateLeaguesInputBoundary{
         }
         //create league (if not joining, then creating)
         else{
-            if (leagueDataAccessObject.LeagueExists(leagueID)) {
+            if (leagueExists) {
                 updateLeaguesPresenter.prepareFailView("League Already Exists");
                 return;
             }

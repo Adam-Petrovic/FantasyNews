@@ -103,6 +103,17 @@ public class NewPantryUserDataAccessObject implements SignupUserDataAccessInterf
     }
 
     @Override
+    public boolean userInLeague(String username, String leagueID) {
+        JSONObject allUserData = get();
+        JSONObject userData = allUserData.getJSONObject(username);
+        JSONArray jsonLeagues = userData.getJSONArray(LEAGUES);
+        if(toArrayList(jsonLeagues).contains(leagueID)){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
     public void changePassword(User user) {
         JSONObject allUserData = get();
         JSONObject userData = allUserData.getJSONObject(user.getName());
@@ -231,5 +242,13 @@ public class NewPantryUserDataAccessObject implements SignupUserDataAccessInterf
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public <T> ArrayList<T> toArrayList(JSONArray jsonArray){
+        ArrayList<T> arrayList = new ArrayList<>();
+        for(int i = 0; i < jsonArray.length(); i++){
+            arrayList.add((T) jsonArray.get(i));
+        }
+        return arrayList;
     }
 }
