@@ -116,10 +116,10 @@ public class AppBuilder {
 
     // thought question: is the hard dependency below a problem?
     //private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
-    private final NewPantryUserDataAccessObject userDataAccessObject = new NewPantryUserDataAccessObject(userFactory);
-    private final NewPantryLeagueDataAccessObject leagueDataAccessObject = new NewPantryLeagueDataAccessObject();
-    //private final PantryUserDataAccessObject userDataAccessObject = new PantryUserDataAccessObject(userFactory);
-    //private final PantryLeagueDataAccessObject leagueDataAccessObject = new PantryLeagueDataAccessObject(leagueFactory);
+    //private final NewPantryUserDataAccessObject userDataAccessObject = new NewPantryUserDataAccessObject(userFactory);
+    //private final NewPantryLeagueDataAccessObject leagueDataAccessObject = new NewPantryLeagueDataAccessObject();
+    private final PantryUserDataAccessObject userDataAccessObject = new PantryUserDataAccessObject(userFactory);
+    private final PantryLeagueDataAccessObject leagueDataAccessObject = new PantryLeagueDataAccessObject(leagueFactory);
     //uncomment the line above in order to use the Pantry API userDAO :)
     private SignupView signupView;
     private SignupViewModel signupViewModel;
