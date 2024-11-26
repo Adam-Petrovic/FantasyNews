@@ -85,13 +85,28 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
     public void addUserToLeague(String leagueID, String username) {
         JSONObject allLeagueData = get();
         JSONObject leagueData = allLeagueData.getJSONObject(leagueID);
+
+        //updates user list
         JSONArray jsonUsers = leagueData.getJSONArray(USERS);
         ArrayList<String> usernames = new ArrayList<>();
         for(int i = 0; i < jsonUsers.length(); i++) {
             usernames.add(jsonUsers.getString(i));
         }
+
+        //updates data hashmap
+        JSONObject jsonData = leagueData.getJSONObject(DATA);
+        HashMap<String, String[]> finalData = new HashMap<>();
+        //creates data hashmap
+        for(int i = 0; i < usernames.size(); i++) {
+            String[] words = toStringArray(jsonData.getJSONArray(usernames.get(i)));
+            finalData.put(usernames.get(i), words);
+        }
+        finalData.put(username, new String[]{"defaultWord1", "defaultWord2"});
+
+        leagueData.put(DATA, finalData);
         usernames.add(username);
         leagueData.put(USERS, usernames);
+
         save(allLeagueData);
     }
 
