@@ -11,5 +11,9 @@ public class RankingsState {
         return league;
     }
 
+    public void setLeague(League league) {
+        this.league = league;
+    }
+
     public User getUser() {return user;}
 }

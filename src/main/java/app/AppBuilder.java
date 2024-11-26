@@ -49,6 +49,8 @@ import interface_adapter.update_leagues.UpdateLeaguesController;
 import interface_adapter.update_leagues.UpdateLeaguesPresenter;
 import interface_adapter.update_points.UpdatePointsController;
 import interface_adapter.update_points.UpdatePointsPresenter;
+import interface_adapter.update_rankings.UpdateRankingsController;
+import interface_adapter.update_rankings.UpdateRankingsPresenter;
 import use_case.add_friends.AddFriendsInputBoundary;
 import use_case.add_friends.AddFriendsInteractor;
 import use_case.add_friends.AddFriendsOutputBoundary;
@@ -79,6 +81,10 @@ import use_case.to_rankings.RankingsOutputBoundary;
 import use_case.update_leagues.UpdateLeaguesInputBoundary;
 import use_case.update_leagues.UpdateLeaguesInteractor;
 import use_case.update_leagues.UpdateLeaguesOutputBoundary;
+import use_case.update_rankings.UpdateRankingsInputBoundary;
+import use_case.update_rankings.UpdateRankingsInteractor;
+import use_case.update_rankings.UpdateRankingsLeagueDataAccessInterface;
+import use_case.update_rankings.UpdateRankingsOutputBoundary;
 import use_case.update_solo_points.UpdatePointsInputBoundary;
 import use_case.update_solo_points.UpdatePointsInteractor;
 import use_case.update_solo_points.UpdatePointsOutputBoundary;
@@ -254,7 +260,18 @@ public class AppBuilder {
     public AppBuilder addToRankingsUseCase(){
         final RankingsOutputBoundary rankingsPresenter = new RankingsPresenter(viewManagerModel, rankingsViewModel);
         final RankingsController rankingsController = new RankingsController(rankingsPresenter);
-        loggedInView.setToRankingsController(rankingsController);
+        final UpdateRankingsOutputBoundary updateRankingsPresenter = new UpdateRankingsPresenter(viewManagerModel,
+                rankingsViewModel);
+
+        try {
+            final GuardianDataAccessObject guardianDataAccessObject = makeGuardianDataAccessObject();
+            final UpdateRankingsInputBoundary updateRankingsInteractor = new UpdateRankingsInteractor(guardianDataAccessObject, updateRankingsPresenter, leagueDataAccessObject, userDataAccessObject);
+            final UpdateRankingsController updateRankingsController = new UpdateRankingsController(updateRankingsInteractor);
+            rankingsView.setUpdateRankingsController(updateRankingsController);
+            loggedInView.setToRankingsController(rankingsController);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         return this;
     }
 
