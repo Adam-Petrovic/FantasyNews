@@ -1,34 +1,32 @@
 package data_access;
 
-import entity.LeagueFactory;
+import entity.League;
 import okhttp3.*;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import use_case.update_leagues.UpdateLeaguesLeagueDataAccessInterface;
+import use_case.update_leagues.UpdateLeaguesUserDataAccessInterface;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Scanner;
 
-public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataAccessInterface {
-
-
+public class NewPantryUserDataAccessObject implements UpdateLeaguesUserDataAccessInterface {
     private static final int SUCCESS_CODE = 200;
     private static final String CONTENT_TYPE_LABEL = "Content-Type";
     private static final String CONTENT_TYPE_JSON = "application/json";
     private static final String STATUS_CODE_LABEL = "status_code";
 
-    private static final String BASKET_NAME = "leagues";
+    private static final String BASKET_NAME = "users";
 
     private static final String API_URL = "https://getpantry.cloud/apiv1/pantry/";
     private static String key;
 
-    public NewPantryLeagueDataAccessObject() {
+    public NewPantryUserDataAccessObject() {
         try {
             // if you run into an issue here, it means that you don't have your pantry API key, text Evelyn to get it
-            this.key = new Scanner(new File("leagueKey.txt")).nextLine();
+            this.key = new Scanner(new File("userKey.txt")).nextLine();
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
@@ -36,26 +34,14 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
     }
 
     @Override
-    public void saveNewLeague(String leagueID, String username) {
-        JSONObject leagueData = get();
-        //add league to JSON
-        save(leagueData);
+    public ArrayList<League> addLeague(String username, String leagueID) {
+        JSONObject userData = get();
+        //update user leagues in json & get updates list of leagues
+        save(userData);
+        return new ArrayList<League>();
     }
 
-    @Override
-    public boolean LeagueExists(String leagueID) {
-        JSONObject leagueData = get();
-        //check if in JSON
-        return true;
-    }
-
-    @Override
-    public void addUserToLeague(String leagueID, String username) {
-        JSONObject leagueData = get();
-        //add user to league
-        save(leagueData);
-    }
-
+    //gets all the basket data
     public JSONObject get() {
         // Make an API call to get the user object.
         final String fullURL = API_URL + key + "/basket/" + BASKET_NAME;
@@ -81,6 +67,7 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
         }
     }
 
+    //saves updates basket data
     public void save(JSONObject jsonObject) {
         final OkHttpClient client = new OkHttpClient().newBuilder().build();
         final MediaType mediaType = MediaType.parse("application/json");
