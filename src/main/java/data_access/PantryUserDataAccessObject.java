@@ -40,7 +40,8 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
         LogoutUserDataAccessInterface,
         SoloPlayUserDataAccessInterface,
         AddFriendsUserDataAccessInterface,
-        DraftUserDataAccessInterface {
+        DraftUserDataAccessInterface,
+        UpdateLeaguesUserDataAccessInterface{
     private static final int SUCCESS_CODE = 200;
     private static final String CONTENT_TYPE_LABEL = "Content-Type";
     private static final String CONTENT_TYPE_JSON = "application/json";
@@ -286,5 +287,10 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
             throw new RuntimeException("Error updating leagues for user: " + user.getName(), ex);
         }
 
+    }
+
+    @Override
+    public ArrayList<String> addLeague(String username, String leagueID) {
+        return null;
     }
 }

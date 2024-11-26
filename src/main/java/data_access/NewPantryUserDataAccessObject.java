@@ -13,7 +13,6 @@ import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 import use_case.solo_play.SoloPlayUserDataAccessInterface;
-import use_case.update_leagues.UpdateLeaguesLeagueDataAccessInterface;
 import use_case.update_leagues.UpdateLeaguesUserDataAccessInterface;
 
 import java.io.File;
@@ -92,6 +91,10 @@ public class NewPantryUserDataAccessObject implements SignupUserDataAccessInterf
         for(int i = 0; i < jsonLeagues.length(); i++) {
             leagueIDs.add(jsonLeagues.getString(i));
         }
+        if (leagueID.equals("")){
+            return leagueIDs;
+        }
+        leagueIDs.add(leagueID);
         userData.put(LEAGUES, leagueIDs);
         save(allUserData);
         return leagueIDs;

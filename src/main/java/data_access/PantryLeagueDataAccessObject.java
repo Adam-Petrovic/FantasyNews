@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
 
-public class PantryLeagueDataAccessObject {
+public class PantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataAccessInterface {
     private final LeagueFactory leagueFactory;
 
     private static final int SUCCESS_CODE = 200;
@@ -175,5 +175,25 @@ public class PantryLeagueDataAccessObject {
         catch (IOException | JSONException ex) {
             throw new RuntimeException(ex);
         }
+    }
+
+    @Override
+    public void saveNewLeague(String leagueID, String username) {
+
+    }
+
+    @Override
+    public boolean LeagueExists(String leagueID) {
+        return false;
+    }
+
+    @Override
+    public void addUserToLeague(String leagueID, String username) {
+
+    }
+
+    @Override
+    public ArrayList<League> getLeagues(ArrayList<String> userLeagueIDList) {
+        return null;
     }
 }

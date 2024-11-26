@@ -22,8 +22,7 @@ public class UpdateLeaguesInteractor implements UpdateLeaguesInputBoundary{
     public void execute(UpdateLeaguesInputData updateLeaguesInputData) {
         String username = updateLeaguesInputData.getUsername();
         String leagueID = updateLeaguesInputData.getLeagueID();
-
-        ArrayList<String> userLeagueIDList = new ArrayList<String>();
+        ArrayList<String> userLeagueIDList;
         //join league
         if(updateLeaguesInputData.isJoin()){
             if (!leagueDataAccessObject.LeagueExists(leagueID)) {
@@ -42,12 +41,13 @@ public class UpdateLeaguesInteractor implements UpdateLeaguesInputBoundary{
                 return;
             }
             //update user league list & returns updated list of leagues
-            userLeagueIDList = userDataAccessObject.addLeague(username,  leagueID);
+            userLeagueIDList = userDataAccessObject.addLeague(username, leagueID);
             //creates new league
             leagueDataAccessObject.saveNewLeague(leagueID, username);
         }
         //no leagues, then keep original view, so no presenter needed
         if(userLeagueIDList.isEmpty()){
+            System.out.println("empty");
             return;
         }
         ArrayList<League> userLeagueList = leagueDataAccessObject.getLeagues(userLeagueIDList);

@@ -45,7 +45,8 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
 
     @Override
     public void saveNewLeague(String leagueID, String username) {
-        if(leagueID == null){
+        if(leagueID.equals("")){
+            System.out.println("here");
             return;
         }
 
@@ -106,7 +107,7 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
 
     //gets entire basket (all league data)
     public JSONObject get() {
-        sleep(1);
+        sleep(2);
         // Make an API call to get the user object.
         final String fullURL = API_URL + key + "/basket/" + BASKET_NAME;
         final OkHttpClient client = new OkHttpClient().newBuilder().build();
@@ -132,7 +133,7 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
 
     //saves entire basket (all league data)
     public void save(JSONObject jsonObject) {
-        sleep(1);
+        sleep(2);
         final OkHttpClient client = new OkHttpClient().newBuilder().build();
         final MediaType mediaType = MediaType.parse("application/json");
 
