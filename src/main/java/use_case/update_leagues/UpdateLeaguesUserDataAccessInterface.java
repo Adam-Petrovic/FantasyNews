@@ -6,5 +6,5 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public interface UpdateLeaguesUserDataAccessInterface {
-    ArrayList<League> addLeague(String username, String leagueID);
+    ArrayList<String> addLeague(String username, String leagueID);
 }

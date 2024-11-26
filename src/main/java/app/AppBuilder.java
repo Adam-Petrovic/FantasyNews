@@ -114,6 +114,7 @@ public class AppBuilder {
     // thought question: is the hard dependency below a problem?
     //private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
     private final PantryUserDataAccessObject userDataAccessObject = new PantryUserDataAccessObject(userFactory);
+    //private final NewPantryUserDataAccessObject userDataAccessObject = new NewPantryUserDataAccessObject(userFactory);
     private final PantryLeagueDataAccessObject leagueDataAccessObject = new PantryLeagueDataAccessObject(leagueFactory);
     //uncomment the line above in order to use the Pantry API userDAO :)
     private SignupView signupView;
@@ -138,24 +139,24 @@ public class AppBuilder {
         cardPanel.setLayout(cardLayout);
     }
 
-    public AppBuilder addJoinLeagueUseCase() {
-        final CreateLeagueOutputBoundary createLeaguePresenter = new CreateLeaguePresenter(viewManagerModel, leagueViewModel);
-        final JoinLeagueInputBoundary joinLeagueInteractor = new JoinLeagueInteractor(createLeaguePresenter,
-                userDataAccessObject, leagueDataAccessObject);
-        final JoinLeagueController controller = new JoinLeagueController(joinLeagueInteractor);
-        leagueView.setJoinLeagueController(controller);
-        return this;
-    }
-
-    public AppBuilder addCreateLeagueUseCase(){
-        final CreateLeagueOutputBoundary createLeaguePresenter = new CreateLeaguePresenter(viewManagerModel, leagueViewModel);
-        final CreateLeagueInputBoundary createLeagueInteractor = new CreateLeagueInteractor(createLeaguePresenter,
-                userDataAccessObject, leagueDataAccessObject);
-        final CreateLeagueController controller = new CreateLeagueController(createLeagueInteractor);
-        loggedInView.setCreateLeagueController(controller);
-        leagueView.setCreateLeagueController(controller);
-        return this;
-    }
+//    public AppBuilder addJoinLeagueUseCase() {
+//        final CreateLeagueOutputBoundary createLeaguePresenter = new CreateLeaguePresenter(viewManagerModel, leagueViewModel);
+//        final JoinLeagueInputBoundary joinLeagueInteractor = new JoinLeagueInteractor(createLeaguePresenter,
+//                userDataAccessObject, leagueDataAccessObject);
+//        final JoinLeagueController controller = new JoinLeagueController(joinLeagueInteractor);
+//        leagueView.setJoinLeagueController(controller);
+//        return this;
+//    }
+//
+//    public AppBuilder addCreateLeagueUseCase(){
+//        final CreateLeagueOutputBoundary createLeaguePresenter = new CreateLeaguePresenter(viewManagerModel, leagueViewModel);
+//        final CreateLeagueInputBoundary createLeagueInteractor = new CreateLeagueInteractor(createLeaguePresenter,
+//                userDataAccessObject, leagueDataAccessObject);
+//        final CreateLeagueController controller = new CreateLeagueController(createLeagueInteractor);
+//        loggedInView.setCreateLeagueController(controller);
+//        leagueView.setCreateLeagueController(controller);
+//        return this;
+//    }
 
     public AppBuilder addDraftView(){
         draftViewModel = new DraftViewModel();
@@ -165,13 +166,13 @@ public class AppBuilder {
     }
 
 
-    public AppBuilder addDraftUseCase(){
-        final DraftOutputBoundary draftPresenter = new DraftPresenter(viewManagerModel, draftViewModel);
-        final DraftInputBoundary draftInteractor = new DraftInteractor(draftPresenter, userDataAccessObject);
-        final DraftController controller = new DraftController(draftInteractor);
-        loggedInView.setDraftController(controller);
-        return this;
-    }
+//    public AppBuilder addDraftUseCase(){
+//        final DraftOutputBoundary draftPresenter = new DraftPresenter(viewManagerModel, draftViewModel);
+//        final DraftInputBoundary draftInteractor = new DraftInteractor(draftPresenter, userDataAccessObject);
+//        final DraftController controller = new DraftController(draftInteractor);
+//        loggedInView.setDraftController(controller);
+//        return this;
+//    }
     /**
      * Adds the Signup View to the application.
      * @return this builder

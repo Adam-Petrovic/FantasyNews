@@ -1,10 +1,19 @@
 package data_access;
 
+import entity.League;
 import entity.LeagueFactory;
+import entity.User;
+import entity.UserFactory;
 import okhttp3.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import use_case.add_friends.AddFriendsUserDataAccessInterface;
+import use_case.change_password.ChangePasswordUserDataAccessInterface;
+import use_case.login.LoginUserDataAccessInterface;
+import use_case.logout.LogoutUserDataAccessInterface;
+import use_case.signup.SignupUserDataAccessInterface;
+import use_case.solo_play.SoloPlayUserDataAccessInterface;
 import use_case.update_leagues.UpdateLeaguesLeagueDataAccessInterface;
 
 import java.io.File;
@@ -20,12 +29,21 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
     private static final String CONTENT_TYPE_JSON = "application/json";
     private static final String STATUS_CODE_LABEL = "status_code";
 
+    private static final String PASSWORD = "password";
+    private static final String WORDS = "words";
+    private static final String POINTS = "points";
+    private static final String LEAGUES = "leagues";
     private static final String BASKET_NAME = "leagues";
 
     private static final String API_URL = "https://getpantry.cloud/apiv1/pantry/";
     private static String key;
 
-    public NewPantryLeagueDataAccessObject() {
+    private String currentUsername;
+
+    private UserFactory userFactory;
+
+    public NewPantryLeagueDataAccessObject(UserFactory userFactory) {
+        this.userFactory = userFactory;
         try {
             // if you run into an issue here, it means that you don't have your pantry API key, text Evelyn to get it
             this.key = new Scanner(new File("leagueKey.txt")).nextLine();
@@ -54,6 +72,11 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
         JSONObject leagueData = get();
         //add user to league
         save(leagueData);
+    }
+
+    @Override
+    public ArrayList<League> getLeagues(ArrayList<String> userLeagueIDList) {
+        return null;
     }
 
     //gets entire basket (all league data)
