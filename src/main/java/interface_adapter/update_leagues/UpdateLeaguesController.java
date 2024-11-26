@@ -14,4 +14,9 @@ public class UpdateLeaguesController {
         final UpdateLeaguesInputData updateLeaguesInputData = new UpdateLeaguesInputData(username, leagueID, join);
         updateLeaguesInteractor.execute(updateLeaguesInputData);
     }
+
+    public void execute(String username) {
+        final UpdateLeaguesInputData updateLeaguesInputData = new UpdateLeaguesInputData(username, "", false);
+        updateLeaguesInteractor.execute(updateLeaguesInputData);
+    }
 }

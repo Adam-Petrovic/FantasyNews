@@ -10,8 +10,7 @@ public class UpdateLeaguesPresenter implements UpdateLeaguesOutputBoundary {
     private LeagueViewModel leagueViewModel;
     private ViewManagerModel viewManagerModel;
 
-    public UpdateLeaguesPresenter(LeagueViewModel leagueViewModel,
-                                  ViewManagerModel viewManagerModel ) {
+    public UpdateLeaguesPresenter(ViewManagerModel viewManagerModel, LeagueViewModel leagueViewModel) {
         this.leagueViewModel = leagueViewModel;
         this.viewManagerModel = viewManagerModel;
     }

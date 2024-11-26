@@ -22,14 +22,11 @@ import interface_adapter.add_new_friend.AddNewFriendPresenter;
 import interface_adapter.add_word.AddWordController;
 import interface_adapter.add_word.AddWordPresenter;
 import interface_adapter.change_password.LoggedInViewModel;
-import interface_adapter.create_league.CreateLeagueController;
-import interface_adapter.create_league.CreateLeaguePresenter;
 import interface_adapter.draft.DraftController;
 import interface_adapter.draft.DraftPresenter;
 import interface_adapter.draft.DraftViewModel;
 import interface_adapter.go_home.GoHomeController;
 import interface_adapter.go_home.GoHomePresenter;
-import interface_adapter.join_league.JoinLeagueController;
 import interface_adapter.login.LoginController;
 import interface_adapter.login.LoginPresenter;
 import interface_adapter.login.LoginViewModel;
@@ -48,6 +45,8 @@ import interface_adapter.to_rankings.RankingsController;
 import interface_adapter.to_rankings.RankingsViewModel;
 import interface_adapter.to_rankings.RankingsPresenter;
 import interface_adapter.to_rankings.RankingsViewModel;
+import interface_adapter.update_leagues.UpdateLeaguesController;
+import interface_adapter.update_leagues.UpdateLeaguesPresenter;
 import interface_adapter.update_points.UpdatePointsController;
 import interface_adapter.update_points.UpdatePointsPresenter;
 import use_case.add_friends.AddFriendsInputBoundary;
@@ -59,15 +58,10 @@ import use_case.add_new_friend.AddNewFriendOutputBoundary;
 import use_case.add_word.AddWordInputBoundary;
 import use_case.add_word.AddWordInteractor;
 import use_case.add_word.AddWordOutputBoundary;
-import use_case.create_league.CreateLeagueInputBoundary;
-import use_case.create_league.CreateLeagueInteractor;
-import use_case.create_league.CreateLeagueOutputBoundary;
 import use_case.draft.DraftInputBoundary;
 import use_case.draft.DraftInteractor;
 import use_case.draft.DraftOutputBoundary;
 import use_case.goHome.GoHomeOutputBoundary;
-import use_case.join_league.JoinLeagueInputBoundary;
-import use_case.join_league.JoinLeagueInteractor;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInteractor;
 import use_case.login.LoginOutputBoundary;
@@ -82,6 +76,9 @@ import use_case.solo_play.SoloPlayInteractor;
 import use_case.solo_play.SoloPlayOutputBoundary;
 import use_case.to_league.LeagueOutputBoundary;
 import use_case.to_rankings.RankingsOutputBoundary;
+import use_case.update_leagues.UpdateLeaguesInputBoundary;
+import use_case.update_leagues.UpdateLeaguesInteractor;
+import use_case.update_leagues.UpdateLeaguesOutputBoundary;
 import use_case.update_solo_points.UpdatePointsInputBoundary;
 import use_case.update_solo_points.UpdatePointsInteractor;
 import use_case.update_solo_points.UpdatePointsOutputBoundary;
@@ -113,9 +110,10 @@ public class AppBuilder {
 
     // thought question: is the hard dependency below a problem?
     //private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
-    private final PantryUserDataAccessObject userDataAccessObject = new PantryUserDataAccessObject(userFactory);
-    //private final NewPantryUserDataAccessObject userDataAccessObject = new NewPantryUserDataAccessObject(userFactory);
-    private final PantryLeagueDataAccessObject leagueDataAccessObject = new PantryLeagueDataAccessObject(leagueFactory);
+    //private final PantryUserDataAccessObject userDataAccessObject = new PantryUserDataAccessObject(userFactory);
+    private final NewPantryUserDataAccessObject userDataAccessObject = new NewPantryUserDataAccessObject(userFactory);
+    private final NewPantryLeagueDataAccessObject leagueDataAccessObject = new NewPantryLeagueDataAccessObject();
+    //private final PantryLeagueDataAccessObject leagueDataAccessObject = new PantryLeagueDataAccessObject(leagueFactory);
     //uncomment the line above in order to use the Pantry API userDAO :)
     private SignupView signupView;
     private SignupViewModel signupViewModel;
@@ -139,24 +137,15 @@ public class AppBuilder {
         cardPanel.setLayout(cardLayout);
     }
 
-//    public AppBuilder addJoinLeagueUseCase() {
-//        final CreateLeagueOutputBoundary createLeaguePresenter = new CreateLeaguePresenter(viewManagerModel, leagueViewModel);
-//        final JoinLeagueInputBoundary joinLeagueInteractor = new JoinLeagueInteractor(createLeaguePresenter,
-//                userDataAccessObject, leagueDataAccessObject);
-//        final JoinLeagueController controller = new JoinLeagueController(joinLeagueInteractor);
-//        leagueView.setJoinLeagueController(controller);
-//        return this;
-//    }
-//
-//    public AppBuilder addCreateLeagueUseCase(){
-//        final CreateLeagueOutputBoundary createLeaguePresenter = new CreateLeaguePresenter(viewManagerModel, leagueViewModel);
-//        final CreateLeagueInputBoundary createLeagueInteractor = new CreateLeagueInteractor(createLeaguePresenter,
-//                userDataAccessObject, leagueDataAccessObject);
-//        final CreateLeagueController controller = new CreateLeagueController(createLeagueInteractor);
-//        loggedInView.setCreateLeagueController(controller);
-//        leagueView.setCreateLeagueController(controller);
-//        return this;
-//    }
+    public AppBuilder addUpdateLeaguesUseCase() {
+        final UpdateLeaguesOutputBoundary updateLeaguesPresenter = new UpdateLeaguesPresenter(viewManagerModel, leagueViewModel);
+        final UpdateLeaguesInputBoundary updateLeaguesInteractor = new UpdateLeaguesInteractor(updateLeaguesPresenter,
+                userDataAccessObject, leagueDataAccessObject);
+        final UpdateLeaguesController controller = new UpdateLeaguesController(updateLeaguesInteractor);
+        loggedInView.setUpdateLeaguesController(controller);
+        leagueView.setUpdateLeaguesController(controller);
+        return this;
+    }
 
     public AppBuilder addDraftView(){
         draftViewModel = new DraftViewModel();

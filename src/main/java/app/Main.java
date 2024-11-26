@@ -27,15 +27,15 @@ public class Main {
                                             .addToLeagueView()
                                             .addGoHomeUseCase()
                                             .addToLeagueUseCase()
-//                                            .addCreateLeagueUseCase()
                                             .addToRankingsView()
                                             .addToRankingsUseCase()
                                             .addAddFriendsUseCase()
                                             .addAddNewFriendUseCase()
                                             .addDraftView()
 //                                            .addDraftUseCase()
-//                                            .addJoinLeagueUseCase()
+                                            .addUpdateLeaguesUseCase()
                                             .build();
+
 
         application.pack();
         application.setVisible(true);

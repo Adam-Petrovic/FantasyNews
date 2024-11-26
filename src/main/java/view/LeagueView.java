@@ -2,12 +2,11 @@ package view;
 
 import entity.League;
 import entity.User;
-import interface_adapter.create_league.CreateLeagueController;
 import interface_adapter.go_home.GoHomeController;
-import interface_adapter.join_league.JoinLeagueController;
 import interface_adapter.signup.SignupState;
 import interface_adapter.to_league.LeagueState;
 import interface_adapter.to_league.LeagueViewModel;
+import interface_adapter.update_leagues.UpdateLeaguesController;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -22,9 +21,8 @@ import java.util.ArrayList;
 public class LeagueView  extends JPanel implements ActionListener, PropertyChangeListener {
     //controllers & stuff
     private final LeagueViewModel leagueViewModel;
-    private CreateLeagueController createLeagueController;
     private GoHomeController goHomeController;
-    private JoinLeagueController joinLeagueController;
+    private UpdateLeaguesController updateLeaguesController;
 
     //visuals
 
@@ -93,7 +91,7 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
                     if (evt.getSource().equals(createLeagueButton)) {
                         String username = leagueViewModel.getState().getUsername();
                         leagueViewModel.getState().setErrorMessage(null);
-                        createLeagueController.execute(username, createLeagueID.getText());
+                        updateLeaguesController.execute(username, createLeagueID.getText(), false);
                     }
                 }
         );
@@ -111,7 +109,7 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
                     if (evt.getSource().equals(joinLeagueButton)) {
                         String username = leagueViewModel.getState().getUsername();
                         leagueViewModel.getState().setErrorMessage(null);
-                        joinLeagueController.execute(username, createLeagueID.getText());
+                        updateLeaguesController.execute(username, createLeagueID.getText(), true);
                     }
                 }
         );
@@ -172,29 +170,26 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
         displayLeaguePanel.repaint();
     }
 
-    public void setCreateLeagueController(CreateLeagueController controller) {
-        this.createLeagueController = controller;
-    }
-
     public void setGoHomeController(GoHomeController controller){
         this.goHomeController = controller;
     }
 
-    public void setJoinLeagueController(JoinLeagueController joinLeagueController){
-        this.joinLeagueController = joinLeagueController;
+    public void setUpdateLeaguesController(UpdateLeaguesController updateLeaguesController){
+        this.updateLeaguesController = updateLeaguesController;
     }
 
     public JScrollPane makeLeagueScrollPane(League league){
         JScrollPane leagueScrollPane = new JScrollPane();
-        ArrayList<User> users = league.getUsers();
-        String[] columnNames = {"Member", "Words", "Points"};
-        String[][] info = new String[users.size()][3];
+        ArrayList<String> users = league.getUsers();
+        String[] columnNames = {"Member", "Words"};
+        String[][] info = new String[users.size()][2];
 
         for(int i = 0; i < users.size(); i++) {
-            info[i][0] = users.get(i).getName();
+            info[i][0] = users.get(i);
             String[] words = league.getData().get(users.get(i));
             info[i][1] = words[0] + ", " + words[1];
-            info[i][2] = String.valueOf(users.get(i).getLeaguePoints());
+            //have database store points too?
+            //info[i][2] = String.valueOf(0);
         }
 
         JTable leagueTable = new JTable(info, columnNames);

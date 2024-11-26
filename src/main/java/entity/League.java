@@ -5,10 +5,10 @@ import java.util.HashMap;
 
 public class League {
     private final String id;
-    private final ArrayList<User> users;
-    private final HashMap<User, String[]> data;
+    private final ArrayList<String> users;
+    private final HashMap<String, String[]> data;
 
-    public ArrayList<User> getUsers() {
+    public ArrayList<String> getUsers() {
         return users;
     }
 
@@ -16,29 +16,29 @@ public class League {
     public League(){
         this.id = "meow";
         this.users = new ArrayList<>();
-        users.add(new CommonUser("meow", "meow"));
+        users.add("hiii");
         this.data = new HashMap<>();
-        for (User user : users) {
+        for (String user : users) {
             data.put(user, new String[] {"hi", "hello"});
         }
     }
 
-    public League(String id, ArrayList<User> users) {
+    public League(String id, ArrayList<String> users) {
         this.id = id;
         this.users = users;
         this.data = new HashMap<>();
-        for (User user : users) {
+        for (String user : users) {
             data.put(user, new String[] {"hi", "hello"});
         }
     }
 
-    public League(String id, ArrayList<User> users, HashMap<User, String[]> data) {
+    public League(String id, ArrayList<String> users, HashMap<String, String[]> data) {
         this.id = id;
         this.users = users;
         this.data = data;
     }
 
-    public HashMap<User, String[]> getData() {
+    public HashMap<String, String[]> getData() {
         return data;
     }
 

@@ -7,9 +7,6 @@ import okhttp3.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import use_case.create_league.CreateLeagueLeagueDataAccessInterface;
-import use_case.join_league.JoinLeagueLeagueDataAccessInterface;
-import use_case.join_league.JoinLeagueUserDataAccessInterface;
 import use_case.update_leagues.UpdateLeaguesLeagueDataAccessInterface;
 
 import java.io.File;
@@ -20,8 +17,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Scanner;
 
-public class PantryLeagueDataAccessObject implements CreateLeagueLeagueDataAccessInterface,
-        JoinLeagueLeagueDataAccessInterface {
+public class PantryLeagueDataAccessObject {
     private final LeagueFactory leagueFactory;
 
     private static final int SUCCESS_CODE = 200;
@@ -45,7 +41,7 @@ public class PantryLeagueDataAccessObject implements CreateLeagueLeagueDataAcces
 
 
     //returns list of usernames in league
-    @Override
+
     public ArrayList<String> getLeagueUsers(String leagueID) {
         // Make an API call to get the user object.
         final String fullURL = API_URL + pantryID + "/basket/" + leagueID;
@@ -77,7 +73,7 @@ public class PantryLeagueDataAccessObject implements CreateLeagueLeagueDataAcces
     }
 
     //returns whether leagueID is in use
-    @Override
+
     public boolean leagueExist(String leagueID) {
         final String fullURL = API_URL + pantryID + "/basket/" + leagueID;
         final OkHttpClient client = new OkHttpClient().newBuilder().build();
@@ -95,12 +91,12 @@ public class PantryLeagueDataAccessObject implements CreateLeagueLeagueDataAcces
         }
     }
 
-    @Override
+
     public void updateLeagueUsers(User user, String leagueID) {
     }
 
     //saves league
-    @Override
+
     public void saveNewLeague(User user, String leagueID) {
         if(leagueID == null){
             return;
@@ -140,7 +136,7 @@ public class PantryLeagueDataAccessObject implements CreateLeagueLeagueDataAcces
         }
     }
 
-    @Override
+
     public HashMap<String, String[]> getData(String leagueID) {
         // Make an API call to get the user object.
         final String fullURL = API_URL + pantryID + "/basket/" + leagueID;

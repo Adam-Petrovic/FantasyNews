@@ -60,24 +60,49 @@ public class NewPantryUserDataAccessObject implements SignupUserDataAccessInterf
 
     }
 
+    public ArrayList<User> getUsers(ArrayList<String> usernames){
+        JSONObject allUserData = get();
+        ArrayList<User> users = new ArrayList<>();
+        for(int i = 0; i < usernames.size(); i++){
+            JSONObject userData = allUserData.getJSONObject(usernames.get(i));
+            //gets leagueIDs
+            final JSONArray leaguesArray = userData.getJSONArray(LEAGUES);
+            final ArrayList<String> leagues = new ArrayList<String>();
+            for(int j = 0; i < leaguesArray.length(); j++) {
+                leagues.add(leaguesArray.getString(j));
+            }
+
+            final String password = userData.getString(PASSWORD);
+            final JSONObject wordsDict = userData.getJSONObject(WORDS);
+            final String[] words = new String[Constants.NUM_CATEGORIES];
+            for (int index = 0; index < Constants.NUM_CATEGORIES; index++) {
+                words[index] = wordsDict.getString(Constants.CATEGORIES[index]);
+            }
+            users.add(userFactory.create(usernames.get(i), password, words, leagues));
+        }
+        return users;
+    }
+
     @Override
     public ArrayList<String> addLeague(String username, String leagueID) {
-        JSONObject userData = get().getJSONObject(username);
+        JSONObject allUserData = get();
+        JSONObject userData = allUserData.getJSONObject(username);
         JSONArray jsonLeagues = userData.getJSONArray(LEAGUES);
         ArrayList<String> leagueIDs = new ArrayList<>();
         for(int i = 0; i < jsonLeagues.length(); i++) {
             leagueIDs.add(jsonLeagues.getString(i));
         }
         userData.put(LEAGUES, leagueIDs);
-        save(userData);
+        save(allUserData);
         return leagueIDs;
     }
 
     @Override
     public void changePassword(User user) {
-        JSONObject userData = get().getJSONObject(user.getName());
+        JSONObject allUserData = get();
+        JSONObject userData = allUserData.getJSONObject(user.getName());
         userData.put(PASSWORD, user.getPassword());
-        save(userData);
+        save(allUserData);
     }
 
     @Override
@@ -143,6 +168,7 @@ public class NewPantryUserDataAccessObject implements SignupUserDataAccessInterf
 
     //gets all the basket data
     public JSONObject get() {
+        sleep(1);
         final String fullURL = API_URL + key + "/basket/" + BASKET_NAME;
         final OkHttpClient client = new OkHttpClient().newBuilder().build();
         final Request request = new Request.Builder()
@@ -156,8 +182,8 @@ public class NewPantryUserDataAccessObject implements SignupUserDataAccessInterf
                 return responseBody;
             }
             else {
-                System.out.println("couldn't get league data");
-                throw new RuntimeException("couldn't get league data");
+                System.out.println("couldn't get user data");
+                throw new RuntimeException("couldn't get user data");
             }
         }
         catch (IOException | JSONException ex) {
@@ -167,6 +193,7 @@ public class NewPantryUserDataAccessObject implements SignupUserDataAccessInterf
 
     //saves updates basket data
     public void save(JSONObject jsonObject) {
+        sleep(1);
         final OkHttpClient client = new OkHttpClient().newBuilder().build();
         final MediaType mediaType = MediaType.parse("application/json");
 
@@ -183,10 +210,10 @@ public class NewPantryUserDataAccessObject implements SignupUserDataAccessInterf
 
             final Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
-                System.out.println("saved league data");
+                System.out.println("saved user data");
             } else {
-                System.out.println("failed to save league data");
-                throw new RuntimeException("Failed to update leagues: " + response.message());
+                System.out.println("failed to save user data");
+                throw new RuntimeException("Failed to update user: " + response.message());
             }
         } catch (IOException | JSONException ex) {
             throw new RuntimeException("Error", ex);

@@ -1,25 +1,17 @@
 package data_access;
 
 import entity.League;
-import entity.LeagueFactory;
-import entity.User;
-import entity.UserFactory;
 import okhttp3.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import use_case.add_friends.AddFriendsUserDataAccessInterface;
-import use_case.change_password.ChangePasswordUserDataAccessInterface;
-import use_case.login.LoginUserDataAccessInterface;
-import use_case.logout.LogoutUserDataAccessInterface;
-import use_case.signup.SignupUserDataAccessInterface;
-import use_case.solo_play.SoloPlayUserDataAccessInterface;
 import use_case.update_leagues.UpdateLeaguesLeagueDataAccessInterface;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataAccessInterface {
 
@@ -33,17 +25,15 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
     private static final String WORDS = "words";
     private static final String POINTS = "points";
     private static final String LEAGUES = "leagues";
+    private static final String USERS = "users";
+    private static final String DATA = "data";
     private static final String BASKET_NAME = "leagues";
 
     private static final String API_URL = "https://getpantry.cloud/apiv1/pantry/";
     private static String key;
 
-    private String currentUsername;
 
-    private UserFactory userFactory;
-
-    public NewPantryLeagueDataAccessObject(UserFactory userFactory) {
-        this.userFactory = userFactory;
+    public NewPantryLeagueDataAccessObject() {
         try {
             // if you run into an issue here, it means that you don't have your pantry API key, text Evelyn to get it
             this.key = new Scanner(new File("leagueKey.txt")).nextLine();
@@ -55,32 +45,68 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
 
     @Override
     public void saveNewLeague(String leagueID, String username) {
+        if(leagueID == null){
+            return;
+        }
+
         JSONObject leagueData = get();
-        //add league to JSON
+        JSONObject newLeague = new JSONObject();
+
+        ArrayList<String> usernames = new ArrayList<>();
+        usernames.add(username);
+        newLeague.put(USERS, usernames);
+        HashMap<String, String[]> data = new HashMap<String, String[]>();
+        data.put(username, new String[]{"defaultWord1", "defaultWord2"});
+        newLeague.put(DATA, data);
+
+        leagueData.put(leagueID, newLeague);
         save(leagueData);
     }
 
     @Override
     public boolean LeagueExists(String leagueID) {
         JSONObject leagueData = get();
-        //check if in JSON
-        return true;
+        return leagueData.has(leagueID);
     }
 
     @Override
     public void addUserToLeague(String leagueID, String username) {
-        JSONObject leagueData = get();
-        //add user to league
-        save(leagueData);
+        JSONObject allLeagueData = get();
+        JSONObject leagueData = allLeagueData.getJSONObject(leagueID);
+        JSONArray jsonUsers = leagueData.getJSONArray(USERS);
+        ArrayList<String> usernames = new ArrayList<>();
+        for(int i = 0; i < jsonUsers.length(); i++) {
+            usernames.add(jsonUsers.getString(i));
+        }
+        leagueData.put(USERS, usernames);
+        save(allLeagueData);
     }
 
     @Override
     public ArrayList<League> getLeagues(ArrayList<String> userLeagueIDList) {
-        return null;
+        ArrayList<League> leagues = new ArrayList<>();
+        JSONObject allLeagueData = get();
+
+        for(String leagueID : userLeagueIDList){
+            //gets league data
+            JSONObject leagueData = allLeagueData.getJSONObject(leagueID);
+            ArrayList<String> usernames = toArrayList(leagueData.getJSONArray(USERS));
+            JSONObject jsonData = leagueData.getJSONObject(DATA);
+            HashMap<String, String[]> finalData = new HashMap<>();
+
+            //creates data hashmap
+            for(int i = 0; i < usernames.size(); i++) {
+                String[] words = toStringArray(jsonData.getJSONArray(usernames.get(i)));
+                finalData.put(usernames.get(i), words);
+            }
+            leagues.add(new League(leagueID, usernames, finalData));
+        }
+        return leagues;
     }
 
     //gets entire basket (all league data)
     public JSONObject get() {
+        sleep(1);
         // Make an API call to get the user object.
         final String fullURL = API_URL + key + "/basket/" + BASKET_NAME;
         final OkHttpClient client = new OkHttpClient().newBuilder().build();
@@ -106,6 +132,7 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
 
     //saves entire basket (all league data)
     public void save(JSONObject jsonObject) {
+        sleep(1);
         final OkHttpClient client = new OkHttpClient().newBuilder().build();
         final MediaType mediaType = MediaType.parse("application/json");
 
@@ -131,5 +158,29 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
             throw new RuntimeException("Error", ex);
         }
 
+    }
+
+    public <T> ArrayList<T> toArrayList(JSONArray jsonArray){
+        ArrayList<T> arrayList = new ArrayList<>();
+        for(int i = 0; i < jsonArray.length(); i++){
+            arrayList.add((T) jsonArray.get(i));
+        }
+        return arrayList;
+    }
+
+    public String[] toStringArray(JSONArray jsonArray){
+        String[] array = new String[jsonArray.length()];
+        for(int i = 0; i < jsonArray.length(); i++){
+            array[i] = jsonArray.getString(i);
+        }
+        return array;
+    }
+
+    public void sleep(int seconds){
+        try {
+            TimeUnit.SECONDS.sleep(seconds);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

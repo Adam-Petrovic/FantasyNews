@@ -9,16 +9,20 @@ import java.util.HashMap;
 
 public class UpdateRankingsInteractor implements UpdateRankingsInputBoundary{
     private final GuardianDataAccessObject guardianDataAccessObject;
+    private final UpdateRankingsDataAccessInterface userDataAccessObject;
     private final UpdateRankingsOutputBoundary updateRankingsPresenter;
 
-    public UpdateRankingsInteractor(GuardianDataAccessObject guardianDataAccessObject, UpdateRankingsOutputBoundary updateRankingsPresenter) {
+    public UpdateRankingsInteractor(GuardianDataAccessObject guardianDataAccessObject,
+                                    UpdateRankingsOutputBoundary updateRankingsPresenter,
+                                    UpdateRankingsDataAccessInterface userDataAccessObject) {
         this.guardianDataAccessObject = guardianDataAccessObject;
+        this.userDataAccessObject = userDataAccessObject;
         this.updateRankingsPresenter = updateRankingsPresenter;
     }
 
     @Override
     public void execute(UpdateRankingsInputData updateRankingsInputData) {
-        ArrayList<User> leagueUsers = updateRankingsInputData.getLeague().getUsers();
+        ArrayList<User> leagueUsers = userDataAccessObject.getUsers(updateRankingsInputData.getLeague().getUsers());
         HashMap<String, ArrayList<User>> rankings = new HashMap<>();
         HashMap<User, Integer> userPoints = new HashMap<>();
 
