@@ -30,6 +30,7 @@ import use_case.logout.LogoutUserDataAccessInterface;
 import use_case.signup.SignupOutputBoundary;
 import use_case.signup.SignupUserDataAccessInterface;
 import use_case.solo_play.SoloPlayUserDataAccessInterface;
+import use_case.update_leagues.UpdateLeaguesUserDataAccessInterface;
 
 
 /**
@@ -43,7 +44,8 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
         AddFriendsUserDataAccessInterface,
         DraftUserDataAccessInterface,
         CreateLeagueUserDataAccessInterface,
-        JoinLeagueUserDataAccessInterface {
+        JoinLeagueUserDataAccessInterface,
+        UpdateLeaguesUserDataAccessInterface {
     private static final int SUCCESS_CODE = 200;
     private static final String CONTENT_TYPE_LABEL = "Content-Type";
     private static final String CONTENT_TYPE_JSON = "application/json";
@@ -298,5 +300,10 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
             throw new RuntimeException("Error updating leagues for user: " + user.getName(), ex);
         }
 
+    }
+
+    @Override
+    public ArrayList<League> addLeague(String username, String leagueID) {
+        return null;
     }
 }
