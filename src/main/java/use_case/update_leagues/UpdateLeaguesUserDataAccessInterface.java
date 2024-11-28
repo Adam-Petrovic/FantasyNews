@@ -9,3 +9,4 @@ public interface UpdateLeaguesUserDataAccessInterface {
     ArrayList<String> addLeague(String username, String leagueID);
     boolean userInLeague(String username, String leagueID);
 }
+

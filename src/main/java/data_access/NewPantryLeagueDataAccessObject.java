@@ -111,6 +111,7 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
         save(allLeagueData);
     }
 
+    @Override
     public void updateUserPoints(String leagueID, String username) {
         JSONObject allLeagueData = get();
         JSONObject leagueData = allLeagueData.getJSONObject(leagueID);
@@ -122,7 +123,6 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
 
         save(allLeagueData);
     }
-
 
     //prevents multiple calls to get
     @Override
