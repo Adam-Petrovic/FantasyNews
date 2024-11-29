@@ -302,4 +302,9 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
     public boolean userInLeague(String username, String leagueID) {
         return false;
     }
+
+    @Override
+    public ArrayList<User> getUsers(ArrayList<String> usernames) {
+        return null;
+    }
 }

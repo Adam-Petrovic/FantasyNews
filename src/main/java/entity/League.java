@@ -7,6 +7,7 @@ public class League {
     private final String id;
     private final ArrayList<String> users;
     private final HashMap<String, String[]> data;
+    private ArrayList<User> userObjArr = new ArrayList<>();
 
     public ArrayList<String> getUsers() {
         return users;
@@ -32,10 +33,24 @@ public class League {
         }
     }
 
+    public ArrayList<User> getUserObjArr() {
+        return userObjArr;
+    }
+
     public League(String id, ArrayList<String> users, HashMap<String, String[]> data) {
         this.id = id;
         this.users = users;
         this.data = data;
+        this.userObjArr = makeUserObjArray(data);
+    }
+
+    private ArrayList<User> makeUserObjArray(HashMap<String, String[]> data) {
+        ArrayList<User> users = new ArrayList<>();
+         for (String user : data.keySet()) {
+             User user1 = new CommonUser(user, "", data.get(user));
+             users.add(user1);
+         }
+         return users;
     }
 
     public HashMap<String, String[]> getData() {

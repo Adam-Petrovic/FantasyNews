@@ -29,6 +29,7 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
     private static final String LEAGUES = "leagues";
     private static final String USERS = "users";
     private static final String DATA = "data";
+    private static final String[] DEFAULT_DATA = {"1", "2", "3", "4", "5", "0"};
     private static final String BASKET_NAME = "leagues";
 
     private static final String API_URL = "https://getpantry.cloud/apiv1/pantry/";
@@ -68,7 +69,7 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
         usernames.add(username);
         newLeague.put(USERS, usernames);
         HashMap<String, String[]> data = new HashMap<String, String[]>();
-        data.put(username, new String[]{"defaultWord1", "defaultWord2"});
+        data.put(username, DEFAULT_DATA);
         newLeague.put(DATA, data);
 
         leagueData.put(leagueID, newLeague);
@@ -101,11 +102,24 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
             String[] words = toStringArray(jsonData.getJSONArray(usernames.get(i)));
             finalData.put(usernames.get(i), words);
         }
-        finalData.put(username, new String[]{"defaultWord1", "defaultWord2"});
+        finalData.put(username, DEFAULT_DATA);
 
         leagueData.put(DATA, finalData);
         usernames.add(username);
         leagueData.put(USERS, usernames);
+
+        save(allLeagueData);
+    }
+
+    @Override
+    public void updateUserPoints(String leagueID, String username) {
+        JSONObject allLeagueData = get();
+        JSONObject leagueData = allLeagueData.getJSONObject(leagueID);
+        JSONObject data = leagueData.getJSONObject(DATA);
+        JSONArray jsonWords = data.getJSONArray(username);
+        String[] wordData = toStringArray(jsonWords);
+        wordData[5] = "100";
+        data.put(username, wordData);
 
         save(allLeagueData);
     }

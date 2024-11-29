@@ -13,4 +13,6 @@ public interface UpdateLeaguesLeagueDataAccessInterface {
     void addUserToLeague(String leagueID, String username);
 
     ArrayList<League> getLeagues(ArrayList<String> userLeagueIDList);
+
+    void updateUserPoints(String leagueID, String username);
 }
