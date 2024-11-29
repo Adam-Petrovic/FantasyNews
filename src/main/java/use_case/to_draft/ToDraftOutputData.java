@@ -1,11 +1,11 @@
-package use_case.draft;
+package use_case.to_draft;
 
 import entity.User;
 
-public class DraftOutputData {
+public class ToDraftOutputData {
     private final User user;
 
-    public DraftOutputData(User user) {
+    public ToDraftOutputData(User user) {
         this.user = user;
     }
 

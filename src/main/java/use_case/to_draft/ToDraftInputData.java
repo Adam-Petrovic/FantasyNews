@@ -1,9 +1,9 @@
-package use_case.draft;
+package use_case.to_draft;
 
-public class DraftInputData {
+public class ToDraftInputData {
     private final String username;
 
-    public DraftInputData(String username) {
+    public ToDraftInputData(String username) {
         this.username = username;
     }
 

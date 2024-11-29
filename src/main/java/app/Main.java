@@ -32,7 +32,7 @@ public class Main {
                                             .addAddFriendsUseCase()
                                             .addAddNewFriendUseCase()
                                             .addDraftView()
-//                                            .addDraftUseCase()
+                                            .addDraftUseCase()
                                             .addUpdateLeaguesUseCase()
                                             .addUpdateLeaguePointsUseCase()
                                             .build();

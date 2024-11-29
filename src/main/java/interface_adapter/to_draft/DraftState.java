@@ -1,4 +1,4 @@
-package interface_adapter.draft;
+package interface_adapter.to_draft;
 
 import entity.User;
 

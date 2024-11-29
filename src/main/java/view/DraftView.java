@@ -1,7 +1,7 @@
 package view;
 
-import interface_adapter.draft.DraftViewModel;
-import interface_adapter.draft.DraftController;
+import interface_adapter.to_draft.DraftViewModel;
+import interface_adapter.to_draft.ToDraftController;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +15,7 @@ public class DraftView extends JPanel implements ActionListener, PropertyChangeL
 
     private final JTextField usernameInputField = new JTextField(15);
     private final JLabel usernameErrorField = new JLabel();
-    private DraftController draftController;
+    private ToDraftController toDraftController;
 
     public DraftView(DraftViewModel draftViewModel) {
         this.draftViewModel = draftViewModel;
@@ -35,12 +35,12 @@ public class DraftView extends JPanel implements ActionListener, PropertyChangeL
         mainPanel.add(addWordPanel);
         this.add(friend_usernameInfo);
 
-        addWordButton.addActionListener(
-                evt -> {
-                    if (evt.getSource().equals(addWordButton)) {
-                        draftController.execute(usernameInputField.getText());
-                    }
-                });
+//        addWordButton.addActionListener(
+//                evt -> {
+//                    if (evt.getSource().equals(addWordButton)) {
+//                        toDraftController.execute(usernameInputField.getText());
+//                    }
+//                });
 
         String[] userTitle = {"Words"};
         String[][] usernames =  {{"word1"}, {"word2"}, {"word3"}};
@@ -65,8 +65,8 @@ public class DraftView extends JPanel implements ActionListener, PropertyChangeL
 
     }
 
-    public void setDraftController(DraftController draftController) {
-        this.draftController = draftController;
+    public void setDraftController(ToDraftController toDraftController) {
+        this.toDraftController = toDraftController;
     }
 
 }
