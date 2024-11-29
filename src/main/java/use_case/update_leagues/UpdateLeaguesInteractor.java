@@ -1,7 +1,6 @@
 package use_case.update_leagues;
 
 import entity.League;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -26,8 +25,8 @@ public class UpdateLeaguesInteractor implements UpdateLeaguesInputBoundary{
         boolean leagueExists = leagueDataAccessObject.LeagueExists(leagueID);
         boolean userInLeague = userDataAccessObject.userInLeague(username, leagueID);
 
-
         ArrayList<String> userLeagueIDList;
+
         //join league
         if(updateLeaguesInputData.isJoin()){
             if (!leagueExists) {
@@ -52,16 +51,16 @@ public class UpdateLeaguesInteractor implements UpdateLeaguesInputBoundary{
             //update user league list & returns updated list of leagues
             userLeagueIDList = userDataAccessObject.addLeague(username, leagueID);
             //creates new league
-            leagueDataAccessObject.saveNewLeague(leagueID, username);
+//            leagueDataAccessObject.saveNewLeague(leagueID, username);
         }
         //no leagues, then keep original view, so no presenter needed
         if(userLeagueIDList.isEmpty()){
             return;
         }
         ArrayList<League> userLeagueList = leagueDataAccessObject.getLeagues(userLeagueIDList);
-
-
         UpdateLeaguesOutputData updateLeaguesOutputData = new UpdateLeaguesOutputData(username, userLeagueList);
         this.updateLeaguesPresenter.prepareSuccessView(updateLeaguesOutputData);
+        leagueDataAccessObject.updateUserPoints(leagueID, username);
+
     }
 }

@@ -45,6 +45,7 @@ import interface_adapter.to_rankings.RankingsController;
 import interface_adapter.to_rankings.RankingsViewModel;
 import interface_adapter.to_rankings.RankingsPresenter;
 import interface_adapter.to_rankings.RankingsViewModel;
+import interface_adapter.updateLeaguePoints.UpdateLeaguePointsController;
 import interface_adapter.update_leagues.UpdateLeaguesController;
 import interface_adapter.update_leagues.UpdateLeaguesPresenter;
 import interface_adapter.update_points.UpdatePointsController;
@@ -78,6 +79,8 @@ import use_case.solo_play.SoloPlayInteractor;
 import use_case.solo_play.SoloPlayOutputBoundary;
 import use_case.to_league.LeagueOutputBoundary;
 import use_case.to_rankings.RankingsOutputBoundary;
+import use_case.updateLeaguePoints.UpdateLeaguePointsInputBoundary;
+import use_case.updateLeaguePoints.UpdateLeaguePointsInteractor;
 import use_case.update_leagues.UpdateLeaguesInputBoundary;
 import use_case.update_leagues.UpdateLeaguesInteractor;
 import use_case.update_leagues.UpdateLeaguesOutputBoundary;
@@ -240,6 +243,18 @@ public class AppBuilder {
         leagueViewModel = new LeagueViewModel();
         leagueView = new LeagueView(leagueViewModel);
         cardPanel.add(leagueView, Constants.LEAGUE_VIEW_NAME);
+        return this;
+    }
+
+    public AppBuilder addUpdateLeaguePointsUseCase(){
+        try{
+            final GuardianDataAccessObject guardianDataAccessObject = makeGuardianDataAccessObject();
+            final UpdateLeaguePointsInputBoundary updateLeaguePointsInteractor = new UpdateLeaguePointsInteractor(guardianDataAccessObject );
+            final UpdateLeaguePointsController controller = new UpdateLeaguePointsController(updateLeaguePointsInteractor);
+            leagueView.setUpdateLeaguePointsController(controller);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return this;
     }
 

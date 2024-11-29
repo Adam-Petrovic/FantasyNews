@@ -54,7 +54,7 @@ public class CommonUser implements User {
         this.password = password;
         createWordMap(terms);
         this.leagueIDs = new ArrayList<>();
-        this.leagueWords = new String[]{"meow", "woof"};
+        this.leagueWords = new String[]{"1", "2", "3", "4", "5"};
     }
 
     private void createWordMap() {
