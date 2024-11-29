@@ -22,8 +22,6 @@ import interface_adapter.add_new_friend.AddNewFriendPresenter;
 import interface_adapter.add_word.AddWordController;
 import interface_adapter.add_word.AddWordPresenter;
 import interface_adapter.change_password.LoggedInViewModel;
-import interface_adapter.create_league.CreateLeagueController;
-import interface_adapter.create_league.CreateLeaguePresenter;
 import interface_adapter.draft.DraftController;
 import interface_adapter.draft.DraftPresenter;
 import interface_adapter.draft.DraftViewModel;
@@ -47,6 +45,8 @@ import interface_adapter.to_rankings.RankingsController;
 import interface_adapter.to_rankings.RankingsViewModel;
 import interface_adapter.to_rankings.RankingsPresenter;
 import interface_adapter.to_rankings.RankingsViewModel;
+import interface_adapter.update_leagues.UpdateLeaguesController;
+import interface_adapter.update_leagues.UpdateLeaguesPresenter;
 import interface_adapter.update_points.UpdatePointsController;
 import interface_adapter.update_points.UpdatePointsPresenter;
 import interface_adapter.update_rankings.UpdateRankingsController;
@@ -60,9 +60,6 @@ import use_case.add_new_friend.AddNewFriendOutputBoundary;
 import use_case.add_word.AddWordInputBoundary;
 import use_case.add_word.AddWordInteractor;
 import use_case.add_word.AddWordOutputBoundary;
-import use_case.create_league.CreateLeagueInputBoundary;
-import use_case.create_league.CreateLeagueInteractor;
-import use_case.create_league.CreateLeagueOutputBoundary;
 import use_case.draft.DraftInputBoundary;
 import use_case.draft.DraftInteractor;
 import use_case.draft.DraftOutputBoundary;
@@ -81,8 +78,12 @@ import use_case.solo_play.SoloPlayInteractor;
 import use_case.solo_play.SoloPlayOutputBoundary;
 import use_case.to_league.LeagueOutputBoundary;
 import use_case.to_rankings.RankingsOutputBoundary;
+import use_case.update_leagues.UpdateLeaguesInputBoundary;
+import use_case.update_leagues.UpdateLeaguesInteractor;
+import use_case.update_leagues.UpdateLeaguesOutputBoundary;
 import use_case.update_rankings.UpdateRankingsInputBoundary;
 import use_case.update_rankings.UpdateRankingsInteractor;
+import use_case.update_rankings.UpdateRankingsLeagueDataAccessInterface;
 import use_case.update_rankings.UpdateRankingsOutputBoundary;
 import use_case.update_solo_points.UpdatePointsInputBoundary;
 import use_case.update_solo_points.UpdatePointsInteractor;
@@ -115,6 +116,8 @@ public class AppBuilder {
 
     // thought question: is the hard dependency below a problem?
     //private final InMemoryUserDataAccessObject userDataAccessObject = new InMemoryUserDataAccessObject();
+    //private final NewPantryUserDataAccessObject userDataAccessObject = new NewPantryUserDataAccessObject(userFactory);
+    //private final NewPantryLeagueDataAccessObject leagueDataAccessObject = new NewPantryLeagueDataAccessObject();
     private final PantryUserDataAccessObject userDataAccessObject = new PantryUserDataAccessObject(userFactory);
     private final PantryLeagueDataAccessObject leagueDataAccessObject = new PantryLeagueDataAccessObject(leagueFactory);
     //uncomment the line above in order to use the Pantry API userDAO :)
@@ -140,13 +143,13 @@ public class AppBuilder {
         cardPanel.setLayout(cardLayout);
     }
 
-    public AppBuilder addCreateLeagueUseCase(){
-        final CreateLeagueOutputBoundary createLeaguePresenter = new CreateLeaguePresenter(viewManagerModel, leagueViewModel);
-        final CreateLeagueInputBoundary createLeagueInteractor = new CreateLeagueInteractor(createLeaguePresenter,
+    public AppBuilder addUpdateLeaguesUseCase() {
+        final UpdateLeaguesOutputBoundary updateLeaguesPresenter = new UpdateLeaguesPresenter(viewManagerModel, leagueViewModel);
+        final UpdateLeaguesInputBoundary updateLeaguesInteractor = new UpdateLeaguesInteractor(updateLeaguesPresenter,
                 userDataAccessObject, leagueDataAccessObject);
-        final CreateLeagueController controller = new CreateLeagueController(createLeagueInteractor);
-        loggedInView.setCreateLeagueController(controller);
-        leagueView.setCreateLeagueController(controller);
+        final UpdateLeaguesController controller = new UpdateLeaguesController(updateLeaguesInteractor);
+        loggedInView.setUpdateLeaguesController(controller);
+        leagueView.setUpdateLeaguesController(controller);
         return this;
     }
 
@@ -158,13 +161,13 @@ public class AppBuilder {
     }
 
 
-    public AppBuilder addDraftUseCase(){
-        final DraftOutputBoundary draftPresenter = new DraftPresenter(viewManagerModel, draftViewModel);
-        final DraftInputBoundary draftInteractor = new DraftInteractor(draftPresenter, userDataAccessObject);
-        final DraftController controller = new DraftController(draftInteractor);
-        loggedInView.setDraftController(controller);
-        return this;
-    }
+//    public AppBuilder addDraftUseCase(){
+//        final DraftOutputBoundary draftPresenter = new DraftPresenter(viewManagerModel, draftViewModel);
+//        final DraftInputBoundary draftInteractor = new DraftInteractor(draftPresenter, userDataAccessObject);
+//        final DraftController controller = new DraftController(draftInteractor);
+//        loggedInView.setDraftController(controller);
+//        return this;
+//    }
     /**
      * Adds the Signup View to the application.
      * @return this builder
@@ -262,7 +265,7 @@ public class AppBuilder {
 
         try {
             final GuardianDataAccessObject guardianDataAccessObject = makeGuardianDataAccessObject();
-            final UpdateRankingsInputBoundary updateRankingsInteractor = new UpdateRankingsInteractor(guardianDataAccessObject, updateRankingsPresenter);
+            final UpdateRankingsInputBoundary updateRankingsInteractor = new UpdateRankingsInteractor(guardianDataAccessObject, updateRankingsPresenter, leagueDataAccessObject, userDataAccessObject);
             final UpdateRankingsController updateRankingsController = new UpdateRankingsController(updateRankingsInteractor);
             rankingsView.setUpdateRankingsController(updateRankingsController);
             loggedInView.setToRankingsController(rankingsController);
