@@ -11,6 +11,7 @@ public class Constants {
     public static final String SIGN_UP_VIEW_NAME = "sign_up";
     public static final String RANKINGS_VIEW_NAME = "rankings";
     public static final String GUARDIAN_API_URL = "https://content.guardianapis.com/search?from-date=";
+    public static final String[] DEFAULT_WORDS = {"Default 1", "Default 2", "Default 3", "Default 4", "Default 5", "0"};
 
 
 }

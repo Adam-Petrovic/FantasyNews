@@ -34,12 +34,12 @@ public class Main {
                                             .addDraftView()
 //                                            .addDraftUseCase()
                                             .addUpdateLeaguesUseCase()
+                                            .addUpdateLeaguePointsUseCase()
                                             .build();
 
 
         application.pack();
         application.setVisible(true);
-
 
     }
 }

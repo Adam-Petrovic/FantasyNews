@@ -202,4 +202,9 @@ public class PantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataAcce
     public ArrayList<League> getLeagues(ArrayList<String> userLeagueIDList) {
         return null;
     }
+
+    @Override
+    public void updateUserPoints(String leagueID, String username) {
+
+    }
 }
