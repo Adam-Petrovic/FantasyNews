@@ -65,7 +65,7 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
         joinLeagueButton = new JButton("Join League");
 
         //go home stuff
-        goHomeButton = new JButton("<-");
+        goHomeButton = new JButton("←");
 
         //bottom panel
         this.functionsPanel = new JPanel();
@@ -81,7 +81,7 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
         displayLeaguePanel.setLayout(new BoxLayout(displayLeaguePanel, BoxLayout.Y_AXIS));
         displayLeagueTabs = new JTabbedPane();
         displayLeaguePanel.add(displayLeagueTabs);
-        JLabel catPhoto = new JLabel(new ImageIcon("Meow.jpg"));
+        JLabel catPhoto = new JLabel(new ImageIcon(""));
         catPhoto.setPreferredSize(new Dimension(100, 400));
         displayLeagueTabs.add(catPhoto);
 

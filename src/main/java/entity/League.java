@@ -1,5 +1,8 @@
 package entity;
 
+import data_access.Constants;
+
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -20,7 +23,7 @@ public class League {
         users.add("hiii");
         this.data = new HashMap<>();
         for (String user : users) {
-            data.put(user, new String[] {"hi", "hello"});
+            data.put(user, Constants.DEFAULT_WORDS);
         }
     }
 
@@ -29,7 +32,7 @@ public class League {
         this.users = users;
         this.data = new HashMap<>();
         for (String user : users) {
-            data.put(user, new String[] {"hi", "hello"});
+            data.put(user, Constants.DEFAULT_WORDS);
         }
     }
 
@@ -47,6 +50,7 @@ public class League {
     private ArrayList<User> makeUserObjArray(HashMap<String, String[]> data) {
         ArrayList<User> users = new ArrayList<>();
          for (String user : data.keySet()) {
+             System.out.println(data.get(user).length);
              User user1 = new CommonUser(user, "", data.get(user));
              users.add(user1);
          }

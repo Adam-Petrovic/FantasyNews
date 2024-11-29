@@ -27,14 +27,14 @@ public class CommonUser implements User {
         this.name = name;
         this.password = password;
         this.leagueIDs = leagueIDs;
-        this.leagueWords = new String[]{"meow", "woof"};
+        this.leagueWords = Constants.DEFAULT_WORDS;
     }
 
     public CommonUser(String name, String password) {
         this.name = name;
         this.password = password;
         this.leagueIDs = new ArrayList<>();
-        this.leagueWords = new String[]{"meow", "woof"};
+        this.leagueWords = Constants.DEFAULT_WORDS;
         createWordMap();
 //        if (draftedWords.length > Constants.NUM_CATEGORIES) {
 //            throw new InstantiationError("Inputted Words are too long");
@@ -54,12 +54,12 @@ public class CommonUser implements User {
         this.password = password;
         createWordMap(terms);
         this.leagueIDs = new ArrayList<>();
-        this.leagueWords = new String[]{"1", "2", "3", "4", "5"};
+        this.leagueWords = Constants.DEFAULT_WORDS;
     }
 
     private void createWordMap() {
 
-        String[] terms = {"Volleyball", "Gattaca", "Green Party", "Leaves", "Jokic"};
+        String[] terms = Constants.DEFAULT_WORDS;
         for (int index = 0; index < Constants.NUM_CATEGORIES; index++) {
             this.words.put(Constants.CATEGORIES[index], terms[index]);
             this.wordPointsForCategory.put(Constants.CATEGORIES[index], 0);
