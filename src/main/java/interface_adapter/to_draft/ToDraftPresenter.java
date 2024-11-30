@@ -3,7 +3,7 @@ package interface_adapter.to_draft;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.to_league.LeagueState;
 import use_case.to_draft.ToDraftOutputBoundary;
-import use_case.to_draft.ToDraftOutputData;
+
 
 public class ToDraftPresenter implements ToDraftOutputBoundary {
     private final ViewManagerModel viewManagerModel;

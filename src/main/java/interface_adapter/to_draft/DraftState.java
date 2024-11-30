@@ -8,6 +8,7 @@ public class DraftState {
     private String username = "";
     private String usernameError;
     private User user;
+    private String leagueID;
 
     public User getUser(){
         return user;

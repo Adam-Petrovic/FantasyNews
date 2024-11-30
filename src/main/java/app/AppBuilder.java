@@ -60,8 +60,6 @@ import use_case.add_new_friend.AddNewFriendOutputBoundary;
 import use_case.add_word.AddWordInputBoundary;
 import use_case.add_word.AddWordInteractor;
 import use_case.add_word.AddWordOutputBoundary;
-import use_case.to_draft.ToDraftInputBoundary;
-import use_case.to_draft.ToDraftInteractor;
 import use_case.to_draft.ToDraftOutputBoundary;
 import use_case.goHome.GoHomeOutputBoundary;
 import use_case.login.LoginInputBoundary;

@@ -1,20 +1,21 @@
 package use_case.to_draft;
-
 import entity.User;
+import use_case.solo_play.*;
 
 public class ToDraftInteractor implements ToDraftInputBoundary {
-    private final ToDraftOutputBoundary draftPresenter;
-    private final ToDraftUserDataAccessInterface userDataAccessObject;
 
-    public ToDraftInteractor(ToDraftOutputBoundary draftPresenter,
-                             ToDraftUserDataAccessInterface userDataAccessObject) {
+    private final ToDraftOutputBoundary draftPresenter;
+
+
+    public ToDraftInteractor(ToDraftOutputBoundary draftPresenter) {
         this.draftPresenter = draftPresenter;
-        this.userDataAccessObject = userDataAccessObject;
     }
 
+
+    @Override
     public void execute(ToDraftInputData toDraftInputData) {
-        User user = userDataAccessObject.get(toDraftInputData.getUsername());
-        ToDraftOutputData outputData = new ToDraftOutputData(user);
-        //draftPresenter.showDraft(outputData);
+
+        ToDraftOutputData outputData = new ToDraftOutputData();
+        draftPresenter.showSoloPlay(outputData);
     }
 }
