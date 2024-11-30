@@ -3,6 +3,7 @@ package view;
 import data_access.Constants;
 import entity.League;
 import entity.User;
+import interface_adapter.go_home.GoHomeController;
 import interface_adapter.to_rankings.RankingsViewModel;
 import interface_adapter.update_rankings.UpdateRankingsController;
 
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 public class RankingsView extends JPanel implements PropertyChangeListener {
     private final RankingsViewModel rankingsViewModel;
     private UpdateRankingsController updateRankingsController;
+    private GoHomeController goHomeController;
     private User user;
     private League league;
     //private JScrollPane jScrollPane;
@@ -60,6 +62,9 @@ public class RankingsView extends JPanel implements PropertyChangeListener {
 //        //wordsScrollPane.setPreferredSize(dw);
 //        //indexScrollPane.setPreferredSize(du);
 //
+        JButton goHomeButton = new JButton("←");
+        displayRankingsPanel.add(goHomeButton);
+
 //        //update rankings button
         JButton updateRankings = new JButton("Update Rankings");
         displayRankingsPanel.add(updateRankings);
@@ -72,6 +77,13 @@ public class RankingsView extends JPanel implements PropertyChangeListener {
                 updateRankingsController.execute(rankingsLeagueID.getText());
             }
         });
+
+        goHomeButton.addActionListener(
+                evt -> {
+                    if (evt.getSource().equals(goHomeButton)) {
+                        goHomeController.execute();
+                    }
+                });
 
 
         displayRankingsPanel.setVisible(true);
@@ -90,7 +102,6 @@ public class RankingsView extends JPanel implements PropertyChangeListener {
         String[] historicalTitles = {"Historical Ranking", "user", "points"};
         String[][] historicalRows = new String[historicalRankings.size()][3];
 
-
         for (int i = 0; i < liveRankings.size(); i++) {
             liveRows[i][0] = Integer.toString(i + 1);
             liveRows[liveRankings.size() - i - 1][1] = liveRankings.get(i).getName();
@@ -102,8 +113,6 @@ public class RankingsView extends JPanel implements PropertyChangeListener {
             historicalRows[historicalRankings.size() - i - 1][1] = historicalRankings.get(i).getName();
             historicalRows[historicalRankings.size() - i - 1][2] = Integer.toString(historicalRankings.get(i).getLeaguePoints());
         }
-
-
 
         JTable liveTable = new JTable(liveRows, liveTitles);
         JTable historicalTable = new JTable(historicalRows, historicalTitles);
@@ -117,6 +126,10 @@ public class RankingsView extends JPanel implements PropertyChangeListener {
 
     public void setUpdateRankingsController(UpdateRankingsController updateRankingsController) {
         this.updateRankingsController = updateRankingsController;
+    }
+
+    public void setGoHomeController(GoHomeController goHomeController) {
+        this.goHomeController = goHomeController;
     }
 
 }

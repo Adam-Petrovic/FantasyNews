@@ -210,6 +210,7 @@ public class AppBuilder {
         soloPlayView.setGoHomeController(goHomeController);
         friendsView.setGoHomeController(goHomeController);
         leagueView.setGoHomeController(goHomeController);
+        rankingsView.setGoHomeController(goHomeController);
         return this;
     }
 

@@ -1,6 +1,7 @@
 package use_case.add_new_friend;
 
 import data_access.InMemoryUserDataAccessObject;
+import data_access.GuardianDataAccessObject;
 import entity.CommonUserFactory;
 import entity.User;
 import entity.UserFactory;
@@ -16,6 +17,7 @@ class AddNewFriendInteractorTest {
     void successTest() {
         AddNewFriendInputData inputData = new AddNewFriendInputData("fio","jennifer");
         FriendsUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
+        GuardianDataAccessObject guardianDataAccessObject = new GuardianDataAccessObject("guardianAPIToken.txt");
 
         UserFactory factory = new CommonUserFactory();
         User user = factory.create("jennifer", "lala");
@@ -35,7 +37,7 @@ class AddNewFriendInteractorTest {
             }
         };
 
-        AddNewFriendInputBoundary interactor = new AddNewFriendInteractor(successPresenter, userRepository);
+        AddNewFriendInputBoundary interactor = new AddNewFriendInteractor(successPresenter, userRepository, guardianDataAccessObject);
         interactor.execute(inputData);
     }
 
@@ -43,6 +45,11 @@ class AddNewFriendInteractorTest {
     void failureFriendDoesNotExistTest() {
         AddNewFriendInputData inputData = new AddNewFriendInputData("leo", "jennifer");
         FriendsUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
+        GuardianDataAccessObject guardianDataAccessObject = new GuardianDataAccessObject("guardianAPIToken.txt");
+
+        UserFactory factory = new CommonUserFactory();
+        User user = factory.create("jennifer", "lala");
+        userRepository.save(user);
 
         // This creates a presenter that tests whether the test case is as we expect.
         AddNewFriendOutputBoundary failurePresenter = new AddNewFriendOutputBoundary() {
@@ -58,7 +65,7 @@ class AddNewFriendInteractorTest {
             }
         };
 
-        AddNewFriendInputBoundary interactor = new AddNewFriendInteractor(failurePresenter, userRepository);
+        AddNewFriendInputBoundary interactor = new AddNewFriendInteractor(failurePresenter, userRepository, guardianDataAccessObject);
         interactor.execute(inputData);
     }
 }
