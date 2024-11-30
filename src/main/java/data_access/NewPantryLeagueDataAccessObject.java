@@ -5,6 +5,7 @@ import okhttp3.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import use_case.to_league_actions.ToLeagueActionsLeagueDataAccessInterface;
 import use_case.update_leagues.UpdateLeaguesLeagueDataAccessInterface;
 import use_case.update_rankings.UpdateRankingsLeagueDataAccessInterface;
 
@@ -15,7 +16,7 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataAccessInterface,
-        UpdateRankingsLeagueDataAccessInterface {
+        UpdateRankingsLeagueDataAccessInterface, ToLeagueActionsLeagueDataAccessInterface {
 
 
     private static final int SUCCESS_CODE = 200;

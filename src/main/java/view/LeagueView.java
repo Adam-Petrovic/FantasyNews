@@ -7,6 +7,7 @@ import interface_adapter.go_home.GoHomeController;
 import interface_adapter.signup.SignupState;
 import interface_adapter.to_league.LeagueState;
 import interface_adapter.to_league.LeagueViewModel;
+import interface_adapter.to_league_actions.ToLeagueActionsController;
 import interface_adapter.updateLeaguePoints.UpdateLeaguePointsController;
 import interface_adapter.update_leagues.UpdateLeaguesController;
 
@@ -25,8 +26,7 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
     private final LeagueViewModel leagueViewModel;
     private GoHomeController goHomeController;
     private UpdateLeaguesController updateLeaguesController;
-    private UpdateLeaguePointsController updateLeaguesPointsController;
-
+    private ToLeagueActionsController toLeagueActionsController;
     //visuals
 
     //bottom panel
@@ -42,19 +42,16 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
 
     //go home & functions
     private JButton goHomeButton;
-    private JButton draftButton;
 
-    //league display panel
-    private ArrayList<JLabel> leagueLabels;
-    private JPanel displayLeaguePanel;
-    private JTabbedPane displayLeagueTabs;
-    private ArrayList<League> leagues;
+    //viewLeague panel
+    private JButton viewLeagueButton;
+    private JTextField viewLeagueID;
 
+    ArrayList<League> leagues;
 
     public LeagueView(LeagueViewModel leagueViewModel) {
         this.leagueViewModel = leagueViewModel;
         this.leagueViewModel.addPropertyChangeListener(this);
-        //might need to pass in user too TvT
         this.leagues = (leagueViewModel.getState().getLeagues());
 
         //create new league stuff
@@ -68,26 +65,20 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
         //go home stuff
         goHomeButton = new JButton("←");
 
-        //bottom panel
+        //see league stuff
+        this.viewLeagueButton = new JButton("View League");
+        this.viewLeagueID = new JTextField("Enter League ID");
+
         this.functionsPanel = new JPanel();
-        functionsPanel.add(goHomeButton);
         functionsPanel.setLayout(new BoxLayout(functionsPanel, BoxLayout.X_AXIS));
+        functionsPanel.add(goHomeButton);
+        functionsPanel.add(viewLeagueButton);
+        functionsPanel.add(viewLeagueID);
         functionsPanel.add(createLeagueButton);
         functionsPanel.add(createLeagueID);
         functionsPanel.add(joinLeagueButton);
         functionsPanel.add(joinLeagueID);
 
-        //displayLeaguePanel (top panel)
-        displayLeaguePanel = new JPanel();
-        displayLeaguePanel.setLayout(new BoxLayout(displayLeaguePanel, BoxLayout.Y_AXIS));
-        displayLeagueTabs = new JTabbedPane();
-        displayLeaguePanel.add(displayLeagueTabs);
-        JLabel catPhoto = new JLabel(new ImageIcon(""));
-        catPhoto.setPreferredSize(new Dimension(100, 400));
-        displayLeagueTabs.add(catPhoto);
-
-        this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.add(displayLeaguePanel);
         this.add(functionsPanel);
 
         //button listeners
@@ -119,64 +110,26 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
                 }
         );
 
+        viewLeagueButton.addActionListener(
+                evt -> {
+                    if (evt.getSource().equals(viewLeagueButton)) {
+                        String username = leagueViewModel.getState().getUsername();
+                        leagueViewModel.getState().setErrorMessage(null);
+                        toLeagueActionController.execute(viewLeagueID.getText());
+                    }
+                }
+        );
 
 
-       // createLeagueListener();
+
     }
-
-//    private void createLeagueListener() {
-//        createLeagueID.getDocument().addDocumentListener(new DocumentListener() {
-//
-//            private void documentListenerHelper() {
-//                LeagueState currentState = leagueViewModel.getState();
-//                currentState.addLeagueID(createLeagueID.getText());
-//                leagueViewModel.setState(currentState);
-//            }
-//
-//            @Override
-//            public void insertUpdate(DocumentEvent e) {
-//                documentListenerHelper();
-//            }
-//
-//            @Override
-//            public void removeUpdate(DocumentEvent e) {
-//                documentListenerHelper();
-//            }
-//
-//            @Override
-//            public void changedUpdate(DocumentEvent e) {
-//                documentListenerHelper();
-//            }
-//        });
-//    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
 
     }
-    //updating the league display yasssss
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        final LeagueState state = (LeagueState) evt.getNewValue();
-        if (state.getErrorMessage() != null) {
-            JOptionPane.showMessageDialog(this, state.getErrorMessage());
-            return;
-        }
-
-        this.leagues = leagueViewModel.getState().getLeagues();
-        this.displayLeaguePanel.remove(displayLeagueTabs);
-        this.displayLeagueTabs = new JTabbedPane();
-
-        for (League league : this.leagues){
-            JScrollPane leagueScrollPane = makeLeagueScrollPane(league);
-
-            displayLeagueTabs.add(league.getId(), leagueScrollPane);
-        }
-
-        displayLeaguePanel.add(displayLeagueTabs);
-        displayLeaguePanel.revalidate();
-        displayLeaguePanel.repaint();
-
     }
 
     public void setGoHomeController(GoHomeController controller){
@@ -187,54 +140,7 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
         this.updateLeaguesController = updateLeaguesController;
     }
 
-    public void setUpdateLeaguePointsController(UpdateLeaguePointsController updateLeaguesPointsController){
-        this.updateLeaguesPointsController = updateLeaguesPointsController;
-    }
-
-
-
-    public JScrollPane makeLeagueScrollPane(League league){
-        JScrollPane leagueScrollPane = new JScrollPane();
-        String[] columnNames = makeColumns();
-
-        updateLeaguesPointsController.execute(league.getUserObjArr());
-
-        String[][] info = makeInfo(league);
-
-        JTable leagueTable = new JTable(info, columnNames);
-        leagueTable.setDefaultEditor(Object.class, null);
-        leagueScrollPane.setViewportView(leagueTable);
-
-        return leagueScrollPane;
-    }
-
-    private String[] makeColumns() {
-        String[] c =  new String[Constants.NUM_CATEGORIES * 2 + 1];
-        c[0] = "Username";
-
-        for(int i = 1; i < c.length; i+= 2) {
-            c[i] = Constants.CATEGORIES[(i - 1) / 2];
-            c[i + 1] = "Pts";
-        }
-        return c;
-    }
-
-    private String[][] makeInfo(League league){
-        ArrayList<User> usrObj = league.getUserObjArr();
-
-        String[][] info = new String[usrObj.size()][Constants.NUM_CATEGORIES * 2 + 1];
-        for(int i = 0; i <  usrObj.size(); i++){
-            User currentUser  = usrObj.get(i);
-            info[i][0] = currentUser.getName();
-
-            String[] userWords = currentUser.getWords();
-            Integer[] points = currentUser.getAllPoints();
-            for (int j = 1; j < Constants.NUM_CATEGORIES * 2; j+= 2){
-                info[i][j] = userWords[(j - 1) / 2];
-                info[i][j+1] = points[(j - 1) / 2].toString();
-            }
-        }
-
-        return info;
+    public void setToLeagueActionsController(ToLeagueActionsController controller){
+        this.toLeagueActionsController = controller;
     }
 }

@@ -42,11 +42,11 @@ public class LeagueActionsView extends JPanel implements ActionListener, Propert
 
         //displayLeaguePanel (top panel)
         JScrollPane leagueScrollPane = makeLeagueScrollPane(league);
-
         displayLeaguePanel = new JPanel();
         displayLeaguePanel.setLayout(new BoxLayout(displayLeaguePanel, BoxLayout.Y_AXIS));
         displayLeaguePanel.add(leagueScrollPane);
 
+        //functions panel (bottom panel)
         this.goHomeButton = new JButton("<-");
         this.draftButton = new JButton("Draft");
         this.startButton = new JButton("Start");

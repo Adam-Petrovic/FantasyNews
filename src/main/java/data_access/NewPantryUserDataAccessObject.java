@@ -12,6 +12,7 @@ import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 import use_case.solo_play.SoloPlayUserDataAccessInterface;
+import use_case.to_league_actions.ToLeagueActionsUserDataAccessInterface;
 import use_case.update_leagues.UpdateLeaguesUserDataAccessInterface;
 import use_case.update_rankings.UpdateRankingsUserDataAccessInterface;
 
@@ -28,9 +29,10 @@ public class NewPantryUserDataAccessObject implements SignupUserDataAccessInterf
                                                         ChangePasswordUserDataAccessInterface,
                                                         LogoutUserDataAccessInterface,
                                                         SoloPlayUserDataAccessInterface,
-        FriendsUserDataAccessInterface,
+                                                        FriendsUserDataAccessInterface,
                                                         UpdateLeaguesUserDataAccessInterface,
-                                                        UpdateRankingsUserDataAccessInterface {
+                                                        UpdateRankingsUserDataAccessInterface,
+                                                        ToLeagueActionsUserDataAccessInterface {
     private static final int SUCCESS_CODE = 200;
     private static final String CONTENT_TYPE_LABEL = "Content-Type";
     private static final String CONTENT_TYPE_JSON = "application/json";
