@@ -3,7 +3,6 @@ package use_case.add_new_friend;
 import data_access.Constants;
 import data_access.GuardianDataAccessObject;
 import entity.User;
-import org.jetbrains.annotations.NotNull;
 import use_case.add_friends.AddFriendsUserDataAccessInterface;
 
 import java.util.HashMap;
@@ -57,8 +56,8 @@ public class AddNewFriendInteractor implements AddNewFriendInputBoundary{
 
     private int sumPoints(int[] points) {
         int sum = 0;
-        for (int i = 0; i < points.length; i++) {
-            sum += points[i];
+        for (int point : points) {
+            sum += point;
         }
         return sum;
     }
