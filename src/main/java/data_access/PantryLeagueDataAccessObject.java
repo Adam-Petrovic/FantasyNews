@@ -184,6 +184,11 @@ public class PantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataAcce
     }
 
     @Override
+    public void save(League league) {
+
+    }
+
+    @Override
     public void saveNewLeague(String leagueID, String username) {
 
     }

@@ -57,6 +57,11 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
     }
 
     @Override
+    public void save(League league) {
+
+    }
+
+    @Override
     public void saveNewLeague(String leagueID, String username) {
         if(leagueID.equals("")){
             return;

@@ -74,11 +74,15 @@ public class UpdateRankingsInteractor implements UpdateRankingsInputBoundary{
             points.add(-1);
             int i = 0;
 
-            //dont really need the points array just use user.leaguePoints??
-
+            // dont really need the points array just use user.leaguePoints??
+            // league.keySet()
+            // ArrayList<String> usersList = new ArrayList<>(league.keySet());
+            // ArrayList<User> users = userDataAccessInterface.getUsers(usersList);
             for (String username : league.keySet()) {
                 String[] words = league.get(username);
                 int total = 0;
+                // take it outside
+                //User user = users.get(i);
                 User user = userDataAccessInterface.get(username);
                 for (String word : words) {
                     Integer categoryPoints = guardianDataAccessObject.getPointsForCategory(word);
