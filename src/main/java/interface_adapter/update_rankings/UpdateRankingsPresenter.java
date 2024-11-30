@@ -19,12 +19,12 @@ public class UpdateRankingsPresenter implements UpdateRankingsOutputBoundary {
 
     @Override
     public void execute(UpdateRankingsOutputData outputData) {
-        // how r we getting the league?
         System.out.println("In updateRankingsPresenter");
         //rankingsViewModel.getState().getLeague().setRankings(outputData.getRankings());
         RankingsState rankingsState = rankingsViewModel.getState();
         rankingsState.setLeague(outputData.getLeague());
-        rankingsState.getLeague().setRankings(outputData.getRankings());
+        rankingsState.getLeague().setLiveRankings(outputData.getLiveRankings());
+        rankingsState.getLeague().setHistoricalRankings(outputData.getHistoricalRankings());
         rankingsViewModel.setState(rankingsState);
         rankingsViewModel.firePropertyChanged();
 

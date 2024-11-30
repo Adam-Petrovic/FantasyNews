@@ -16,6 +16,7 @@ public class CommonUser implements User {
     private final String name;
     private final String password;
     private int leaguePoints = 0;
+    private int liveLeaguePoints = 0;
     private final HashMap<String, String> words = new HashMap<>();
     private final HashMap<String,Integer> wordPointsForCategory = new HashMap<>();
     private final String[] leagueWords;
@@ -167,5 +168,13 @@ public class CommonUser implements User {
 
     public String[] getLeagueWords(){
         return this.leagueWords;
+    }
+
+    public int getLiveLeaguePoints() {
+        return liveLeaguePoints;
+    }
+
+    public void setLiveLeaguePoints(int liveLeaguePoints) {
+        this.liveLeaguePoints = liveLeaguePoints;
     }
 }

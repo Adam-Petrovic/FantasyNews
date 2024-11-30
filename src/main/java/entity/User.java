@@ -34,6 +34,10 @@ public interface User {
 
     int getPointsForCategory(String category);
 
+    void setLiveLeaguePoints(int liveLeaguePoints);
+
+    int getLiveLeaguePoints();
+
     Integer[] getAllPoints();
 
     void setPoints(int[] points);

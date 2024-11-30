@@ -20,7 +20,7 @@ public class UpdateRankingsTest {
         UpdateRankingsLeagueDataAccessInterface leagueRepository = new InMemoryUserDataAccessObject();
         LeagueFactory factory = new LeagueFactory();
         League league = factory.create("rankingsTestLeague", new ArrayList<>());
-        //league.setWords("more_points");
+        league.setWords("more_points", new String[]{"The", "Trump"});
         leagueRepository.save(league);
 
         UpdateRankingsOutputBoundary successPresenter = new UpdateRankingsOutputBoundary() {
