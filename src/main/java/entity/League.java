@@ -36,6 +36,10 @@ public class League {
         }
     }
 
+    public void setWords(String user, String[] words){
+        this.data.put(user, words);
+    }
+
     public ArrayList<User> getUserObjArr() {
         return userObjArr;
     }
