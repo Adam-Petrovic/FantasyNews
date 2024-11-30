@@ -1,4 +1,4 @@
-package interface_adapter.update_leagues;
+package interface_adapter.to_league_actions;
 
 import entity.League;
 

@@ -4,14 +4,10 @@ import data_access.Constants;
 import entity.League;
 import entity.User;
 import interface_adapter.go_home.GoHomeController;
-import interface_adapter.to_league.LeagueState;
-import interface_adapter.to_league.LeagueViewModel;
 import interface_adapter.updateLeaguePoints.UpdateLeaguePointsController;
-import interface_adapter.update_leagues.LeagueActionsViewModel;
-import interface_adapter.update_leagues.UpdateLeaguesController;
+import interface_adapter.to_league_actions.LeagueActionsViewModel;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;

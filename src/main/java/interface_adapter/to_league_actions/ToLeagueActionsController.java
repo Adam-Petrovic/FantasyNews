@@ -12,7 +12,7 @@ public class ToLeagueActionsController{
     }
 
     public void execute(String username, String leagueID){
-        final ToLeagueActionsInputData toLeagueActionsInputData = new ToLeagueActionsInputData(username, leagueID)
+        final ToLeagueActionsInputData toLeagueActionsInputData = new ToLeagueActionsInputData(username, leagueID);
         toLeagueActionsInteractor.execute(toLeagueActionsInputData);
     }
 }

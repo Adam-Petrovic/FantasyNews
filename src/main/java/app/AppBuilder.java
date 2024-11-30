@@ -43,7 +43,7 @@ import interface_adapter.to_rankings.RankingsController;
 import interface_adapter.to_rankings.RankingsViewModel;
 import interface_adapter.to_rankings.RankingsPresenter;
 import interface_adapter.updateLeaguePoints.UpdateLeaguePointsController;
-import interface_adapter.update_leagues.LeagueActionsViewModel;
+import interface_adapter.to_league_actions.LeagueActionsViewModel;
 import interface_adapter.update_leagues.UpdateLeaguesController;
 import interface_adapter.update_leagues.UpdateLeaguesPresenter;
 import interface_adapter.update_points.UpdatePointsController;
