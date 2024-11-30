@@ -1,9 +1,8 @@
 package view;
 
-import data_access.Constants;
 import entity.User;
-import interface_adapter.add_friends.AddFriendsState;
-import interface_adapter.add_friends.AddFriendsViewModel;
+import interface_adapter.to_friends.FriendsState;
+import interface_adapter.to_friends.FriendsViewModel;
 import interface_adapter.add_new_friend.AddNewFriendController;
 import interface_adapter.go_home.GoHomeController;
 
@@ -16,8 +15,8 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.HashMap;
 
-public class AddFriendsView extends JPanel implements ActionListener, PropertyChangeListener {
-    private final AddFriendsViewModel addFriendsViewModel;
+public class FriendsView extends JPanel implements ActionListener, PropertyChangeListener {
+    private final FriendsViewModel friendsViewModel;
     private JScrollPane jScrollPane;
     private JTable friendsTable;
     private User user;
@@ -26,10 +25,10 @@ public class AddFriendsView extends JPanel implements ActionListener, PropertyCh
     private AddNewFriendController addNewFriendController;
     private GoHomeController goHomeController;
 
-    public AddFriendsView(AddFriendsViewModel addFriendsViewModel) {
-        this.addFriendsViewModel = addFriendsViewModel;
-        this.addFriendsViewModel.addPropertyChangeListener(this);
-        this.user = addFriendsViewModel.getState().getUser();
+    public FriendsView(FriendsViewModel friendsViewModel) {
+        this.friendsViewModel = friendsViewModel;
+        this.friendsViewModel.addPropertyChangeListener(this);
+        this.user = friendsViewModel.getState().getUser();
 
         jScrollPane = new JScrollPane();
         JPanel userOptions = new JPanel();
@@ -52,8 +51,8 @@ public class AddFriendsView extends JPanel implements ActionListener, PropertyCh
         addFriend.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(addFriend)) {
-                        String friend = addFriendsViewModel.getState().getFriend_username();
-                        addFriendsViewModel.getState().setFriend_usernameError(null);
+                        String friend = friendsViewModel.getState().getFriend_username();
+                        friendsViewModel.getState().setFriend_usernameError(null);
                         addNewFriendController.execute(friend, this.user.getName());
                     }
                 });
@@ -72,9 +71,9 @@ public class AddFriendsView extends JPanel implements ActionListener, PropertyCh
         usernameInputField.getDocument().addDocumentListener(new DocumentListener() {
 
             private void documentListenerHelper() {
-                final AddFriendsState currentState = addFriendsViewModel.getState();
+                final FriendsState currentState = friendsViewModel.getState();
                 currentState.setFriend_username(usernameInputField.getText());
-                addFriendsViewModel.setState(currentState);
+                friendsViewModel.setState(currentState);
             }
 
             @Override
@@ -101,7 +100,7 @@ public class AddFriendsView extends JPanel implements ActionListener, PropertyCh
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
-        final AddFriendsState state = (AddFriendsState) evt.getNewValue();
+        final FriendsState state = (FriendsState) evt.getNewValue();
         if(state.getFriend_usernameError() != null) {
             JOptionPane.showMessageDialog(this, state.getFriend_usernameError());
         }
@@ -109,8 +108,8 @@ public class AddFriendsView extends JPanel implements ActionListener, PropertyCh
     }
 
     private void displayTable() {
-        this.user = addFriendsViewModel.getState().getUser();
-        HashMap<User, Integer> userPoints = addFriendsViewModel.getState().getUserPoints();
+        this.user = friendsViewModel.getState().getUser();
+        HashMap<User, Integer> userPoints = friendsViewModel.getState().getUserPoints();
         String[] columnNames = {"Friends", "Points"};
         Object[][] data = new Object[user.getFriends().size()][2];
 

@@ -1,13 +1,12 @@
 package data_access;
 
-import entity.League;
 import entity.User;
 import entity.UserFactory;
 import okhttp3.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import use_case.add_friends.AddFriendsUserDataAccessInterface;
+import use_case.to_friends.FriendsUserDataAccessInterface;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
@@ -29,7 +28,7 @@ public class NewPantryUserDataAccessObject implements SignupUserDataAccessInterf
                                                         ChangePasswordUserDataAccessInterface,
                                                         LogoutUserDataAccessInterface,
                                                         SoloPlayUserDataAccessInterface,
-                                                        AddFriendsUserDataAccessInterface,
+        FriendsUserDataAccessInterface,
                                                         UpdateLeaguesUserDataAccessInterface,
                                                         UpdateRankingsUserDataAccessInterface {
     private static final int SUCCESS_CODE = 200;

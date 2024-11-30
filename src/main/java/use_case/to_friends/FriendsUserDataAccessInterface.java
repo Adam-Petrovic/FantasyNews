@@ -1,8 +1,8 @@
-package use_case.add_friends;
+package use_case.to_friends;
 
 import entity.User;
 
-public interface AddFriendsUserDataAccessInterface {
+public interface FriendsUserDataAccessInterface {
     User get(String username);
     void save(User user);
     boolean existsByName(String friend_username);

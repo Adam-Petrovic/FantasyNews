@@ -14,16 +14,14 @@ import entity.CommonUserFactory;
 import entity.LeagueFactory;
 import entity.UserFactory;
 import interface_adapter.ViewManagerModel;
-import interface_adapter.add_friends.AddFriendsController;
-import interface_adapter.add_friends.AddFriendsPresenter;
-import interface_adapter.add_friends.AddFriendsViewModel;
+import interface_adapter.to_friends.FriendsController;
+import interface_adapter.to_friends.FriendsPresenter;
+import interface_adapter.to_friends.FriendsViewModel;
 import interface_adapter.add_new_friend.AddNewFriendController;
 import interface_adapter.add_new_friend.AddNewFriendPresenter;
 import interface_adapter.add_word.AddWordController;
 import interface_adapter.add_word.AddWordPresenter;
 import interface_adapter.change_password.LoggedInViewModel;
-import interface_adapter.draft.DraftController;
-import interface_adapter.draft.DraftPresenter;
 import interface_adapter.draft.DraftViewModel;
 import interface_adapter.go_home.GoHomeController;
 import interface_adapter.go_home.GoHomePresenter;
@@ -44,7 +42,6 @@ import interface_adapter.to_league.LeagueViewModel;
 import interface_adapter.to_rankings.RankingsController;
 import interface_adapter.to_rankings.RankingsViewModel;
 import interface_adapter.to_rankings.RankingsPresenter;
-import interface_adapter.to_rankings.RankingsViewModel;
 import interface_adapter.updateLeaguePoints.UpdateLeaguePointsController;
 import interface_adapter.update_leagues.UpdateLeaguesController;
 import interface_adapter.update_leagues.UpdateLeaguesPresenter;
@@ -52,18 +49,15 @@ import interface_adapter.update_points.UpdatePointsController;
 import interface_adapter.update_points.UpdatePointsPresenter;
 import interface_adapter.update_rankings.UpdateRankingsController;
 import interface_adapter.update_rankings.UpdateRankingsPresenter;
-import use_case.add_friends.AddFriendsInputBoundary;
-import use_case.add_friends.AddFriendsInteractor;
-import use_case.add_friends.AddFriendsOutputBoundary;
+import use_case.to_friends.FriendsInputBoundary;
+import use_case.to_friends.FriendsInteractor;
+import use_case.to_friends.FriendsOutputBoundary;
 import use_case.add_new_friend.AddNewFriendInputBoundary;
 import use_case.add_new_friend.AddNewFriendInteractor;
 import use_case.add_new_friend.AddNewFriendOutputBoundary;
 import use_case.add_word.AddWordInputBoundary;
 import use_case.add_word.AddWordInteractor;
 import use_case.add_word.AddWordOutputBoundary;
-import use_case.draft.DraftInputBoundary;
-import use_case.draft.DraftInteractor;
-import use_case.draft.DraftOutputBoundary;
 import use_case.goHome.GoHomeOutputBoundary;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInteractor;
@@ -86,7 +80,6 @@ import use_case.update_leagues.UpdateLeaguesInteractor;
 import use_case.update_leagues.UpdateLeaguesOutputBoundary;
 import use_case.update_rankings.UpdateRankingsInputBoundary;
 import use_case.update_rankings.UpdateRankingsInteractor;
-import use_case.update_rankings.UpdateRankingsLeagueDataAccessInterface;
 import use_case.update_rankings.UpdateRankingsOutputBoundary;
 import use_case.update_solo_points.UpdatePointsInputBoundary;
 import use_case.update_solo_points.UpdatePointsInteractor;
@@ -130,7 +123,7 @@ public class AppBuilder {
     private LoggedInViewModel loggedInViewModel;
     private LeagueViewModel leagueViewModel;
     private RankingsViewModel rankingsViewModel;
-    private AddFriendsViewModel addFriendsViewModel;
+    private FriendsViewModel friendsViewModel;
     private DraftViewModel draftViewModel;
 
     private LoggedInView loggedInView;
@@ -139,7 +132,7 @@ public class AppBuilder {
     private SoloPlayView soloPlayView;
     private LeagueView leagueView;
     private RankingsView rankingsView;
-    private AddFriendsView addFriendsView;
+    private FriendsView friendsView;
     private DraftView draftView;
 
     public AppBuilder() {
@@ -209,35 +202,35 @@ public class AppBuilder {
         final GoHomeOutputBoundary goHomePresenter = new GoHomePresenter(viewManagerModel, loggedInViewModel);
         final GoHomeController goHomeController = new GoHomeController(goHomePresenter);
         soloPlayView.setGoHomeController(goHomeController);
-        addFriendsView.setGoHomeController(goHomeController);
+        friendsView.setGoHomeController(goHomeController);
         leagueView.setGoHomeController(goHomeController);
         return this;
     }
 
     //add friends view
     public AppBuilder addAddFriendsView(){
-        addFriendsViewModel = new AddFriendsViewModel();
-        addFriendsView = new AddFriendsView(addFriendsViewModel);
-        cardPanel.add(addFriendsView, Constants.ADD_FRIENDS_VIEW_NAME);
+        friendsViewModel = new FriendsViewModel();
+        friendsView = new FriendsView(friendsViewModel);
+        cardPanel.add(friendsView, Constants.ADD_FRIENDS_VIEW_NAME);
         return this;
     }
 
     //add friends use case
     public AppBuilder addAddFriendsUseCase(){
-        final AddFriendsOutputBoundary addFriendsPresenter = new AddFriendsPresenter(viewManagerModel, addFriendsViewModel);
-        final AddFriendsInputBoundary addFriendsInteractor = new AddFriendsInteractor(addFriendsPresenter, userDataAccessObject);
-        final AddFriendsController addFriendsController = new AddFriendsController(addFriendsInteractor);
-        loggedInView.setAddFriendsController(addFriendsController);
+        final FriendsOutputBoundary addFriendsPresenter = new FriendsPresenter(viewManagerModel, friendsViewModel);
+        final FriendsInputBoundary addFriendsInteractor = new FriendsInteractor(addFriendsPresenter, userDataAccessObject);
+        final FriendsController friendsController = new FriendsController(addFriendsInteractor);
+        loggedInView.setAddFriendsController(friendsController);
         return this;
     }
 
     public AppBuilder addAddNewFriendUseCase() {
-        final AddNewFriendOutputBoundary addNewFriendPresenter = new AddNewFriendPresenter(viewManagerModel, addFriendsViewModel);
+        final AddNewFriendOutputBoundary addNewFriendPresenter = new AddNewFriendPresenter(viewManagerModel, friendsViewModel);
         try {
             final GuardianDataAccessObject guardianDataAccessObject = makeGuardianDataAccessObject();
             final AddNewFriendInputBoundary addNewFriendInteractor = new AddNewFriendInteractor(addNewFriendPresenter, userDataAccessObject, guardianDataAccessObject);
             final AddNewFriendController controller = new AddNewFriendController(addNewFriendInteractor);
-            addFriendsView.setAddNewFriendController(controller);
+            friendsView.setAddNewFriendController(controller);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }

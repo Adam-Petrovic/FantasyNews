@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
-import entity.CommonUser;
-import entity.League;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,12 +18,11 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import use_case.add_friends.AddFriendsUserDataAccessInterface;
+import use_case.to_friends.FriendsUserDataAccessInterface;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
 import use_case.draft.DraftUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
-import use_case.signup.SignupOutputBoundary;
 import use_case.signup.SignupUserDataAccessInterface;
 import use_case.solo_play.SoloPlayUserDataAccessInterface;
 import use_case.update_leagues.UpdateLeaguesUserDataAccessInterface;
@@ -41,7 +38,7 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
         ChangePasswordUserDataAccessInterface,
         LogoutUserDataAccessInterface,
         SoloPlayUserDataAccessInterface,
-        AddFriendsUserDataAccessInterface,
+        FriendsUserDataAccessInterface,
         DraftUserDataAccessInterface,
         UpdateLeaguesUserDataAccessInterface,
         UpdateRankingsUserDataAccessInterface{

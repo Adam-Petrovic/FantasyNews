@@ -1,11 +1,11 @@
-package use_case.add_friends;
+package use_case.to_friends;
 
 import entity.User;
 
-public class AddFriendsOutputData {
+public class FriendsOutputData {
     private final User user;
 
-    public AddFriendsOutputData(User user) {
+    public FriendsOutputData(User user) {
         this.user = user;
     }
 

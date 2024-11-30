@@ -1,10 +1,10 @@
-package interface_adapter.add_friends;
+package interface_adapter.to_friends;
 
 import entity.User;
 
 import java.util.HashMap;
 
-public class AddFriendsState {
+public class FriendsState {
     private String friend_username = "";
     private String friend_usernameError;
     private String username = "";
