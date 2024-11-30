@@ -7,7 +7,7 @@ import entity.User;
 import java.util.ArrayList;
 
 public class UpdatePointsForLeagueInteractor implements UpdatePointsForLeagueInputBoundary {
-    private GuardianDataAccessObject updatePointsForLeagueDataAccessObject;
+    private UpdatePointsForLeagueDataAccessObject updatePointsForLeagueDataAccessObject;
 
     public UpdatePointsForLeagueInteractor(UpdatePointsForLeagueDataAccessObject updatePointsForLeagueDataAccessObject) {
         this.updatePointsForLeagueDataAccessObject = updatePointsForLeagueDataAccessObject;
