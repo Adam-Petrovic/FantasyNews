@@ -23,7 +23,7 @@ public class Main {
                                             .addSoloPlayView()
                                             .addSoloPlayUseCase()
                                             .addAddWordUseCase()
-                                            .addAddFriendsView()
+                                            .addFriendsView()
                                             .addToLeagueView()
                                             .addGoHomeUseCase()
                                             .addToLeagueUseCase()

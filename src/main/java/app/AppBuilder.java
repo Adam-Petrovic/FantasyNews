@@ -208,7 +208,7 @@ public class AppBuilder {
     }
 
     //add friends view
-    public AppBuilder addAddFriendsView(){
+    public AppBuilder addFriendsView(){
         friendsViewModel = new FriendsViewModel();
         friendsView = new FriendsView(friendsViewModel);
         cardPanel.add(friendsView, Constants.ADD_FRIENDS_VIEW_NAME);

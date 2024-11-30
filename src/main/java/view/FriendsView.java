@@ -11,6 +11,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.HashMap;
@@ -120,6 +122,33 @@ public class FriendsView extends JPanel implements ActionListener, PropertyChang
         }
         friendsTable = new JTable(data, columnNames);
         friendsTable.setDefaultEditor(Object.class, null);
+
+        // Add MouseListener to the JTable
+        friendsTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int row = friendsTable.rowAtPoint(e.getPoint());
+                if (row >= 0) {
+                    // Retrieve friend's points from the clicked row
+                    String friendName = (String) friendsTable.getValueAt(row, 0);
+                    Integer friendPoints = (Integer) friendsTable.getValueAt(row, 1);
+                    Integer myPoints = (Integer) userPoints.values().toArray()[0];
+
+                    // Compare points between user and selected friend and display corresponding result
+                    String message;
+                    if (friendPoints > myPoints) {
+                        message = friendName + " has " + (friendPoints - myPoints) + " more points than you!";
+                    } else if (friendPoints < myPoints) {
+                        message = "You have " + (myPoints - friendPoints) + " more points than " + friendName + "!";
+                    } else {
+                        message = "You and " + friendName + " have the same points!";
+                    }
+
+                    JOptionPane.showMessageDialog(null, message);
+                }
+            }
+        });
+
         jScrollPane.add(friendsTable);
         jScrollPane.setViewportView(friendsTable);
     }
