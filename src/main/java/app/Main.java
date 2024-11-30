@@ -34,6 +34,7 @@ public class Main {
                                             .addDraftView()
 //                                            .addDraftUseCase()
                                             .addUpdateLeaguesUseCase()
+                                            .addUpdatePointsforLeagueUseCase()
                                             .addUpdateLeaguePointsUseCase()
                                             .build();
 

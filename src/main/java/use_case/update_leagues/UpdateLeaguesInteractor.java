@@ -60,7 +60,6 @@ public class UpdateLeaguesInteractor implements UpdateLeaguesInputBoundary{
         ArrayList<League> userLeagueList = leagueDataAccessObject.getLeagues(userLeagueIDList);
         UpdateLeaguesOutputData updateLeaguesOutputData = new UpdateLeaguesOutputData(username, userLeagueList);
         this.updateLeaguesPresenter.prepareSuccessView(updateLeaguesOutputData);
-        leagueDataAccessObject.updateUserPoints(leagueID, username);
 
     }
 }

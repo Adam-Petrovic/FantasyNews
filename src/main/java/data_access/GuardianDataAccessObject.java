@@ -1,21 +1,18 @@
 package data_access;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.temporal.TemporalAdjusters;
-import java.util.Scanner;
 
 import org.json.JSONObject;
+import use_case.award_league_points.AwardLeaguePointsDataAccessInterface;
+import use_case.updatePointsForLeague.UpdatePointsForLeagueDataAccessObject;
 import use_case.update_solo_points.UpdatePointsDataAccessInterface;
 
-public class GuardianDataAccessObject implements UpdatePointsDataAccessInterface {
+public class GuardianDataAccessObject implements UpdatePointsDataAccessInterface, UpdatePointsForLeagueDataAccessObject {
 
     private final String apiKey;
     private final HttpClient client;
@@ -42,7 +39,7 @@ public class GuardianDataAccessObject implements UpdatePointsDataAccessInterface
         // Construct the URL with parameters
         String searchTerm = query.replace(" ", "%20");
         String url = Constants.GUARDIAN_API_URL
-                + getPreviousMonday()
+                + getPreviousDay()
                 + "&q=" + searchTerm
                 + "&api-key=" + apiKey;
 
@@ -67,8 +64,8 @@ public class GuardianDataAccessObject implements UpdatePointsDataAccessInterface
         }
     }
 
-    private String getPreviousMonday(){
-        return LocalDate.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY)).toString();
+    private String getPreviousDay(){
+        return LocalDate.now().minusDays(1).toString();
     }
 
     @Override
