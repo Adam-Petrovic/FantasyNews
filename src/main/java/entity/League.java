@@ -7,7 +7,7 @@ public class League {
     private final String id;
     private final ArrayList<String> users;
     private final HashMap<String, String[]> data;
-
+    private ArrayList<User> rankings;
     public ArrayList<String> getUsers() {
         return users;
     }
@@ -46,8 +46,11 @@ public class League {
         return id;
     }
 
-    public void setRankings(HashMap<String, ArrayList<User>> rankings){
-
+    public void setRankings(ArrayList<User> rankings){
+        this.rankings = rankings;
+    }
+    public ArrayList<User> getRankings(){
+        return rankings;
     }
 
 }

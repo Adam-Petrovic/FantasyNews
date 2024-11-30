@@ -34,7 +34,7 @@ public class CommonUser implements User {
         this.name = name;
         this.password = password;
         this.leagueIDs = new ArrayList<>();
-        this.leagueWords = new String[]{"meow", "woof"};
+        this.leagueWords = new String[]{"meow", "woof", "bark", "purr", "growl"};
         createWordMap();
 //        if (draftedWords.length > Constants.NUM_CATEGORIES) {
 //            throw new InstantiationError("Inputted Words are too long");
