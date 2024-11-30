@@ -3,18 +3,18 @@ package use_case.add_new_friend;
 import data_access.Constants;
 import data_access.GuardianDataAccessObject;
 import entity.User;
-import use_case.add_friends.AddFriendsUserDataAccessInterface;
+import use_case.to_friends.FriendsUserDataAccessInterface;
 
 import java.util.HashMap;
 import java.util.List;
 
 public class AddNewFriendInteractor implements AddNewFriendInputBoundary{
     private final AddNewFriendOutputBoundary addNewFriendPresenter;
-    private final AddFriendsUserDataAccessInterface userDataAccessObject;
+    private final FriendsUserDataAccessInterface userDataAccessObject;
     private final GuardianDataAccessObject guardianDataAccessObject;
 
     public AddNewFriendInteractor(AddNewFriendOutputBoundary addNewFriendPresenter,
-                                  AddFriendsUserDataAccessInterface userDataAccessObject, GuardianDataAccessObject guardianDataAccessObject) {
+                                  FriendsUserDataAccessInterface userDataAccessObject, GuardianDataAccessObject guardianDataAccessObject) {
         this.addNewFriendPresenter = addNewFriendPresenter;
         this.userDataAccessObject = userDataAccessObject;
         this.guardianDataAccessObject = guardianDataAccessObject;

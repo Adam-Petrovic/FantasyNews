@@ -1,9 +1,9 @@
-package use_case.add_friends;
+package use_case.to_friends;
 
-public class AddFriendsInputData {
+public class FriendsInputData {
     private final String username;
 
-    public AddFriendsInputData(String username) {
+    public FriendsInputData(String username) {
         this.username = username;
     }
 

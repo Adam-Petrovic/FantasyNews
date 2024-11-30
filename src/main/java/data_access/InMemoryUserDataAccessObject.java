@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import entity.User;
-import use_case.add_friends.AddFriendsUserDataAccessInterface;
+import use_case.to_friends.FriendsUserDataAccessInterface;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
@@ -19,7 +19,7 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
         LoginUserDataAccessInterface,
         ChangePasswordUserDataAccessInterface,
         LogoutUserDataAccessInterface,
-        SoloPlayUserDataAccessInterface, AddFriendsUserDataAccessInterface {
+        SoloPlayUserDataAccessInterface, FriendsUserDataAccessInterface {
 
     private final Map<String, User> users = new HashMap<>();
 

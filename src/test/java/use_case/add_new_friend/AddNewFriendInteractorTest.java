@@ -5,7 +5,7 @@ import entity.CommonUserFactory;
 import entity.User;
 import entity.UserFactory;
 import org.junit.jupiter.api.Test;
-import use_case.add_friends.AddFriendsUserDataAccessInterface;
+import use_case.to_friends.FriendsUserDataAccessInterface;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -15,7 +15,7 @@ class AddNewFriendInteractorTest {
     @Test
     void successTest() {
         AddNewFriendInputData inputData = new AddNewFriendInputData("fio","jennifer");
-        AddFriendsUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
+        FriendsUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
 
         UserFactory factory = new CommonUserFactory();
         User user = factory.create("jennifer", "lala");
@@ -42,7 +42,7 @@ class AddNewFriendInteractorTest {
     @Test
     void failureFriendDoesNotExistTest() {
         AddNewFriendInputData inputData = new AddNewFriendInputData("leo", "jennifer");
-        AddFriendsUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
+        FriendsUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
 
         // This creates a presenter that tests whether the test case is as we expect.
         AddNewFriendOutputBoundary failurePresenter = new AddNewFriendOutputBoundary() {

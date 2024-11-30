@@ -5,10 +5,6 @@ import entity.CommonUserFactory;
 import entity.User;
 import entity.UserFactory;
 import org.junit.jupiter.api.Test;
-import use_case.add_friends.AddFriendsUserDataAccessInterface;
-import use_case.add_word.*;
-import use_case.change_password.*;
-import use_case.solo_play.SoloPlayUserDataAccessInterface;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
