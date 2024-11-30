@@ -43,6 +43,7 @@ import interface_adapter.to_rankings.RankingsController;
 import interface_adapter.to_rankings.RankingsViewModel;
 import interface_adapter.to_rankings.RankingsPresenter;
 import interface_adapter.updateLeaguePoints.UpdateLeaguePointsController;
+import interface_adapter.update_leagues.LeagueActionsViewModel;
 import interface_adapter.update_leagues.UpdateLeaguesController;
 import interface_adapter.update_leagues.UpdateLeaguesPresenter;
 import interface_adapter.update_points.UpdatePointsController;
@@ -125,6 +126,7 @@ public class AppBuilder {
     private RankingsViewModel rankingsViewModel;
     private FriendsViewModel friendsViewModel;
     private DraftViewModel draftViewModel;
+    private LeagueActionsViewModel leagueActionsViewModel;
 
     private LoggedInView loggedInView;
     private LoginView loginView;
@@ -134,6 +136,8 @@ public class AppBuilder {
     private RankingsView rankingsView;
     private FriendsView friendsView;
     private DraftView draftView;
+    private LeagueActionsView leagueActionsView;
+
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -175,6 +179,13 @@ public class AppBuilder {
         return this;
     }
 
+    public AppBuilder addLeagueActionsView(){
+        leagueActionsViewModel = new LeagueActionsViewModel();
+        leagueActionsView = new LeagueActionsView(leagueActionsViewModel);
+        cardPanel.add(leagueActionsView, Constants.LEAGUE_ACTIONS_VIEW_NAME);
+        return this;
+    }
+
     /**
      * Adds the Signup View to the application.
      * @return this builder
@@ -204,6 +215,7 @@ public class AppBuilder {
         soloPlayView.setGoHomeController(goHomeController);
         friendsView.setGoHomeController(goHomeController);
         leagueView.setGoHomeController(goHomeController);
+        leagueActionsView.setGoHomeController(goHomeController);
         return this;
     }
 
@@ -249,7 +261,7 @@ public class AppBuilder {
             final GuardianDataAccessObject guardianDataAccessObject = makeGuardianDataAccessObject();
             final UpdateLeaguePointsInputBoundary updateLeaguePointsInteractor = new UpdateLeaguePointsInteractor(guardianDataAccessObject );
             final UpdateLeaguePointsController controller = new UpdateLeaguePointsController(updateLeaguePointsInteractor);
-            leagueView.setUpdateLeaguePointsController(controller);
+            leagueActionsView.setUpdateLeaguePointsController(controller);
         } catch (Exception e) {
             e.printStackTrace();
         }

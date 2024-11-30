@@ -51,7 +51,7 @@ public class UpdateLeaguesInteractor implements UpdateLeaguesInputBoundary{
             //update user league list & returns updated list of leagues
             userLeagueIDList = userDataAccessObject.addLeague(username, leagueID);
             //creates new league
-//            leagueDataAccessObject.saveNewLeague(leagueID, username);
+            leagueDataAccessObject.saveNewLeague(leagueID, username);
         }
         //no leagues, then keep original view, so no presenter needed
         if(userLeagueIDList.isEmpty()){

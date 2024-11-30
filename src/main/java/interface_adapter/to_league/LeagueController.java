@@ -11,8 +11,4 @@ public class LeagueController {
     public void execute(String username){
         leaguePresenter.execute(username);
     }
-
-    public void execute(){
-        leaguePresenter.execute();
-    }
 }

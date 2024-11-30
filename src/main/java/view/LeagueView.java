@@ -40,8 +40,9 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
     private JTextField joinLeagueID;
     private JButton joinLeagueButton;
 
-    //go home
+    //go home & functions
     private JButton goHomeButton;
+    private JButton draftButton;
 
     //league display panel
     private ArrayList<JLabel> leagueLabels;
