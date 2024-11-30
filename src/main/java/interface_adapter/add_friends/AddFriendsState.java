@@ -2,12 +2,23 @@ package interface_adapter.add_friends;
 
 import entity.User;
 
+import java.util.HashMap;
+
 public class AddFriendsState {
     private String friend_username = "";
     private String friend_usernameError;
     private String username = "";
     private String usernameError;
     private User user;
+    private HashMap<User, Integer> userPoints;
+
+    public void setUserPoints(HashMap<User, Integer> userPoints) {
+        this.userPoints = userPoints;
+    }
+
+    public HashMap<User, Integer> getUserPoints() {
+        return userPoints;
+    }
 
     public User getUser(){
         return user;

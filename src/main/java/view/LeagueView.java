@@ -1,11 +1,13 @@
 package view;
 
+import data_access.Constants;
 import entity.League;
 import entity.User;
 import interface_adapter.go_home.GoHomeController;
 import interface_adapter.signup.SignupState;
 import interface_adapter.to_league.LeagueState;
 import interface_adapter.to_league.LeagueViewModel;
+import interface_adapter.updateLeaguePoints.UpdateLeaguePointsController;
 import interface_adapter.update_leagues.UpdateLeaguesController;
 
 import javax.swing.*;
@@ -23,6 +25,7 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
     private final LeagueViewModel leagueViewModel;
     private GoHomeController goHomeController;
     private UpdateLeaguesController updateLeaguesController;
+    private UpdateLeaguePointsController updateLeaguesPointsController;
 
     //visuals
 
@@ -46,6 +49,7 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
     private JTabbedPane displayLeagueTabs;
     private ArrayList<League> leagues;
 
+
     public LeagueView(LeagueViewModel leagueViewModel) {
         this.leagueViewModel = leagueViewModel;
         this.leagueViewModel.addPropertyChangeListener(this);
@@ -61,7 +65,7 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
         joinLeagueButton = new JButton("Join League");
 
         //go home stuff
-        goHomeButton = new JButton("<-");
+        goHomeButton = new JButton("←");
 
         //bottom panel
         this.functionsPanel = new JPanel();
@@ -77,7 +81,7 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
         displayLeaguePanel.setLayout(new BoxLayout(displayLeaguePanel, BoxLayout.Y_AXIS));
         displayLeagueTabs = new JTabbedPane();
         displayLeaguePanel.add(displayLeagueTabs);
-        JLabel catPhoto = new JLabel(new ImageIcon("Meow.jpg"));
+        JLabel catPhoto = new JLabel(new ImageIcon(""));
         catPhoto.setPreferredSize(new Dimension(100, 400));
         displayLeagueTabs.add(catPhoto);
 
@@ -113,6 +117,8 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
                     }
                 }
         );
+
+
 
        // createLeagueListener();
     }
@@ -162,12 +168,14 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
 
         for (League league : this.leagues){
             JScrollPane leagueScrollPane = makeLeagueScrollPane(league);
+
             displayLeagueTabs.add(league.getId(), leagueScrollPane);
         }
 
         displayLeaguePanel.add(displayLeagueTabs);
         displayLeaguePanel.revalidate();
         displayLeaguePanel.repaint();
+
     }
 
     public void setGoHomeController(GoHomeController controller){
@@ -178,24 +186,54 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
         this.updateLeaguesController = updateLeaguesController;
     }
 
+    public void setUpdateLeaguePointsController(UpdateLeaguePointsController updateLeaguesPointsController){
+        this.updateLeaguesPointsController = updateLeaguesPointsController;
+    }
+
+
+
     public JScrollPane makeLeagueScrollPane(League league){
         JScrollPane leagueScrollPane = new JScrollPane();
-        ArrayList<String> users = league.getUsers();
-        String[] columnNames = {"Member", "Words"};
-        String[][] info = new String[users.size()][2];
+        String[] columnNames = makeColumns();
 
-        for(int i = 0; i < users.size(); i++) {
-            info[i][0] = users.get(i);
-            String[] words = league.getData().get(users.get(i));
-            info[i][1] = words[0] + ", " + words[1];
-            //have database store user league points too?
-            //info[i][2] = String.valueOf(0);
-        }
+        updateLeaguesPointsController.execute(league.getUserObjArr());
+
+        String[][] info = makeInfo(league);
 
         JTable leagueTable = new JTable(info, columnNames);
         leagueTable.setDefaultEditor(Object.class, null);
         leagueScrollPane.setViewportView(leagueTable);
 
         return leagueScrollPane;
+    }
+
+    private String[] makeColumns() {
+        String[] c =  new String[Constants.NUM_CATEGORIES * 2 + 1];
+        c[0] = "Username";
+
+        for(int i = 1; i < c.length; i+= 2) {
+            c[i] = Constants.CATEGORIES[(i - 1) / 2];
+            c[i + 1] = "Pts";
+        }
+        return c;
+    }
+
+    private String[][] makeInfo(League league){
+        ArrayList<User> usrObj = league.getUserObjArr();
+
+        String[][] info = new String[usrObj.size()][Constants.NUM_CATEGORIES * 2 + 1];
+        for(int i = 0; i <  usrObj.size(); i++){
+            User currentUser  = usrObj.get(i);
+            info[i][0] = currentUser.getName();
+
+            String[] userWords = currentUser.getWords();
+            Integer[] points = currentUser.getAllPoints();
+            for (int j = 1; j < Constants.NUM_CATEGORIES * 2; j+= 2){
+                info[i][j] = userWords[(j - 1) / 2];
+                info[i][j+1] = points[(j - 1) / 2].toString();
+            }
+        }
+
+        return info;
     }
 }

@@ -19,6 +19,7 @@ public class AddNewFriendPresenter implements AddNewFriendOutputBoundary {
     public void prepareSuccessView(AddNewFriendOutputData outputData) {
         final AddFriendsState addFriendsState = addFriendsViewModel.getState();
         addFriendsViewModel.getState().getUser().addFriend(outputData.getFriend());
+        addFriendsViewModel.getState().setUserPoints(outputData.getUserPoints());
 
         this.addFriendsViewModel.setState(addFriendsState);
         this.addFriendsViewModel.firePropertyChanged();
