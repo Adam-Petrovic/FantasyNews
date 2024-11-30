@@ -10,8 +10,7 @@ public class FriendsController {
         this.addFriendsInteractor = addFriendsInteractor;
     }
 
-    public void execute(String username){
-        //addFriendsPresenter.execute();
+    public void execute(String username) {
         final FriendsInputData friendsInputData = new FriendsInputData(username);
         addFriendsInteractor.execute(friendsInputData);
     }

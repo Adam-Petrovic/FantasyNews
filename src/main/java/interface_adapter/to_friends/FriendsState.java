@@ -1,14 +1,13 @@
 package interface_adapter.to_friends;
 
-import entity.User;
-
 import java.util.HashMap;
 
+import entity.User;
+
 public class FriendsState {
-    private String friend_username = "";
-    private String friend_usernameError;
+    private String friendUsername = "";
+    private String friendUsernameError;
     private String username = "";
-    private String usernameError;
     private User user;
     private HashMap<User, Integer> userPoints;
 
@@ -20,11 +19,11 @@ public class FriendsState {
         return userPoints;
     }
 
-    public User getUser(){
+    public User getUser() {
         return user;
     }
 
-    public void setUser(User user){
+    public void setUser(User user) {
         this.user = user;
     }
 
@@ -32,31 +31,23 @@ public class FriendsState {
         return username;
     }
 
-    public String getUsernameError() {
-        return usernameError;
-    }
-
     public void setUsername(String username) {
         this.username = username;
     }
 
-    public void setUsernameError(String usernameError) {
-        this.friend_usernameError = usernameError;
+    public String getFriendUsername() {
+        return friendUsername;
     }
 
-    public String getFriend_username() {
-        return friend_username;
+    public String getFriendUsernameError() {
+        return friendUsernameError;
     }
 
-    public String getFriend_usernameError() {
-        return friend_usernameError;
+    public void setFriendUsername(String friendUsername) {
+        this.friendUsername = friendUsername;
     }
 
-    public void setFriend_username(String username) {
-        this.friend_username = username;
-    }
-
-    public void setFriend_usernameError(String usernameError) {
-        this.friend_usernameError = usernameError;
+    public void setFriendUsernameError(String friendUsernameError) {
+        this.friendUsernameError = friendUsernameError;
     }
 }

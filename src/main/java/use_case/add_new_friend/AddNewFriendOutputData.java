@@ -1,12 +1,12 @@
 package use_case.add_new_friend;
 
-import entity.User;
-
 import java.util.HashMap;
+
+import entity.User;
 
 public class AddNewFriendOutputData {
     private User friend;
-    private HashMap<User,Integer> userPoints;
+    private HashMap<User, Integer> userPoints;
 
     public AddNewFriendOutputData(User friend, HashMap<User, Integer> userPoints) {
         this.friend = friend;
