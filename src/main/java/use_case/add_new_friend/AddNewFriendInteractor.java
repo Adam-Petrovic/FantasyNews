@@ -7,6 +7,7 @@ import use_case.to_friends.FriendsUserDataAccessInterface;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 public class AddNewFriendInteractor implements AddNewFriendInputBoundary{
     private final AddNewFriendOutputBoundary addNewFriendPresenter;
@@ -20,13 +21,24 @@ public class AddNewFriendInteractor implements AddNewFriendInputBoundary{
         this.guardianDataAccessObject = guardianDataAccessObject;
     }
 
+    public void sleep(int seconds){
+        try {
+            TimeUnit.SECONDS.sleep(seconds);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public void execute(AddNewFriendInputData addNewFriendInputData) {
         User user = userDataAccessObject.get(addNewFriendInputData.getUsername());
         List<User> friends = user.getFriends();
         HashMap<User, Integer> userPoints = new HashMap<>();
         userPoints.put(user, sumPoints(getInts(user)));
-
-        if (userDataAccessObject.existsByName(addNewFriendInputData.getFriend_username())) {
+        if (addNewFriendInputData.getFriend_username().equals(addNewFriendInputData.getUsername())){
+            addNewFriendPresenter.prepareFailView("You cannot add yourself as a friend :(");
+        }
+        else if (userDataAccessObject.existsByName(addNewFriendInputData.getFriend_username())) {
+            sleep(2);
             User newFriend = userDataAccessObject.get(addNewFriendInputData.getFriend_username());
             user.addFriend(newFriend);
             for (User friend : friends) {
@@ -38,12 +50,6 @@ public class AddNewFriendInteractor implements AddNewFriendInputBoundary{
         else if (!userDataAccessObject.existsByName(addNewFriendInputData.getFriend_username())){
             addNewFriendPresenter.prepareFailView("User " + addNewFriendInputData.getFriend_username() + " not found.");
         }
-//        else if (addNewFriendInputData.getFriend_username().equals(addNewFriendInputData.getUsername())){
-//            addNewFriendPresenter.prepareFailView("You cannot add yourself as a friend :(");
-//        }
-//        else if (userDataAccessObject.get(addNewFriendInputData.getUsername()).getFriends().contains(userDataAccessObject.get(addNewFriendInputData.getFriend_username()))) {
-//            addNewFriendPresenter.prepareFailView(addNewFriendInputData.getFriend_username() + " is already your friend!");
-//        }
     }
 
     private int[] getInts(User user) {
