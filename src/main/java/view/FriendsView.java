@@ -1,14 +1,5 @@
 package view;
 
-import entity.User;
-import interface_adapter.to_friends.FriendsState;
-import interface_adapter.to_friends.FriendsViewModel;
-import interface_adapter.add_new_friend.AddNewFriendController;
-import interface_adapter.go_home.GoHomeController;
-
-import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -16,6 +7,16 @@ import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.HashMap;
+
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
+import entity.User;
+import interface_adapter.add_new_friend.AddNewFriendController;
+import interface_adapter.go_home.GoHomeController;
+import interface_adapter.to_friends.FriendsState;
+import interface_adapter.to_friends.FriendsViewModel;
 
 public class FriendsView extends JPanel implements ActionListener, PropertyChangeListener {
     private final FriendsViewModel friendsViewModel;
@@ -53,8 +54,8 @@ public class FriendsView extends JPanel implements ActionListener, PropertyChang
         addFriend.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(addFriend)) {
-                        String friend = friendsViewModel.getState().getFriend_username();
-                        friendsViewModel.getState().setFriend_usernameError(null);
+                        String friend = friendsViewModel.getState().getFriendUsername();
+                        friendsViewModel.getState().setFriendUsernameError(null);
                         addNewFriendController.execute(friend, this.user.getName());
                     }
                 });
@@ -74,7 +75,7 @@ public class FriendsView extends JPanel implements ActionListener, PropertyChang
 
             private void documentListenerHelper() {
                 final FriendsState currentState = friendsViewModel.getState();
-                currentState.setFriend_username(usernameInputField.getText());
+                currentState.setFriendUsername(usernameInputField.getText());
                 friendsViewModel.setState(currentState);
             }
 
@@ -103,8 +104,8 @@ public class FriendsView extends JPanel implements ActionListener, PropertyChang
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         final FriendsState state = (FriendsState) evt.getNewValue();
-        if(state.getFriend_usernameError() != null) {
-            JOptionPane.showMessageDialog(this, state.getFriend_usernameError());
+        if (state.getFriendUsernameError() != null) {
+            JOptionPane.showMessageDialog(this, state.getFriendUsernameError());
         }
         displayTable();
     }
@@ -138,9 +139,11 @@ public class FriendsView extends JPanel implements ActionListener, PropertyChang
                     String message;
                     if (friendPoints > myPoints) {
                         message = friendName + " has " + (friendPoints - myPoints) + " more points than you!";
-                    } else if (friendPoints < myPoints) {
+                    }
+                    else if (friendPoints < myPoints) {
                         message = "You have " + (myPoints - friendPoints) + " more points than " + friendName + "!";
-                    } else {
+                    }
+                    else {
                         message = "You and " + friendName + " have the same points!";
                     }
 

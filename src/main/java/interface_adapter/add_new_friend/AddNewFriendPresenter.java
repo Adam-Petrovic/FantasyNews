@@ -30,7 +30,7 @@ public class AddNewFriendPresenter implements AddNewFriendOutputBoundary {
     @Override
     public void prepareFailView(String errorMessage) {
         final FriendsState friendsState = friendsViewModel.getState();
-        friendsState.setFriend_usernameError(errorMessage);
+        friendsState.setFriendUsernameError(errorMessage);
         this.friendsViewModel.firePropertyChanged();
     }
 }

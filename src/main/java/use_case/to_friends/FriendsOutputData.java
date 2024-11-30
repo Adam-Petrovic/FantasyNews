@@ -9,5 +9,7 @@ public class FriendsOutputData {
         this.user = user;
     }
 
-    public User getUser() { return this.user; }
+    public User getUser() {
+        return this.user;
+    }
 }
