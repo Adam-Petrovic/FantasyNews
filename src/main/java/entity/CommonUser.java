@@ -150,7 +150,7 @@ public class CommonUser implements User {
     }
 
     public List<User> getFriends() {
-        return friends;
+        return this.friends;
     }
 
     @Override

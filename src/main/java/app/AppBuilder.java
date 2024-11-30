@@ -233,9 +233,14 @@ public class AppBuilder {
 
     public AppBuilder addAddNewFriendUseCase() {
         final AddNewFriendOutputBoundary addNewFriendPresenter = new AddNewFriendPresenter(viewManagerModel, addFriendsViewModel);
-        final AddNewFriendInputBoundary addNewFriendInteractor = new AddNewFriendInteractor(addNewFriendPresenter, userDataAccessObject);
-        final AddNewFriendController controller = new AddNewFriendController(addNewFriendInteractor);
-        addFriendsView.setAddNewFriendController(controller);
+        try {
+            final GuardianDataAccessObject guardianDataAccessObject = makeGuardianDataAccessObject();
+            final AddNewFriendInputBoundary addNewFriendInteractor = new AddNewFriendInteractor(addNewFriendPresenter, userDataAccessObject, guardianDataAccessObject);
+            final AddNewFriendController controller = new AddNewFriendController(addNewFriendInteractor);
+            addFriendsView.setAddNewFriendController(controller);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         return this;
     }
 
