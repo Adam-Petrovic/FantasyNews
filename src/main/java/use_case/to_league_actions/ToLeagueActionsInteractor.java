@@ -14,6 +14,7 @@ public class ToLeagueActionsInteractor implements ToLeagueActionsInputBoundary{
                               ToLeagueActionsLeagueDataAccessInterface leagueDataAccessObject) {
         this.toLeagueActionsPresenter = toLeagueActionsPresenter;
         this.userDataAccessObject = userDataAccessObject;
+        this.leagueDataAccessObject = leagueDataAccessObject;
     }
 
     @Override
@@ -28,6 +29,8 @@ public class ToLeagueActionsInteractor implements ToLeagueActionsInputBoundary{
             ToLeagueActionsOutputData toLeagueActionsOutputData = new ToLeagueActionsOutputData(league);
             toLeagueActionsPresenter.prepareSuccessView(toLeagueActionsOutputData);
         }
-        toLeagueActionsPresenter.prepareFailureView("User Not In League");
+        else {
+            toLeagueActionsPresenter.prepareFailureView("User Not In League");
+        }
     }
 }

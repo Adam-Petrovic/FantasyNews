@@ -37,5 +37,8 @@ public class ToLeagueActionsPresenter implements ToLeagueActionsOutputBoundary {
         leagueState.setErrorMessage("User is not in this league");
         leagueViewModel.setState(leagueState);
         leagueViewModel.firePropertyChanged();
+
+        viewManagerModel.setState(leagueViewModel.getViewName());
+        viewManagerModel.firePropertyChanged();
     }
 }

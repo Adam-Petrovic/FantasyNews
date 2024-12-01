@@ -5,6 +5,7 @@ import entity.League;
 import entity.User;
 import interface_adapter.go_home.GoHomeController;
 import interface_adapter.signup.SignupState;
+import interface_adapter.to_friends.FriendsState;
 import interface_adapter.to_league.LeagueState;
 import interface_adapter.to_league.LeagueViewModel;
 import interface_adapter.to_league_actions.ToLeagueActionsController;
@@ -115,13 +116,10 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
                     if (evt.getSource().equals(viewLeagueButton)) {
                         String username = leagueViewModel.getState().getUsername();
                         leagueViewModel.getState().setErrorMessage(null);
-                        toLeagueActionController.execute(viewLeagueID.getText());
+                        toLeagueActionsController.execute(username, viewLeagueID.getText());
                     }
                 }
         );
-
-
-
     }
 
     @Override
@@ -130,7 +128,12 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
     }
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        final LeagueState state = (LeagueState) evt.getNewValue();
+        if (state.getErrorMessage() != null) {
+            JOptionPane.showMessageDialog(this, state.getErrorMessage());
+        }
     }
+
 
     public void setGoHomeController(GoHomeController controller){
         this.goHomeController = controller;

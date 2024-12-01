@@ -105,7 +105,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 evt -> {
                     if (evt.getSource().equals(toLeague)) {
                         leagueController.execute(loggedInViewModel.getState().getUsername());
-                        updateLeaguesController.execute(loggedInViewModel.getState().getUsername());
                     }
                 }
         );

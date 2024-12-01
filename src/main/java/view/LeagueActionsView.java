@@ -37,10 +37,7 @@ public class LeagueActionsView extends JPanel implements ActionListener, Propert
         this.league = (leagueActionsViewModel.getState().getLeague());
 
         //displayLeaguePanel (top panel)
-        JScrollPane leagueScrollPane = makeLeagueScrollPane(league);
         displayLeaguePanel = new JPanel();
-        displayLeaguePanel.setLayout(new BoxLayout(displayLeaguePanel, BoxLayout.Y_AXIS));
-        displayLeaguePanel.add(leagueScrollPane);
 
         //functions panel (bottom panel)
         this.goHomeButton = new JButton("<-");
@@ -78,6 +75,10 @@ public class LeagueActionsView extends JPanel implements ActionListener, Propert
     }
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        this.league = (leagueActionsViewModel.getState().getLeague());
+        displayLeaguePanel.removeAll();
+        JScrollPane leagueScrollPane = makeLeagueScrollPane(league);
+        displayLeaguePanel.add(leagueScrollPane);
     }
 
     public void setGoHomeController(GoHomeController controller){
