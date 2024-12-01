@@ -12,6 +12,7 @@ import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 import use_case.solo_play.SoloPlayUserDataAccessInterface;
+import use_case.update_leagues.UpdateLeaguesUserDataAccessInterface;
 import use_case.update_rankings.UpdateRankingsLeagueDataAccessInterface;
 import use_case.update_rankings.UpdateRankingsUserDataAccessInterface;
 
@@ -25,7 +26,8 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
         LogoutUserDataAccessInterface,
         SoloPlayUserDataAccessInterface,
         FriendsUserDataAccessInterface,
-        UpdateRankingsUserDataAccessInterface {
+        UpdateRankingsUserDataAccessInterface,
+        UpdateLeaguesUserDataAccessInterface {
 
     private final Map<String, User> users = new HashMap<>();
 
@@ -50,6 +52,17 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
     @Override
     public User get(String username) {
         return users.get(username);
+    }
+
+    @Override
+    public ArrayList<String> addLeague(String username, String leagueID) {
+        users.get(username).getLeagueIDs().add(leagueID);
+        return get(username).getLeagueIDs();
+    }
+
+    @Override
+    public boolean userInLeague(String username, String leagueID) {
+        return get(username).getLeagueIDs().contains(leagueID);
     }
 
     @Override
