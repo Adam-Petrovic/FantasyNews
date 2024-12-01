@@ -27,6 +27,7 @@ public class League {
         for (String user : users) {
             data.put(user, Constants.DEFAULT_WORDS);
         }
+        this.userObjArr = makeUserObjArray(data);
     }
 
     public League(String id, ArrayList<String> users) {
