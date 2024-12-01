@@ -1,4 +1,4 @@
-package use_case.to_friends;
+package usecase.to_friends;
 
 import data_access.InMemoryUserDataAccessObject;
 import entity.CommonUserFactory;

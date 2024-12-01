@@ -1,4 +1,4 @@
-package use_case.update_leagues;
+package usecase.update_leagues;
 
 import data_access.GuardianDataAccessObject;
 import data_access.InMemoryLeagueDataAccessObject;
