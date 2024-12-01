@@ -1,6 +1,5 @@
-package interface_adapter.draft;
+package interface_adapter.draft_words;
 
-import data_access.Constants;
 import interface_adapter.ViewModel;
 
 public class DraftViewModel extends ViewModel<DraftState>{

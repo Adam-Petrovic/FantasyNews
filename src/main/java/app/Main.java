@@ -23,6 +23,7 @@ public class Main {
                                             .addSoloPlayView()
                                             .addSoloPlayUseCase()
                                             .addAddWordUseCase()
+                                            .addDraftView()
                                             .addFriendsView()
                                             .addToLeagueView()
                                             .addToRankingsView()
@@ -32,10 +33,11 @@ public class Main {
                                             .addToRankingsUseCase()
                                             .addAddFriendsUseCase()
                                             .addAddNewFriendUseCase()
-//                                            .addDraftUseCase()
+                                            .addToDraftUseCase()
                                             .addUpdateLeaguesUseCase()
                                             .addUpdatePointsforLeagueUseCase()
                                             .addUpdateLeaguePointsUseCase()
+                                            .addDraftUseCase()
                                             .build();
 
 

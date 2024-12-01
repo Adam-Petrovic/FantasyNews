@@ -6,8 +6,13 @@ import okhttp3.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import use_case.draft_words.DraftWordsLeagueDataAccessInterface;
+import use_case.to_draft.ToDraftLeagueDataAccessInterface;
+
 import use_case.award_league_points.AwardLeaguePointsDataAccessInterface;
 import use_case.round_league_points.RoundLeaguePointsDataAccessObject;
+
 import use_case.update_leagues.UpdateLeaguesLeagueDataAccessInterface;
 import use_case.update_rankings.UpdateRankingsLeagueDataAccessInterface;
 
@@ -18,8 +23,9 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataAccessInterface,
-        UpdateRankingsLeagueDataAccessInterface, AwardLeaguePointsDataAccessInterface,
+        UpdateRankingsLeagueDataAccessInterface, ToDraftLeagueDataAccessInterface,DraftWordsLeagueDataAccessInterface, AwardLeaguePointsDataAccessInterface,
         RoundLeaguePointsDataAccessObject {
+
 
 
     private static final int SUCCESS_CODE = 200;
@@ -61,6 +67,28 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
     }
 
     @Override
+
+    public String[] getWords(String username, String leagueID) {
+        JSONObject obj = get();
+        JSONObject league = obj.getJSONObject(leagueID);
+        JSONObject data = league.getJSONObject("data");
+        JSONArray words = data.getJSONArray(username);
+        String[] wordData = toStringArray(words);
+        return wordData;
+    }
+
+    @Override
+    public String[] draftWord(String username, Integer categoryNum, String newWord, String leagueID){
+        JSONObject obj = get();
+        JSONObject league = obj.getJSONObject(leagueID);
+        JSONObject data = league.getJSONObject("data");
+        JSONArray words = data.getJSONArray(username);
+        String[] wordData = toStringArray(words);
+        wordData[categoryNum] = newWord;
+        data.put(username, wordData);
+        save(obj);
+        return wordData;
+
     public void save(League league) {
 
     }
