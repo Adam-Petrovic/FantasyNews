@@ -225,7 +225,8 @@ class LeagueTest {
         assertNotNull(data, "Data map should not be null");
         assertEquals(1, data.size(), "Data map should contain one entry");
         assertTrue(data.containsKey("hiii"), "Data should contain key 'hiii'");
-        assertEquals(Constants.NUM_CATEGORIES, data.get("hiii").length, "Default words should have length 5");
+        assertEquals(Constants.NUM_CATEGORIES + 1, data.get("hiii").length, "Default words should have length 5" + "" +
+                "1 for total league points = 6");
 
         ArrayList<User> userObjArr = league.getUserObjArr();
         assertNotNull(userObjArr, "User object array should not be null");
@@ -249,8 +250,8 @@ class LeagueTest {
         HashMap<String, String[]> data = league.getData();
         assertNotNull(data, "Data map should not be null");
         assertEquals(2, data.size(), "Data map should contain two entries");
-        assertEquals(Constants.NUM_CATEGORIES, data.get("user1").length, "Default words should have length 5 for 'user1'");
-        assertEquals(Constants.NUM_CATEGORIES, data.get("user2").length, "Default words should have length 5 for 'user2'");
+        assertEquals(Constants.NUM_CATEGORIES + 1, data.get("user1").length, "Default words should have length 5 for 'user1'");
+        assertEquals(Constants.NUM_CATEGORIES + 1, data.get("user2").length, "Default words should have length 5 for 'user2'");
 
         ArrayList<User> userObjArr = league.getUserObjArr();
         assertNotNull(userObjArr, "User object array should not be null");
