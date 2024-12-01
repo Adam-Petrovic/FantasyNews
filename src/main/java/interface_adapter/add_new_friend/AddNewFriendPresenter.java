@@ -3,8 +3,8 @@ package interface_adapter.add_new_friend;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.to_friends.FriendsState;
 import interface_adapter.to_friends.FriendsViewModel;
-import use_case.add_new_friend.AddNewFriendOutputBoundary;
-import use_case.add_new_friend.AddNewFriendOutputData;
+import usecase.add_new_friend.AddNewFriendOutputBoundary;
+import usecase.add_new_friend.AddNewFriendOutputData;
 
 public class AddNewFriendPresenter implements AddNewFriendOutputBoundary {
     private final ViewManagerModel viewManagerModel;

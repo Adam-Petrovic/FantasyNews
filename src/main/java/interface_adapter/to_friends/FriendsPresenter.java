@@ -1,8 +1,8 @@
 package interface_adapter.to_friends;
 
 import interface_adapter.ViewManagerModel;
-import use_case.to_friends.FriendsOutputBoundary;
-import use_case.to_friends.FriendsOutputData;
+import usecase.to_friends.FriendsOutputBoundary;
+import usecase.to_friends.FriendsOutputData;
 
 public class FriendsPresenter implements FriendsOutputBoundary {
     private final ViewManagerModel viewManagerModel;

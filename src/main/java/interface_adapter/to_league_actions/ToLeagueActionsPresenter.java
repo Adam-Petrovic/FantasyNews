@@ -1,11 +1,10 @@
 package interface_adapter.to_league_actions;
 
-import data_access.Constants;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.to_league.LeagueState;
 import interface_adapter.to_league.LeagueViewModel;
-import use_case.to_league_actions.ToLeagueActionsOutputBoundary;
-import use_case.to_league_actions.ToLeagueActionsOutputData;
+import usecase.to_league_actions.ToLeagueActionsOutputBoundary;
+import usecase.to_league_actions.ToLeagueActionsOutputData;
 
 public class ToLeagueActionsPresenter implements ToLeagueActionsOutputBoundary {
     private LeagueActionsViewModel leagueActionsViewModel;

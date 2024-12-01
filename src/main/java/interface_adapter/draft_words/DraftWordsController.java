@@ -1,8 +1,7 @@
 package interface_adapter.draft_words;
 
-import use_case.add_word.AddWordInputBoundary;
-import use_case.draft_words.DraftWordsInputBoundary;
-import use_case.draft_words.DraftWordsInputData;
+import usecase.draft_words.DraftWordsInputBoundary;
+import usecase.draft_words.DraftWordsInputData;
 
 public class DraftWordsController {
     private final DraftWordsInputBoundary draftWordsInteractor;

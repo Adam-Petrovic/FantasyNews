@@ -1,8 +1,8 @@
 package interface_adapter.update_points;
 
 import entity.User;
-import use_case.update_solo_points.UpdatePointsInputBoundary;
-import use_case.update_solo_points.UpdatePointsInputData;
+import usecase.update_solo_points.UpdatePointsInputBoundary;
+import usecase.update_solo_points.UpdatePointsInputData;
 
 public class UpdatePointsController {
     private final UpdatePointsInputBoundary updatePointsUseCaseInteractor;

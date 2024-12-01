@@ -3,8 +3,8 @@ package interface_adapter.update_rankings;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.to_rankings.RankingsState;
 import interface_adapter.to_rankings.RankingsViewModel;
-import use_case.update_rankings.UpdateRankingsOutputBoundary;
-import use_case.update_rankings.UpdateRankingsOutputData;
+import usecase.update_rankings.UpdateRankingsOutputBoundary;
+import usecase.update_rankings.UpdateRankingsOutputData;
 
 
 public class UpdateRankingsPresenter implements UpdateRankingsOutputBoundary {

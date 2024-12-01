@@ -8,8 +8,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import use_case.update_leagues.UpdateLeaguesLeagueDataAccessInterface;
-import use_case.update_rankings.UpdateRankingsLeagueDataAccessInterface;
+import usecase.update_leagues.UpdateLeaguesLeagueDataAccessInterface;
+import usecase.update_rankings.UpdateRankingsLeagueDataAccessInterface;
 
 
 import java.io.File;
