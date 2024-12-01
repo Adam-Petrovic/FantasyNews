@@ -17,10 +17,6 @@ public class UpdateRankingsOutputData {
         this.historicalRankings = historicalRankings;
     }
 
-    public ArrayList<User> getRankings() {
-        return this.rankings;
-    }
-
     public League getLeague() {
         return league;
     }
