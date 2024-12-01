@@ -30,8 +30,9 @@ public class DraftWordsInteractorTest {
             @Override
             public void showDraftedWords(DraftWordsOutputData draftWordsOutputData) {
                 String exp = ((InMemoryLeagueDataAccessObject) leagueRepo).getLeague("a").getData().get("a")[0];
-                assertEquals(exp, "Soccer");
-
+                String[] newWords = {"soccer", "Default 2", "Default 3", "Default 4", "Default 5", "0"};
+                assertArrayEquals(draftWordsOutputData.getWords(), newWords);
+                assertEquals(exp, "soccer");
             }
         };
 

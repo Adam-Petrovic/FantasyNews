@@ -81,7 +81,7 @@ public class InMemoryLeagueDataAccessObject implements UpdateRankingsLeagueDataA
 
     @Override
     public String[] draftWord(String username, Integer categoryNum, String newWord, String leagueID) {
-        League league = this.leagues.get("leagueID");
+        League league = this.leagues.get(leagueID);
         HashMap<String, String[]> data = league.getData();
         String[] words = data.get(username);
         words[categoryNum] = newWord;
