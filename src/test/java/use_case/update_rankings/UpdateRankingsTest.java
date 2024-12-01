@@ -1,6 +1,7 @@
 package use_case.update_rankings;
 
 import data_access.GuardianDataAccessObject;
+import data_access.InMemoryLeagueDataAccessObject;
 import data_access.InMemoryUserDataAccessObject;
 import entity.*;
 import org.junit.jupiter.api.Test;
@@ -30,7 +31,7 @@ public class UpdateRankingsTest {
         userRepository.save(less);
 
         // creates test league
-        UpdateRankingsLeagueDataAccessInterface leagueRepository = new InMemoryUserDataAccessObject();
+        UpdateRankingsLeagueDataAccessInterface leagueRepository = new InMemoryLeagueDataAccessObject();
         LeagueFactory leagueFactory = new LeagueFactory();
         League league = leagueFactory.create("rankingsTestLeague", new ArrayList<>());
         league.setWords("more_points", new String[]{"the", "he", "she", "they", "no", "100"});

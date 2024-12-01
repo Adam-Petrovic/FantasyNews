@@ -25,12 +25,10 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
         LogoutUserDataAccessInterface,
         SoloPlayUserDataAccessInterface,
         FriendsUserDataAccessInterface,
-        UpdateRankingsUserDataAccessInterface,
-        UpdateRankingsLeagueDataAccessInterface {
+        UpdateRankingsUserDataAccessInterface {
 
     private final Map<String, User> users = new HashMap<>();
 
-    private final Map<String, League> leagues = new HashMap<>();
 
     private String currentUsername;
 
@@ -76,27 +74,4 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
         return this.currentUsername;
     }
 
-    @Override
-    public ArrayList<String> getLeagueUsers(String leagueID) {
-        return null;
-    }
-
-    @Override
-    public HashMap<String, String[]> getData(String leagueID) {
-        return null;
-    }
-
-    @Override
-    public void save(League league) {
-        leagues.put(league.getId(), league);
-    }
-
-    @Override
-    public ArrayList<League> getLeagues(ArrayList<String> leagueIDs) {
-        ArrayList<League> league = new ArrayList<>();
-        for (String leagueID : leagueIDs){
-            league.add(leagues.get(leagueID));
-        }
-        return league;
-    }
 }
