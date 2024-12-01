@@ -114,9 +114,7 @@ import usecase.update_solo_points.UpdatePointsInputBoundary;
 import usecase.update_solo_points.UpdatePointsInteractor;
 import usecase.update_solo_points.UpdatePointsOutputBoundary;
 
-//import entity.*;
-//import interface_adapter.*;
-//import use_case.*;
+
 import view.*;
 
 /**
