@@ -39,7 +39,10 @@ public class AddNewFriendInteractor implements AddNewFriendInputBoundary {
         if (addNewFriendInputData.getFriendUsername().equals(addNewFriendInputData.getUsername())) {
             addNewFriendPresenter.prepareFailView("You cannot add yourself as a friend :(");
         }
-        else if (userDataAccessObject.existsByName(addNewFriendInputData.getFriendUsername())) {
+        else if (!userDataAccessObject.existsByName(addNewFriendInputData.getFriendUsername())) {
+            addNewFriendPresenter.prepareFailView("User " + addNewFriendInputData.getFriendUsername() + " not found.");
+        }
+        else {
             sleep(2);
             User newFriend = userDataAccessObject.get(addNewFriendInputData.getFriendUsername());
             user.addFriend(newFriend);
@@ -50,9 +53,6 @@ public class AddNewFriendInteractor implements AddNewFriendInputBoundary {
             userPoints.put(newFriend, sumPoints(getInts(newFriend)));
             final AddNewFriendOutputData addNewFriendOutputData = new AddNewFriendOutputData(newFriend, userPoints);
             addNewFriendPresenter.prepareSuccessView(addNewFriendOutputData);
-        }
-        else if (!userDataAccessObject.existsByName(addNewFriendInputData.getFriendUsername())) {
-            addNewFriendPresenter.prepareFailView("User " + addNewFriendInputData.getFriendUsername() + " not found.");
         }
     }
 
