@@ -21,15 +21,6 @@ public class AddNewFriendInteractor implements AddNewFriendInputBoundary {
         this.guardianDataAccessObject = guardianDataAccessObject;
     }
 
-    public void sleep(int seconds) {
-        try {
-            TimeUnit.SECONDS.sleep(seconds);
-        }
-        catch (InterruptedException ex) {
-            throw new RuntimeException(ex);
-        }
-    }
-
     public void execute(AddNewFriendInputData addNewFriendInputData) {
         User user = userDataAccessObject.get(addNewFriendInputData.getUsername());
         //List<User> friends = user.getFriends();
@@ -42,7 +33,6 @@ public class AddNewFriendInteractor implements AddNewFriendInputBoundary {
             addNewFriendPresenter.prepareFailView("User " + addNewFriendInputData.getFriendUsername() + " not found.");
         }
         else {
-            sleep(2);
             User newFriend = userDataAccessObject.get(addNewFriendInputData.getFriendUsername());
             user.addFriend(newFriend);
 //            for (User friend : friends) {

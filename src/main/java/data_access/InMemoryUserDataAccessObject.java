@@ -14,6 +14,8 @@ import usecase.signup.SignupUserDataAccessInterface;
 import usecase.solo_play.SoloPlayUserDataAccessInterface;
 import usecase.update_rankings.UpdateRankingsLeagueDataAccessInterface;
 import usecase.update_rankings.UpdateRankingsUserDataAccessInterface;
+import usecase.update_leagues.UpdateLeaguesUserDataAccessInterface;
+
 
 /**
  * In-memory implementation of the DAO for storing user data. This implementation does
@@ -25,7 +27,8 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
         LogoutUserDataAccessInterface,
         SoloPlayUserDataAccessInterface,
         FriendsUserDataAccessInterface,
-        UpdateRankingsUserDataAccessInterface {
+        UpdateRankingsUserDataAccessInterface,
+        UpdateLeaguesUserDataAccessInterface {
 
     private final Map<String, User> users = new HashMap<>();
 
@@ -50,6 +53,17 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
     @Override
     public User get(String username) {
         return users.get(username);
+    }
+
+    @Override
+    public ArrayList<String> addLeague(String username, String leagueID) {
+        users.get(username).getLeagueIDs().add(leagueID);
+        return get(username).getLeagueIDs();
+    }
+
+    @Override
+    public boolean userInLeague(String username, String leagueID) {
+        return get(username).getLeagueIDs().contains(leagueID);
     }
 
     @Override

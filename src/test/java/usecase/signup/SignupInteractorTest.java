@@ -22,6 +22,7 @@ class SignupInteractorTest {
                 // 2 things to check: the output data is correct, and the user has been created in the DAO.
                 assertEquals("Paul", user.getUsername());
                 assertTrue(userRepository.existsByName("Paul"));
+                assertFalse(user.isUseCaseFailed());
             }
 
             @Override
@@ -95,6 +96,7 @@ class SignupInteractorTest {
                 // This is expected
             }
         };
+
 
         SignupInputBoundary interactor = new SignupInteractor(userRepository, failurePresenter, new CommonUserFactory());
         interactor.execute(inputData);
