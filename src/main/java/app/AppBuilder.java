@@ -232,11 +232,8 @@ public class AppBuilder {
         final GoHomeOutputBoundary goHomePresenter = new GoHomePresenter(viewManagerModel, loggedInViewModel);
         final GoHomeController goHomeController = new GoHomeController(goHomePresenter);
         soloPlayView.setGoHomeController(goHomeController);
-
         draftView.setGoHomeController(goHomeController);
-
         friendsView.setGoHomeController(goHomeController);
-
         leagueView.setGoHomeController(goHomeController);
         rankingsView.setGoHomeController(goHomeController);
         return this;

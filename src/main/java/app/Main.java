@@ -27,7 +27,6 @@ public class Main {
                                             .addFriendsView()
                                             .addToLeagueView()
                                             .addToRankingsView()
-                                            .addGoHomeUseCase()
                                             .addToLeagueUseCase()
                                             .addDraftView()
                                             .addToRankingsUseCase()
@@ -38,6 +37,7 @@ public class Main {
                                             .addUpdatePointsforLeagueUseCase()
                                             .addUpdateLeaguePointsUseCase()
                                             .addDraftUseCase()
+                                            .addGoHomeUseCase()
                                             .build();
 
 

@@ -78,7 +78,7 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
     }
 
     @Override
-    public String[] draftWord(String username, Integer categoryNum, String newWord, String leagueID){
+    public String[] draftWord(String username, Integer categoryNum, String newWord, String leagueID) {
         JSONObject obj = get();
         JSONObject league = obj.getJSONObject(leagueID);
         JSONObject data = league.getJSONObject("data");
@@ -88,7 +88,7 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
         data.put(username, wordData);
         save(obj);
         return wordData;
-
+    }
     public void save(League league) {
 
     }
