@@ -47,68 +47,40 @@ public class UpdateRankingsInteractor implements UpdateRankingsInputBoundary{
     @Override
     public void execute(UpdateRankingsInputData updateRankingsInputData) {
 
-        //ArrayList<User> leagueUsers = userDataAccessInterface.getUsers(updateRankingsInputData.getLeague().getUsers());
-
         String leagueID = updateRankingsInputData.getLeague();
         ArrayList<String> leagueIDArray = new ArrayList<>();
         leagueIDArray.add(leagueID);
-        ArrayList<User> leagueUsers = new ArrayList<>();
-        //leagueDataAccessInterface.getData(leagueID);
 
         ArrayList<User> liveRankings = new ArrayList<>();
         ArrayList<User> historicalRankings = new ArrayList<>();
 
-        HashMap<String, String[]> league = null;
-        League leagueOutput = null;
-        System.out.println("ranking league " + leagueID);
-
         ArrayList<League> leagues = leagueDataAccessInterface.getLeagues(leagueIDArray);
-        leagueOutput = leagues.get(0);
-        league = leagueOutput.getData();
+        League leagueOutput = leagues.get(0);
+        HashMap<String, String[]> league = leagueOutput.getData();
         ArrayList<User> users = leagueOutput.getUserObjArr();
-        int i = 0;
+        int j = 0;
 
-        // league.keySet()
-        // ArrayList<String> usersList = new ArrayList<>(league.keySet());
-        // ArrayList<User> users = userDataAccessInterface.getUsers(usersList);
         for (String username : league.keySet()) {
             String[] words = league.get(username);
             int total = 0;
-            // take it outside so we only call pantry api once!
-            User user = users.get(i);
-            //User user = userDataAccessInterface.get(username);
-            // loop through categories bc words5 is total
-            for (String word : words) {
-                Integer categoryPoints = guardianDataAccessObject.getPointsForCategory(word);
-                // set user
-                // guardian up to 1 call per second
-                //sleep(1);
-                //Integer categoryPoints = 10;
-                total += categoryPoints;
+            User user = users.get(j);
+            for (int index = 0; index < Constants.NUM_CATEGORIES; index++) {
+                // sleep(1);
+                // total += guardianDataAccessObject.getPointsForCategory(words[index]);
+                total += 10;
             }
             user.setLiveLeaguePoints(total);
             user.setLeaguePoints(Integer.parseInt(words[5]));
             liveRankings.add(user);
             historicalRankings.add(user);
 
-            i++;
+            j++;
         }
 
-
-
-
-        // live rankings
-        // use comparator on user.liveLeaguePoints
-        // historical rankings
-        // use comparator on user.leaguePoints
-
-        //System.out.println(rankings);
         liveRankings.sort(Comparator.comparingInt(User::getLiveLeaguePoints));
         historicalRankings.sort(Comparator.comparingInt(User::getLeaguePoints));
         UpdateRankingsOutputData outputData = new UpdateRankingsOutputData(liveRankings, leagueOutput, historicalRankings);
         updateRankingsPresenter.execute(outputData);
-
-
 
     }
 }
