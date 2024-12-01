@@ -36,10 +36,12 @@ public class League {
         for (String user : users) {
             data.put(user, Constants.DEFAULT_WORDS);
         }
+        this.userObjArr = makeUserObjArray(data);
     }
 
     public void setWords(String user, String[] words){
         this.data.put(user, words);
+        this.userObjArr = makeUserObjArray(data);
     }
 
     public ArrayList<User> getUserObjArr() {

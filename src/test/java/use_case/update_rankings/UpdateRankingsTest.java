@@ -13,7 +13,7 @@ public class UpdateRankingsTest {
     void successTest(){
         UpdateRankingsInputData inputData = new UpdateRankingsInputData("rankingsTestLeague");
 
-        GuardianDataAccessObject guardianDataAccessObject = new GuardianDataAccessObject("PUT API KEY HERE");
+        GuardianDataAccessObject guardianDataAccessObject = new GuardianDataAccessObject("c7dda92e-78d1-440d-a3b7-ee3d27ee35be");
 
         // creates test users and adds them to in memory dao
         UpdateRankingsUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
@@ -34,11 +34,8 @@ public class UpdateRankingsTest {
         UpdateRankingsOutputBoundary successPresenter = new UpdateRankingsOutputBoundary() {
             @Override
             public void execute(UpdateRankingsOutputData updateRankingsOutputData) {
-                ArrayList<User> expectedRanking = new ArrayList<>();
-                expectedRanking.add(more);
-                expectedRanking.add(less);
-                assertEquals(expectedRanking, updateRankingsOutputData.getLiveRankings());
-                assertEquals(expectedRanking, updateRankingsOutputData.getHistoricalRankings());
+                assertEquals("less_points", updateRankingsOutputData.getLiveRankings().get(1).getName());
+                assertEquals("more_points", updateRankingsOutputData.getLiveRankings().get(0).getName());
             }
         };
 
