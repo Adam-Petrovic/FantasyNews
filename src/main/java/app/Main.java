@@ -14,6 +14,7 @@ public class Main {
         final AppBuilder appBuilder = new AppBuilder();
 
         final JFrame application = appBuilder
+                                            .addLeagueActionsView()
                                             .addLoginView()
                                             .addSignupView()
                                             .addLoggedInView()
@@ -36,6 +37,7 @@ public class Main {
                                             .addUpdateLeaguesUseCase()
                                             .addUpdatePointsforLeagueUseCase()
                                             .addUpdateLeaguePointsUseCase()
+                                            .addToLeagueActionsUseCase()
                                             .addDraftUseCase()
                                             .addGoHomeUseCase()
                                             .build();

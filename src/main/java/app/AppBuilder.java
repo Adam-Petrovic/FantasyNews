@@ -46,9 +46,13 @@ import interface_adapter.solo_play.SoloPlayViewModel;
 import interface_adapter.to_league.LeagueController;
 import interface_adapter.to_league.LeaguePresenter;
 import interface_adapter.to_league.LeagueViewModel;
+import interface_adapter.to_league_actions.ToLeagueActionsController;
+import interface_adapter.to_league_actions.ToLeagueActionsPresenter;
 import interface_adapter.to_rankings.RankingsController;
 import interface_adapter.to_rankings.RankingsViewModel;
 import interface_adapter.to_rankings.RankingsPresenter;
+import interface_adapter.updateLeaguePoints.UpdateLeaguePointsController;
+import interface_adapter.to_league_actions.LeagueActionsViewModel;
 
 import interface_adapter.update_league_points.UpdateLeaguePointsController;
 
@@ -94,6 +98,9 @@ import use_case.solo_play.SoloPlayInputBoundary;
 import use_case.solo_play.SoloPlayInteractor;
 import use_case.solo_play.SoloPlayOutputBoundary;
 import use_case.to_league.LeagueOutputBoundary;
+import use_case.to_league_actions.ToLeagueActionsInputBoundary;
+import use_case.to_league_actions.ToLeagueActionsInteractor;
+import use_case.to_league_actions.ToLeagueActionsOutputBoundary;
 import use_case.to_rankings.RankingsOutputBoundary;
 import use_case.updatePointsForLeague.UpdatePointsForLeagueDataAccessObject;
 import use_case.updatePointsForLeague.UpdatePointsForLeagueInputBoundary;
@@ -148,6 +155,7 @@ public class AppBuilder {
     private RankingsViewModel rankingsViewModel;
     private FriendsViewModel friendsViewModel;
     private DraftViewModel draftViewModel;
+    private LeagueActionsViewModel leagueActionsViewModel;
 
     private LoggedInView loggedInView;
     private LoginView loginView;
@@ -157,6 +165,8 @@ public class AppBuilder {
     private RankingsView rankingsView;
     private FriendsView friendsView;
     private DraftView draftView;
+    private LeagueActionsView leagueActionsView;
+
 
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
@@ -205,6 +215,13 @@ public class AppBuilder {
         return this;
     }
 
+    public AppBuilder addLeagueActionsView(){
+        leagueActionsViewModel = new LeagueActionsViewModel();
+        leagueActionsView = new LeagueActionsView(leagueActionsViewModel);
+        cardPanel.add(leagueActionsView, Constants.LEAGUE_ACTIONS_VIEW_NAME);
+        return this;
+    }
+
     /**
      * Adds the Signup View to the application.
      * @return this builder
@@ -235,6 +252,7 @@ public class AppBuilder {
         draftView.setGoHomeController(goHomeController);
         friendsView.setGoHomeController(goHomeController);
         leagueView.setGoHomeController(goHomeController);
+        leagueActionsView.setGoHomeController(goHomeController);
         rankingsView.setGoHomeController(goHomeController);
         return this;
     }
@@ -253,6 +271,16 @@ public class AppBuilder {
         final FriendsInputBoundary addFriendsInteractor = new FriendsInteractor(addFriendsPresenter, userDataAccessObject);
         final FriendsController friendsController = new FriendsController(addFriendsInteractor);
         loggedInView.setAddFriendsController(friendsController);
+        return this;
+    }
+
+    public AppBuilder addToLeagueActionsUseCase(){
+        final ToLeagueActionsOutputBoundary toLeagueActionsPresenter = new ToLeagueActionsPresenter
+                (leagueActionsViewModel, leagueViewModel, viewManagerModel);
+        final ToLeagueActionsInputBoundary toLeagueActionsInteractor = new ToLeagueActionsInteractor
+                (toLeagueActionsPresenter, userDataAccessObject, leagueDataAccessObject);
+        final ToLeagueActionsController toLeagueActionsController = new ToLeagueActionsController(toLeagueActionsInteractor);
+        leagueView.setToLeagueActionsController(toLeagueActionsController);
         return this;
     }
 
@@ -309,6 +337,7 @@ public class AppBuilder {
         loggedInView.setToLeagueController(leagueController);
         return this;
     }
+
 
     public AppBuilder addToRankingsView(){
         rankingsViewModel = new RankingsViewModel();
