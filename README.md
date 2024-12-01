@@ -33,7 +33,7 @@ Users are also able to add friends and view live and historical rankings for any
    Users can create any non pre-existing league and join any existing league with the correct id.
 
 3. **User Story 3: Add friends: Yibing Xia**  
-   Users may add other users as friends.
+   Users may add other users as friends. Optionally, users can click on a friend to see a 1v1 comparison between their points; results include win, lose, or tie.
 
 4. **User Story 4: Drafting: Alexandros Pratsos**  
    
