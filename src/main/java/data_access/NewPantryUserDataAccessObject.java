@@ -186,7 +186,7 @@ public class NewPantryUserDataAccessObject implements SignupUserDataAccessInterf
 
     //gets all the basket data
     public JSONObject get() {
-        //sleep(1);
+        sleep(3);
         final String fullURL = API_URL + key + "/basket/" + BASKET_NAME;
         final OkHttpClient client = new OkHttpClient().newBuilder().build();
         final Request request = new Request.Builder()
@@ -211,7 +211,7 @@ public class NewPantryUserDataAccessObject implements SignupUserDataAccessInterf
 
     //saves updates basket data
     public void save(JSONObject jsonObject) {
-        sleep(1);
+        sleep(2);
         final OkHttpClient client = new OkHttpClient().newBuilder().build();
         final MediaType mediaType = MediaType.parse("application/json");
 

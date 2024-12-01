@@ -51,7 +51,6 @@ import interface_adapter.to_league_actions.ToLeagueActionsPresenter;
 import interface_adapter.to_rankings.RankingsController;
 import interface_adapter.to_rankings.RankingsViewModel;
 import interface_adapter.to_rankings.RankingsPresenter;
-import interface_adapter.updateLeaguePoints.UpdateLeaguePointsController;
 import interface_adapter.to_league_actions.LeagueActionsViewModel;
 
 import interface_adapter.update_league_points.UpdateLeaguePointsController;
@@ -309,7 +308,7 @@ public class AppBuilder {
             final UpdatePointsForLeagueDataAccessObject updatePointsForLeagueDataAccessObject = makeGuardianDataAccessObject();
             final UpdatePointsForLeagueInputBoundary updateLeaguePointsInteractor = new UpdatePointsForLeagueInteractor(updatePointsForLeagueDataAccessObject );
             final UpdateLeaguePointsController controller = new UpdateLeaguePointsController(updateLeaguePointsInteractor);
-            leagueView.setUpdatePointsForLeagueController(controller);
+            leagueActionsView.setUpdatePointsForLeagueController(controller);
         } catch (Exception e) {
             e.printStackTrace();
         }

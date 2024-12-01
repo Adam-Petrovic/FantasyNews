@@ -4,7 +4,7 @@ import data_access.Constants;
 import entity.League;
 import entity.User;
 import interface_adapter.go_home.GoHomeController;
-import interface_adapter.updateLeaguePoints.UpdateLeaguePointsController;
+import interface_adapter.update_league_points.UpdateLeaguePointsController;
 import interface_adapter.to_league_actions.LeagueActionsViewModel;
 
 import javax.swing.*;
@@ -85,16 +85,11 @@ public class LeagueActionsView extends JPanel implements ActionListener, Propert
         this.goHomeController = controller;
     }
 
-    public void setUpdateLeaguePointsController(UpdateLeaguePointsController controller){
-        this.updateLeaguePointsController = controller;
-    }
-
-
     public JScrollPane makeLeagueScrollPane(League league){
         JScrollPane leagueScrollPane = new JScrollPane();
         String[] columnNames = makeColumns();
 
-        updateLeaguePointsController.execute(league.getUserObjArr());
+        updateLeaguePointsController.execute(league.getId(), league.getUserObjArr());
 
         String[][] info = makeInfo(league);
 
@@ -133,5 +128,9 @@ public class LeagueActionsView extends JPanel implements ActionListener, Propert
         }
 
         return info;
+    }
+
+    public void setUpdatePointsForLeagueController(UpdateLeaguePointsController controller) {
+        this.updateLeaguePointsController = controller;
     }
 }

@@ -10,7 +10,6 @@ import interface_adapter.to_friends.FriendsState;
 import interface_adapter.to_league.LeagueState;
 import interface_adapter.to_league.LeagueViewModel;
 import interface_adapter.to_league_actions.ToLeagueActionsController;
-import interface_adapter.updateLeaguePoints.UpdateLeaguePointsController;
 import interface_adapter.to_league.LeagueState;
 import interface_adapter.to_league.LeagueViewModel;
 import interface_adapter.update_league_points.UpdateLeaguePointsController;
@@ -39,7 +38,6 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
     private GoHomeController goHomeController;
     private UpdateLeaguesController updateLeaguesController;
     private ToLeagueActionsController toLeagueActionsController;
-    private UpdateLeaguePointsController updatePointsForLeagueController;
     private AwardLeaguePointsController awardLeaguePointsController;
 
     //visuals
@@ -158,6 +156,11 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
         if (state.getErrorMessage() != null) {
             JOptionPane.showMessageDialog(this, state.getErrorMessage());
         }
+
+        this.leagues = leagueViewModel.getState().getLeagues();
+        for (League league : this.leagues){
+            awardLeaguePointsController.roundUp(league.getId(), league.getUserObjArr());
+        }
     }
 
 
@@ -169,11 +172,8 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
         this.updateLeaguesController = updateLeaguesController;
     }
 
-    public void setToLeagueActionsController(ToLeagueActionsController controller){
+    public void setToLeagueActionsController(ToLeagueActionsController controller) {
         this.toLeagueActionsController = controller;
-
-    public void setUpdatePointsForLeagueController(UpdateLeaguePointsController updatePointsForLeagueController){
-        this.updatePointsForLeagueController = updatePointsForLeagueController;
     }
 
     public void setAwardLeaguePointsController (AwardLeaguePointsController awardLeaguePointsController){
