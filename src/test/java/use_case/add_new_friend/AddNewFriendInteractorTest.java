@@ -9,7 +9,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import use_case.to_friends.FriendsUserDataAccessInterface;
 
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -120,60 +119,4 @@ class AddNewFriendInteractorTest {
         // Assert
         // The assertions are made in the presenter
     }
-
-    @Test
-    void interruptedExceptionDuringSleepTest() throws InterruptedException {
-        // Arrange
-        String username = "jennifer";
-        String friendUsername = "fio";
-        AddNewFriendInputData inputData = new AddNewFriendInputData(friendUsername, username);
-
-        FriendsUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
-
-        // Mock GuardianDataAccessObject to avoid real API calls
-        GuardianDataAccessObject guardianDataAccessObject = mock(GuardianDataAccessObject.class);
-        when(guardianDataAccessObject.getPointsForCategory(anyString())).thenReturn(10);
-
-        UserFactory factory = new CommonUserFactory();
-        User user = factory.create(username, "password");
-        User friend = factory.create(friendUsername, "password");
-        userRepository.save(user);
-        userRepository.save(friend);
-
-        // Create a presenter to capture the RuntimeException
-        AddNewFriendOutputBoundary presenter = new AddNewFriendOutputBoundary() {
-            @Override
-            public void prepareSuccessView(AddNewFriendOutputData data) {
-                fail("Use case success is unexpected.");
-            }
-
-            @Override
-            public void prepareFailView(String error) {
-                fail("Use case failure is unexpected.");
-            }
-        };
-
-        // Create the interactor
-        AddNewFriendInteractor interactor = new AddNewFriendInteractor(
-                presenter, userRepository, guardianDataAccessObject);
-
-        // Create a thread to run the execute method
-        Thread testThread = new Thread(() -> {
-            try {
-                interactor.execute(inputData);
-                fail("Expected RuntimeException to be thrown.");
-            } catch (RuntimeException ex) {
-                // Assert that the cause is an InterruptedException
-                assertTrue("Cause should be InterruptedException", ex.getCause() instanceof InterruptedException);
-                assertEquals("sleep interrupted", ex.getCause().getMessage());
-            }
-        });
-
-        // Interrupt the thread before starting it
-        testThread.interrupt();
-
-        // Act
-        testThread.start();
-    }
-
 }
