@@ -8,7 +8,8 @@ import entity.League;
 import entity.LeagueFactory;
 import entity.User;
 import org.junit.jupiter.api.Test;
-import use_case.update_rankings.*;
+import usecase.update_leagues.*;
+import usecase.update_leagues.UpdateLeaguesInputData;
 
 import java.io.File;
 import java.io.FileNotFoundException;
