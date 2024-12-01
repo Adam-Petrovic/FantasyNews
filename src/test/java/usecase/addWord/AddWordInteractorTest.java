@@ -21,6 +21,8 @@ public class AddWordInteractorTest {
         AddWordOutputBoundary successPresenter = new AddWordOutputBoundary() {
             @Override
             public void execute(AddWordOutputData addWordOutputData) {
+                String[] newWords = {"Soccer", "Default 2", "Default 3", "Default 4", "Default 5"};
+                assertArrayEquals(addWordOutputData.getWords(), newWords);
                 assertEquals("Soccer", user.getWordFromCategory("Sports"));
             }
         };
