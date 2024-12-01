@@ -33,9 +33,9 @@ public class AddNewFriendInteractor implements AddNewFriendInputBoundary {
 
     public void execute(AddNewFriendInputData addNewFriendInputData) {
         User user = userDataAccessObject.get(addNewFriendInputData.getUsername());
-        List<User> friends = user.getFriends();
+        //List<User> friends = user.getFriends();
         HashMap<User, Integer> userPoints = new HashMap<>();
-        userPoints.put(user, sumPoints(getInts(user)));
+        //userPoints.put(user, sumPoints(getInts(user)));
         if (addNewFriendInputData.getFriendUsername().equals(addNewFriendInputData.getUsername())) {
             addNewFriendPresenter.prepareFailView("You cannot add yourself as a friend :(");
         }
@@ -43,9 +43,11 @@ public class AddNewFriendInteractor implements AddNewFriendInputBoundary {
             sleep(2);
             User newFriend = userDataAccessObject.get(addNewFriendInputData.getFriendUsername());
             user.addFriend(newFriend);
-            for (User friend : friends) {
-                userPoints.put(friend, sumPoints(getInts(friend)));
-            }
+//            for (User friend : friends) {
+//                userPoints.put(friend, sumPoints(getInts(friend)));
+//            }
+            userPoints.put(user, sumPoints(getInts(user)));
+            userPoints.put(newFriend, sumPoints(getInts(newFriend)));
             final AddNewFriendOutputData addNewFriendOutputData = new AddNewFriendOutputData(newFriend, userPoints);
             addNewFriendPresenter.prepareSuccessView(addNewFriendOutputData);
         }
