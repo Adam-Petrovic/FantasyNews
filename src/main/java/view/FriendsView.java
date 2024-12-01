@@ -40,9 +40,9 @@ public class FriendsView extends JPanel implements ActionListener, PropertyChang
         JButton goHomeButton = new JButton("←");
         userOptions.add(goHomeButton);
 
-        final LabelTextPanel friend_usernameInfo = new LabelTextPanel(
+        final LabelTextPanel friendUsernameInfo = new LabelTextPanel(
                 new JLabel("Enter friend username"), usernameInputField);
-        userOptions.add(friend_usernameInfo);
+        userOptions.add(friendUsernameInfo);
 
         JButton addFriend = new JButton("Add Friend");
         userOptions.add(addFriend);
@@ -132,20 +132,11 @@ public class FriendsView extends JPanel implements ActionListener, PropertyChang
                 if (row >= 0) {
                     // Retrieve friend's points from the clicked row
                     String friendName = (String) friendsTable.getValueAt(row, 0);
-                    Integer friendPoints = (Integer) friendsTable.getValueAt(row, 1);
+                    Integer friendPoints = (Integer) userPoints.values().toArray()[1];
                     Integer myPoints = (Integer) userPoints.values().toArray()[0];
 
                     // Compare points between user and selected friend and display corresponding result
-                    String message;
-                    if (friendPoints > myPoints) {
-                        message = friendName + " has " + (friendPoints - myPoints) + " more points than you!";
-                    }
-                    else if (friendPoints < myPoints) {
-                        message = "You have " + (myPoints - friendPoints) + " more points than " + friendName + "!";
-                    }
-                    else {
-                        message = "You and " + friendName + " have the same points!";
-                    }
+                    String message = getMessage(friendPoints, myPoints, friendName);
 
                     JOptionPane.showMessageDialog(null, message);
                 }
@@ -154,6 +145,20 @@ public class FriendsView extends JPanel implements ActionListener, PropertyChang
 
         jScrollPane.add(friendsTable);
         jScrollPane.setViewportView(friendsTable);
+    }
+
+    private static String getMessage(Integer friendPoints, Integer myPoints, String friendName) {
+        String message;
+        if (friendPoints > myPoints) {
+            message = friendName + " has " + (friendPoints - myPoints) + " more points than you!";
+        }
+        else if (friendPoints < myPoints) {
+            message = "You have " + (myPoints - friendPoints) + " more points than " + friendName + "!";
+        }
+        else {
+            message = "You and " + friendName + " have the same points!";
+        }
+        return message;
     }
 
     public void setAddNewFriendController(AddNewFriendController addNewFriendController) {

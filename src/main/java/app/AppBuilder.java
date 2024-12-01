@@ -21,8 +21,15 @@ import interface_adapter.add_new_friend.AddNewFriendController;
 import interface_adapter.add_new_friend.AddNewFriendPresenter;
 import interface_adapter.add_word.AddWordController;
 import interface_adapter.add_word.AddWordPresenter;
+import interface_adapter.award_league_points.AwardLeaguePointsController;
 import interface_adapter.change_password.LoggedInViewModel;
-import interface_adapter.draft.DraftViewModel;
+
+import interface_adapter.draft_words.DraftWordsController;
+import interface_adapter.draft_words.DraftWordsPresenter;
+import interface_adapter.to_draft.ToDraftController;
+import interface_adapter.to_draft.ToDraftPresenter;
+import interface_adapter.draft_words.DraftViewModel;
+
 import interface_adapter.go_home.GoHomeController;
 import interface_adapter.go_home.GoHomePresenter;
 import interface_adapter.login.LoginController;
@@ -46,6 +53,9 @@ import interface_adapter.to_rankings.RankingsViewModel;
 import interface_adapter.to_rankings.RankingsPresenter;
 import interface_adapter.updateLeaguePoints.UpdateLeaguePointsController;
 import interface_adapter.to_league_actions.LeagueActionsViewModel;
+
+import interface_adapter.update_league_points.UpdateLeaguePointsController;
+
 import interface_adapter.update_leagues.UpdateLeaguesController;
 import interface_adapter.update_leagues.UpdateLeaguesPresenter;
 import interface_adapter.update_points.UpdatePointsController;
@@ -61,6 +71,17 @@ import use_case.add_new_friend.AddNewFriendOutputBoundary;
 import use_case.add_word.AddWordInputBoundary;
 import use_case.add_word.AddWordInteractor;
 import use_case.add_word.AddWordOutputBoundary;
+
+import use_case.draft_words.DraftWordsInputBoundary;
+import use_case.draft_words.DraftWordsInteractor;
+import use_case.draft_words.DraftWordsOutputBoundary;
+import use_case.to_draft.ToDraftInputBoundary;
+import use_case.to_draft.ToDraftInteractor;
+import use_case.to_draft.ToDraftOutputBoundary;
+
+import use_case.award_league_points.AwardLeaguePointsInputBoundary;
+import use_case.award_league_points.AwardLeaguePointsInteractor;
+
 import use_case.goHome.GoHomeOutputBoundary;
 import use_case.login.LoginInputBoundary;
 import use_case.login.LoginInteractor;
@@ -68,6 +89,8 @@ import use_case.login.LoginOutputBoundary;
 import use_case.logout.LogoutInputBoundary;
 import use_case.logout.LogoutInteractor;
 import use_case.logout.LogoutOutputBoundary;
+import use_case.round_league_points.RoundLeaguePointsInputBoundary;
+import use_case.round_league_points.RoundLeaguePointsInteractor;
 import use_case.signup.SignupInputBoundary;
 import use_case.signup.SignupInteractor;
 import use_case.signup.SignupOutputBoundary;
@@ -79,8 +102,9 @@ import use_case.to_league_actions.ToLeagueActionsInputBoundary;
 import use_case.to_league_actions.ToLeagueActionsInteractor;
 import use_case.to_league_actions.ToLeagueActionsOutputBoundary;
 import use_case.to_rankings.RankingsOutputBoundary;
-import use_case.updateLeaguePoints.UpdateLeaguePointsInputBoundary;
-import use_case.updateLeaguePoints.UpdateLeaguePointsInteractor;
+import use_case.updatePointsForLeague.UpdatePointsForLeagueDataAccessObject;
+import use_case.updatePointsForLeague.UpdatePointsForLeagueInputBoundary;
+import use_case.updatePointsForLeague.UpdatePointsForLeagueInteractor;
 import use_case.update_leagues.UpdateLeaguesInputBoundary;
 import use_case.update_leagues.UpdateLeaguesInteractor;
 import use_case.update_leagues.UpdateLeaguesOutputBoundary;
@@ -165,14 +189,21 @@ public class AppBuilder {
         return this;
     }
 
+    public AppBuilder addDraftUseCase(){
+        final DraftWordsOutputBoundary presentr = new DraftWordsPresenter(viewManagerModel, draftViewModel);
+        final DraftWordsInputBoundary draftWordsInteractor = new DraftWordsInteractor(presentr, leagueDataAccessObject);
+        final DraftWordsController draftWordsController = new DraftWordsController(draftWordsInteractor);
+        draftView.setDraftWordsController(draftWordsController);
+        return this;
+    }
 
-//    public AppBuilder addDraftUseCase(){
-//        final DraftOutputBoundary draftPresenter = new DraftPresenter(viewManagerModel, draftViewModel);
-//        final DraftInputBoundary draftInteractor = new DraftInteractor(draftPresenter, userDataAccessObject);
-//        final DraftController controller = new DraftController(draftInteractor);
-//        loggedInView.setDraftController(controller);
-//        return this;
-//    }
+    public AppBuilder addToDraftUseCase(){
+        final ToDraftOutputBoundary draftPresenter = new ToDraftPresenter(viewManagerModel, draftViewModel);
+        final ToDraftInputBoundary draftInteractor = new ToDraftInteractor(draftPresenter, leagueDataAccessObject);
+        final ToDraftController controller = new ToDraftController(draftInteractor);
+        loggedInView.setDraftController(controller);
+        return this;
+    }
     /**
      * Adds the Signup View to the application.
      * @return this builder
@@ -218,9 +249,11 @@ public class AppBuilder {
         final GoHomeOutputBoundary goHomePresenter = new GoHomePresenter(viewManagerModel, loggedInViewModel);
         final GoHomeController goHomeController = new GoHomeController(goHomePresenter);
         soloPlayView.setGoHomeController(goHomeController);
+        draftView.setGoHomeController(goHomeController);
         friendsView.setGoHomeController(goHomeController);
         leagueView.setGoHomeController(goHomeController);
         leagueActionsView.setGoHomeController(goHomeController);
+        rankingsView.setGoHomeController(goHomeController);
         return this;
     }
 
@@ -271,13 +304,28 @@ public class AppBuilder {
         return this;
     }
 
-    public AppBuilder addUpdateLeaguePointsUseCase(){
+    public AppBuilder addUpdatePointsforLeagueUseCase(){
         try{
-            final GuardianDataAccessObject guardianDataAccessObject = makeGuardianDataAccessObject();
-            final UpdateLeaguePointsInputBoundary updateLeaguePointsInteractor = new UpdateLeaguePointsInteractor(guardianDataAccessObject );
+            final UpdatePointsForLeagueDataAccessObject updatePointsForLeagueDataAccessObject = makeGuardianDataAccessObject();
+            final UpdatePointsForLeagueInputBoundary updateLeaguePointsInteractor = new UpdatePointsForLeagueInteractor(updatePointsForLeagueDataAccessObject );
             final UpdateLeaguePointsController controller = new UpdateLeaguePointsController(updateLeaguePointsInteractor);
-            leagueActionsView.setUpdateLeaguePointsController(controller);
+            leagueView.setUpdatePointsForLeagueController(controller);
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return this;
+    }
+
+    public AppBuilder addUpdateLeaguePointsUseCase(){
+        try {
+
+            final AwardLeaguePointsInputBoundary awardLeaguePointsInputBoundary = new AwardLeaguePointsInteractor(leagueDataAccessObject);
+            final RoundLeaguePointsInputBoundary roundLeaguePointsInteractor = new RoundLeaguePointsInteractor(leagueDataAccessObject);
+
+            final AwardLeaguePointsController controller = new AwardLeaguePointsController(awardLeaguePointsInputBoundary, roundLeaguePointsInteractor);
+            leagueView.setAwardLeaguePointsController(controller);
+
+        } catch (Exception e){
             e.printStackTrace();
         }
         return this;

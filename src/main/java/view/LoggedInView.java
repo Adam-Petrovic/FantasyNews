@@ -10,10 +10,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+
 import interface_adapter.to_friends.FriendsController;
 import interface_adapter.change_password.LoggedInState;
 import interface_adapter.change_password.LoggedInViewModel;
-import interface_adapter.draft.DraftController;
+import interface_adapter.to_draft.ToDraftController;
 import interface_adapter.logout.LogoutController;
 import interface_adapter.solo_play.SoloPlayController;
 import interface_adapter.to_league.LeagueController;
@@ -31,8 +32,10 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private LeagueController leagueController;
     private UpdateLeaguesController updateLeaguesController;
     private RankingsController rankingsController;
+
+    private ToDraftController toDraftController;
     private FriendsController friendsController;
-    private DraftController draftController;
+
 
     private final JLabel greeting;
     private final JButton logOut;
@@ -88,6 +91,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         soloPlay.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(soloPlay)) {
+                        System.out.println(this.loggedInViewModel.getState().getUsername());
                         soloPlayController.execute(loggedInViewModel.getState().getUsername());
                     }
                 });
@@ -129,7 +133,8 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 // This creates an anonymous subclass of ActionListener and instantiates it.
                 evt -> {
                     if (evt.getSource().equals(draft)) {
-                        draftController.execute(loggedInViewModel.getState().getUsername());
+                        toDraftController.execute(loggedInViewModel.getState().getUsername(), "Enter New League ID");
+
                     }
                 }
         );
@@ -167,8 +172,8 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         this.friendsController = friendsController;
     }
 
-    public void setDraftController(DraftController draftController){
-        this.draftController = draftController;
+    public void setDraftController(ToDraftController toDraftController){
+        this.toDraftController = toDraftController;
     }
 
     public void setUpdateLeaguesController(UpdateLeaguesController updateLeaguesController){

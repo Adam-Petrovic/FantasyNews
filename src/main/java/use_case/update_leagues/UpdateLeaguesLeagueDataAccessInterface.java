@@ -14,5 +14,4 @@ public interface UpdateLeaguesLeagueDataAccessInterface {
 
     ArrayList<League> getLeagues(ArrayList<String> userLeagueIDList);
 
-    void updateUserPoints(String leagueID, String username);
 }

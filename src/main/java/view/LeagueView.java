@@ -3,6 +3,7 @@ package view;
 import data_access.Constants;
 import entity.League;
 import entity.User;
+import interface_adapter.award_league_points.AwardLeaguePointsController;
 import interface_adapter.go_home.GoHomeController;
 import interface_adapter.signup.SignupState;
 import interface_adapter.to_friends.FriendsState;
@@ -10,17 +11,27 @@ import interface_adapter.to_league.LeagueState;
 import interface_adapter.to_league.LeagueViewModel;
 import interface_adapter.to_league_actions.ToLeagueActionsController;
 import interface_adapter.updateLeaguePoints.UpdateLeaguePointsController;
+import interface_adapter.to_league.LeagueState;
+import interface_adapter.to_league.LeagueViewModel;
+import interface_adapter.update_league_points.UpdateLeaguePointsController;
 import interface_adapter.update_leagues.UpdateLeaguesController;
 
 import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.TimerTask;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class LeagueView  extends JPanel implements ActionListener, PropertyChangeListener {
     //controllers & stuff
@@ -28,6 +39,9 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
     private GoHomeController goHomeController;
     private UpdateLeaguesController updateLeaguesController;
     private ToLeagueActionsController toLeagueActionsController;
+    private UpdateLeaguePointsController updatePointsForLeagueController;
+    private AwardLeaguePointsController awardLeaguePointsController;
+
     //visuals
 
     //bottom panel
@@ -82,6 +96,16 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
 
         this.add(functionsPanel);
 
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+        scheduler.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                for (League league : leagues) {
+                    awardLeaguePointsController.awardPoints(league.getId(), league.getUserObjArr());
+                }
+            }
+        }, 0, 1, TimeUnit.DAYS);
+
         //button listeners
         createLeagueButton.addActionListener(
                 evt -> {
@@ -111,6 +135,7 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
                 }
         );
 
+
         viewLeagueButton.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(viewLeagueButton)) {
@@ -126,6 +151,7 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
     public void actionPerformed(ActionEvent e) {
 
     }
+
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         final LeagueState state = (LeagueState) evt.getNewValue();
@@ -145,5 +171,12 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
 
     public void setToLeagueActionsController(ToLeagueActionsController controller){
         this.toLeagueActionsController = controller;
+
+    public void setUpdatePointsForLeagueController(UpdateLeaguePointsController updatePointsForLeagueController){
+        this.updatePointsForLeagueController = updatePointsForLeagueController;
+    }
+
+    public void setAwardLeaguePointsController (AwardLeaguePointsController awardLeaguePointsController){
+        this.awardLeaguePointsController = awardLeaguePointsController;
     }
 }

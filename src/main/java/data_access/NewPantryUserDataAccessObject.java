@@ -33,6 +33,7 @@ public class NewPantryUserDataAccessObject implements SignupUserDataAccessInterf
                                                         UpdateLeaguesUserDataAccessInterface,
                                                         UpdateRankingsUserDataAccessInterface,
                                                         ToLeagueActionsUserDataAccessInterface {
+
     private static final int SUCCESS_CODE = 200;
     private static final String CONTENT_TYPE_LABEL = "Content-Type";
     private static final String CONTENT_TYPE_JSON = "application/json";
@@ -185,7 +186,7 @@ public class NewPantryUserDataAccessObject implements SignupUserDataAccessInterf
 
     //gets all the basket data
     public JSONObject get() {
-        sleep(1);
+        //sleep(1);
         final String fullURL = API_URL + key + "/basket/" + BASKET_NAME;
         final OkHttpClient client = new OkHttpClient().newBuilder().build();
         final Request request = new Request.Builder()

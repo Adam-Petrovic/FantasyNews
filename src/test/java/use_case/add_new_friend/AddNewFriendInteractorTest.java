@@ -1,21 +1,34 @@
 package use_case.add_new_friend;
 
 import data_access.InMemoryUserDataAccessObject;
+import data_access.GuardianDataAccessObject;
 import entity.CommonUserFactory;
 import entity.User;
 import entity.UserFactory;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import use_case.to_friends.FriendsUserDataAccessInterface;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.*;
 
 class AddNewFriendInteractorTest {
+
+    private FriendsUserDataAccessInterface userRepository;
+    private GuardianDataAccessObject guardianDataAccessObject;
+
+    @BeforeEach
+    void setUp() {
+        userRepository = new InMemoryUserDataAccessObject();
+        guardianDataAccessObject = mock(GuardianDataAccessObject.class);
+    }
 
     @Test
     void successTest() {
         AddNewFriendInputData inputData = new AddNewFriendInputData("fio","jennifer");
-        FriendsUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
 
         UserFactory factory = new CommonUserFactory();
         User user = factory.create("jennifer", "lala");
@@ -23,10 +36,14 @@ class AddNewFriendInteractorTest {
         userRepository.save(user);
         userRepository.save(friend);
 
+        // Mock the method to return a fixed point value
+        when(guardianDataAccessObject.getPointsForCategory(anyString())).thenReturn(10);
+
         AddNewFriendOutputBoundary successPresenter = new AddNewFriendOutputBoundary() {
             @Override
             public void prepareSuccessView(AddNewFriendOutputData data) {
-                assertEquals(userRepository.get("fio"),data.getFriend());
+                assertEquals(userRepository.get("fio"), data.getFriend());
+                assertEquals(2, data.getUserPoints().size());
             }
 
             @Override
@@ -35,20 +52,23 @@ class AddNewFriendInteractorTest {
             }
         };
 
-        AddNewFriendInputBoundary interactor = new AddNewFriendInteractor(successPresenter, userRepository);
+        AddNewFriendInputBoundary interactor = new AddNewFriendInteractor(successPresenter, userRepository, guardianDataAccessObject);
         interactor.execute(inputData);
     }
 
     @Test
     void failureFriendDoesNotExistTest() {
         AddNewFriendInputData inputData = new AddNewFriendInputData("leo", "jennifer");
-        FriendsUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
 
-        // This creates a presenter that tests whether the test case is as we expect.
+        UserFactory factory = new CommonUserFactory();
+        User user = factory.create("jennifer", "lala");
+        userRepository.save(user);
+
+        guardianDataAccessObject = mock(GuardianDataAccessObject.class);
+
         AddNewFriendOutputBoundary failurePresenter = new AddNewFriendOutputBoundary() {
             @Override
             public void prepareSuccessView(AddNewFriendOutputData data) {
-                // this should never be reached since the test case should fail
                 fail("Use case success is unexpected.");
             }
 
@@ -58,7 +78,102 @@ class AddNewFriendInteractorTest {
             }
         };
 
-        AddNewFriendInputBoundary interactor = new AddNewFriendInteractor(failurePresenter, userRepository);
+        AddNewFriendInputBoundary interactor = new AddNewFriendInteractor(failurePresenter, userRepository, guardianDataAccessObject);
         interactor.execute(inputData);
     }
+
+    @Test
+    void failureAddSelfAsFriendTest() {
+        // Arrange
+        String username = "jennifer";
+        AddNewFriendInputData inputData = new AddNewFriendInputData(username, username);
+
+        // Create a mock user repository and guardian data access object
+        FriendsUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
+        GuardianDataAccessObject guardianDataAccessObject = mock(GuardianDataAccessObject.class);
+
+        // Create a user and save it to the repository
+        UserFactory factory = new CommonUserFactory();
+        User user = factory.create(username, "password");
+        userRepository.save(user);
+
+        // Mock the guardian data access object to return a fixed value
+        when(guardianDataAccessObject.getPointsForCategory(anyString())).thenReturn(10);
+
+        // Create a presenter that checks for the expected failure message
+        AddNewFriendOutputBoundary failurePresenter = new AddNewFriendOutputBoundary() {
+            @Override
+            public void prepareSuccessView(AddNewFriendOutputData data) {
+                fail("Use case success is unexpected.");
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                assertEquals("You cannot add yourself as a friend :(", error);
+            }
+        };
+
+        // Act
+        AddNewFriendInputBoundary interactor = new AddNewFriendInteractor(failurePresenter, userRepository, guardianDataAccessObject);
+        interactor.execute(inputData);
+
+        // Assert
+        // The assertions are made in the presenter
+    }
+
+    @Test
+    void interruptedExceptionDuringSleepTest() throws InterruptedException {
+        // Arrange
+        String username = "jennifer";
+        String friendUsername = "fio";
+        AddNewFriendInputData inputData = new AddNewFriendInputData(friendUsername, username);
+
+        FriendsUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
+
+        // Mock GuardianDataAccessObject to avoid real API calls
+        GuardianDataAccessObject guardianDataAccessObject = mock(GuardianDataAccessObject.class);
+        when(guardianDataAccessObject.getPointsForCategory(anyString())).thenReturn(10);
+
+        UserFactory factory = new CommonUserFactory();
+        User user = factory.create(username, "password");
+        User friend = factory.create(friendUsername, "password");
+        userRepository.save(user);
+        userRepository.save(friend);
+
+        // Create a presenter to capture the RuntimeException
+        AddNewFriendOutputBoundary presenter = new AddNewFriendOutputBoundary() {
+            @Override
+            public void prepareSuccessView(AddNewFriendOutputData data) {
+                fail("Use case success is unexpected.");
+            }
+
+            @Override
+            public void prepareFailView(String error) {
+                fail("Use case failure is unexpected.");
+            }
+        };
+
+        // Create the interactor
+        AddNewFriendInteractor interactor = new AddNewFriendInteractor(
+                presenter, userRepository, guardianDataAccessObject);
+
+        // Create a thread to run the execute method
+        Thread testThread = new Thread(() -> {
+            try {
+                interactor.execute(inputData);
+                fail("Expected RuntimeException to be thrown.");
+            } catch (RuntimeException ex) {
+                // Assert that the cause is an InterruptedException
+                assertTrue("Cause should be InterruptedException", ex.getCause() instanceof InterruptedException);
+                assertEquals("sleep interrupted", ex.getCause().getMessage());
+            }
+        });
+
+        // Interrupt the thread before starting it
+        testThread.interrupt();
+
+        // Act
+        testThread.start();
+    }
+
 }

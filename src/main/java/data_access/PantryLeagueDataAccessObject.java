@@ -208,8 +208,4 @@ public class PantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataAcce
         return null;
     }
 
-    @Override
-    public void updateUserPoints(String leagueID, String username) {
-
-    }
 }

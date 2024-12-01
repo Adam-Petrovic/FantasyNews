@@ -3,6 +3,7 @@ package view;
 import data_access.Constants;
 import entity.League;
 import entity.User;
+import interface_adapter.go_home.GoHomeController;
 import interface_adapter.to_rankings.RankingsViewModel;
 import interface_adapter.update_rankings.UpdateRankingsController;
 
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 public class RankingsView extends JPanel implements PropertyChangeListener {
     private final RankingsViewModel rankingsViewModel;
     private UpdateRankingsController updateRankingsController;
+    private GoHomeController goHomeController;
     private User user;
     private League league;
     //private JScrollPane jScrollPane;
@@ -60,6 +62,9 @@ public class RankingsView extends JPanel implements PropertyChangeListener {
 //        //wordsScrollPane.setPreferredSize(dw);
 //        //indexScrollPane.setPreferredSize(du);
 //
+        JButton goHomeButton = new JButton("←");
+        displayRankingsPanel.add(goHomeButton);
+
 //        //update rankings button
         JButton updateRankings = new JButton("Update Rankings");
         displayRankingsPanel.add(updateRankings);
@@ -73,6 +78,13 @@ public class RankingsView extends JPanel implements PropertyChangeListener {
             }
         });
 
+        goHomeButton.addActionListener(
+                evt -> {
+                    if (evt.getSource().equals(goHomeButton)) {
+                        goHomeController.execute();
+                    }
+                });
+
 
         displayRankingsPanel.setVisible(true);
         this.add(displayRankingsPanel);
@@ -81,33 +93,43 @@ public class RankingsView extends JPanel implements PropertyChangeListener {
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
         this.league = rankingsViewModel.getState().getLeague();
-        ArrayList<User> rankings = league.getRankings();
-        System.out.println(rankings);
+        ArrayList<User> liveRankings = league.getLiveRankings();
+        ArrayList<User> historicalRankings = league.getHistoricalRankings();
 
-        String[] title = {"Ranking"};
-        Integer[][] indices = new Integer[rankings.size()][1];
+        String[] liveTitles = {"Live Ranking", "user", "points"};
+        String[][] liveRows = new String[liveRankings.size()][3];
 
-        String[][] user = new String[rankings.size()][2];
-        String[] userTitles = {"user", "points"};
+        String[] historicalTitles = {"Historical Ranking", "user", "points"};
+        String[][] historicalRows = new String[historicalRankings.size()][3];
 
-        for (int i = 0; i < rankings.size(); i++) {
-            indices[i][0] = i + 1;
-            user[rankings.size() - i - 1][0] = rankings.get(i).getName();
-            user[rankings.size() - i - 1][1] = Integer.toString(rankings.get(i).getLeaguePoints());
+        for (int i = 0; i < liveRankings.size(); i++) {
+            liveRows[i][0] = Integer.toString(i + 1);
+            liveRows[liveRankings.size() - i - 1][1] = liveRankings.get(i).getName();
+            liveRows[liveRankings.size() - i - 1][2] = Integer.toString(liveRankings.get(i).getLiveLeaguePoints());
         }
 
-        JTable userTable = new JTable(user, userTitles);
-        JTable indexTable = new JTable(indices, title);
-        indexTable.setDefaultEditor(Object.class, null);
-        userTable.setDefaultEditor(Object.class, null);
-        displayRankingsPanel.add(indexTable);
-        displayRankingsPanel.add(userTable);
-        //displayRankingsPanel.setViewportView(indexTable);
-        //displayRankingsPanel.setViewportView(userTable);
+        for (int i = 0; i < historicalRankings.size(); i++) {
+            historicalRows[i][0] = Integer.toString(i + 1);
+            historicalRows[historicalRankings.size() - i - 1][1] = historicalRankings.get(i).getName();
+            historicalRows[historicalRankings.size() - i - 1][2] = Integer.toString(historicalRankings.get(i).getLeaguePoints());
+        }
+
+        JTable liveTable = new JTable(liveRows, liveTitles);
+        JTable historicalTable = new JTable(historicalRows, historicalTitles);
+        //liveTable.setDefaultEditor(Object.class, null);
+        //historicalTable.setDefaultEditor(Object.class, null);
+        JScrollPane liveSP = new JScrollPane(liveTable);
+        JScrollPane historicalSP = new JScrollPane(historicalTable);
+        displayRankingsPanel.add(liveSP);
+        displayRankingsPanel.add(historicalSP);
     }
 
     public void setUpdateRankingsController(UpdateRankingsController updateRankingsController) {
         this.updateRankingsController = updateRankingsController;
+    }
+
+    public void setGoHomeController(GoHomeController goHomeController) {
+        this.goHomeController = goHomeController;
     }
 
 }
