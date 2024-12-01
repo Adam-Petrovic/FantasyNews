@@ -77,10 +77,10 @@ public class CommonUser implements User {
         }
     }
 
-    private boolean hasDuplicates(String[] draftedWords) {
-        Set<String> simplifiedWords = new HashSet<>(List.of(draftedWords));
-        return draftedWords.length == simplifiedWords.size();
-    }
+//    private boolean hasDuplicates(String[] draftedWords) {
+//        Set<String> simplifiedWords = new HashSet<>(List.of(draftedWords));
+//        return draftedWords.length == simplifiedWords.size();
+//    }
 
     @Override
     public String getName() {
