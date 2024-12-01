@@ -1,6 +1,6 @@
-**Accessibility Report**
+# Accessibility Report
 
-**Section 1: Adherence to Principles of Universal Design and Potential Future Enhancements**
+## Section 1: Adherence to Principles of Universal Design and Potential Future Enhancements
 
 *Principle 1: Equitable Use*
 
@@ -30,10 +30,10 @@ Low physical effort is readily attained given the small scope of this program. U
 
 The software can run on various environments like Windows, macOS, and Linux, which is a common feature of all Java programs. Due to the digital nature of this product, this principle is less applicable.
 
-**Section 2: Target Users**
+## Section 2: Target Users
 
 Generally, students and other young adults can all use the program for entertainment and feedback on their journalism acumen. Within this broader demographic, we would market the program towards people with particular interest in journalism and/or pop culture. These individuals are likely to be engaged with news trends; thus they would have more motivation to predict and analyze future news headlines in a gamified way. Additionally, the competitive league aspect makes the program attractive to friend groups or study cohorts who enjoy collaborative and competitive activities.
 
-**Section 3: Vulnerable Group**
+## Section 3: Vulnerable Group
 
 A group who may struggle to use the program is people who are less familiar with western culture. The program has competitive features like rankings and 1v1 comparisons for points, in which wins and losses are determined partially by luck but also by intuition about what words and topics will be covered by the newspaper during a specific time. Since these people are not part of the majority in the context of a program written in English and dependent on articles from Guardian, a British newspaper, this can diminish their sense of relational equality. At least indirectly, our software design may discourage this group from using the program.
