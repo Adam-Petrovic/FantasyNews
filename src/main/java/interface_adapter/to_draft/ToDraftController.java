@@ -1,9 +1,8 @@
 package interface_adapter.to_draft;
 
 
-import use_case.to_draft.ToDraftInputBoundary;
-import use_case.to_draft.ToDraftInputData;
-import use_case.to_draft.ToDraftOutputBoundary;
+import usecase.to_draft.ToDraftInputBoundary;
+import usecase.to_draft.ToDraftInputData;
 
 public class ToDraftController {
     private final ToDraftInputBoundary toDraftInteractor;

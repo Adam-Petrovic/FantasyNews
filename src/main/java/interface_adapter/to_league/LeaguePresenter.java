@@ -1,7 +1,7 @@
 package interface_adapter.to_league;
 
 import interface_adapter.ViewManagerModel;
-import use_case.to_league.LeagueOutputBoundary;
+import usecase.to_league.LeagueOutputBoundary;
 
 public class LeaguePresenter implements LeagueOutputBoundary {
 

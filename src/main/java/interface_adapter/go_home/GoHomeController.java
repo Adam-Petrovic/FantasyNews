@@ -1,6 +1,6 @@
 package interface_adapter.go_home;
 
-import use_case.goHome.GoHomeOutputBoundary;
+import usecase.goHome.GoHomeOutputBoundary;
 
 public class GoHomeController {
     private final GoHomeOutputBoundary goHomePresenter;

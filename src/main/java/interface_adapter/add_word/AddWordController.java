@@ -1,7 +1,7 @@
 package interface_adapter.add_word;
 
-import use_case.add_word.AddWordInputBoundary;
-import use_case.add_word.AddWordInputData;
+import usecase.addWord.AddWordInputBoundary;
+import usecase.addWord.AddWordInputData;
 
 public class AddWordController {
     private final AddWordInputBoundary addWordInteractor;

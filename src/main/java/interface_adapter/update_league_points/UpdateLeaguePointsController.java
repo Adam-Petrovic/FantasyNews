@@ -1,8 +1,8 @@
 package interface_adapter.update_league_points;
 
 import entity.User;
-import use_case.updatePointsForLeague.UpdatePointsForLeagueInputBoundary;
-import use_case.updatePointsForLeague.UpdatePointsForLeagueInputData;
+import usecase.updatePointsForLeague.UpdatePointsForLeagueInputBoundary;
+import usecase.updatePointsForLeague.UpdatePointsForLeagueInputData;
 
 import java.util.ArrayList;
 

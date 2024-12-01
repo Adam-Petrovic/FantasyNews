@@ -2,8 +2,8 @@ package interface_adapter.draft_words;
 
 import interface_adapter.ViewManagerModel;
 
-import use_case.draft_words.DraftWordsOutputBoundary;
-import use_case.draft_words.DraftWordsOutputData;
+import usecase.draft_words.DraftWordsOutputBoundary;
+import usecase.draft_words.DraftWordsOutputData;
 
 public class DraftWordsPresenter implements DraftWordsOutputBoundary {
     private final ViewManagerModel viewManagerModel;

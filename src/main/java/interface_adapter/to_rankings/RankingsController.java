@@ -1,6 +1,6 @@
 package interface_adapter.to_rankings;
 
-import use_case.to_rankings.RankingsOutputBoundary;
+import usecase.to_rankings.RankingsOutputBoundary;
 
 public class RankingsController {
     private final RankingsOutputBoundary rankingsPresenter;
