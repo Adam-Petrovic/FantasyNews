@@ -12,7 +12,7 @@ public class ToLeagueActionsPresenter implements ToLeagueActionsOutputBoundary {
     private LeagueViewModel leagueViewModel;
     private ViewManagerModel viewManagerModel;
 
-    ToLeagueActionsPresenter(LeagueActionsViewModel leagueActionsViewModel,LeagueViewModel leagueViewModel,
+    public ToLeagueActionsPresenter(LeagueActionsViewModel leagueActionsViewModel,LeagueViewModel leagueViewModel,
                              ViewManagerModel viewManagerModel) {
         this.leagueActionsViewModel = leagueActionsViewModel;
         this.viewManagerModel = viewManagerModel;

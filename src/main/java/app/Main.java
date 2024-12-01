@@ -36,6 +36,7 @@ public class Main {
 //                                            .addDraftUseCase()
                                             .addUpdateLeaguesUseCase()
                                             .addUpdateLeaguePointsUseCase()
+                                            .addToLeagueActionsUseCase()
                                             .build();
 
 

@@ -9,7 +9,7 @@ public class ToLeagueActionsInteractor implements ToLeagueActionsInputBoundary{
     ToLeagueActionsUserDataAccessInterface userDataAccessObject;
     ToLeagueActionsLeagueDataAccessInterface leagueDataAccessObject;
 
-    ToLeagueActionsInteractor(ToLeagueActionsOutputBoundary toLeagueActionsPresenter,
+    public ToLeagueActionsInteractor(ToLeagueActionsOutputBoundary toLeagueActionsPresenter,
                               ToLeagueActionsUserDataAccessInterface userDataAccessObject,
                               ToLeagueActionsLeagueDataAccessInterface leagueDataAccessObject) {
         this.toLeagueActionsPresenter = toLeagueActionsPresenter;
