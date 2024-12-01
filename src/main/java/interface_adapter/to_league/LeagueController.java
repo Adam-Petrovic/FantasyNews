@@ -1,5 +1,5 @@
 package interface_adapter.to_league;
-import use_case.to_league.LeagueOutputBoundary;
+import usecase.to_league.LeagueOutputBoundary;
 
 public class LeagueController {
     private final LeagueOutputBoundary leaguePresenter;

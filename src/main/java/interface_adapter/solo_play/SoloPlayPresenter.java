@@ -1,13 +1,8 @@
 package interface_adapter.solo_play;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.change_password.LoggedInState;
-import interface_adapter.change_password.LoggedInViewModel;
-import interface_adapter.login.LoginState;
-import interface_adapter.login.LoginViewModel;
-import interface_adapter.signup.SignupViewModel;
-import use_case.solo_play.SoloPlayOutputBoundary;
-import use_case.solo_play.SoloPlayOutputData;
+import usecase.solo_play.SoloPlayOutputBoundary;
+import usecase.solo_play.SoloPlayOutputData;
 
 public class SoloPlayPresenter implements SoloPlayOutputBoundary {
 

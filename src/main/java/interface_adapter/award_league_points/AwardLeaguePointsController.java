@@ -1,10 +1,10 @@
 package interface_adapter.award_league_points;
 
 import entity.User;
-import use_case.award_league_points.AwardLeaguePointsInputBoundary;
-import use_case.award_league_points.AwardLeaguePointsInputData;
-import use_case.round_league_points.RoundLeaguePointsInputBoundary;
-import use_case.round_league_points.RoundLeaguePointsInputData;
+import usecase.award_league_points.AwardLeaguePointsInputBoundary;
+import usecase.award_league_points.AwardLeaguePointsInputData;
+import usecase.round_league_points.RoundLeaguePointsInputBoundary;
+import usecase.round_league_points.RoundLeaguePointsInputData;
 
 import java.util.ArrayList;
 

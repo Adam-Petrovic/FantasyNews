@@ -3,8 +3,8 @@ package interface_adapter.to_draft;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.draft_words.DraftState;
 import interface_adapter.draft_words.DraftViewModel;
-import use_case.to_draft.ToDraftOutputBoundary;
-import use_case.to_draft.ToDraftOutputData;
+import usecase.to_draft.ToDraftOutputBoundary;
+import usecase.to_draft.ToDraftOutputData;
 
 
 public class ToDraftPresenter implements ToDraftOutputBoundary {

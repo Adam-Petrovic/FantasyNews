@@ -1,10 +1,9 @@
 package interface_adapter.update_points;
 
-import entity.User;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.solo_play.SoloPlayViewModel;
-import use_case.update_solo_points.UpdatePointsOutputBoundary;
-import use_case.update_solo_points.UpdatePointsOutputData;
+import usecase.update_solo_points.UpdatePointsOutputBoundary;
+import usecase.update_solo_points.UpdatePointsOutputData;
 
 public class UpdatePointsPresenter implements UpdatePointsOutputBoundary {
     private ViewManagerModel viewManagerModel;

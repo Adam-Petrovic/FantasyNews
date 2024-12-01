@@ -8,9 +8,8 @@ import java.net.http.HttpResponse;
 import java.time.LocalDate;
 
 import org.json.JSONObject;
-import use_case.award_league_points.AwardLeaguePointsDataAccessInterface;
-import use_case.updatePointsForLeague.UpdatePointsForLeagueDataAccessObject;
-import use_case.update_solo_points.UpdatePointsDataAccessInterface;
+import usecase.updatePointsForLeague.UpdatePointsForLeagueDataAccessObject;
+import usecase.update_solo_points.UpdatePointsDataAccessInterface;
 
 public class GuardianDataAccessObject implements UpdatePointsDataAccessInterface, UpdatePointsForLeagueDataAccessObject {
 

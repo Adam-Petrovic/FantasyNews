@@ -3,7 +3,7 @@ package interface_adapter.go_home;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.change_password.LoggedInState;
 import interface_adapter.change_password.LoggedInViewModel;
-import use_case.goHome.GoHomeOutputBoundary;
+import usecase.goHome.GoHomeOutputBoundary;
 
 public class GoHomePresenter implements GoHomeOutputBoundary {
     private final LoggedInViewModel loggedInViewModel;

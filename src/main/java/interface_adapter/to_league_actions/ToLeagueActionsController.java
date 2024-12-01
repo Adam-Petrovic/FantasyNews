@@ -1,8 +1,7 @@
 package interface_adapter.to_league_actions;
 
-import use_case.to_league_actions.ToLeagueActionsInputBoundary;
-import use_case.to_league_actions.ToLeagueActionsInputData;
-import use_case.update_leagues.UpdateLeaguesInputData;
+import usecase.to_league_actions.ToLeagueActionsInputBoundary;
+import usecase.to_league_actions.ToLeagueActionsInputData;
 
 public class ToLeagueActionsController{
     private ToLeagueActionsInputBoundary toLeagueActionsInteractor;
