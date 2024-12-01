@@ -20,7 +20,7 @@ public class CommonUser implements User {
     private final HashMap<String, String> words = new HashMap<>();
     private final HashMap<String,Integer> wordPointsForCategory = new HashMap<>();
     private final String[] leagueWords;
-    private List<User> friends = new ArrayList<>();
+    private final List<User> friends = new ArrayList<>();
     private ArrayList<String> leagueIDs;
 
     public CommonUser(String name, String password, String[] terms, ArrayList<String> leagueIDs){
