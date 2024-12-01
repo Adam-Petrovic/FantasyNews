@@ -132,7 +132,7 @@ public class FriendsView extends JPanel implements ActionListener, PropertyChang
                 if (row >= 0) {
                     // Retrieve friend's points from the clicked row
                     String friendName = (String) friendsTable.getValueAt(row, 0);
-                    Integer friendPoints = (Integer) friendsTable.getValueAt(row, 1);
+                    Integer friendPoints = (Integer) userPoints.values().toArray()[1];
                     Integer myPoints = (Integer) userPoints.values().toArray()[0];
 
                     // Compare points between user and selected friend and display corresponding result
