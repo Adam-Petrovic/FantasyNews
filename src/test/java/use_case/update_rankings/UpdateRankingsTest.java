@@ -4,16 +4,22 @@ import data_access.GuardianDataAccessObject;
 import data_access.InMemoryUserDataAccessObject;
 import entity.*;
 import org.junit.jupiter.api.Test;
+
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+
+
 public class UpdateRankingsTest {
     @Test
-    void successTest(){
+    void successTest() throws FileNotFoundException {
         UpdateRankingsInputData inputData = new UpdateRankingsInputData("rankingsTestLeague");
 
-        GuardianDataAccessObject guardianDataAccessObject = new GuardianDataAccessObject("c7dda92e-78d1-440d-a3b7-ee3d27ee35be");
+        GuardianDataAccessObject guardianDataAccessObject = makeGuardianDataAccessObject();
 
         // creates test users and adds them to in memory dao
         UpdateRankingsUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
@@ -43,5 +49,18 @@ public class UpdateRankingsTest {
                 successPresenter, leagueRepository, userRepository);
         interactor.execute(inputData);
 
+    }
+
+
+    private GuardianDataAccessObject makeGuardianDataAccessObject() throws FileNotFoundException {
+        try {
+            String apiKey = new Scanner(new File("guardianAPIToken.txt")).nextLine();
+            return new GuardianDataAccessObject(apiKey);
+        }
+
+        catch (FileNotFoundException e) {
+            System.out.println("Need to find API token, and call the file GuardianAPIToken");
+            return null;
+        }
     }
 }
