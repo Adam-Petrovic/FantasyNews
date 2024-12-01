@@ -1,4 +1,4 @@
-package interface_adapter.to_draft;
+package interface_adapter.draft_words;
 
 import interface_adapter.ViewModel;
 

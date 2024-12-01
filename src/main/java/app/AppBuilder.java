@@ -22,9 +22,11 @@ import interface_adapter.add_new_friend.AddNewFriendPresenter;
 import interface_adapter.add_word.AddWordController;
 import interface_adapter.add_word.AddWordPresenter;
 import interface_adapter.change_password.LoggedInViewModel;
+import interface_adapter.draft_words.DraftWordsController;
+import interface_adapter.draft_words.DraftWordsPresenter;
 import interface_adapter.to_draft.ToDraftController;
 import interface_adapter.to_draft.ToDraftPresenter;
-import interface_adapter.to_draft.DraftViewModel;
+import interface_adapter.draft_words.DraftViewModel;
 import interface_adapter.go_home.GoHomeController;
 import interface_adapter.go_home.GoHomePresenter;
 import interface_adapter.login.LoginController;
@@ -60,6 +62,11 @@ import use_case.add_new_friend.AddNewFriendOutputBoundary;
 import use_case.add_word.AddWordInputBoundary;
 import use_case.add_word.AddWordInteractor;
 import use_case.add_word.AddWordOutputBoundary;
+import use_case.draft_words.DraftWordsInputBoundary;
+import use_case.draft_words.DraftWordsInteractor;
+import use_case.draft_words.DraftWordsOutputBoundary;
+import use_case.to_draft.ToDraftInputBoundary;
+import use_case.to_draft.ToDraftInteractor;
 import use_case.to_draft.ToDraftOutputBoundary;
 import use_case.goHome.GoHomeOutputBoundary;
 import use_case.login.LoginInputBoundary;
@@ -159,11 +166,18 @@ public class AppBuilder {
         return this;
     }
 
-
     public AppBuilder addDraftUseCase(){
+        final DraftWordsOutputBoundary presentr = new DraftWordsPresenter(viewManagerModel, draftViewModel);
+        final DraftWordsInputBoundary draftWordsInteractor = new DraftWordsInteractor(presentr, leagueDataAccessObject);
+        final DraftWordsController draftWordsController = new DraftWordsController(draftWordsInteractor);
+        draftView.setDraftWordsController(draftWordsController);
+        return this;
+    }
+
+    public AppBuilder addToDraftUseCase(){
         final ToDraftOutputBoundary draftPresenter = new ToDraftPresenter(viewManagerModel, draftViewModel);
-        //final ToDraftInputBoundary draftInteractor = new ToDraftInteractor(draftPresenter, userDataAccessObject);
-        final ToDraftController controller = new ToDraftController(draftPresenter);
+        final ToDraftInputBoundary draftInteractor = new ToDraftInteractor(draftPresenter, leagueDataAccessObject);
+        final ToDraftController controller = new ToDraftController(draftInteractor);
         loggedInView.setDraftController(controller);
         return this;
     }
@@ -205,6 +219,7 @@ public class AppBuilder {
         final GoHomeOutputBoundary goHomePresenter = new GoHomePresenter(viewManagerModel, loggedInViewModel);
         final GoHomeController goHomeController = new GoHomeController(goHomePresenter);
         soloPlayView.setGoHomeController(goHomeController);
+        draftView.setGoHomeController(goHomeController);
         addFriendsView.setGoHomeController(goHomeController);
         leagueView.setGoHomeController(goHomeController);
         return this;

@@ -1,8 +1,10 @@
 package interface_adapter.to_draft;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.to_league.LeagueState;
+import interface_adapter.draft_words.DraftState;
+import interface_adapter.draft_words.DraftViewModel;
 import use_case.to_draft.ToDraftOutputBoundary;
+import use_case.to_draft.ToDraftOutputData;
 
 
 public class ToDraftPresenter implements ToDraftOutputBoundary {
@@ -25,9 +27,13 @@ public class ToDraftPresenter implements ToDraftOutputBoundary {
 //        viewManagerModel.firePropertyChanged();
 //    }
     @Override
-    public void execute() {
+    public void execute(ToDraftOutputData output) {
         final DraftState draftState = draftViewModel.getState();
+        draftState.setUsername(output.getUsername());
+        draftState.setLeagueID(output.getLeagueID());
+        draftState.setWords(output.getWords());
         draftViewModel.setState(draftState);
+        draftViewModel.firePropertyChanged();
 
         viewManagerModel.setState(draftViewModel.getViewName());
         viewManagerModel.firePropertyChanged();

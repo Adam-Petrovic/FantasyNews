@@ -183,7 +183,7 @@ public class NewPantryUserDataAccessObject implements SignupUserDataAccessInterf
 
     //gets all the basket data
     public JSONObject get() {
-        sleep(1);
+        //sleep(1);
         final String fullURL = API_URL + key + "/basket/" + BASKET_NAME;
         final OkHttpClient client = new OkHttpClient().newBuilder().build();
         final Request request = new Request.Builder()

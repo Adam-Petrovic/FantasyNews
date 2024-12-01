@@ -1,20 +1,20 @@
 package interface_adapter.to_draft;
 
 
+import use_case.to_draft.ToDraftInputBoundary;
+import use_case.to_draft.ToDraftInputData;
 import use_case.to_draft.ToDraftOutputBoundary;
 
 public class ToDraftController {
-    private final ToDraftOutputBoundary toDraftPresenter;
+    private final ToDraftInputBoundary toDraftInteractor;
 
-    public ToDraftController(ToDraftOutputBoundary toDraftpresenter) {
-        this.toDraftPresenter = toDraftpresenter;
+    public ToDraftController(ToDraftInputBoundary toDraftInteractor) {
+        this.toDraftInteractor = toDraftInteractor;
     }
 
-//    public void execute (String username){
-//        final ToDraftInputData toDraftInputData = new ToDraftInputData(username);
-//        toDraftInteractor.execute(toDraftInputData);
-//    }
-    public void execute(){
-        toDraftPresenter.execute();
+
+    public void execute(String username, String leagueID){
+        final ToDraftInputData toDraftInputData = new ToDraftInputData(username, leagueID);
+        toDraftInteractor.execute(toDraftInputData);
     }
 }

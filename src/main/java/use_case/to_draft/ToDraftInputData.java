@@ -2,12 +2,14 @@ package use_case.to_draft;
 
 public class ToDraftInputData {
     private final String username;
-
-    public ToDraftInputData(String username) {
+    private final String leagueID;
+    public ToDraftInputData(String username, String leagueID) {
         this.username = username;
+        this.leagueID = leagueID;
     }
 
     String getUsername() {
         return username;
     }
+    String getLeagueID() {return leagueID;}
 }
