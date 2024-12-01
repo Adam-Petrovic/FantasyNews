@@ -31,18 +31,18 @@ public class UpdateRankingsInteractor implements UpdateRankingsInputBoundary{
         this.leagueDataAccessInterface = leagueDataAccessInterface;
         this.userDataAccessInterface = userDataAccessInterface;
     }
-
-    public void sleep(int seconds){
-        try {
-            TimeUnit.SECONDS.sleep(seconds);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static void sort(ArrayList<User> list) {
-        list.sort(Comparator.comparingInt(User::getLiveLeaguePoints));
-    }
+//
+//    public void sleep(int seconds){
+//        try {
+//            TimeUnit.SECONDS.sleep(seconds);
+//        } catch (InterruptedException e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+//
+//    public static void sort(ArrayList<User> list) {
+//        list.sort(Comparator.comparingInt(User::getLiveLeaguePoints));
+//    }
 
     @Override
     public void execute(UpdateRankingsInputData updateRankingsInputData) {
@@ -66,11 +66,11 @@ public class UpdateRankingsInteractor implements UpdateRankingsInputBoundary{
             User user = users.get(j);
             for (int index = 0; index < Constants.NUM_CATEGORIES; index++) {
                 // sleep(1);
-                // total += guardianDataAccessObject.getPointsForCategory(words[index]);
-                total += 10;
+                total += guardianDataAccessObject.getPointsForCategory(words[index]);
+                //total += 10;
             }
             user.setLiveLeaguePoints(total);
-            user.setLeaguePoints(Integer.parseInt(words[5]));
+            user.setLeaguePoints((int)Float.parseFloat(words[5]));
             liveRankings.add(user);
             historicalRankings.add(user);
 

@@ -92,7 +92,11 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
     }
 
     @Override
-    public ArrayList<League> getLeagues(ArrayList<String> leagueID) {
-        return null;
+    public ArrayList<League> getLeagues(ArrayList<String> leagueIDs) {
+        ArrayList<League> league = new ArrayList<>();
+        for (String leagueID : leagueIDs){
+            league.add(leagues.get(leagueID));
+        }
+        return league;
     }
 }
