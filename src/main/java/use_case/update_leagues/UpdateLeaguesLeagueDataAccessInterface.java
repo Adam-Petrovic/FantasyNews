@@ -14,4 +14,6 @@ public interface UpdateLeaguesLeagueDataAccessInterface {
 
     ArrayList<League> getLeagues(ArrayList<String> userLeagueIDList);
 
+    public void save(League league);
+
 }

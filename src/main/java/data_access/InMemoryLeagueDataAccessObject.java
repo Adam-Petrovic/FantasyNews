@@ -1,13 +1,16 @@
 package data_access;
 
 import entity.League;
+import entity.User;
+import use_case.update_leagues.UpdateLeaguesLeagueDataAccessInterface;
 import use_case.update_rankings.UpdateRankingsLeagueDataAccessInterface;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class InMemoryLeagueDataAccessObject implements UpdateRankingsLeagueDataAccessInterface {
+public class InMemoryLeagueDataAccessObject implements UpdateRankingsLeagueDataAccessInterface,
+                                                       UpdateLeaguesLeagueDataAccessInterface {
 
     private final Map<String, League> leagues = new HashMap<>();
 
@@ -26,6 +29,24 @@ public class InMemoryLeagueDataAccessObject implements UpdateRankingsLeagueDataA
     @Override
     public void save(League league) {
         leagues.put(league.getId(), league);
+    }
+
+    @Override
+    public void saveNewLeague(String leagueID, String username) {
+        ArrayList<String> usernames = new ArrayList<>();
+        usernames.add(username);
+        League league = new League(leagueID, usernames);
+        leagues.put(leagueID, league);
+    }
+
+    @Override
+    public boolean LeagueExists(String leagueID) {
+        return leagues.containsKey(leagueID);
+    }
+
+    @Override
+    public void addUserToLeague(String leagueID, String username) {
+        leagues.get(leagueID).getUsers().add(username);
     }
 
     @Override
