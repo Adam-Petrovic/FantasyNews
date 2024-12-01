@@ -43,6 +43,11 @@ public class UpdateRankingsTest {
             public void execute(UpdateRankingsOutputData updateRankingsOutputData) {
                 assertEquals("less_points", updateRankingsOutputData.getLiveRankings().get(1).getName());
                 assertEquals("more_points", updateRankingsOutputData.getLiveRankings().get(0).getName());
+
+                assertEquals("more_points", updateRankingsOutputData.getHistoricalRankings().get(1).getName());
+                assertEquals("less_points", updateRankingsOutputData.getHistoricalRankings().get(0).getName());
+
+                assertEquals("rankingsTestLeague", updateRankingsOutputData.getLeague().getId());
             }
         };
 
