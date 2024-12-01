@@ -1,11 +1,15 @@
 package use_case.update_rankings;
 
 import data_access.Constants;
+import entity.CommonUser;
+import entity.League;
 import entity.User;
 import data_access.GuardianDataAccessObject;
 
 import java.awt.datatransfer.Clipboard;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 import java.util.concurrent.TimeUnit;
@@ -28,7 +32,6 @@ public class UpdateRankingsInteractor implements UpdateRankingsInputBoundary{
         this.userDataAccessInterface = userDataAccessInterface;
     }
 
-
     public void sleep(int seconds){
         try {
             TimeUnit.SECONDS.sleep(seconds);
@@ -37,41 +40,75 @@ public class UpdateRankingsInteractor implements UpdateRankingsInputBoundary{
         }
     }
 
+    public static void sort(ArrayList<User> list) {
+        list.sort(Comparator.comparingInt(User::getLiveLeaguePoints));
+    }
+
     @Override
     public void execute(UpdateRankingsInputData updateRankingsInputData) {
 
         //ArrayList<User> leagueUsers = userDataAccessInterface.getUsers(updateRankingsInputData.getLeague().getUsers());
 
         String leagueID = updateRankingsInputData.getLeague();
+        ArrayList<String> leagueIDArray = new ArrayList<>();
+        leagueIDArray.add(leagueID);
         ArrayList<User> leagueUsers = new ArrayList<>();
         //leagueDataAccessInterface.getData(leagueID);
-        ArrayList<String> usernames = leagueDataAccessInterface.getLeagueUsers(leagueID);
-        sleep(2);
-        for (String username : usernames) {
-            User user = userDataAccessInterface.get(username);
-            sleep(2);
-            leagueUsers.add(user);
-        }
 
+        ArrayList<User> liveRankings = new ArrayList<>();
+        ArrayList<User> historicalRankings = new ArrayList<>();
 
+        HashMap<String, String[]> league = null;
+        League leagueOutput = null;
+        System.out.println("ranking league " + leagueID);
 
-        HashMap<String, ArrayList<User>> rankings = new HashMap<>();
-        // sports: [mario, luigi, peach], politics: [peach, mario, luigi]
-        HashMap<User, Integer> userPoints = new HashMap<>();
+        ArrayList<League> leagues = leagueDataAccessInterface.getLeagues(leagueIDArray);
+        leagueOutput = leagues.get(0);
+        league = leagueOutput.getData();
+        ArrayList<User> users = leagueOutput.getUserObjArr();
+        int i = 0;
 
-        for(int index = 0; index < Constants.NUM_CATEGORIES; index++) {
-            rankings.put(Constants.CATEGORIES[index], new ArrayList<User>());
-            //ArrayList<Integer> categoryPoints = new ArrayList<>();
-            for (User user: leagueUsers) {
-                Integer categoryPoints = guardianDataAccessObject.getPointsForCategory(user.getWordFromCategory(Constants.CATEGORIES[index]));
-                // update user points attribute with above, then use order to rank.
-                rankings.get(Constants.CATEGORIES[index]).add(user);
+        // league.keySet()
+        // ArrayList<String> usersList = new ArrayList<>(league.keySet());
+        // ArrayList<User> users = userDataAccessInterface.getUsers(usersList);
+        for (String username : league.keySet()) {
+            String[] words = league.get(username);
+            int total = 0;
+            // take it outside so we only call pantry api once!
+            User user = users.get(i);
+            //User user = userDataAccessInterface.get(username);
+            // loop through categories bc words5 is total
+            for (String word : words) {
+                Integer categoryPoints = guardianDataAccessObject.getPointsForCategory(word);
+                // set user
+                // guardian up to 1 call per second
+                //sleep(1);
+                //Integer categoryPoints = 10;
+                total += categoryPoints;
             }
+            user.setLiveLeaguePoints(total);
+            user.setLeaguePoints(Integer.parseInt(words[5]));
+            liveRankings.add(user);
+            historicalRankings.add(user);
+
+            i++;
         }
 
-        System.out.println(rankings);
-        UpdateRankingsOutputData outputData = new UpdateRankingsOutputData(rankings);
+
+
+
+        // live rankings
+        // use comparator on user.liveLeaguePoints
+        // historical rankings
+        // use comparator on user.leaguePoints
+
+        //System.out.println(rankings);
+        liveRankings.sort(Comparator.comparingInt(User::getLiveLeaguePoints));
+        historicalRankings.sort(Comparator.comparingInt(User::getLeaguePoints));
+        UpdateRankingsOutputData outputData = new UpdateRankingsOutputData(liveRankings, leagueOutput, historicalRankings);
         updateRankingsPresenter.execute(outputData);
+
+
 
     }
 }

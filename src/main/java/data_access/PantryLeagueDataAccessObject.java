@@ -184,6 +184,11 @@ public class PantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataAcce
     }
 
     @Override
+    public void save(League league) {
+
+    }
+
+    @Override
     public void saveNewLeague(String leagueID, String username) {
 
     }
@@ -203,8 +208,4 @@ public class PantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataAcce
         return null;
     }
 
-    @Override
-    public void updateUserPoints(String leagueID, String username) {
-
-    }
 }

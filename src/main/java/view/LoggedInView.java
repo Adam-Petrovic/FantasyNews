@@ -10,7 +10,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-import interface_adapter.add_friends.AddFriendsController;
+
+import interface_adapter.to_friends.FriendsController;
 import interface_adapter.change_password.LoggedInState;
 import interface_adapter.change_password.LoggedInViewModel;
 import interface_adapter.to_draft.ToDraftController;
@@ -31,8 +32,10 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private LeagueController leagueController;
     private UpdateLeaguesController updateLeaguesController;
     private RankingsController rankingsController;
-    private AddFriendsController addFriendsController;
+
     private ToDraftController toDraftController;
+    private FriendsController friendsController;
+
 
     private final JLabel greeting;
     private final JButton logOut;
@@ -122,7 +125,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         addFriends.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(addFriends)) {
-                        addFriendsController.execute(loggedInViewModel.getState().getUsername());
+                        friendsController.execute(loggedInViewModel.getState().getUsername());
                     }
                 }
         );
@@ -166,8 +169,8 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
     public void setToRankingsController(RankingsController toRankingsController) {this.rankingsController = toRankingsController;}
 
-    public void setAddFriendsController(AddFriendsController addFriendsController) {
-        this.addFriendsController = addFriendsController;
+    public void setAddFriendsController(FriendsController friendsController) {
+        this.friendsController = friendsController;
     }
 
     public void setDraftController(ToDraftController toDraftController){

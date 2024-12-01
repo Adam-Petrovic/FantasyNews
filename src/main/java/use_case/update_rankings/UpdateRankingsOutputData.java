@@ -1,16 +1,35 @@
 package use_case.update_rankings;
 
+import entity.League;
 import entity.User;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class UpdateRankingsOutputData {
-    private HashMap<String, ArrayList<User>> rankings;
+    private ArrayList<User> rankings;
+    private ArrayList<User> liveRankings;
+    private ArrayList<User> historicalRankings;
+    private League league;
 
-    public UpdateRankingsOutputData(HashMap<String, ArrayList<User>> rankings) {
-        this.rankings = rankings;
+    public UpdateRankingsOutputData(ArrayList<User> liveRankings, League league, ArrayList<User> historicalRankings) {
+        this.liveRankings = liveRankings;
+        this.league = league;
+        this.historicalRankings = historicalRankings;
     }
 
-    public HashMap<String, ArrayList<User>> getRankings() {return rankings;}
+    public ArrayList<User> getRankings() {
+        return this.rankings;
+    }
+
+    public League getLeague() {
+        return league;
+    }
+
+    public ArrayList<User> getLiveRankings() {
+        return liveRankings;
+    }
+
+    public ArrayList<User> getHistoricalRankings() {
+        return historicalRankings;
+    }
 }

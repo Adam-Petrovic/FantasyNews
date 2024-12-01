@@ -1,15 +1,19 @@
 package data_access;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import entity.League;
 import entity.User;
-import use_case.add_friends.AddFriendsUserDataAccessInterface;
+import use_case.to_friends.FriendsUserDataAccessInterface;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 import use_case.solo_play.SoloPlayUserDataAccessInterface;
+import use_case.update_rankings.UpdateRankingsLeagueDataAccessInterface;
+import use_case.update_rankings.UpdateRankingsUserDataAccessInterface;
 
 /**
  * In-memory implementation of the DAO for storing user data. This implementation does
@@ -19,9 +23,14 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
         LoginUserDataAccessInterface,
         ChangePasswordUserDataAccessInterface,
         LogoutUserDataAccessInterface,
-        SoloPlayUserDataAccessInterface, AddFriendsUserDataAccessInterface {
+        SoloPlayUserDataAccessInterface,
+        FriendsUserDataAccessInterface,
+        UpdateRankingsUserDataAccessInterface,
+        UpdateRankingsLeagueDataAccessInterface {
 
     private final Map<String, User> users = new HashMap<>();
+
+    private final Map<String, League> leagues = new HashMap<>();
 
     private String currentUsername;
 
@@ -46,6 +55,12 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
     }
 
     @Override
+    public ArrayList<User> getUsers(ArrayList<String> usernames) {
+        return new ArrayList(this.users.values());
+    }
+
+
+    @Override
     public void changePassword(User user) {
         // Replace the old entry with the new password
         users.put(user.getName(), user);
@@ -59,5 +74,25 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
     @Override
     public String getCurrentUsername() {
         return this.currentUsername;
+    }
+
+    @Override
+    public ArrayList<String> getLeagueUsers(String leagueID) {
+        return null;
+    }
+
+    @Override
+    public HashMap<String, String[]> getData(String leagueID) {
+        return null;
+    }
+
+    @Override
+    public void save(League league) {
+        leagues.put(league.getId(), league);
+    }
+
+    @Override
+    public ArrayList<League> getLeagues(ArrayList<String> leagueID) {
+        return null;
     }
 }

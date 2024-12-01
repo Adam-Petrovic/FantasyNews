@@ -18,7 +18,7 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import use_case.add_friends.AddFriendsUserDataAccessInterface;
+import use_case.to_friends.FriendsUserDataAccessInterface;
 import use_case.change_password.ChangePasswordUserDataAccessInterface;
 import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
@@ -37,7 +37,7 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
         ChangePasswordUserDataAccessInterface,
         LogoutUserDataAccessInterface,
         SoloPlayUserDataAccessInterface,
-        AddFriendsUserDataAccessInterface,
+        FriendsUserDataAccessInterface,
         UpdateLeaguesUserDataAccessInterface,
         UpdateRankingsUserDataAccessInterface{
 

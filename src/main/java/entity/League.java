@@ -10,8 +10,10 @@ public class League {
     private final String id;
     private final ArrayList<String> users;
     private final HashMap<String, String[]> data;
+    private ArrayList<User> rankings;
+    private ArrayList<User> liveRankings;
+    private ArrayList<User> historicalRankings;
     private ArrayList<User> userObjArr = new ArrayList<>();
-
     public ArrayList<String> getUsers() {
         return users;
     }
@@ -34,6 +36,10 @@ public class League {
         for (String user : users) {
             data.put(user, Constants.DEFAULT_WORDS);
         }
+    }
+
+    public void setWords(String user, String[] words){
+        this.data.put(user, words);
     }
 
     public ArrayList<User> getUserObjArr() {
@@ -65,8 +71,27 @@ public class League {
         return id;
     }
 
-    public void setRankings(HashMap<String, ArrayList<User>> rankings){
-
+    public void setRankings(ArrayList<User> rankings){
+        this.rankings = rankings;
     }
 
+    public void setLiveRankings(ArrayList<User> liveRankings){
+        this.liveRankings = liveRankings;
+    }
+
+    public void setHistoricalRankings(ArrayList<User> historicalRankings){
+        this.historicalRankings = historicalRankings;
+    }
+
+    public ArrayList<User> getRankings(){
+        return rankings;
+    }
+
+    public ArrayList<User> getLiveRankings() {
+        return liveRankings;
+    }
+
+    public ArrayList<User> getHistoricalRankings() {
+        return historicalRankings;
+    }
 }

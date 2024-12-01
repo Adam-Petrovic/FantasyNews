@@ -1,12 +1,18 @@
 package data_access;
 
 import entity.League;
+import entity.User;
 import okhttp3.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import use_case.draft_words.DraftWordsLeagueDataAccessInterface;
 import use_case.to_draft.ToDraftLeagueDataAccessInterface;
+
+import use_case.award_league_points.AwardLeaguePointsDataAccessInterface;
+import use_case.round_league_points.RoundLeaguePointsDataAccessObject;
+
 import use_case.update_leagues.UpdateLeaguesLeagueDataAccessInterface;
 import use_case.update_rankings.UpdateRankingsLeagueDataAccessInterface;
 
@@ -17,7 +23,9 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataAccessInterface,
-        UpdateRankingsLeagueDataAccessInterface, ToDraftLeagueDataAccessInterface,DraftWordsLeagueDataAccessInterface {
+        UpdateRankingsLeagueDataAccessInterface, ToDraftLeagueDataAccessInterface,DraftWordsLeagueDataAccessInterface, AwardLeaguePointsDataAccessInterface,
+        RoundLeaguePointsDataAccessObject {
+
 
 
     private static final int SUCCESS_CODE = 200;
@@ -59,6 +67,7 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
     }
 
     @Override
+
     public String[] getWords(String username, String leagueID) {
         JSONObject obj = get();
         JSONObject league = obj.getJSONObject(leagueID);
@@ -79,6 +88,9 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
         data.put(username, wordData);
         save(obj);
         return wordData;
+
+    public void save(League league) {
+
     }
 
     @Override
@@ -137,15 +149,15 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
     }
 
     @Override
-    public void updateUserPoints(String leagueID, String username) {
+    public void updatePointsForUser(String leagueID, String username, int numUsers) {
         JSONObject allLeagueData = get();
         JSONObject leagueData = allLeagueData.getJSONObject(leagueID);
         JSONObject data = leagueData.getJSONObject(DATA);
         JSONArray jsonWords = data.getJSONArray(username);
         String[] wordData = toStringArray(jsonWords);
-        wordData[5] = "100";
+        double newScore = Double.parseDouble(wordData[5]) + 1/numUsers;
+        wordData[5] = String.valueOf(newScore);
         data.put(username, wordData);
-
         save(allLeagueData);
     }
 
@@ -250,5 +262,21 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public void roundPoints(String leagueID, ArrayList<User> users) {
+        JSONObject allLeagueData = get();
+        JSONObject leagueData = allLeagueData.getJSONObject(leagueID);
+        JSONObject data = leagueData.getJSONObject(DATA);
+        for (User user : users){
+            String username = user.getName();
+            JSONArray jsonWords = data.getJSONArray(username);
+            String[] wordData = toStringArray(jsonWords);
+            double newScore = Math.ceil(Double.parseDouble(wordData[5]));
+            wordData[5] = String.valueOf(newScore);
+            data.put(username, wordData);
+        }
+        save(allLeagueData);
     }
 }

@@ -16,6 +16,7 @@ public class CommonUser implements User {
     private final String name;
     private final String password;
     private int leaguePoints = 0;
+    private int liveLeaguePoints = 0;
     private final HashMap<String, String> words = new HashMap<>();
     private final HashMap<String,Integer> wordPointsForCategory = new HashMap<>();
     private final String[] leagueWords;
@@ -34,7 +35,10 @@ public class CommonUser implements User {
         this.name = name;
         this.password = password;
         this.leagueIDs = new ArrayList<>();
+
+        //this.leagueWords = new String[]{"meow", "woof", "bark", "purr", "growl"};
         this.leagueWords = Constants.DEFAULT_WORDS;
+
         createWordMap();
 //        if (draftedWords.length > Constants.NUM_CATEGORIES) {
 //            throw new InstantiationError("Inputted Words are too long");
@@ -150,7 +154,7 @@ public class CommonUser implements User {
     }
 
     public List<User> getFriends() {
-        return friends;
+        return this.friends;
     }
 
     @Override
@@ -164,5 +168,13 @@ public class CommonUser implements User {
 
     public String[] getLeagueWords(){
         return this.leagueWords;
+    }
+
+    public int getLiveLeaguePoints() {
+        return liveLeaguePoints;
+    }
+
+    public void setLiveLeaguePoints(int liveLeaguePoints) {
+        this.liveLeaguePoints = liveLeaguePoints;
     }
 }
