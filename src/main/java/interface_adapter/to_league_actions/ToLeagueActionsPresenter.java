@@ -22,6 +22,7 @@ public class ToLeagueActionsPresenter implements ToLeagueActionsOutputBoundary {
     public void prepareSuccessView(ToLeagueActionsOutputData toLeagueActionsOutputData) {
         LeagueActionsState leagueActionsState = this.leagueActionsViewModel.getState();
         leagueActionsState.setLeague(toLeagueActionsOutputData.getLeague());
+        leagueActionsState.setUsername(toLeagueActionsOutputData.getUsername());
         leagueActionsViewModel.setState(leagueActionsState);
         leagueActionsViewModel.firePropertyChanged();
 

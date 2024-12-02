@@ -198,7 +198,7 @@ public class AppBuilder {
         final ToDraftOutputBoundary draftPresenter = new ToDraftPresenter(viewManagerModel, draftViewModel);
         final ToDraftInputBoundary draftInteractor = new ToDraftInteractor(draftPresenter, leagueDataAccessObject);
         final ToDraftController controller = new ToDraftController(draftInteractor);
-        loggedInView.setDraftController(controller);
+        leagueActionsView.setDraftController(controller);
         return this;
     }
     /**
@@ -448,18 +448,6 @@ public class AppBuilder {
      * Adds the Change Password Use Case to the application.
      * @return this builder
      */
-//    public AppBuilder addChangePasswordUseCase() {
-//        final ChangePasswordOutputBoundary changePasswordOutputBoundary =
-//                new ChangePasswordPresenter(loggedInViewModel);
-//
-//        final ChangePasswordInputBoundary changePasswordInteractor =
-//                new ChangePasswordInteractor(userDataAccessObject, changePasswordOutputBoundary, userFactory);
-//
-//        final ChangePasswordController changePasswordController =
-//                new ChangePasswordController(changePasswordInteractor);
-//        loggedInView.setChangePasswordController(changePasswordController);
-//        return this;
-//    }
 
     /**
      * Adds the Logout Use Case to the application.

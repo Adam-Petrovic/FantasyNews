@@ -5,6 +5,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.JSONTokener;
 import usecase.draft_words.DraftWordsLeagueDataAccessInterface;
+import usecase.to_draft.ToDraftLeagueDataAccessInterface;
 import usecase.update_rankings.UpdateRankingsLeagueDataAccessInterface;
 import entity.User;
 import usecase.update_leagues.UpdateLeaguesLeagueDataAccessInterface;
@@ -15,7 +16,7 @@ import java.util.Map;
 import data_access.Constants;
 
 public class InMemoryLeagueDataAccessObject implements UpdateRankingsLeagueDataAccessInterface,
-        DraftWordsLeagueDataAccessInterface, UpdateLeaguesLeagueDataAccessInterface {
+        DraftWordsLeagueDataAccessInterface, UpdateLeaguesLeagueDataAccessInterface, ToDraftLeagueDataAccessInterface {
 
 
     private final Map<String, League> leagues = new HashMap<>();
@@ -109,6 +110,14 @@ public class InMemoryLeagueDataAccessObject implements UpdateRankingsLeagueDataA
         }
         System.out.println(leaguesJSON.toString());
         return leaguesJSON;
+    }
+
+    @Override
+    public String[] getWords(String username, String leagueID) {
+        League league = this.leagues.get(leagueID);
+        HashMap<String, String[]> data = league.getData();
+        String[] words = data.get(username);
+        return words;
     }
 
 //    public ArrayList<League> JSONtoLeagues(JSONObject allLeagueData) {

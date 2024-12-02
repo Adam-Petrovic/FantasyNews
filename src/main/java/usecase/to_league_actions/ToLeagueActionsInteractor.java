@@ -26,7 +26,7 @@ public class ToLeagueActionsInteractor implements ToLeagueActionsInputBoundary{
             leagueIDs.add(leagueID);
             League league = leagueDataAccessObject.getLeagues(leagueIDs).get(0);
 
-            ToLeagueActionsOutputData toLeagueActionsOutputData = new ToLeagueActionsOutputData(league);
+            ToLeagueActionsOutputData toLeagueActionsOutputData = new ToLeagueActionsOutputData(league, username);
             toLeagueActionsPresenter.prepareSuccessView(toLeagueActionsOutputData);
         }
         else {
