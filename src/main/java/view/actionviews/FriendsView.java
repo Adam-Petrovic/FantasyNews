@@ -21,9 +21,9 @@ import javax.swing.event.DocumentListener;
 
 import entity.User;
 import interfaceadapter.friendsuserstory.add_new_friend.AddNewFriendController;
-import interfaceadapter.navigation.go_home.GoHomeController;
 import interfaceadapter.friendsuserstory.to_friends.FriendsState;
 import interfaceadapter.friendsuserstory.to_friends.FriendsViewModel;
+import interfaceadapter.navigation.go_home.GoHomeController;
 
 /**
  * Friends view showing the user's friends and the friend's points, optionally showing 1v1 comparison.
