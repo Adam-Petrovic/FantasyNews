@@ -6,7 +6,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -18,6 +18,9 @@ import interface_adapter.go_home.GoHomeController;
 import interface_adapter.to_friends.FriendsState;
 import interface_adapter.to_friends.FriendsViewModel;
 
+/**
+ * Friends view showing the user's friends and the friend's points, optionally showing 1v1 comparison.
+ */
 public class FriendsView extends JPanel implements ActionListener, PropertyChangeListener {
     private final FriendsViewModel friendsViewModel;
     private JScrollPane jScrollPane;
@@ -112,7 +115,7 @@ public class FriendsView extends JPanel implements ActionListener, PropertyChang
 
     private void displayTable() {
         this.user = friendsViewModel.getState().getUser();
-        HashMap<User, Integer> userPoints = friendsViewModel.getState().getUserPoints();
+        Map<User, Integer> userPoints = friendsViewModel.getState().getUserPoints();
         String[] columnNames = {"Friends", "Points"};
         Object[][] data = new Object[user.getFriends().size()][2];
 
@@ -161,10 +164,18 @@ public class FriendsView extends JPanel implements ActionListener, PropertyChang
         return message;
     }
 
+    /**
+     * Sets the addNewFriendController.
+     * @param addNewFriendController controller for adding a new friend.
+     */
     public void setAddNewFriendController(AddNewFriendController addNewFriendController) {
         this.addNewFriendController = addNewFriendController;
     }
 
+    /**
+     * Sets the goHomeController.
+     * @param goHomeController controller for going back to homepage.
+     */
     public void setGoHomeController(GoHomeController goHomeController) {
         this.goHomeController = goHomeController;
     }

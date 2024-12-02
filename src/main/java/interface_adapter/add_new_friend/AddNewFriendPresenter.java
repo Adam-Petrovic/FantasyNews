@@ -6,6 +6,9 @@ import interface_adapter.to_friends.FriendsViewModel;
 import usecase.add_new_friend.AddNewFriendOutputBoundary;
 import usecase.add_new_friend.AddNewFriendOutputData;
 
+/**
+ * Presenter for the add new friend button on friends view.
+ */
 public class AddNewFriendPresenter implements AddNewFriendOutputBoundary {
     private final ViewManagerModel viewManagerModel;
     private final FriendsViewModel friendsViewModel;
