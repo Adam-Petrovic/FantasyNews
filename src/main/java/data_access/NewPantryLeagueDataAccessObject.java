@@ -110,7 +110,7 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
     }
 
     @Override
-    public boolean LeagueExists(String leagueID) {
+    public boolean leagueExists(String leagueID) {
         JSONObject leagueData = get();
         return leagueData.has(leagueID);
     }

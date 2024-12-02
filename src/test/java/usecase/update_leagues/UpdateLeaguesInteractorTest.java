@@ -1,6 +1,5 @@
 package usecase.update_leagues;
 
-import data_access.GuardianDataAccessObject;
 import data_access.InMemoryLeagueDataAccessObject;
 import data_access.InMemoryUserDataAccessObject;
 import entity.CommonUserFactory;
@@ -8,13 +7,9 @@ import entity.League;
 import entity.LeagueFactory;
 import entity.User;
 import org.junit.jupiter.api.Test;
-import usecase.update_leagues.*;
-import usecase.update_leagues.UpdateLeaguesInputData;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -63,7 +58,7 @@ public class UpdateLeaguesInteractorTest {
             @Override
             public void prepareSuccessView(UpdateLeaguesOutputData updateLeaguesOutputData) {
                 assert(basic.getLeagueIDs().contains("leagueID"));
-                assert(leagueRepository.LeagueExists("leagueID"));
+                assert(leagueRepository.leagueExists("leagueID"));
                 assert(updateLeaguesOutputData.getUsername().equals("username"));
                 assert(updateLeaguesOutputData.getUserLeagueList().get(0).getId().equals("leagueID"));
             }

@@ -1,12 +1,15 @@
 package usecase.update_leagues;
 
-import entity.League;
-
 import java.util.ArrayList;
 
+import entity.League;
+
+/**
+ * Output Data.
+ */
 public class UpdateLeaguesOutputData {
-    public String username;
-    public ArrayList<League> userLeagueList;
+    private String username;
+    private ArrayList<League> userLeagueList;
 
     public UpdateLeaguesOutputData(String username, ArrayList<League> userLeagueList) {
         this.username = username;

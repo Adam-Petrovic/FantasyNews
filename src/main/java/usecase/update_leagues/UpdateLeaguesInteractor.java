@@ -1,10 +1,13 @@
 package usecase.update_leagues;
 
-import entity.League;
-
 import java.util.ArrayList;
 
-public class UpdateLeaguesInteractor implements UpdateLeaguesInputBoundary{
+import entity.League;
+
+/**
+ * Interactor.
+ */
+public class UpdateLeaguesInteractor implements UpdateLeaguesInputBoundary {
     private UpdateLeaguesOutputBoundary updateLeaguesPresenter;
     private UpdateLeaguesUserDataAccessInterface userDataAccessObject;
     private UpdateLeaguesLeagueDataAccessInterface leagueDataAccessObject;
@@ -22,35 +25,35 @@ public class UpdateLeaguesInteractor implements UpdateLeaguesInputBoundary{
         String username = updateLeaguesInputData.getUsername();
         String leagueID = updateLeaguesInputData.getLeagueID();
 
-        boolean leagueExists = leagueDataAccessObject.LeagueExists(leagueID);
+        boolean leagueExists = leagueDataAccessObject.leagueExists(leagueID);
         boolean userInLeague = userDataAccessObject.userInLeague(username, leagueID);
 
         ArrayList<String> userLeagueIDList;
 
-        //join league
-        if(updateLeaguesInputData.isJoin()){
+        // join league
+        if (updateLeaguesInputData.isJoin()) {
             if (!leagueExists) {
                 updateLeaguesPresenter.prepareFailView("League Does Not Exist");
                 return;
             }
-            if(userInLeague){
+            if (userInLeague) {
                 updateLeaguesPresenter.prepareFailView("Already In League");
                 return;
             }
-            //update user league list & returns list of leagues
-            userLeagueIDList = userDataAccessObject.addLeague(username,  leagueID);
-            //update league's list of users
+            // update user league list & returns list of leagues
+            userLeagueIDList = userDataAccessObject.addLeague(username, leagueID);
+            // update league's list of users
             leagueDataAccessObject.addUserToLeague(leagueID, username);
         }
-        //create league (if not joining, then creating)
-        else{
+        // create league (if not joining, then creating)
+        else {
             if (leagueExists) {
                 updateLeaguesPresenter.prepareFailView("League Already Exists");
                 return;
             }
-            //update user league list & returns updated list of leagues
+            // update user league list & returns updated list of leagues
             userLeagueIDList = userDataAccessObject.addLeague(username, leagueID);
-            //creates new league
+            // creates new league
             leagueDataAccessObject.saveNewLeague(leagueID, username);
         }
 

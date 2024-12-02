@@ -1,5 +1,8 @@
 package usecase.update_leagues;
 
+/**
+ * Update Leagues Input Data.
+ */
 public class UpdateLeaguesInputData {
 
     private String username;
@@ -12,15 +15,15 @@ public class UpdateLeaguesInputData {
         this.join = join;
     }
 
-    public String getUsername(){
+    public String getUsername() {
         return username;
     }
 
-    public String getLeagueID(){
+    public String getLeagueID() {
         return leagueID;
     }
 
-    public boolean isJoin(){
+    public boolean isJoin() {
         return join;
     }
 }

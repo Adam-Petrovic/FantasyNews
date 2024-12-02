@@ -194,7 +194,7 @@ public class PantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataAcce
     }
 
     @Override
-    public boolean LeagueExists(String leagueID) {
+    public boolean leagueExists(String leagueID) {
         return false;
     }
 
