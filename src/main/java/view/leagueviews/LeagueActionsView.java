@@ -34,7 +34,7 @@ public class LeagueActionsView extends JPanel implements ActionListener, Propert
 
     // league display panel
     private ArrayList<JLabel> leagueLabels;
-    private JPanel displayLeaguePanel;
+    private JScrollPane displayLeagueScrollPane;
     private League league;
 
     public LeagueActionsView(LeagueActionsViewModel leagueActionsViewModel) {
@@ -43,7 +43,7 @@ public class LeagueActionsView extends JPanel implements ActionListener, Propert
         this.league = leagueActionsViewModel.getState().getLeague();
 
         // displayLeaguePanel (top panel)
-        displayLeaguePanel = new JPanel();
+        displayLeagueScrollPane = new JScrollPane();
 
         // functions panel (bottom panel)
         this.goHomeButton = new JButton("<-");
@@ -53,7 +53,7 @@ public class LeagueActionsView extends JPanel implements ActionListener, Propert
         functionsPanel.add(draftButton);
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-        this.add(displayLeaguePanel);
+        this.add(displayLeagueScrollPane);
         this.add(functionsPanel);
 
         goHomeButton.addActionListener(
@@ -84,10 +84,13 @@ public class LeagueActionsView extends JPanel implements ActionListener, Propert
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        this.remove(displayLeagueScrollPane);
+        this.remove(functionsPanel);
         this.league = leagueActionsViewModel.getState().getLeague();
-        displayLeaguePanel.removeAll();
-        JScrollPane leagueScrollPane = makeLeagueScrollPane(league);
-        displayLeaguePanel.add(leagueScrollPane);
+        displayLeagueScrollPane = makeLeagueScrollPane(league);
+        this.add(displayLeagueScrollPane);
+        this.add(functionsPanel);
+
     }
 
     public void setGoHomeController(GoHomeController controller) {

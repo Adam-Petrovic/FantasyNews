@@ -203,7 +203,6 @@ public class PantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataAcce
                 return responseBody;
             }
             else {
-                System.out.println("couldn't get league data");
                 throw new RuntimeException("couldn't get league data");
             }
         }
@@ -245,7 +244,6 @@ public class PantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataAcce
                 System.out.println("saved league data");
             }
             else {
-                System.out.println("failed to save league data");
                 throw new RuntimeException("failed to update league: " + response.message());
             }
         }
