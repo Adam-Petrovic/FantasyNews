@@ -101,4 +101,33 @@ class SignupInteractorTest {
         SignupInputBoundary interactor = new SignupInteractor(userRepository, failurePresenter, new CommonUserFactory());
         interactor.execute(inputData);
     }
+
+    @Test
+    void switchToLoginViewTest() {
+        SignupUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
+
+        final boolean[] switchCalled = {false};
+
+        // Create a presenter that sets the flag when switchToLoginView() is called
+        SignupOutputBoundary presenter = new SignupOutputBoundary() {
+            @Override
+            public void prepareSuccessView(SignupOutputData user) {}
+
+            @Override
+            public void prepareFailView(String error) {}
+
+            @Override
+            public void switchToLoginView() {
+                switchCalled[0] = true;
+            }
+        };
+
+        SignupInputBoundary interactor = new SignupInteractor(userRepository, presenter, new CommonUserFactory());
+
+        // Act
+        interactor.switchToLoginView();
+
+        // Assert
+        assertTrue(switchCalled[0], "switchToLoginView() should have been called on the presenter");
+    }
 }
