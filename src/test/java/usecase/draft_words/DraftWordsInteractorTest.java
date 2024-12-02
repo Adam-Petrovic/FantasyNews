@@ -47,6 +47,7 @@ public class DraftWordsInteractorTest {
         interactor.execute(in);
     }
 
+    @Test
     void failTest(){
         DraftWordsInputData in = new DraftWordsInputData("a", 0, "a", "a");
         DraftWordsLeagueDataAccessInterface leagueRepo = new InMemoryLeagueDataAccessObject();
