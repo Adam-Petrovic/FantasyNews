@@ -1,5 +1,6 @@
 package view.actionviews;
 
+import java.awt.Dimension;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
@@ -49,7 +50,9 @@ public class RankingsView extends JPanel implements PropertyChangeListener {
         JButton updateRankings = new JButton("Update Rankings");
         displayRankingsPanel.add(updateRankings);
 
-        JTextField rankingsLeagueID = new JTextField("Enter New League ID");
+        JTextField rankingsLeagueID = new JTextField("Enter LeagueID");
+
+        rankingsLeagueID.setMaximumSize(new Dimension(Constants.FIELD_WIDTH, Constants.FIELD_HEIGHT));
         displayRankingsPanel.add(rankingsLeagueID);
 
         String[] liveTitles = {"Live Ranking", "default user", "default points"};
@@ -79,6 +82,7 @@ public class RankingsView extends JPanel implements PropertyChangeListener {
                     }
                 });
 
+        rankingsLeagueID.setPreferredSize(new Dimension(Constants.FIELD_WIDTH, Constants.FIELD_HEIGHT));
         displayRankingsPanel.setVisible(true);
         this.add(displayRankingsPanel);
     }
@@ -119,6 +123,9 @@ public class RankingsView extends JPanel implements PropertyChangeListener {
 
         displayRankingsPanel.add(liveSp);
         displayRankingsPanel.add(historicalSp);
+
+        displayRankingsPanel.revalidate();
+        displayRankingsPanel.repaint();
     }
 
     /**
