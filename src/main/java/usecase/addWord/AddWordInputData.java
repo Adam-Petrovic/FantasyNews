@@ -1,7 +1,9 @@
 package usecase.addWord;
 
+/**
+ * Input data for add word.
+ */
 public class AddWordInputData {
-
 
     private final String username;
     private final String category;
@@ -13,14 +15,26 @@ public class AddWordInputData {
         this.newWord = newWord;
     }
 
+    /**
+     * Getter for username.
+     * @return username.
+     */
     String getUsername() {
         return username;
     }
 
+    /**
+     * Getter for category.
+     * @return category.
+     */
     public String getCategory() {
         return category;
     }
 
+    /**
+     * Getter for newWord.
+     * @return The new word.
+     */
     public String getNewWord() {
         return newWord;
     }

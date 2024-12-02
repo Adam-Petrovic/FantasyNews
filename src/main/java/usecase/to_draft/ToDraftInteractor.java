@@ -1,15 +1,17 @@
 package usecase.to_draft;
 
+/**
+ * Interactor for to draft use case.
+ */
 public class ToDraftInteractor implements ToDraftInputBoundary {
 
     private final ToDraftOutputBoundary draftPresenter;
     private final ToDraftLeagueDataAccessInterface toDraftDataAccessInterface;
 
-    public ToDraftInteractor(ToDraftOutputBoundary draftPresenter, ToDraftLeagueDataAccessInterface draftDAO) {
+    public ToDraftInteractor(ToDraftOutputBoundary draftPresenter, ToDraftLeagueDataAccessInterface draftDao) {
         this.draftPresenter = draftPresenter;
-        this.toDraftDataAccessInterface = draftDAO;
+        this.toDraftDataAccessInterface = draftDao;
     }
-
 
     @Override
     public void execute(ToDraftInputData toDraftInputData) {
