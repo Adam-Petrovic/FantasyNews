@@ -20,8 +20,9 @@ public class RankingsView extends JPanel implements PropertyChangeListener {
     private GoHomeController goHomeController;
     private User user;
     private League league;
-    //private JScrollPane jScrollPane;
     private JPanel displayRankingsPanel;
+    JScrollPane liveSP;
+    JScrollPane historicalSP;
 
     public RankingsView(RankingsViewModel rankingsViewModel) {
         //rankings table
@@ -29,48 +30,34 @@ public class RankingsView extends JPanel implements PropertyChangeListener {
         this.rankingsViewModel = rankingsViewModel;
         this.rankingsViewModel.addPropertyChangeListener(this);
         rankingsViewModel.getState().setLeague(this.league);
-        //this.user = rankingsViewModel.getState().getUser();
-        //this.league = rankingsViewModel.getState().getLeague();
-//
-//        // category view
+
         displayRankingsPanel = new JPanel();
         displayRankingsPanel.setLayout(new BoxLayout(displayRankingsPanel, BoxLayout.X_AXIS));
-//
-//        String[] title = {"Ranking"};
-//        String[][] indices =  {{"1"}, {"2"}, {"3"}};
-//        JTable indexTable = new JTable(indices, title);
-//
-//        String[] userTitles = {"user", "points"};
-//        String[][] user =  {{"user1", "5"}, {"user3", "4"}, {"user2", "1"}};
-//        JTable userTable = new JTable(user, userTitles);
-//
-//        //String[] topicsTitle = {"Food", "Mood", "Dude!"};
-//        //String[][] words =  {{"user1", "user2", "user1"}, {"user3", "user1", "user2"}, {"user2", "user3", "user3"}};
-//        //JTable wordsTable = new JTable(words, topicsTitle);
-//
-//        JScrollPane indexScrollPane = new JScrollPane(indexTable);
-//        JScrollPane userScrollPane = new JScrollPane(userTable);
-//        //JScrollPane wordsScrollPane = new JScrollPane(wordsTable);
-//        displayRankingsPanel.add(indexScrollPane);
-//        displayRankingsPanel.add(userScrollPane);
-//        //mainPanel.add(wordsScrollPane);
-//        indexTable.setDefaultEditor(Object.class, null);
-//
-//        //Dimension dw = new Dimension(words[0].length * 100, words[0].length * 150);
-//        //Dimension du = new Dimension(title.length * 100, words[0].length * 150);
-//
-//        //wordsScrollPane.setPreferredSize(dw);
-//        //indexScrollPane.setPreferredSize(du);
-//
+
         JButton goHomeButton = new JButton("←");
         displayRankingsPanel.add(goHomeButton);
 
-//        //update rankings button
+        //update rankings button
         JButton updateRankings = new JButton("Update Rankings");
         displayRankingsPanel.add(updateRankings);
 
-        JTextField rankingsLeagueID = new JTextField("Enter League ID");
+        JTextField rankingsLeagueID = new JTextField("Enter New League ID");
         displayRankingsPanel.add(rankingsLeagueID);
+
+        String[] liveTitles = {"Live Ranking", "user", "points"};
+        String[][] liveRows = new String[3][3];
+
+        String[] historicalTitles = {"Historical Ranking", "user", "points"};
+        String[][] historicalRows = new String[3][3];
+
+
+        JTable liveTable = new JTable(liveRows, liveTitles);
+        JTable historicalTable = new JTable(historicalRows, historicalTitles);
+
+        liveSP = new JScrollPane(liveTable);
+        historicalSP = new JScrollPane(historicalTable);
+        displayRankingsPanel.add(liveSP);
+        displayRankingsPanel.add(historicalSP);
 
         updateRankings.addActionListener(evt -> {
             if (evt.getSource() == updateRankings) {
@@ -92,6 +79,9 @@ public class RankingsView extends JPanel implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        displayRankingsPanel.remove(liveSP);
+        displayRankingsPanel.remove(historicalSP);
+
         this.league = rankingsViewModel.getState().getLeague();
         ArrayList<User> liveRankings = league.getLiveRankings();
         ArrayList<User> historicalRankings = league.getHistoricalRankings();
@@ -116,10 +106,10 @@ public class RankingsView extends JPanel implements PropertyChangeListener {
 
         JTable liveTable = new JTable(liveRows, liveTitles);
         JTable historicalTable = new JTable(historicalRows, historicalTitles);
-        //liveTable.setDefaultEditor(Object.class, null);
-        //historicalTable.setDefaultEditor(Object.class, null);
-        JScrollPane liveSP = new JScrollPane(liveTable);
-        JScrollPane historicalSP = new JScrollPane(historicalTable);
+
+        liveSP = new JScrollPane(liveTable);
+        historicalSP = new JScrollPane(historicalTable);
+
         displayRankingsPanel.add(liveSP);
         displayRankingsPanel.add(historicalSP);
     }
@@ -131,5 +121,4 @@ public class RankingsView extends JPanel implements PropertyChangeListener {
     public void setGoHomeController(GoHomeController goHomeController) {
         this.goHomeController = goHomeController;
     }
-
 }
