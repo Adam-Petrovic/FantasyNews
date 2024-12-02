@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import dataaccess.Constants;
 import entity.User;
 
+/**
+ * Interactor for updating points for league use case.
+ */
 public class UpdatePointsForLeagueInteractor implements UpdatePointsForLeagueInputBoundary {
     private UpdatePointsForLeagueDataAccessObject updatePointsForLeagueDataAccessObject;
 

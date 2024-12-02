@@ -1,5 +1,8 @@
 package usecase.pointsuserstory.round_league_points;
 
+/**
+ * Input boundary for rounding points for league.
+ */
 public interface RoundLeaguePointsInputBoundary {
     /**
      * The method which rounds up the points.

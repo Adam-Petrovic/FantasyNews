@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import entity.User;
 
+/**
+ * Interactor for rounding points for league.
+ */
 public class RoundLeaguePointsInteractor implements RoundLeaguePointsInputBoundary {
 
     private RoundLeaguePointsDataAccessObject roundLeaguePointsDataAccessObject;

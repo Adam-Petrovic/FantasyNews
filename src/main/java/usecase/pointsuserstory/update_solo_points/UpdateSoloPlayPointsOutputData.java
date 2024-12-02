@@ -1,5 +1,8 @@
 package usecase.pointsuserstory.update_solo_points;
 
+/**
+ * Output data for updating points in solo play mode.
+ */
 public class UpdateSoloPlayPointsOutputData {
     private int[] points;
 

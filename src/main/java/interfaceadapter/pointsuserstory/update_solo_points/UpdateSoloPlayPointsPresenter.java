@@ -5,6 +5,9 @@ import interfaceadapter.navigation.solo_play.SoloPlayViewModel;
 import usecase.pointsuserstory.update_solo_points.UpdatePointsOutputBoundary;
 import usecase.pointsuserstory.update_solo_points.UpdateSoloPlayPointsOutputData;
 
+/**
+ * Presenter for updating points in solo play mode.
+ */
 public class UpdateSoloPlayPointsPresenter implements UpdatePointsOutputBoundary {
     private ViewManagerModel viewManagerModel;
     private SoloPlayViewModel soloPlayViewModel;

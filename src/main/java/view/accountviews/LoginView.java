@@ -149,6 +149,10 @@ public class LoginView extends JPanel implements ActionListener, PropertyChangeL
         passwordInputField.setText(state.getPassword());
     }
 
+    /**
+     * Sets loginController field to the parameter's value.
+     * @param loginController login controller.
+     */
     public void setLoginController(LoginController loginController) {
         this.loginController = loginController;
     }

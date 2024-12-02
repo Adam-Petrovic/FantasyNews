@@ -2,6 +2,9 @@ package interfaceadapter.navigation.solo_play;
 
 import entity.User;
 
+/**
+ * A state showing the solo play status.
+ */
 public class SoloPlayState {
     private User user;
     private String inputtedWord;

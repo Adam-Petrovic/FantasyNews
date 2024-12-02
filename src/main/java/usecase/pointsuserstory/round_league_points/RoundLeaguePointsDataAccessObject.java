@@ -4,7 +4,9 @@ import java.util.ArrayList;
 
 import entity.User;
 
-
+/**
+ * DAO for rounding the points for the league.
+ */
 public interface RoundLeaguePointsDataAccessObject {
     /**
      * The method to round points.

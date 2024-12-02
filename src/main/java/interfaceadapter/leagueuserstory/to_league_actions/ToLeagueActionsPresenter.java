@@ -6,12 +6,15 @@ import interfaceadapter.leagueuserstory.to_league.LeagueViewModel;
 import usecase.leagueuserstory.to_league_actions.ToLeagueActionsOutputBoundary;
 import usecase.leagueuserstory.to_league_actions.ToLeagueActionsOutputData;
 
+/**
+ * Presenter for switching to league actions.
+ */
 public class ToLeagueActionsPresenter implements ToLeagueActionsOutputBoundary {
     private LeagueActionsViewModel leagueActionsViewModel;
     private LeagueViewModel leagueViewModel;
     private ViewManagerModel viewManagerModel;
 
-    public ToLeagueActionsPresenter(LeagueActionsViewModel leagueActionsViewModel,LeagueViewModel leagueViewModel,
+    public ToLeagueActionsPresenter(LeagueActionsViewModel leagueActionsViewModel, LeagueViewModel leagueViewModel,
                              ViewManagerModel viewManagerModel) {
         this.leagueActionsViewModel = leagueActionsViewModel;
         this.viewManagerModel = viewManagerModel;

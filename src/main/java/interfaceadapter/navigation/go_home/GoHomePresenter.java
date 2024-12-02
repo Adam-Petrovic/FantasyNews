@@ -5,6 +5,9 @@ import interfaceadapter.navigation.loggedIn.LoggedInState;
 import interfaceadapter.navigation.loggedIn.LoggedInViewModel;
 import usecase.navigation.goHome.GoHomeOutputBoundary;
 
+/**
+ * Presenter for go home use case.
+ */
 public class GoHomePresenter implements GoHomeOutputBoundary {
     private final LoggedInViewModel loggedInViewModel;
     private final ViewManagerModel viewManagerModel;

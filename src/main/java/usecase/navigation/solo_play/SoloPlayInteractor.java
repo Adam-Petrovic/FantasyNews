@@ -2,6 +2,9 @@ package usecase.navigation.solo_play;
 
 import entity.User;
 
+/**
+ * Interactor for solo play use case.
+ */
 public class SoloPlayInteractor implements SoloPlayInputBoundary {
     private final SoloPlayOutputBoundary soloPlayPresenter;
     private final SoloPlayUserDataAccessInterface userDataAccessObject;

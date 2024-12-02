@@ -12,7 +12,6 @@ import usecase.navigation.signup.SignupUserDataAccessInterface;
 import usecase.navigation.solo_play.SoloPlayUserDataAccessInterface;
 import usecase.rankingsuserstory.update_rankings.UpdateRankingsUserDataAccessInterface;
 import usecase.leagueuserstory.update_leagues.UpdateLeaguesUserDataAccessInterface;
-
 import usecase.leagueuserstory.to_league_actions.ToLeagueActionsUserDataAccessInterface;
 
 /**
@@ -29,7 +28,6 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
         ToLeagueActionsUserDataAccessInterface {
 
     private final Map<String, User> users = new HashMap<>();
-
 
     private String currentUsername;
 
@@ -68,7 +66,6 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
     public ArrayList<User> getUsers(ArrayList<String> usernames) {
         return new ArrayList(this.users.values());
     }
-
 
     @Override
     public void setCurrentUsername(String name) {

@@ -14,10 +14,18 @@ public class ToLeagueActionsOutputData {
         this.username = username;
     }
 
+    /**
+     * Returns the league.
+     * @return league.
+     */
     public League getLeague() {
         return league;
     }
 
+    /**
+     * Returns the username.
+     * @return username.
+     */
     public String getUsername() {
         return username;
     }

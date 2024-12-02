@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import entity.User;
 
+/**
+ * Input data for updating points for league use case.
+ */
 public class UpdatePointsForLeagueInputData {
     private final ArrayList<User> users;
     private final String leagueID;

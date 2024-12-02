@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import entity.User;
 
+/**
+ * Input data for rounding points for league.
+ */
 public class RoundLeaguePointsInputData {
     private String leagueID;
     private ArrayList<User> users;

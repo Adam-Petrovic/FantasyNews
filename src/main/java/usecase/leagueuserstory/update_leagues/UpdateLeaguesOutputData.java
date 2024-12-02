@@ -16,10 +16,18 @@ public class UpdateLeaguesOutputData {
         this.userLeagueList = userLeagueList;
     }
 
+    /**
+     * Returns user's name.
+     * @return username.
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * Returns an arraylist of leagues for the user..
+     * @return userLeagueList.
+     */
     public ArrayList<League> getUserLeagueList() {
         return userLeagueList;
     }

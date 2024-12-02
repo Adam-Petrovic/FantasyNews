@@ -12,10 +12,18 @@ public class ToLeagueActionsInputData {
         this.username = username;
     }
 
+    /**
+     * Returns user's name.
+     * @return username.
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * Returns league's ID.
+     * @return leagueID.
+     */
     public String getLeagueID() {
         return leagueID;
     }
