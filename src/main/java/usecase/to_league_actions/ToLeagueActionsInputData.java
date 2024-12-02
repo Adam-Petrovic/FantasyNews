@@ -1,5 +1,8 @@
 package usecase.to_league_actions;
 
+/**
+ * Input data.
+ */
 public class ToLeagueActionsInputData {
     private String leagueID;
     private String username;

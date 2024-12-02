@@ -50,7 +50,7 @@ public class InMemoryLeagueDataAccessObject implements UpdateRankingsLeagueDataA
     }
 
     @Override
-    public boolean LeagueExists(String leagueID) {
+    public boolean leagueExists(String leagueID) {
         return leagues.containsKey(leagueID);
     }
 
