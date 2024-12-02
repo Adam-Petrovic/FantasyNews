@@ -1,14 +1,19 @@
 package data_access;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import entity.Users.User;
-import use_case.change_password.ChangePasswordUserDataAccessInterface;
-import use_case.login.LoginUserDataAccessInterface;
-import use_case.logout.LogoutUserDataAccessInterface;
-import use_case.signup.SignupUserDataAccessInterface;
-import use_case.solo_play.SoloPlayUserDataAccessInterface;
+import entity.User;
+import usecase.frienduserstory.to_friends.FriendsUserDataAccessInterface;
+import usecase.navigation.login.LoginUserDataAccessInterface;
+import usecase.navigation.logout.LogoutUserDataAccessInterface;
+import usecase.navigation.signup.SignupUserDataAccessInterface;
+import usecase.navigation.solo_play.SoloPlayUserDataAccessInterface;
+import usecase.rankingsuserstory.update_rankings.UpdateRankingsUserDataAccessInterface;
+import usecase.leagueuserstory.update_leagues.UpdateLeaguesUserDataAccessInterface;
+
+import usecase.leagueuserstory.to_league_actions.ToLeagueActionsUserDataAccessInterface;
 
 /**
  * In-memory implementation of the DAO for storing user data. This implementation does
@@ -16,11 +21,15 @@ import use_case.solo_play.SoloPlayUserDataAccessInterface;
  */
 public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterface,
         LoginUserDataAccessInterface,
-        ChangePasswordUserDataAccessInterface,
         LogoutUserDataAccessInterface,
-        SoloPlayUserDataAccessInterface {
+        SoloPlayUserDataAccessInterface,
+        FriendsUserDataAccessInterface,
+        UpdateRankingsUserDataAccessInterface,
+        UpdateLeaguesUserDataAccessInterface,
+        ToLeagueActionsUserDataAccessInterface {
 
     private final Map<String, User> users = new HashMap<>();
+
 
     private String currentUsername;
 
@@ -45,10 +54,21 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
     }
 
     @Override
-    public void changePassword(User user) {
-        // Replace the old entry with the new password
-        users.put(user.getName(), user);
+    public ArrayList<String> addLeague(String username, String leagueID) {
+        users.get(username).getLeagueIDs().add(leagueID);
+        return get(username).getLeagueIDs();
     }
+
+    @Override
+    public boolean userInLeague(String username, String leagueID) {
+        return get(username).getLeagueIDs().contains(leagueID);
+    }
+
+    @Override
+    public ArrayList<User> getUsers(ArrayList<String> usernames) {
+        return new ArrayList(this.users.values());
+    }
+
 
     @Override
     public void setCurrentUsername(String name) {
@@ -59,4 +79,5 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
     public String getCurrentUsername() {
         return this.currentUsername;
     }
+
 }

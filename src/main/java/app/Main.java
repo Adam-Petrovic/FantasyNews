@@ -14,6 +14,7 @@ public class Main {
         final AppBuilder appBuilder = new AppBuilder();
 
         final JFrame application = appBuilder
+                                            .addLeagueActionsView()
                                             .addLoginView()
                                             .addSignupView()
                                             .addLoggedInView()
@@ -23,14 +24,27 @@ public class Main {
                                             .addSoloPlayView()
                                             .addSoloPlayUseCase()
                                             .addAddWordUseCase()
-                                            .addGoHomeUseCase()
+                                            .addDraftView()
+                                            .addFriendsView()
                                             .addToLeagueView()
+                                            .addToRankingsView()
                                             .addToLeagueUseCase()
+                                            .addDraftView()
+                                            .addToRankingsUseCase()
+                                            .addAddFriendsUseCase()
+                                            .addAddNewFriendUseCase()
+                                            .addToDraftUseCase()
+                                            .addUpdateLeaguesUseCase()
+                                            .addUpdatePointsForLeagueUseCase()
+                                            .addUpdateLeaguePointsUseCase()
+                                            .addToLeagueActionsUseCase()
+                                            .addDraftUseCase()
+                                            .addGoHomeUseCase()
                                             .build();
 
-        application.pack();
-        application.setVisible(true);
 
+        application.setSize(2000,2000);
+        application.setVisible(true);
 
     }
 }

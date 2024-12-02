@@ -1,25 +1,23 @@
 package data_access;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
-import java.time.temporal.TemporalAdjusters;
-import java.util.Scanner;
 
 import org.json.JSONObject;
-import use_case.update_solo_points.UpdatePointsDataAccessInterface;
 
-public class GuardianDataAccessObject implements UpdatePointsDataAccessInterface {
+import usecase.pointsuserstory.updatePointsForLeague.UpdatePointsForLeagueDataAccessObject;
+import usecase.pointsuserstory.update_solo_points.UpdateSoloPlayPointsDataAccessInterface;
+import usecase.rankingsuserstory.update_rankings.UpdateRankingsGuardianDataAccessInterface;
+
+public class GuardianDataAccessObject implements UpdateSoloPlayPointsDataAccessInterface,
+        UpdatePointsForLeagueDataAccessObject, UpdateRankingsGuardianDataAccessInterface {
 
     private final String apiKey;
     private final HttpClient client;
-
 
     public GuardianDataAccessObject(String apiKey) {
         this.apiKey = apiKey;
@@ -27,26 +25,23 @@ public class GuardianDataAccessObject implements UpdatePointsDataAccessInterface
     }
 
     private int countApperances(String word) {
-        try{
+        try {
             JSONObject response = fetchArticles(word).getJSONObject("response");
             return response.getInt("total");
         }
 
-        catch (IOException | InterruptedException e) {
+        catch (IOException | InterruptedException exception) {
             return 0;
         }
     }
-
 
     private JSONObject fetchArticles(String query) throws IOException, InterruptedException {
         // Construct the URL with parameters
         String searchTerm = query.replace(" ", "%20");
         String url = Constants.GUARDIAN_API_URL
-                + getPreviousMonday()
+                + getPreviousDay()
                 + "&q=" + searchTerm
                 + "&api-key=" + apiKey;
-
-        System.out.println(url);
 
         // Build the HTTP request
         HttpRequest request = HttpRequest.newBuilder()
@@ -57,18 +52,19 @@ public class GuardianDataAccessObject implements UpdatePointsDataAccessInterface
         // Send the request and handle the response
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        if (response.statusCode() == 200) {
+        if (response.statusCode() == Constants.SUCCESS_CODE) {
             // Parse and return the JSON response
             return new JSONObject(response.body());
-        } else {
+        }
+        else {
             // Print error message and return null if the request fails
             System.err.println("Error " + response.statusCode() + ": " + response.body());
             return null;
         }
     }
 
-    private String getPreviousMonday(){
-        return LocalDate.now().with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY)).toString();
+    private String getPreviousDay() {
+        return LocalDate.now().minusDays(1).toString();
     }
 
     @Override
