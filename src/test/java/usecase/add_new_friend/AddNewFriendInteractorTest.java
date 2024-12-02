@@ -7,7 +7,8 @@ import entity.User;
 import entity.UserFactory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import usecase.to_friends.FriendsUserDataAccessInterface;
+import usecase.frienduserstory.add_new_friend.*;
+import usecase.frienduserstory.to_friends.FriendsUserDataAccessInterface;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;

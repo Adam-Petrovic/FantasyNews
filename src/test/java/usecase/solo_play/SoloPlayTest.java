@@ -6,6 +6,7 @@ import entity.CommonUserFactory;
 import entity.User;
 import entity.UserFactory;
 import org.junit.jupiter.api.Test;
+import usecase.navigation.solo_play.*;
 
 
 public class SoloPlayTest {

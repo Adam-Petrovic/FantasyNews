@@ -5,7 +5,7 @@ import entity.CommonUserFactory;
 import entity.User;
 import entity.UserFactory;
 import org.junit.jupiter.api.Test;
-import usecase.to_friends.*;
+import usecase.frienduserstory.to_friends.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 

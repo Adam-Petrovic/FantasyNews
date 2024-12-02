@@ -4,19 +4,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import entity.League;
 import entity.User;
-import usecase.to_friends.FriendsUserDataAccessInterface;
-import usecase.change_password.ChangePasswordUserDataAccessInterface;
-import usecase.login.LoginUserDataAccessInterface;
-import usecase.logout.LogoutUserDataAccessInterface;
-import usecase.signup.SignupUserDataAccessInterface;
-import usecase.solo_play.SoloPlayUserDataAccessInterface;
-import usecase.update_rankings.UpdateRankingsLeagueDataAccessInterface;
-import usecase.update_rankings.UpdateRankingsUserDataAccessInterface;
-import usecase.update_leagues.UpdateLeaguesUserDataAccessInterface;
+import usecase.frienduserstory.to_friends.FriendsUserDataAccessInterface;
+import usecase.navigation.login.LoginUserDataAccessInterface;
+import usecase.navigation.logout.LogoutUserDataAccessInterface;
+import usecase.navigation.signup.SignupUserDataAccessInterface;
+import usecase.navigation.solo_play.SoloPlayUserDataAccessInterface;
+import usecase.rankingsuserstory.update_rankings.UpdateRankingsUserDataAccessInterface;
+import usecase.leagueuserstory.update_leagues.UpdateLeaguesUserDataAccessInterface;
 
-import usecase.to_league_actions.ToLeagueActionsUserDataAccessInterface;
+import usecase.leagueuserstory.to_league_actions.ToLeagueActionsUserDataAccessInterface;
 
 /**
  * In-memory implementation of the DAO for storing user data. This implementation does
@@ -24,7 +21,6 @@ import usecase.to_league_actions.ToLeagueActionsUserDataAccessInterface;
  */
 public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterface,
         LoginUserDataAccessInterface,
-        ChangePasswordUserDataAccessInterface,
         LogoutUserDataAccessInterface,
         SoloPlayUserDataAccessInterface,
         FriendsUserDataAccessInterface,
@@ -73,12 +69,6 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
         return new ArrayList(this.users.values());
     }
 
-
-    @Override
-    public void changePassword(User user) {
-        // Replace the old entry with the new password
-        users.put(user.getName(), user);
-    }
 
     @Override
     public void setCurrentUsername(String name) {
