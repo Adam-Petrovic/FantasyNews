@@ -1,16 +1,17 @@
 package data_access;
 
-import entity.League;
-import org.json.JSONObject;
-import usecase.selectwordsuserstory.draft_words.DraftWordsLeagueDataAccessInterface;
-import usecase.selectwordsuserstory.to_draft.ToDraftLeagueDataAccessInterface;
-import usecase.rankingsuserstory.update_rankings.UpdateRankingsLeagueDataAccessInterface;
-import usecase.leagueuserstory.update_leagues.UpdateLeaguesLeagueDataAccessInterface;
-import usecase.leagueuserstory.to_league_actions.ToLeagueActionsLeagueDataAccessInterface;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.json.JSONObject;
+
+import entity.League;
+import usecase.leagueuserstory.to_league_actions.ToLeagueActionsLeagueDataAccessInterface;
+import usecase.leagueuserstory.update_leagues.UpdateLeaguesLeagueDataAccessInterface;
+import usecase.rankingsuserstory.update_rankings.UpdateRankingsLeagueDataAccessInterface;
+import usecase.selectwordsuserstory.draft_words.DraftWordsLeagueDataAccessInterface;
+import usecase.selectwordsuserstory.to_draft.ToDraftLeagueDataAccessInterface;
 
 public class InMemoryLeagueDataAccessObject implements UpdateRankingsLeagueDataAccessInterface,
         DraftWordsLeagueDataAccessInterface, UpdateLeaguesLeagueDataAccessInterface, ToDraftLeagueDataAccessInterface,
@@ -21,6 +22,11 @@ public class InMemoryLeagueDataAccessObject implements UpdateRankingsLeagueDataA
     @Override
     public void save(League league) {
         leagues.put(league.getId(), league);
+    }
+
+    @Override
+    public void save(JSONObject jsonObject) {
+
     }
 
     @Override
@@ -42,9 +48,9 @@ public class InMemoryLeagueDataAccessObject implements UpdateRankingsLeagueDataA
     }
 
     @Override
-    public ArrayList<League> getLeagues(ArrayList<String> leagueIDs) {
+    public ArrayList<League> getLeagues(ArrayList<String> leagueIds) {
         ArrayList<League> league = new ArrayList<>();
-        for (String leagueID : leagueIDs){
+        for (String leagueID : leagueIds) {
             league.add(leagues.get(leagueID));
         }
         return league;
@@ -58,11 +64,6 @@ public class InMemoryLeagueDataAccessObject implements UpdateRankingsLeagueDataA
     public JSONObject get() {
         ArrayList<League> leaguesArray = new ArrayList<>(leagues.values());
         return leaguesToJSON(leaguesArray);
-    }
-
-    @Override
-    public void save(JSONObject jsonObject) {
-
     }
 
     @Override
