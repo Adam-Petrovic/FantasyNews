@@ -2,9 +2,13 @@ package usecase.to_league_actions;
 
 import entity.League;
 
+/**
+ * Output data.
+ */
 public class ToLeagueActionsOutputData {
     private League league;
     private String username;
+
     ToLeagueActionsOutputData(League league, String username) {
         this.league = league;
         this.username = username;
