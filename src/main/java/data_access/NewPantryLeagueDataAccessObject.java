@@ -1,32 +1,36 @@
 package data_access;
 
-import entity.League;
-import entity.User;
-import okhttp3.*;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import usecase.to_league_actions.ToLeagueActionsLeagueDataAccessInterface;
-
-import usecase.draft_words.DraftWordsLeagueDataAccessInterface;
-import usecase.to_draft.ToDraftLeagueDataAccessInterface;
-
-import usecase.award_league_points.AwardLeaguePointsDataAccessInterface;
-import usecase.round_league_points.RoundLeaguePointsDataAccessObject;
-
-import usecase.update_leagues.UpdateLeaguesLeagueDataAccessInterface;
-import usecase.update_rankings.UpdateRankingsLeagueDataAccessInterface;
-
+// Standard library imports
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
-public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataAccessInterface,
-        UpdateRankingsLeagueDataAccessInterface, ToDraftLeagueDataAccessInterface,DraftWordsLeagueDataAccessInterface, AwardLeaguePointsDataAccessInterface,
-        RoundLeaguePointsDataAccessObject, ToLeagueActionsLeagueDataAccessInterface {
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import entity.League;
+import entity.User;
+import okhttp3.*;
+import usecase.award_league_points.AwardLeaguePointsDataAccessInterface;
+import usecase.draft_words.DraftWordsLeagueDataAccessInterface;
+import usecase.round_league_points.RoundLeaguePointsDataAccessObject;
+import usecase.to_draft.ToDraftLeagueDataAccessInterface;
+import usecase.to_league_actions.ToLeagueActionsLeagueDataAccessInterface;
+import usecase.update_leagues.UpdateLeaguesLeagueDataAccessInterface;
+import usecase.update_rankings.UpdateRankingsLeagueDataAccessInterface;
+
+/**
+ * Pantry League Data Access Object.
+ */
+public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataAccessInterface,
+        UpdateRankingsLeagueDataAccessInterface, ToDraftLeagueDataAccessInterface,
+        DraftWordsLeagueDataAccessInterface, AwardLeaguePointsDataAccessInterface,
+        RoundLeaguePointsDataAccessObject, ToLeagueActionsLeagueDataAccessInterface {
 
     private static final int SUCCESS_CODE = 200;
     private static final String CONTENT_TYPE_LABEL = "Content-Type";
@@ -45,17 +49,16 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
     private static final String API_URL = "https://getpantry.cloud/apiv1/pantry/";
     private static String key;
 
-
     public NewPantryLeagueDataAccessObject() {
         try {
             // if you run into an issue here, it means that you don't have your pantry API key, text Evelyn to get it
             this.key = new Scanner(new File("leagueKey.txt")).nextLine();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+        }
+        catch (FileNotFoundException exception) {
+            throw new RuntimeException(exception);
         }
     }
 
-    //should probably be combined into one: getLeague so less API calls?
     @Override
     public ArrayList<String> getLeagueUsers(String leagueID) {
         return null;
@@ -71,7 +74,7 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
     public String[] getWords(String username, String leagueID) {
         JSONObject obj = get();
         JSONObject league = obj.getJSONObject(leagueID);
-        JSONObject data = league.getJSONObject("data");
+        JSONObject data = league.getJSONObject(DATA);
         JSONArray words = data.getJSONArray(username);
         String[] wordData = toStringArray(words);
         return wordData;
@@ -81,7 +84,7 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
     public String[] draftWord(String username, Integer categoryNum, String newWord, String leagueID) {
         JSONObject obj = get();
         JSONObject league = obj.getJSONObject(leagueID);
-        JSONObject data = league.getJSONObject("data");
+        JSONObject data = league.getJSONObject(DATA);
         JSONArray words = data.getJSONArray(username);
         String[] wordData = toStringArray(words);
         wordData[categoryNum] = newWord;
@@ -89,13 +92,9 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
         save(obj);
         return wordData;
     }
-    public void save(League league) {
-
-    }
 
     @Override
     public void saveNewLeague(String leagueID, String username) {
-        JSONObject leagueData = get();
         JSONObject newLeague = new JSONObject();
 
         ArrayList<String> usernames = new ArrayList<>();
@@ -105,6 +104,7 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
         data.put(username, Constants.DEFAULT_WORDS);
         newLeague.put(DATA, data);
 
+        JSONObject leagueData = get();
         leagueData.put(leagueID, newLeague);
         save(leagueData);
     }
@@ -120,18 +120,18 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
         JSONObject allLeagueData = get();
         JSONObject leagueData = allLeagueData.getJSONObject(leagueID);
 
-        //updates user list
+        // updates user list
         JSONArray jsonUsers = leagueData.getJSONArray(USERS);
         ArrayList<String> usernames = new ArrayList<>();
-        for(int i = 0; i < jsonUsers.length(); i++) {
+        for (int i = 0; i < jsonUsers.length(); i++) {
             usernames.add(jsonUsers.getString(i));
         }
 
-        //updates data hashmap
+        // updates data hashmap
         JSONObject jsonData = leagueData.getJSONObject(DATA);
         HashMap<String, String[]> finalData = new HashMap<>();
-        //creates data hashmap
-        for(int i = 0; i < usernames.size(); i++) {
+        // creates data hashmap
+        for (int i = 0; i < usernames.size(); i++) {
             String[] words = toStringArray(jsonData.getJSONArray(usernames.get(i)));
             finalData.put(usernames.get(i), words);
         }
@@ -151,27 +151,27 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
         JSONObject data = leagueData.getJSONObject(DATA);
         JSONArray jsonWords = data.getJSONArray(username);
         String[] wordData = toStringArray(jsonWords);
-        double newScore = Double.parseDouble(wordData[5]) + 1/numUsers;
-        wordData[5] = String.valueOf(newScore);
+        double newScore = Double.parseDouble(wordData[Constants.NUM_CATEGORIES]) + 1 / numUsers;
+        wordData[Constants.NUM_CATEGORIES] = String.valueOf(newScore);
         data.put(username, wordData);
         save(allLeagueData);
     }
 
-    //prevents multiple calls to get
+    // prevents multiple calls to get
     @Override
     public ArrayList<League> getLeagues(ArrayList<String> userLeagueIDList) {
         ArrayList<League> leagues = new ArrayList<>();
         JSONObject allLeagueData = get();
 
-        for(String leagueID : userLeagueIDList){
-            //gets league data
+        for (String leagueID : userLeagueIDList) {
+            // gets league data
             JSONObject leagueData = allLeagueData.getJSONObject(leagueID);
             ArrayList<String> usernames = toArrayList(leagueData.getJSONArray(USERS));
             JSONObject jsonData = leagueData.getJSONObject(DATA);
             HashMap<String, String[]> finalData = new HashMap<>();
 
-            //creates data hashmap
-            for(int i = 0; i < usernames.size(); i++) {
+            // creates data hashmap
+            for (int i = 0; i < usernames.size(); i++) {
                 String[] words = toStringArray(jsonData.getJSONArray(usernames.get(i)));
                 finalData.put(usernames.get(i), words);
             }
@@ -180,9 +180,15 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
         return leagues;
     }
 
-    //gets entire basket (all league data)
+    // gets entire basket (all league data)
+
+    /**
+     * Gets all League JSON Data.
+     * @return league JSON.
+     * @throws RuntimeException ex.
+     */
     public JSONObject get() {
-        sleep(3);
+        sleep(2);
         // Make an API call to get the user object.
         final String fullURL = API_URL + key + "/basket/" + BASKET_NAME;
         final OkHttpClient client = new OkHttpClient().newBuilder().build();
@@ -206,7 +212,18 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
         }
     }
 
-    //saves entire basket (all league data)
+    /**
+     * Save.
+     * @param league league.
+     */
+    public void save(League league) {
+    }
+
+    /**
+     * Saves JSON.
+     * @param jsonObject json.
+     * @throws RuntimeException ex.
+     */
     public void save(JSONObject jsonObject) {
         sleep(2);
         final OkHttpClient client = new OkHttpClient().newBuilder().build();
@@ -226,37 +243,56 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
             final Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
                 System.out.println("saved league data");
-            } else {
+            }
+            else {
                 System.out.println("failed to save league data");
                 throw new RuntimeException("failed to update league: " + response.message());
             }
-        } catch (IOException | JSONException ex) {
+        }
+        catch (IOException | JSONException ex) {
             throw new RuntimeException("Error", ex);
         }
 
     }
 
-    public <T> ArrayList<T> toArrayList(JSONArray jsonArray){
+    /**
+     * To array list.
+     * @param jsonArray json array.
+     * @param <T> type.
+     * @return array list.
+     */
+    public <T> ArrayList<T> toArrayList(JSONArray jsonArray) {
         ArrayList<T> arrayList = new ArrayList<>();
-        for(int i = 0; i < jsonArray.length(); i++){
+        for (int i = 0; i < jsonArray.length(); i++) {
             arrayList.add((T) jsonArray.get(i));
         }
         return arrayList;
     }
 
-    public String[] toStringArray(JSONArray jsonArray){
+    /**
+     * To String [].
+     * @param jsonArray jsonArray.
+     * @return String[].
+     */
+    public String[] toStringArray(JSONArray jsonArray) {
         String[] array = new String[jsonArray.length()];
-        for(int i = 0; i < jsonArray.length(); i++){
+        for (int i = 0; i < jsonArray.length(); i++) {
             array[i] = jsonArray.getString(i);
         }
         return array;
     }
 
-    public void sleep(int seconds){
+    /**
+     * Sleep.
+     * @param seconds seconds.
+     * @throws RuntimeException ex.
+     */
+    public void sleep(int seconds) {
         try {
             TimeUnit.SECONDS.sleep(seconds);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        }
+        catch (InterruptedException ex) {
+            throw new RuntimeException(ex);
         }
     }
 
@@ -265,12 +301,12 @@ public class NewPantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataA
         JSONObject allLeagueData = get();
         JSONObject leagueData = allLeagueData.getJSONObject(leagueID);
         JSONObject data = leagueData.getJSONObject(DATA);
-        for (User user : users){
+        for (User user : users) {
             String username = user.getName();
             JSONArray jsonWords = data.getJSONArray(username);
             String[] wordData = toStringArray(jsonWords);
-            double newScore = Math.ceil(Double.parseDouble(wordData[5]));
-            wordData[5] = String.valueOf(newScore);
+            double newScore = Math.ceil(Double.parseDouble(wordData[Constants.NUM_CATEGORIES]));
+            wordData[Constants.NUM_CATEGORIES] = String.valueOf(newScore);
             data.put(username, wordData);
         }
         save(allLeagueData);

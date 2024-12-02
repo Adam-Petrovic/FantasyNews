@@ -1,5 +1,9 @@
 package usecase.update_solo_points;
 
 public interface UpdatePointsOutputBoundary {
-    void execute(UpdatePointsOutputData updatePointsOutputData);
+    /**
+     * The execute method for the presenter.
+     * @param updatePointsOutputData the data
+     */
+    void execute(UpdateSoloPlayPointsOutputData updatePointsOutputData);
 }

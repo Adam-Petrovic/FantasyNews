@@ -1,32 +1,28 @@
 package usecase.update_solo_points;
 
 import data_access.Constants;
-import data_access.GuardianDataAccessObject;
 import entity.User;
 
-public class UpdatePointsInteractor implements UpdatePointsInputBoundary{
-    private final GuardianDataAccessObject guardianDataAccessObject;
+public class UpdatePointsInteractor implements UpdateSoloPlayPointsInputBoundary {
+    private final UpdateSoloPlayPointsDataAccessInterface updatePointsDataAccessInterface;
     private final UpdatePointsOutputBoundary updatePointsPresenter;
 
-    public UpdatePointsInteractor(GuardianDataAccessObject guardianDataAccessObject,
+    public UpdatePointsInteractor(UpdateSoloPlayPointsDataAccessInterface updatePointsDataAccessInterface,
                                   UpdatePointsOutputBoundary updatePointsPresenter) {
-        this.guardianDataAccessObject = guardianDataAccessObject;
+        this.updatePointsDataAccessInterface = updatePointsDataAccessInterface;
         this.updatePointsPresenter = updatePointsPresenter;
     }
 
     @Override
-    public void execute(UpdatePointsInputData updatePointsInputData) {
+    public void execute(UpdateSoloPlayPointsInputData updatePointsInputData) {
         int[] points = new int[Constants.NUM_CATEGORIES];
         User user = updatePointsInputData.getUser();
-        for(int index = 0; index < Constants.NUM_CATEGORIES; index++) {
+        for (int index = 0; index < Constants.NUM_CATEGORIES; index++) {
             points[index] =
-                    guardianDataAccessObject.getPointsForCategory(user.getWordFromCategory(Constants.CATEGORIES[index]));
+                    updatePointsDataAccessInterface
+                            .getPointsForCategory(user.getWordFromCategory(Constants.CATEGORIES[index]));
         }
-        UpdatePointsOutputData outputData = new UpdatePointsOutputData(points);
+        UpdateSoloPlayPointsOutputData outputData = new UpdateSoloPlayPointsOutputData(points);
         updatePointsPresenter.execute(outputData);
     }
-
-
-
-
 }

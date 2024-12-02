@@ -35,7 +35,7 @@ public class Main {
                                             .addAddNewFriendUseCase()
                                             .addToDraftUseCase()
                                             .addUpdateLeaguesUseCase()
-                                            .addUpdatePointsforLeagueUseCase()
+                                            .addUpdatePointsForLeagueUseCase()
                                             .addUpdateLeaguePointsUseCase()
                                             .addToLeagueActionsUseCase()
                                             .addDraftUseCase()

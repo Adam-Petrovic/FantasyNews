@@ -13,14 +13,14 @@ public class UpdateSoloPointsTest {
     void successUserLoggedInTest() {
         String[] word = {"Panda", "Panda", "Panda", "Panda", "Panda"};
         User user = new CommonUser("Adam", "madA", word);
-        UpdatePointsInputData inputData = new UpdatePointsInputData(user);
+        UpdateSoloPlayPointsInputData inputData = new UpdateSoloPlayPointsInputData(user);
 
-        GuardianDataAccessObject guardianDataAccessObject = new GuardianDataAccessObject("PUT API KEY HERE");
+        GuardianDataAccessObject guardianDataAccessObject = new GuardianDataAccessObject("c7dda92e-78d1-440d-a3b7-ee3d27ee35be");
 
 
         UpdatePointsOutputBoundary successPresenter = new UpdatePointsOutputBoundary() {
             @Override
-            public void execute(UpdatePointsOutputData updatePointsOutputData) {
+            public void execute(UpdateSoloPlayPointsOutputData updatePointsOutputData) {
                 user.setPoints(updatePointsOutputData.getPoints());
                 System.out.println(updatePointsOutputData.getPoints()[0]);
                 assertEquals(guardianDataAccessObject.getPointsForCategory(word[0]),
@@ -29,7 +29,7 @@ public class UpdateSoloPointsTest {
 
         };
 
-        UpdatePointsInputBoundary interactor = new UpdatePointsInteractor(guardianDataAccessObject, successPresenter);
+        UpdateSoloPlayPointsInputBoundary interactor = new UpdatePointsInteractor(guardianDataAccessObject, successPresenter);
         interactor.execute(inputData);
     }
 }

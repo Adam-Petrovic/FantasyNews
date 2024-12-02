@@ -1,5 +1,10 @@
 package usecase.updatePointsForLeague;
 
 public interface UpdatePointsForLeagueDataAccessObject {
-    int getPointsForCategory(String word);
+    /**
+     * Gets the point for a category.
+     * @param category category to get the word from
+     * @return points in the user category
+     */
+    int getPointsForCategory(String category);
 }

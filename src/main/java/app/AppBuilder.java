@@ -57,8 +57,8 @@ import interface_adapter.update_league_points.UpdateLeaguePointsController;
 
 import interface_adapter.update_leagues.UpdateLeaguesController;
 import interface_adapter.update_leagues.UpdateLeaguesPresenter;
-import interface_adapter.update_points.UpdatePointsController;
-import interface_adapter.update_points.UpdatePointsPresenter;
+import interface_adapter.update_solo_points.UpdateSoloPlayPointsController;
+import interface_adapter.update_solo_points.UpdateSoloPlayPointsPresenter;
 import interface_adapter.update_rankings.UpdateRankingsController;
 import interface_adapter.update_rankings.UpdateRankingsPresenter;
 import usecase.to_friends.FriendsInputBoundary;
@@ -110,7 +110,8 @@ import usecase.update_leagues.UpdateLeaguesOutputBoundary;
 import usecase.update_rankings.UpdateRankingsInputBoundary;
 import usecase.update_rankings.UpdateRankingsInteractor;
 import usecase.update_rankings.UpdateRankingsOutputBoundary;
-import usecase.update_solo_points.UpdatePointsInputBoundary;
+import usecase.update_solo_points.UpdateSoloPlayPointsDataAccessInterface;
+import usecase.update_solo_points.UpdateSoloPlayPointsInputBoundary;
 import usecase.update_solo_points.UpdatePointsInteractor;
 import usecase.update_solo_points.UpdatePointsOutputBoundary;
 
@@ -301,7 +302,7 @@ public class AppBuilder {
         return this;
     }
 
-    public AppBuilder addUpdatePointsforLeagueUseCase(){
+    public AppBuilder addUpdatePointsForLeagueUseCase(){
         try{
             final UpdatePointsForLeagueDataAccessObject updatePointsForLeagueDataAccessObject = makeGuardianDataAccessObject();
             final UpdatePointsForLeagueInputBoundary updateLeaguePointsInteractor = new UpdatePointsForLeagueInteractor(updatePointsForLeagueDataAccessObject );
@@ -366,12 +367,12 @@ public class AppBuilder {
         final SoloPlayInputBoundary soloPlayInteractor = new SoloPlayInteractor(soloPlayPresenter, userDataAccessObject);
         final SoloPlayController soloPlayController = new SoloPlayController(soloPlayInteractor);
 
-        final UpdatePointsOutputBoundary updatePointsPresenter = new UpdatePointsPresenter(viewManagerModel,
+        final UpdatePointsOutputBoundary updatePointsPresenter = new UpdateSoloPlayPointsPresenter(viewManagerModel,
                                                                                            soloPlayViewModel);
         try {
-            final GuardianDataAccessObject guardianDataAccessObject = makeGuardianDataAccessObject();
-            final UpdatePointsInputBoundary updatePointsInteractor = new UpdatePointsInteractor(guardianDataAccessObject, updatePointsPresenter);
-            final UpdatePointsController updatePointsController = new UpdatePointsController(updatePointsInteractor);
+            final UpdateSoloPlayPointsDataAccessInterface updatePointsDataAccessInterface = makeGuardianDataAccessObject();
+            final UpdateSoloPlayPointsInputBoundary updatePointsInteractor = new UpdatePointsInteractor(updatePointsDataAccessInterface, updatePointsPresenter);
+            final UpdateSoloPlayPointsController updatePointsController = new UpdateSoloPlayPointsController(updatePointsInteractor);
             loggedInView.setSoloPlayController(soloPlayController);
             soloPlayView.setUpdatePointsConroller(updatePointsController);
         } catch (FileNotFoundException e) {
@@ -470,7 +471,7 @@ public class AppBuilder {
      * @return the application
      */
     public JFrame build() {
-        final JFrame application = new JFrame("Login Example");
+        final JFrame application = new JFrame("FantasyNews");
         application.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         application.add(cardPanel);
