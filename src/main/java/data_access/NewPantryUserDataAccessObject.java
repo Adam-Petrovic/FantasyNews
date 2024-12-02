@@ -24,15 +24,18 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Data Access Object which uses the Pantry API to store users in the cloud.
+ */
 public class NewPantryUserDataAccessObject implements SignupUserDataAccessInterface,
-                                                        LoginUserDataAccessInterface,
-                                                        ChangePasswordUserDataAccessInterface,
-                                                        LogoutUserDataAccessInterface,
-                                                        SoloPlayUserDataAccessInterface,
-                                                        FriendsUserDataAccessInterface,
-                                                        UpdateLeaguesUserDataAccessInterface,
-                                                        UpdateRankingsUserDataAccessInterface,
-                                                        ToLeagueActionsUserDataAccessInterface {
+        LoginUserDataAccessInterface,
+        ChangePasswordUserDataAccessInterface,
+        LogoutUserDataAccessInterface,
+        SoloPlayUserDataAccessInterface,
+        FriendsUserDataAccessInterface,
+        UpdateLeaguesUserDataAccessInterface,
+        UpdateRankingsUserDataAccessInterface,
+        ToLeagueActionsUserDataAccessInterface {
 
     private static final int SUCCESS_CODE = 200;
     private static final String CONTENT_TYPE_LABEL = "Content-Type";
@@ -57,21 +60,26 @@ public class NewPantryUserDataAccessObject implements SignupUserDataAccessInterf
         try {
             // if you run into an issue here, it means that you don't have your pantry API key, text Evelyn to get it
             this.key = new Scanner(new File("userKey.txt")).nextLine();
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
+        }
+        catch (FileNotFoundException exception) {
+            throw new RuntimeException(exception);
         }
 
     }
 
-    public ArrayList<User> getUsers(ArrayList<String> usernames){
+    /**
+     * Get users.
+     * @param usernames usernames.
+     * @return users.
+     */
+    public ArrayList<User> getUsers(ArrayList<String> usernames) {
         JSONObject allUserData = get();
         ArrayList<User> users = new ArrayList<>();
-        for(int i = 0; i < usernames.size(); i++){
+        for (int i = 0; i < usernames.size(); i++) {
             JSONObject userData = allUserData.getJSONObject(usernames.get(i));
-            //gets leagueIDs
             final JSONArray leaguesArray = userData.getJSONArray(LEAGUES);
             final ArrayList<String> leagues = new ArrayList<String>();
-            for(int j = 0; i < leaguesArray.length(); j++) {
+            for (int j = 0; i < leaguesArray.length(); j++) {
                 leagues.add(leaguesArray.getString(j));
             }
 
@@ -91,106 +99,30 @@ public class NewPantryUserDataAccessObject implements SignupUserDataAccessInterf
         JSONObject allUserData = get();
         JSONObject userData = allUserData.getJSONObject(username);
         JSONArray jsonLeagues = userData.getJSONArray(LEAGUES);
-        ArrayList<String> leagueIDs = new ArrayList<>();
-        for(int i = 0; i < jsonLeagues.length(); i++) {
-            leagueIDs.add(jsonLeagues.getString(i));
+        ArrayList<String> leagueIds = new ArrayList<>();
+        for (int i = 0; i < jsonLeagues.length(); i++) {
+            leagueIds.add(jsonLeagues.getString(i));
         }
-        if (leagueID.equals("")){
-            return leagueIDs;
+        if ("".equals(leagueID)) {
+            return leagueIds;
         }
-        leagueIDs.add(leagueID);
-        userData.put(LEAGUES, leagueIDs);
+        leagueIds.add(leagueID);
+        userData.put(LEAGUES, leagueIds);
         save(allUserData);
-        return leagueIDs;
+        return leagueIds;
     }
 
-    @Override
-    public boolean userInLeague(String username, String leagueID) {
-        JSONObject allUserData = get();
-        JSONObject userData = allUserData.getJSONObject(username);
-        JSONArray jsonLeagues = userData.getJSONArray(LEAGUES);
-        if(toArrayList(jsonLeagues).contains(leagueID)){
-            return true;
-        }
-        return false;
-    }
-
-    @Override
-    public void changePassword(User user) {
-        JSONObject allUserData = get();
-        JSONObject userData = allUserData.getJSONObject(user.getName());
-        userData.put(PASSWORD, user.getPassword());
-        save(allUserData);
-    }
-
-    @Override
-    public User get(String username) {
-        JSONObject userData = get().getJSONObject(username);
-        //gets leagueIDs
-        final JSONArray leaguesArray = userData.getJSONArray(LEAGUES);
-        final ArrayList<String> leagues = new ArrayList<String>();
-        for(int i = 0; i < leaguesArray.length(); i++) {
-            leagues.add(leaguesArray.getString(i));
-        }
-
-        final String password = userData.getString(PASSWORD);
-        final JSONObject wordsDict = userData.getJSONObject(WORDS);
-        final String[] words = new String[Constants.NUM_CATEGORIES];
-        for (int index = 0; index < Constants.NUM_CATEGORIES; index++) {
-            words[index] = wordsDict.getString(Constants.CATEGORIES[index]);
-        }
-        return userFactory.create(username, password, words, leagues);
-    }
-
-    @Override
-    public String getCurrentUsername() {
-        return this.currentUsername;
-    }
-
-    @Override
-    public void setCurrentUsername(String username) {
-        this.currentUsername = username;
-    }
-
-    @Override
-    public boolean existsByName(String username) {
-        JSONObject userData = get();
-        return userData.has(username);
-    }
-
-    @Override
-    public void save(User user) {
-        JSONObject userData = get();
-
-        final JSONObject userInfo = new JSONObject();
-        userInfo.put(PASSWORD, user.getPassword());
-        userInfo.put(LEAGUES, user.getLeagueIDs());
-        HashMap<String, String> words = new HashMap<String, String>();
-        HashMap<String, Integer> wordPointsForCategory = new HashMap<String, Integer>();
-
-        String[] terms = user.getWords();
-        for (int index = 0; index < Constants.NUM_CATEGORIES; index++) {
-            words.put(Constants.CATEGORIES[index], terms[index]);
-            wordPointsForCategory.put(Constants.CATEGORIES[index], 0);
-        }
-        userInfo.put(WORDS, words);
-        userInfo.put(POINTS, wordPointsForCategory);
-
-        userData.put(user.getName(), userInfo);
-        save(userData);
-    }
-
-    @Override
-    public void setWord(String category, String word) {
-    }
-
-    //gets all the basket data
+    /**
+     * Get method for API.
+     * @return User repository.
+     * @throws RuntimeException exception.
+     */
     public JSONObject get() {
-        sleep(3);
-        final String fullURL = API_URL + key + "/basket/" + BASKET_NAME;
+        sleep(Constants.TIME);
+        final String fullUrl = API_URL + key + "/basket/" + BASKET_NAME;
         final OkHttpClient client = new OkHttpClient().newBuilder().build();
         final Request request = new Request.Builder()
-                .url(fullURL)
+                .url(fullUrl)
                 .get()
                 .build();
         try {
@@ -209,7 +141,64 @@ public class NewPantryUserDataAccessObject implements SignupUserDataAccessInterf
         }
     }
 
-    //saves updates basket data
+    @Override
+    public User get(String username) {
+        JSONObject userData = get().getJSONObject(username);
+        final JSONArray leaguesArray = userData.getJSONArray(LEAGUES);
+        final ArrayList<String> leagues = new ArrayList<String>();
+        for (int i = 0; i < leaguesArray.length(); i++) {
+            leagues.add(leaguesArray.getString(i));
+        }
+
+        final String password = userData.getString(PASSWORD);
+        final JSONObject wordsDict = userData.getJSONObject(WORDS);
+        final String[] words = new String[Constants.NUM_CATEGORIES];
+        for (int index = 0; index < Constants.NUM_CATEGORIES; index++) {
+            words[index] = wordsDict.getString(Constants.CATEGORIES[index]);
+        }
+        return userFactory.create(username, password, words, leagues);
+    }
+
+    @Override
+    public boolean userInLeague(String username, String leagueID) {
+        JSONObject allUserData = get();
+        JSONObject userData = allUserData.getJSONObject(username);
+        JSONArray jsonLeagues = userData.getJSONArray(LEAGUES);
+        if (toArrayList(jsonLeagues).contains(leagueID)) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void changePassword(User user) {
+        JSONObject allUserData = get();
+        JSONObject userData = allUserData.getJSONObject(user.getName());
+        userData.put(PASSWORD, user.getPassword());
+        save(allUserData);
+    }
+
+    @Override
+    public String getCurrentUsername() {
+        return this.currentUsername;
+    }
+
+    @Override
+    public void setCurrentUsername(String username) {
+        this.currentUsername = username;
+    }
+
+    @Override
+    public boolean existsByName(String username) {
+        JSONObject userData = get();
+        return userData.has(username);
+    }
+
+    /**
+     * Saves the jsonObject to pantry.
+     * @param jsonObject users.
+     * @throws RuntimeException exception.
+     */
     public void save(JSONObject jsonObject) {
         sleep(2);
         final OkHttpClient client = new OkHttpClient().newBuilder().build();
@@ -229,26 +218,65 @@ public class NewPantryUserDataAccessObject implements SignupUserDataAccessInterf
             final Response response = client.newCall(request).execute();
             if (response.isSuccessful()) {
                 System.out.println("saved user data");
-            } else {
+            }
+            else {
                 System.out.println("failed to save user data");
                 throw new RuntimeException("failed to save user: " + response.message());
             }
-        } catch (IOException | JSONException ex) {
+        }
+        catch (IOException | JSONException ex) {
             throw new RuntimeException("Error", ex);
         }
     }
 
-    public void sleep(int seconds){
+    @Override
+    public void save(User user) {
+
+        final JSONObject userInfo = new JSONObject();
+        userInfo.put(PASSWORD, user.getPassword());
+        userInfo.put(LEAGUES, user.getLeagueIDs());
+        HashMap<String, String> words = new HashMap<String, String>();
+        HashMap<String, Integer> wordPointsForCategory = new HashMap<String, Integer>();
+
+        String[] terms = user.getWords();
+        for (int index = 0; index < Constants.NUM_CATEGORIES; index++) {
+            words.put(Constants.CATEGORIES[index], terms[index]);
+            wordPointsForCategory.put(Constants.CATEGORIES[index], 0);
+        }
+        userInfo.put(WORDS, words);
+        userInfo.put(POINTS, wordPointsForCategory);
+        JSONObject userData = get();
+        userData.put(user.getName(), userInfo);
+        save(userData);
+    }
+
+    @Override
+    public void setWord(String category, String word) {
+    }
+
+    /**
+     * Sleep function we use for API calls.
+     * @param seconds seconds to sleep.
+     * @throws RuntimeException exception.
+     */
+    public void sleep(int seconds) {
         try {
             TimeUnit.SECONDS.sleep(seconds);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+        }
+        catch (InterruptedException exception) {
+            throw new RuntimeException(exception);
         }
     }
 
-    public <T> ArrayList<T> toArrayList(JSONArray jsonArray){
+    /**
+     * Converts jsonArray to array list.
+     * @param jsonArray jsonArray.
+     * @param <T> generic.
+     * @return array list.
+     */
+    public <T> ArrayList<T> toArrayList(JSONArray jsonArray) {
         ArrayList<T> arrayList = new ArrayList<>();
-        for(int i = 0; i < jsonArray.length(); i++){
+        for (int i = 0; i < jsonArray.length(); i++) {
             arrayList.add((T) jsonArray.get(i));
         }
         return arrayList;
