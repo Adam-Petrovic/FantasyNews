@@ -361,6 +361,27 @@ class LeagueTest {
 
         assertEquals(historicalRankings, league.getHistoricalRankings(), "Historical rankings should match");
     }
+
+    @Test
+    void testSetData() {
+        // Arrange
+        String leagueId = "leagueTest";
+        ArrayList<String> users = new ArrayList<>(Arrays.asList("user1", "user2"));
+        League league = new League(leagueId, users);
+
+        HashMap<String, String[]> newData = new HashMap<>();
+        String[] wordsForUser1 = {"word1", "word2", "word3", "word4", "word5"};
+        String[] wordsForUser2 = {"word6", "word7", "word8", "word9", "word10"};
+        newData.put("user1", wordsForUser1);
+        newData.put("user2", wordsForUser2);
+
+        // Act
+        league.setData(newData);
+
+        // Assert
+        assertEquals(newData, league.getData(), "Data should be updated to newData");
+    }
+
 }
 
 class LeagueFactoryTest {
