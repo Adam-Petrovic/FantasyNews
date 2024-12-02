@@ -13,7 +13,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import static org.junit.jupiter.api.Assertions.fail;
 
 
 public class UpdateRankingsTest {
@@ -21,7 +21,7 @@ public class UpdateRankingsTest {
     void successTest() throws FileNotFoundException {
         UpdateRankingsInputData inputData = new UpdateRankingsInputData("rankingsTestLeague");
 
-        GuardianDataAccessObject guardianDataAccessObject = makeGuardianDataAccessObject();
+        GuardianDataAccessObject guardianDataAccessObject = new GuardianDataAccessObject("c7dda92e-78d1-440d-a3b7-ee3d27ee35be");
 
         // creates test users and adds them to in memory dao
         UpdateRankingsUserDataAccessInterface userRepository = new InMemoryUserDataAccessObject();
@@ -50,24 +50,50 @@ public class UpdateRankingsTest {
 
                 assertEquals("rankingsTestLeague", updateRankingsOutputData.getLeague().getId());
             }
+
+            @Override
+            public void prepareFailView(String errorMessage) {
+                fail("Use case failure is unexpected");
+            }
+
+
         };
+
 
         UpdateRankingsInputBoundary interactor = new UpdateRankingsInteractor(guardianDataAccessObject,
                 successPresenter, leagueRepository);
         interactor.execute(inputData);
 
+
     }
 
+    @Test
+    void failTest() throws FileNotFoundException {
+        UpdateRankingsInputData failInputData = new UpdateRankingsInputData("");
 
-    private GuardianDataAccessObject makeGuardianDataAccessObject() throws FileNotFoundException {
-        try {
-            String apiKey = new Scanner(new File("guardianAPIToken.txt")).nextLine();
-            return new GuardianDataAccessObject(apiKey);
-        }
 
-        catch (FileNotFoundException e) {
-            System.out.println("Need to find API token, and call the file GuardianAPIToken");
-            return null;
-        }
+        GuardianDataAccessObject guardianDataAccessObject = new GuardianDataAccessObject("c7dda92e-78d1-440d-a3b7-ee3d27ee35be");
+
+        UpdateRankingsLeagueDataAccessInterface failLeagueRepository = new InMemoryLeagueDataAccessObject();
+        LeagueFactory leagueFactory = new LeagueFactory();
+        League failLeague = leagueFactory.create("notempty", new ArrayList<>());
+        failLeagueRepository.save(failLeague);
+
+        UpdateRankingsOutputBoundary failPresenter = new UpdateRankingsOutputBoundary() {
+            @Override
+            public void execute(UpdateRankingsOutputData updateRankingsOutputData) {
+                fail("Use case failure is expected");
+            }
+
+            @Override
+            public void prepareFailView(String errorMessage) {
+                assertEquals("League Does Not Exist", errorMessage);
+            }
+
+        };
+
+        UpdateRankingsInputBoundary failInteractor = new UpdateRankingsInteractor(guardianDataAccessObject,
+                failPresenter, failLeagueRepository);
+        failInteractor.execute(failInputData);
     }
 }
