@@ -1,7 +1,7 @@
 package usecase.navigation.signup;
 
-import entity.Users.User;
-import entity.Users.UserFactory;
+import entity.User;
+import entity.UserFactory;
 
 /**
  * The Signup Interactor.

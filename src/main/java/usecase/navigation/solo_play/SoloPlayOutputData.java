@@ -1,6 +1,6 @@
 package usecase.navigation.solo_play;
 
-import entity.Users.User;
+import entity.User;
 
 public class SoloPlayOutputData {
 

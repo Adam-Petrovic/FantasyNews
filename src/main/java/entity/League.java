@@ -1,6 +1,6 @@
-package entity.League;
+package entity;
 
-import entity.Users.User;
+import entity.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;

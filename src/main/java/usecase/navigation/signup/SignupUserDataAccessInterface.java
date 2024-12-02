@@ -1,6 +1,6 @@
 package usecase.navigation.signup;
 
-import entity.Users.User;
+import entity.User;
 
 /**
  * DAO for the Signup Use Case.

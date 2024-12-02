@@ -42,9 +42,8 @@ public class Main {
                                             .addGoHomeUseCase()
                                             .build();
 
-
-        application.setSize(2000,2000);
         application.setVisible(true);
+        application.pack();
 
     }
 }
