@@ -1,12 +1,11 @@
 package entity;
-import data_access.Constants;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
+import java.util.Map;
 
+import data_access.Constants;
 
 /**
  * A simple implementation of the User interface.
@@ -15,15 +14,15 @@ public class CommonUser implements User {
 
     private final String name;
     private final String password;
-    private int leaguePoints = 0;
-    private int liveLeaguePoints = 0;
-    private final HashMap<String, String> words = new HashMap<>();
-    private final HashMap<String,Integer> wordPointsForCategory = new HashMap<>();
+    private int leaguePoints;
+    private int liveLeaguePoints;
+    private final Map<String, String> words = new HashMap<>();
+    private final Map<String, Integer> wordPointsForCategory = new HashMap<>();
     private final String[] leagueWords;
     private final List<User> friends = new ArrayList<>();
     private ArrayList<String> leagueIDs;
 
-    public CommonUser(String name, String password, String[] terms, ArrayList<String> leagueIDs){
+    public CommonUser(String name, String password, String[] terms, ArrayList<String> leagueIDs) {
         createWordMap(terms);
         this.name = name;
         this.password = password;
@@ -36,21 +35,9 @@ public class CommonUser implements User {
         this.password = password;
         this.leagueIDs = new ArrayList<>();
 
-        //this.leagueWords = new String[]{"meow", "woof", "bark", "purr", "growl"};
         this.leagueWords = Constants.DEFAULT_WORDS;
 
         createWordMap();
-//        if (draftedWords.length > Constants.NUM_CATEGORIES) {
-//            throw new InstantiationError("Inputted Words are too long");
-//        }
-//
-//        else if (hasDuplicates(draftedWords)) {
-//            throw new InstantiationError("Duplicated words in drafted word list");
-//        }
-
-//        else {
-//            createWordMap(draftedWords);
-//        }
     }
 
     public CommonUser(String name, String password, String[] terms) {
@@ -77,11 +64,6 @@ public class CommonUser implements User {
         }
     }
 
-//    private boolean hasDuplicates(String[] draftedWords) {
-//        Set<String> simplifiedWords = new HashSet<>(List.of(draftedWords));
-//        return draftedWords.length == simplifiedWords.size();
-//    }
-
     @Override
     public String getName() {
         return name;
@@ -104,16 +86,20 @@ public class CommonUser implements User {
 
     @Override
     public String[] getWords() {
-        String[] words = new String[Constants.NUM_CATEGORIES];
-        for(int index = 0; index < Constants.NUM_CATEGORIES; index++) {
-            words[index] = this.words.get(Constants.CATEGORIES[index]);
+        String[] userWords = new String[Constants.NUM_CATEGORIES];
+        for (int index = 0; index < Constants.NUM_CATEGORIES; index++) {
+            userWords[index] = this.words.get(Constants.CATEGORIES[index]);
         }
-        return words;
+        return userWords;
     }
 
+    /**
+     * Sets the field words, given the input array of new words.
+     * @param newWords a String array of new words.
+     */
     public void setWords(String[] newWords) {
-        for(int index = 0; index < Constants.NUM_CATEGORIES; index++) {
-            words.replace(Constants.CATEGORIES[index],  newWords[index]);
+        for (int index = 0; index < Constants.NUM_CATEGORIES; index++) {
+            words.replace(Constants.CATEGORIES[index], newWords[index]);
         }
     }
 
@@ -133,17 +119,17 @@ public class CommonUser implements User {
     }
 
     @Override
-    public Integer[] getAllPoints(){
-        Integer[] words = new Integer[Constants.NUM_CATEGORIES];
-        for(int index = 0; index < Constants.NUM_CATEGORIES; index++) {
-            words[index] = (Integer) this.wordPointsForCategory.get(Constants.CATEGORIES[index]);
+    public Integer[] getAllPoints() {
+        Integer[] wordPoints = new Integer[Constants.NUM_CATEGORIES];
+        for (int index = 0; index < Constants.NUM_CATEGORIES; index++) {
+            wordPoints[index] = (Integer) this.wordPointsForCategory.get(Constants.CATEGORIES[index]);
         }
-        return words;
+        return wordPoints;
     }
 
     @Override
     public void setPoints(int[] points) {
-        for(int index = 0; index < Constants.NUM_CATEGORIES; index++) {
+        for (int index = 0; index < Constants.NUM_CATEGORIES; index++) {
             this.wordPointsForCategory.replace(Constants.CATEGORIES[index], points[index]);
         }
     }
@@ -153,27 +139,32 @@ public class CommonUser implements User {
         this.friends.add(friend);
     }
 
+    @Override
     public List<User> getFriends() {
         return this.friends;
     }
 
     @Override
-    public ArrayList<String> getLeagueIDs(){
+    public ArrayList<String> getLeagueIDs() {
         return this.leagueIDs;
     }
 
+    @Override
     public void setLeagueIDs(ArrayList<String> leagueIDs) {
         this.leagueIDs = leagueIDs;
     }
 
-    public String[] getLeagueWords(){
+    @Override
+    public String[] getLeagueWords() {
         return this.leagueWords;
     }
 
+    @Override
     public int getLiveLeaguePoints() {
         return liveLeaguePoints;
     }
 
+    @Override
     public void setLiveLeaguePoints(int liveLeaguePoints) {
         this.liveLeaguePoints = liveLeaguePoints;
     }

@@ -1,23 +1,17 @@
-package usecase.to_friends;
+package usecase.add_new_friend;
 
 import entity.User;
 
 /**
- * DAO for the to_friends use case.
+ * DAO for add new friend use case.
  */
-public interface FriendsUserDataAccessInterface {
+public interface AddNewFriendUserDataAccessInterface {
     /**
      * Gets the user from the database by searching the username.
      * @param username the user's name.
      * @return a User.
      */
     User get(String username);
-
-    /**
-     * Saves the user.
-     * @param user user.
-     */
-    void save(User user);
 
     /**
      * Return a boolean to show whether the friend exists by name.

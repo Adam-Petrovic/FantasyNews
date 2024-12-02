@@ -27,9 +27,7 @@ public class AddNewFriendInteractor implements AddNewFriendInputBoundary {
     @Override
     public void execute(AddNewFriendInputData addNewFriendInputData) {
         User user = userDataAccessObject.get(addNewFriendInputData.getUsername());
-        // List<User> friends = user.getFriends();
         Map<User, Integer> userPoints = new HashMap<>();
-        // userPoints.put(user, sumPoints(getInts(user)));
         if (addNewFriendInputData.getFriendUsername().equals(addNewFriendInputData.getUsername())) {
             addNewFriendPresenter.prepareFailView("You cannot add yourself as a friend :(");
         }
