@@ -2,6 +2,8 @@ package usecase.selectwordsuserstory.draft_words;
 
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 /**
  * Contains the methods that draft words use case needs in DAO.
  */
@@ -28,4 +30,10 @@ public interface DraftWordsLeagueDataAccessInterface {
      */
     String[] draftWord(String username, Integer categoryNum, String newWord, String leagueID);
 
+    /**
+     * Gets all the words in a league.
+     * @param leagueID The league being checked.
+     * @return The words in the league.
+     */
+    ArrayList<String> getAllWords(String leagueID);
 }
