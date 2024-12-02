@@ -12,4 +12,10 @@ public interface UpdateRankingsOutputBoundary {
      *                                 the live rankings, historical rankings, and league information
      */
     void execute(UpdateRankingsOutputData updateRankingsOutputData);
+
+    /**
+     * Prepares fail view.
+     * @param errorMessage error message.
+     */
+    void prepareFailView(String errorMessage);
 }

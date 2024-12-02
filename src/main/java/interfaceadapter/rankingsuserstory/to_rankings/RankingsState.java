@@ -11,6 +11,7 @@ import entity.User;
 public class RankingsState {
     private League league;
     private User user;
+    private String errorMessage;
 
     /**
      * Retrieves the current league associated with the rankings state.
@@ -38,4 +39,23 @@ public class RankingsState {
     public User getUser() {
         return user;
     }
+
+    /**
+     * Sets an error message describing an issue with the state.
+     *
+     * @param errorMessage the error message to be set.
+     */
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
+    /**
+     * Gets the error message associated with the state.
+     *
+     * @return the error message.
+     */
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
 }

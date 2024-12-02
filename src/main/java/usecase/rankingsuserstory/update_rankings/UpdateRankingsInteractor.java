@@ -34,38 +34,46 @@ public class UpdateRankingsInteractor implements UpdateRankingsInputBoundary {
     public void execute(UpdateRankingsInputData updateRankingsInputData) {
 
         String leagueID = updateRankingsInputData.getLeague();
-        ArrayList<String> leagueIDArray = new ArrayList<>();
-        leagueIDArray.add(leagueID);
+        boolean leagueExists = leagueDataAccessInterface.leagueExists(leagueID);
 
-        ArrayList<User> liveRankings = new ArrayList<>();
-        ArrayList<User> historicalRankings = new ArrayList<>();
-
-        ArrayList<League> leagues = leagueDataAccessInterface.getLeagues(leagueIDArray);
-        League leagueOutput = leagues.get(0);
-        Map<String, String[]> league = leagueOutput.getData();
-        ArrayList<User> users = leagueOutput.getUserObjArr();
-        int j = 0;
-
-        for (String username : league.keySet()) {
-            String[] words = league.get(username);
-            int total = 0;
-            User user = users.get(j);
-            for (int index = 0; index < Constants.NUM_CATEGORIES; index++) {
-                total += guardianDataAccessInterface.getPointsForCategory(words[index]);
-            }
-            user.setLiveLeaguePoints(total);
-            user.setLeaguePoints((int) Float.parseFloat(words[Constants.NUM_CATEGORIES]));
-            liveRankings.add(user);
-            historicalRankings.add(user);
-
-            j++;
+        if (!leagueExists) {
+            updateRankingsPresenter.prepareFailView("League Does Not Exist");
         }
+        else {
+            ArrayList<String> leagueIDArray = new ArrayList<>();
+            leagueIDArray.add(leagueID);
 
-        liveRankings.sort(Comparator.comparingInt(User::getLiveLeaguePoints));
-        historicalRankings.sort(Comparator.comparingInt(User::getLeaguePoints));
-        UpdateRankingsOutputData outputData = new UpdateRankingsOutputData(liveRankings, leagueOutput,
-                historicalRankings);
-        updateRankingsPresenter.execute(outputData);
+            ArrayList<User> liveRankings = new ArrayList<>();
+            ArrayList<User> historicalRankings = new ArrayList<>();
+
+            ArrayList<League> leagues = leagueDataAccessInterface.getLeagues(leagueIDArray);
+            League leagueOutput = leagues.get(0);
+            Map<String, String[]> league = leagueOutput.getData();
+            ArrayList<User> users = leagueOutput.getUserObjArr();
+            int j = 0;
+
+            for (String username : league.keySet()) {
+                String[] words = league.get(username);
+                int total = 0;
+                User user = users.get(j);
+                for (int index = 0; index < Constants.NUM_CATEGORIES; index++) {
+                    total += guardianDataAccessInterface.getPointsForCategory(words[index]);
+                }
+                user.setLiveLeaguePoints(total);
+                user.setLeaguePoints((int) Float.parseFloat(words[Constants.NUM_CATEGORIES]));
+                liveRankings.add(user);
+                historicalRankings.add(user);
+
+                j++;
+            }
+
+            liveRankings.sort(Comparator.comparingInt(User::getLiveLeaguePoints));
+            historicalRankings.sort(Comparator.comparingInt(User::getLeaguePoints));
+            UpdateRankingsOutputData outputData = new UpdateRankingsOutputData(liveRankings, leagueOutput,
+                    historicalRankings);
+            updateRankingsPresenter.execute(outputData);
+
+        }
 
     }
 }

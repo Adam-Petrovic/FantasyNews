@@ -5,17 +5,14 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 import data_access.Constants;
 import entity.League;
 import entity.User;
+import interfaceadapter.leagueuserstory.to_league.LeagueState;
 import interfaceadapter.navigation.go_home.GoHomeController;
+import interfaceadapter.rankingsuserstory.to_rankings.RankingsState;
 import interfaceadapter.rankingsuserstory.to_rankings.RankingsViewModel;
 import interfaceadapter.rankingsuserstory.update_rankings.UpdateRankingsController;
 
@@ -34,6 +31,7 @@ public class RankingsView extends JPanel implements PropertyChangeListener {
     private JPanel displayRankingsPanel;
     private JScrollPane liveSp;
     private JScrollPane historicalSp;
+    private JTextField rankingsLeagueID;
 
     public RankingsView(RankingsViewModel rankingsViewModel) {
         this.league = new League();
@@ -50,7 +48,7 @@ public class RankingsView extends JPanel implements PropertyChangeListener {
         JButton updateRankings = new JButton("Update Rankings");
         displayRankingsPanel.add(updateRankings);
 
-        JTextField rankingsLeagueID = new JTextField("Enter LeagueID");
+        rankingsLeagueID = new JTextField("Enter LeagueID");
 
         rankingsLeagueID.setMaximumSize(new Dimension(Constants.FIELD_WIDTH, Constants.FIELD_HEIGHT));
         displayRankingsPanel.add(rankingsLeagueID);
@@ -89,6 +87,11 @@ public class RankingsView extends JPanel implements PropertyChangeListener {
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        final RankingsState state = (RankingsState) evt.getNewValue();
+        if (state.getErrorMessage() != null) {
+            JOptionPane.showMessageDialog(this, state.getErrorMessage());
+        }
+
         displayRankingsPanel.remove(liveSp);
         displayRankingsPanel.remove(historicalSp);
 

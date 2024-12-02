@@ -1,6 +1,7 @@
 package interfaceadapter.rankingsuserstory.update_rankings;
 
 import interfaceadapter.ViewManagerModel;
+import interfaceadapter.leagueuserstory.to_league.LeagueState;
 import interfaceadapter.rankingsuserstory.to_rankings.RankingsState;
 import interfaceadapter.rankingsuserstory.to_rankings.RankingsViewModel;
 import usecase.rankingsuserstory.update_rankings.UpdateRankingsOutputBoundary;
@@ -34,6 +35,14 @@ public class UpdateRankingsPresenter implements UpdateRankingsOutputBoundary {
 
         viewManagerModel.setState(rankingsViewModel.getViewName());
         viewManagerModel.firePropertyChanged();
+    }
+
+    @Override
+    public void prepareFailView(String errorMessage) {
+        RankingsState rankingsState = rankingsViewModel.getState();
+        rankingsState.setErrorMessage(errorMessage);
+        rankingsViewModel.setState(rankingsState);
+        rankingsViewModel.firePropertyChanged();
     }
 
 }
