@@ -37,12 +37,3 @@ build/
 
 ### Mac OS ###
 .DS_Store
-
-### Our API TOKEN! ###
-src/main/resources/apikeys/guardianAPIToken.txt
-
-### Pantry API Key ###
-pantryAPIkey.txt
-pantryAPIkeyLeague.txt
-src/main/resources/apikeys/leagueKey.txt
-src/main/resources/apikeys/userKey.txt
