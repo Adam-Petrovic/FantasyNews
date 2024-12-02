@@ -57,33 +57,18 @@ Users are also able to add friends and view live and historical rankings for any
 
 ### Usage
 1. Run main:
-2. Sign up and log in.
+   ```bash
+   java main
+   ```
+2. Sign up and log in to arrive at the home page and explore all the views.
 ---
 
 ### License
 MIT license.
 
---
+---
 
-
-
-
-Alexandros Pratsos - Pratsosa  
-Adam Petrovic - Adam-Petrovic  
-Evelyn Hughes - EveHughes  
-Hugo Fuhrer - Hugo-fuhrer  
-Yibing Xia - jennifer1046  
-
-Our group task is task 1  
-
-Alexandros Pratsos is completing task 2  
-Adam Petrovic is completing task 3  
-Evelyn Hughes is completing task 4  
-Hugo Fuhrer is completing task 5  
-Yibing Xia is completing task 6  
-
-Tasks/Project Blueprint can be found in this [link](https://docs.google.com/document/d/1Q1Z9kBl2Huhp6V3-i3qPANTCCzPoLs2BD_COMZS6cts/edit?usp=sharing)
-
-Updates for week 10:
-Alex - Implemented PantryDAO (a user data access object which stores data in cloud) and integrated it with soloPlay. Also created a unit test for addWord use case  
-Adam - Added GuardianAPI to update points, integrated with user data access objects. Added LeagueView. Fixed updatePoints use case. Also created unit test for updatePoints.
+### Feedback and Contribution
+Feedback to improve this app is welcome! If you found a bug or if you wish to suggest an improvement, please contact us at:  
+**fantasynewsproject@gmail.com**.
+Also, if you wish to contribute to this repository, you can choose to fork the repo and create pull requests for code review.
