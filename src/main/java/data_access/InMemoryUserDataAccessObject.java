@@ -12,6 +12,7 @@ import use_case.login.LoginUserDataAccessInterface;
 import use_case.logout.LogoutUserDataAccessInterface;
 import use_case.signup.SignupUserDataAccessInterface;
 import use_case.solo_play.SoloPlayUserDataAccessInterface;
+import use_case.to_league_actions.ToLeagueActionsUserDataAccessInterface;
 import use_case.update_leagues.UpdateLeaguesUserDataAccessInterface;
 import use_case.update_rankings.UpdateRankingsLeagueDataAccessInterface;
 import use_case.update_rankings.UpdateRankingsUserDataAccessInterface;
@@ -27,7 +28,8 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
         SoloPlayUserDataAccessInterface,
         FriendsUserDataAccessInterface,
         UpdateRankingsUserDataAccessInterface,
-        UpdateLeaguesUserDataAccessInterface {
+        UpdateLeaguesUserDataAccessInterface,
+        ToLeagueActionsUserDataAccessInterface {
 
     private final Map<String, User> users = new HashMap<>();
 

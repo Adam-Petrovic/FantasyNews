@@ -2,6 +2,7 @@ package data_access;
 
 import entity.League;
 import entity.User;
+import use_case.to_league_actions.ToLeagueActionsLeagueDataAccessInterface;
 import use_case.update_leagues.UpdateLeaguesLeagueDataAccessInterface;
 import use_case.update_rankings.UpdateRankingsLeagueDataAccessInterface;
 
@@ -10,7 +11,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class InMemoryLeagueDataAccessObject implements UpdateRankingsLeagueDataAccessInterface,
-                                                       UpdateLeaguesLeagueDataAccessInterface {
+                                                       UpdateLeaguesLeagueDataAccessInterface,
+                                                       ToLeagueActionsLeagueDataAccessInterface {
 
     private final Map<String, League> leagues = new HashMap<>();
 

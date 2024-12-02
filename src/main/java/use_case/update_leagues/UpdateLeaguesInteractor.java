@@ -53,10 +53,7 @@ public class UpdateLeaguesInteractor implements UpdateLeaguesInputBoundary{
             //creates new league
             leagueDataAccessObject.saveNewLeague(leagueID, username);
         }
-        //no leagues, then keep original view, so no presenter needed
-        if(userLeagueIDList.isEmpty()){
-            return;
-        }
+
         ArrayList<League> userLeagueList = leagueDataAccessObject.getLeagues(userLeagueIDList);
         UpdateLeaguesOutputData updateLeaguesOutputData = new UpdateLeaguesOutputData(username, userLeagueList);
         this.updateLeaguesPresenter.prepareSuccessView(updateLeaguesOutputData);
