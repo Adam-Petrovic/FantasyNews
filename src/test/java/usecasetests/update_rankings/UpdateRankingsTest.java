@@ -1,8 +1,8 @@
 package usecasetests.update_rankings;
 
-import data_access.GuardianDataAccessObject;
-import data_access.InMemoryLeagueDataAccessObject;
-import data_access.InMemoryUserDataAccessObject;
+import dataaccess.GuardianDataAccessObject;
+import dataaccess.InMemoryLeagueDataAccessObject;
+import dataaccess.InMemoryUserDataAccessObject;
 import entity.*;
 import org.junit.jupiter.api.Test;
 import usecase.rankingsuserstory.update_rankings.*;

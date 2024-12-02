@@ -14,7 +14,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 // Application-specific imports
-import data_access.Constants;
+import dataaccess.Constants;
 import entity.League;
 import entity.User;
 import interfaceadapter.leagueuserstory.to_league_actions.LeagueActionsViewModel;

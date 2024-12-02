@@ -1,6 +1,6 @@
 package usecase.pointsuserstory.update_solo_points;
 
-import data_access.Constants;
+import dataaccess.Constants;
 import entity.User;
 
 public class UpdatePointsInteractor implements UpdateSoloPlayPointsInputBoundary {

@@ -1,6 +1,6 @@
 package usecasetests.draft_words;
 
-import data_access.InMemoryLeagueDataAccessObject;
+import dataaccess.InMemoryLeagueDataAccessObject;
 import entity.League;
 import entity.LeagueFactory;
 import org.junit.jupiter.api.Test;

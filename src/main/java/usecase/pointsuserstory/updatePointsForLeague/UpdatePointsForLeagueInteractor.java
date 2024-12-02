@@ -2,7 +2,7 @@ package usecase.pointsuserstory.updatePointsForLeague;
 
 import java.util.ArrayList;
 
-import data_access.Constants;
+import dataaccess.Constants;
 import entity.User;
 
 public class UpdatePointsForLeagueInteractor implements UpdatePointsForLeagueInputBoundary {

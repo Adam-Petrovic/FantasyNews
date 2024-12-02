@@ -1,6 +1,6 @@
 package interfaceadapter.leagueuserstory.to_league;
 
-import data_access.Constants;
+import dataaccess.Constants;
 import interfaceadapter.ViewModel;
 
 /**

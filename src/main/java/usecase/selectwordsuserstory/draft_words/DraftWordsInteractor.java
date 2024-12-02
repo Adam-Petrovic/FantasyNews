@@ -1,6 +1,6 @@
 package usecase.selectwordsuserstory.draft_words;
 
-import data_access.Constants;
+import dataaccess.Constants;
 
 /**
  * Interactor for Draft Words Use Case.

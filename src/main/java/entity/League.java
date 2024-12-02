@@ -3,7 +3,7 @@ package entity;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import data_access.Constants;
+import dataaccess.Constants;
 
 /**
  * The league entity.

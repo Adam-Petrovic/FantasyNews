@@ -1,7 +1,7 @@
 package usecasetests.to_league_actions;
 
-import data_access.InMemoryLeagueDataAccessObject;
-import data_access.InMemoryUserDataAccessObject;
+import dataaccess.InMemoryLeagueDataAccessObject;
+import dataaccess.InMemoryUserDataAccessObject;
 import entity.CommonUserFactory;
 import entity.League;
 import entity.LeagueFactory;

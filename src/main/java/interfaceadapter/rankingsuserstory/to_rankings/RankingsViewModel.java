@@ -1,6 +1,6 @@
 package interfaceadapter.rankingsuserstory.to_rankings;
 
-import data_access.Constants;
+import dataaccess.Constants;
 import interfaceadapter.ViewModel;
 
 /**

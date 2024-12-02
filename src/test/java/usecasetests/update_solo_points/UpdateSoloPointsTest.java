@@ -1,7 +1,7 @@
 package usecasetests.update_solo_points;
 
-import data_access.Constants;
-import data_access.GuardianDataAccessObject;
+import dataaccess.Constants;
+import dataaccess.GuardianDataAccessObject;
 import entity.CommonUser;
 import entity.User;
 import org.junit.jupiter.api.Test;

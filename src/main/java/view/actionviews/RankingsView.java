@@ -11,7 +11,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-import data_access.Constants;
+import dataaccess.Constants;
 import entity.League;
 import entity.User;
 import interfaceadapter.navigation.go_home.GoHomeController;

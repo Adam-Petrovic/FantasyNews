@@ -1,6 +1,6 @@
 package entitytests.CommonUserTests;
 
-import data_access.Constants;
+import dataaccess.Constants;
 import entity.CommonUser;
 import org.junit.Test;
 
