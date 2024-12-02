@@ -20,6 +20,7 @@ public class DraftWordsPresenter implements DraftWordsOutputBoundary {
     public void showDraftedWords(DraftWordsOutputData draftWordsOutputData) {
         final DraftState draftState = draftViewModel.getState();
         draftState.setWords(draftWordsOutputData.getWords());
+        draftState.setDraftError(null);
         draftViewModel.setState(draftState);
         draftViewModel.firePropertyChanged();
 
