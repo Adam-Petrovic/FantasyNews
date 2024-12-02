@@ -11,6 +11,13 @@ import entity.League;
 public interface UpdateRankingsLeagueDataAccessInterface {
 
     /**
+     * Sees if league exists.
+     * @param leagueID leagueID.
+     * @return if league exists.
+     */
+    boolean leagueExists(String leagueID);
+
+    /**
      * Saves the specified {@code League} object to the data store.
      *
      * @param league the {@code League} object to be saved

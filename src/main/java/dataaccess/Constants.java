@@ -4,6 +4,8 @@ public class Constants {
     public static final String[] CATEGORIES = {"Sports", "Film", "Politics", "Environment", "Wildcard"};
     public static final int NUM_CATEGORIES = CATEGORIES.length;
     public static final int DEFAULT_ROWS = 3;
+    public static final int FIELD_HEIGHT = 30;
+    public static final int FIELD_WIDTH = 150;
     public static final String SOLO_PLAY_VIEW_NAME = "solo_play";
     public static final String LEAGUE_VIEW_NAME = "league";
     public static final String ADD_FRIENDS_VIEW_NAME = "add friends";
