@@ -121,6 +121,9 @@ import view.leagueviews.DraftView;
 import view.leagueviews.LeagueActionsView;
 import view.leagueviews.LeagueView;
 
+/**
+ * App builder creates our app using builder design pattern.
+ */
 @SuppressWarnings({"checkstyle:ClassDataAbstractionCoupling", "checkstyle:SuppressWarnings", "checkstyle:ClassFanOutComplexity", "checkstyle:LineLength"})
 public class AppBuilder {
     private final JPanel cardPanel = new JPanel();
