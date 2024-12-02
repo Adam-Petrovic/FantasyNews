@@ -9,7 +9,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
 
-import data_access.*;
+import data_access.Constants;
+import data_access.GuardianDataAccessObject;
+import data_access.PantryLeagueDataAccessObject;
+import data_access.PantryUserDataAccessObject;
 import entity.CommonUserFactory;
 import entity.LeagueFactory;
 import entity.UserFactory;
@@ -107,7 +110,7 @@ import usecase.selectwordsuserstory.draft_words.DraftWordsOutputBoundary;
 import usecase.selectwordsuserstory.to_draft.ToDraftInputBoundary;
 import usecase.selectwordsuserstory.to_draft.ToDraftInteractor;
 import usecase.selectwordsuserstory.to_draft.ToDraftOutputBoundary;
-import view.*;
+import view.ViewManager;
 import view.accountviews.LoginView;
 import view.accountviews.SignupView;
 import view.actionviews.FriendsView;
@@ -148,11 +151,14 @@ public class AppBuilder {
     private DraftView draftView;
     private LeagueActionsView leagueActionsView;
 
-
     public AppBuilder() {
         cardPanel.setLayout(cardLayout);
     }
 
+    /**
+     * Adds UpdateLeaguesUseCase.
+     * @return the UpdateLeaguesUseCase
+     */
     public AppBuilder addUpdateLeaguesUseCase() {
         final UpdateLeaguesOutputBoundary updateLeaguesPresenter = new UpdateLeaguesPresenter(viewManagerModel, leagueViewModel);
         final UpdateLeaguesInputBoundary updateLeaguesInteractor = new UpdateLeaguesInteractor(updateLeaguesPresenter,
@@ -319,7 +325,9 @@ public class AppBuilder {
             final AddNewFriendInputBoundary addNewFriendInteractor = new AddNewFriendInteractor(addNewFriendPresenter, userDataAccessObject, guardianDataAccessObject);
             final AddNewFriendController controller = new AddNewFriendController(addNewFriendInteractor);
             friendsView.setAddNewFriendController(controller);
-        } catch (FileNotFoundException exception) {
+        }
+
+        catch (FileNotFoundException exception) {
             exception.printStackTrace();
         }
         return this;
@@ -346,31 +354,39 @@ public class AppBuilder {
         final UpdatePointsForLeagueDataAccessObject updatePointsForLeagueDataAccessObject;
         try {
             updatePointsForLeagueDataAccessObject = makeGuardianDataAccessObject();
-        } catch (FileNotFoundException exception) {
+            final UpdatePointsForLeagueInputBoundary updateLeaguePointsInteractor =
+                    new UpdatePointsForLeagueInteractor(updatePointsForLeagueDataAccessObject);
+            final UpdateLeaguePointsController controller =
+                    new UpdateLeaguePointsController(updateLeaguePointsInteractor);
+            leagueActionsView.setUpdatePointsForLeagueController(controller);
+        }
+
+        catch (FileNotFoundException exception) {
             exception.printStackTrace();
         }
 
-        final UpdatePointsForLeagueInputBoundary updateLeaguePointsInteractor = new UpdatePointsForLeagueInteractor(updatePointsForLeagueDataAccessObject);
-        final UpdateLeaguePointsController controller = new UpdateLeaguePointsController(updateLeaguePointsInteractor);
-        leagueActionsView.setUpdatePointsForLeagueController(controller);
         return this;
     }
 
+    /**
+     * Adds the UpdateLeaguePointsUseCase to the builder.
+     * @return the UpdateLeaguePointsUseCase
+     */
     public AppBuilder addUpdateLeaguePointsUseCase() {
-        try {
-
-            final AwardLeaguePointsInputBoundary awardLeaguePointsInputBoundary = new AwardLeaguePointsInteractor(leagueDataAccessObject);
-            final RoundLeaguePointsInputBoundary roundLeaguePointsInteractor = new RoundLeaguePointsInteractor(leagueDataAccessObject);
-
-            final AwardLeaguePointsController controller = new AwardLeaguePointsController(awardLeaguePointsInputBoundary, roundLeaguePointsInteractor);
-            leagueView.setAwardLeaguePointsController(controller);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        final AwardLeaguePointsInputBoundary awardLeaguePointsInputBoundary =
+                new AwardLeaguePointsInteractor(leagueDataAccessObject);
+        final RoundLeaguePointsInputBoundary roundLeaguePointsInteractor =
+                new RoundLeaguePointsInteractor(leagueDataAccessObject);
+        final AwardLeaguePointsController controller =
+                new AwardLeaguePointsController(awardLeaguePointsInputBoundary, roundLeaguePointsInteractor);
+        leagueView.setAwardLeaguePointsController(controller);
         return this;
     }
 
+    /**
+     * Adds the ToLeagueUseCase functionality.
+     * @return the ToLeagueUseCase functionality
+     */
     public AppBuilder addToLeagueUseCase() {
         final LeagueOutputBoundary leaguePresenter = new LeaguePresenter(viewManagerModel, leagueViewModel);
         final LeagueController leagueController = new LeagueController(leaguePresenter);
@@ -378,6 +394,10 @@ public class AppBuilder {
         return this;
     }
 
+    /**
+     * Adds the ToRankingsView.
+     * @return the ToRankingsView
+     */
     public AppBuilder addToRankingsView() {
         rankingsViewModel = new RankingsViewModel();
         rankingsView = new RankingsView(rankingsViewModel);
@@ -385,6 +405,10 @@ public class AppBuilder {
         return this;
     }
 
+    /**
+     * Adds the ToRankingsUseCase.
+     * @return the ToRankingsUseCase
+     */
     public AppBuilder addToRankingsUseCase() {
         final RankingsOutputBoundary rankingsPresenter = new RankingsPresenter(viewManagerModel, rankingsViewModel);
         final RankingsController rankingsController = new RankingsController(rankingsPresenter);
@@ -397,12 +421,17 @@ public class AppBuilder {
             final UpdateRankingsController updateRankingsController = new UpdateRankingsController(updateRankingsInteractor);
             rankingsView.setUpdateRankingsController(updateRankingsController);
             loggedInView.setToRankingsController(rankingsController);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        }
+        catch (FileNotFoundException exception) {
+            exception.printStackTrace();
         }
         return this;
     }
 
+    /**
+     * Adds the SoloPlayUseCase to the project.
+     * @return the SoloPlayUseCase
+     */
     public AppBuilder addSoloPlayUseCase() {
         final SoloPlayOutputBoundary soloPlayPresenter = new SoloPlayPresenter(viewManagerModel, soloPlayViewModel);
         final SoloPlayInputBoundary soloPlayInteractor = new SoloPlayInteractor(soloPlayPresenter, userDataAccessObject);
@@ -416,8 +445,10 @@ public class AppBuilder {
             final UpdateSoloPlayPointsController updatePointsController = new UpdateSoloPlayPointsController(updatePointsInteractor);
             loggedInView.setSoloPlayController(soloPlayController);
             soloPlayView.setUpdatePointsConroller(updatePointsController);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        }
+
+        catch (FileNotFoundException exception) {
+            exception.printStackTrace();
         }
         return this;
     }
@@ -426,7 +457,9 @@ public class AppBuilder {
         try {
             String apiKey = new Scanner(new File("src/main/resources/apikeys/guardianAPIToken.txt")).nextLine();
             return new GuardianDataAccessObject(apiKey);
-        } catch (FileNotFoundException e) {
+        }
+
+        catch (FileNotFoundException exception) {
             System.out.println("Need to find API token, and call the file GuardianAPIToken");
             return null;
         }
@@ -487,11 +520,6 @@ public class AppBuilder {
         loginView.setLoginController(loginController);
         return this;
     }
-
-    /**
-     * Adds the Change Password Use Case to the application.
-     * @return this builder
-     */
 
     /**
      * Adds the Logout Use Case to the application.
