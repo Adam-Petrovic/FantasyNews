@@ -17,12 +17,11 @@ public class League {
     private ArrayList<User> historicalRankings;
     private ArrayList<User> userObjArr = new ArrayList<>();
 
-    /**
-     * Return an arraylist of String representing users.
-     * @return users.
-     */
-    public ArrayList<String> getUsers() {
-        return users;
+    public League(String id, ArrayList<String> users, HashMap<String, String[]> data) {
+        this.id = id;
+        this.users = users;
+        this.data = data;
+        this.userObjArr = makeUserObjArray(data);
     }
 
     public League() {
@@ -47,6 +46,14 @@ public class League {
     }
 
     /**
+     * Return an arraylist of String representing users.
+     * @return users.
+     */
+    public ArrayList<String> getUsers() {
+        return users;
+    }
+
+    /**
      * Sets the data field to user and words pairs, and sets the userObjArr.
      * @param user String of username
      * @param words String array of words
@@ -64,21 +71,14 @@ public class League {
         return userObjArr;
     }
 
-    public League(String id, ArrayList<String> users, HashMap<String, String[]> data) {
-        this.id = id;
-        this.users = users;
-        this.data = data;
-        this.userObjArr = makeUserObjArray(data);
-    }
-
-    private ArrayList<User> makeUserObjArray(HashMap<String, String[]> data) {
-        ArrayList<User> users = new ArrayList<>();
-        for (String user : data.keySet()) {
-            System.out.println(data.get(user).length);
-            User user1 = new CommonUser(user, "", data.get(user));
-            users.add(user1);
+    private ArrayList<User> makeUserObjArray(HashMap<String, String[]> leagueData) {
+        ArrayList<User> leagueUsers = new ArrayList<>();
+        for (String user : leagueData.keySet()) {
+            System.out.println(leagueData.get(user).length);
+            User user1 = new CommonUser(user, "", leagueData.get(user));
+            leagueUsers.add(user1);
         }
-        return users;
+        return leagueUsers;
     }
 
     /**
