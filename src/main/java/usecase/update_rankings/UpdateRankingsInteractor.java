@@ -1,43 +1,35 @@
 package usecase.update_rankings;
 
-import data_access.Constants;
-import entity.League;
-import entity.User;
-import data_access.GuardianDataAccessObject;
-
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.HashMap;
+import java.util.Map;
 
-public class UpdateRankingsInteractor implements UpdateRankingsInputBoundary{
+import data_access.Constants;
+import data_access.GuardianDataAccessObject;
+import entity.League;
+import entity.User;
+
+/**
+ * The {@code UpdateRankingsInteractor} class implements the business logic for updating user rankings
+ * within a specific league. This class retrieves league and user data, calculates live and historical
+ * league points for users, and sorts the rankings based on these points.
+ *
+ * <p>This interactor communicates with data access interfaces to retrieve necessary information
+ * and uses a presenter to output the updated rankings.
+ */
+public class UpdateRankingsInteractor implements UpdateRankingsInputBoundary {
     private final GuardianDataAccessObject guardianDataAccessObject;
     private final UpdateRankingsOutputBoundary updateRankingsPresenter;
     private final UpdateRankingsLeagueDataAccessInterface leagueDataAccessInterface;
-    private final UpdateRankingsUserDataAccessInterface userDataAccessInterface;
-
 
     public UpdateRankingsInteractor(GuardianDataAccessObject guardianDataAccessObject,
                                     UpdateRankingsOutputBoundary updateRankingsPresenter,
-                                    UpdateRankingsLeagueDataAccessInterface leagueDataAccessInterface,
-                                    UpdateRankingsUserDataAccessInterface userDataAccessInterface) {
+                                    UpdateRankingsLeagueDataAccessInterface leagueDataAccessInterface) {
 
         this.guardianDataAccessObject = guardianDataAccessObject;
         this.updateRankingsPresenter = updateRankingsPresenter;
         this.leagueDataAccessInterface = leagueDataAccessInterface;
-        this.userDataAccessInterface = userDataAccessInterface;
     }
-//
-//    public void sleep(int seconds){
-//        try {
-//            TimeUnit.SECONDS.sleep(seconds);
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
-//    }
-//
-//    public static void sort(ArrayList<User> list) {
-//        list.sort(Comparator.comparingInt(User::getLiveLeaguePoints));
-//    }
 
     @Override
     public void execute(UpdateRankingsInputData updateRankingsInputData) {
@@ -51,7 +43,7 @@ public class UpdateRankingsInteractor implements UpdateRankingsInputBoundary{
 
         ArrayList<League> leagues = leagueDataAccessInterface.getLeagues(leagueIDArray);
         League leagueOutput = leagues.get(0);
-        HashMap<String, String[]> league = leagueOutput.getData();
+        Map<String, String[]> league = leagueOutput.getData();
         ArrayList<User> users = leagueOutput.getUserObjArr();
         int j = 0;
 
@@ -60,12 +52,10 @@ public class UpdateRankingsInteractor implements UpdateRankingsInputBoundary{
             int total = 0;
             User user = users.get(j);
             for (int index = 0; index < Constants.NUM_CATEGORIES; index++) {
-                // sleep(1);
                 total += guardianDataAccessObject.getPointsForCategory(words[index]);
-                //total += 10;
             }
             user.setLiveLeaguePoints(total);
-            user.setLeaguePoints((int)Float.parseFloat(words[5]));
+            user.setLeaguePoints((int) Float.parseFloat(words[Constants.NUM_CATEGORIES]));
             liveRankings.add(user);
             historicalRankings.add(user);
 
@@ -74,7 +64,8 @@ public class UpdateRankingsInteractor implements UpdateRankingsInputBoundary{
 
         liveRankings.sort(Comparator.comparingInt(User::getLiveLeaguePoints));
         historicalRankings.sort(Comparator.comparingInt(User::getLeaguePoints));
-        UpdateRankingsOutputData outputData = new UpdateRankingsOutputData(liveRankings, leagueOutput, historicalRankings);
+        UpdateRankingsOutputData outputData = new UpdateRankingsOutputData(liveRankings, leagueOutput,
+                historicalRankings);
         updateRankingsPresenter.execute(outputData);
 
     }

@@ -12,11 +12,13 @@ public class CommonUserFactory implements UserFactory {
         return new CommonUser(name, password);
     }
 
+    @Override
     public User create(String name, String password, String[] terms) {
         return new CommonUser(name, password, terms);
     }
 
-    public User create(String name, String password, String[] terms, ArrayList<String> leagueIDs){
+    @Override
+    public User create(String name, String password, String[] terms, ArrayList<String> leagueIDs) {
         return new CommonUser(name, password, terms, leagueIDs);
     }
 }

@@ -3,6 +3,9 @@ package interface_adapter.draft_words;
 import usecase.draft_words.DraftWordsInputBoundary;
 import usecase.draft_words.DraftWordsInputData;
 
+/**
+ * Controller for Draft Word use case.
+ */
 public class DraftWordsController {
     private final DraftWordsInputBoundary draftWordsInteractor;
 
@@ -10,8 +13,15 @@ public class DraftWordsController {
         this.draftWordsInteractor = draftWordsInteractor;
     }
 
-    public void execute(String username, Integer categoryNum, String newWord, String leagueID){
-        final DraftWordsInputData draftWordsInputData = new DraftWordsInputData(username, categoryNum, newWord, leagueID);
+    /**
+     * Execute method for draft word use case.
+     * @param username Username.
+     * @param num Category number.
+     * @param newWord New word.
+     * @param leagueID League ID.
+     */
+    public void execute(String username, Integer num, String newWord, String leagueID) {
+        final DraftWordsInputData draftWordsInputData = new DraftWordsInputData(username, num, newWord, leagueID);
         draftWordsInteractor.execute(draftWordsInputData);
     }
 }

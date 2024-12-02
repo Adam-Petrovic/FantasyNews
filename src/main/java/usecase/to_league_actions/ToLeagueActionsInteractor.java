@@ -1,13 +1,16 @@
 package usecase.to_league_actions;
 
-import entity.League;
-
 import java.util.ArrayList;
 
-public class ToLeagueActionsInteractor implements ToLeagueActionsInputBoundary{
-    ToLeagueActionsOutputBoundary toLeagueActionsPresenter;
-    ToLeagueActionsUserDataAccessInterface userDataAccessObject;
-    ToLeagueActionsLeagueDataAccessInterface leagueDataAccessObject;
+import entity.League;
+
+/**
+ * Interactor.
+ */
+public class ToLeagueActionsInteractor implements ToLeagueActionsInputBoundary {
+    private ToLeagueActionsOutputBoundary toLeagueActionsPresenter;
+    private ToLeagueActionsUserDataAccessInterface userDataAccessObject;
+    private ToLeagueActionsLeagueDataAccessInterface leagueDataAccessObject;
 
     public ToLeagueActionsInteractor(ToLeagueActionsOutputBoundary toLeagueActionsPresenter,
                               ToLeagueActionsUserDataAccessInterface userDataAccessObject,
@@ -21,7 +24,7 @@ public class ToLeagueActionsInteractor implements ToLeagueActionsInputBoundary{
     public void execute(ToLeagueActionsInputData toLeagueActionsInputData) {
         String username = toLeagueActionsInputData.getUsername();
         String leagueID = toLeagueActionsInputData.getLeagueID();
-        if(userDataAccessObject.userInLeague(username, leagueID)){
+        if (userDataAccessObject.userInLeague(username, leagueID)) {
             ArrayList<String> leagueIDs = new ArrayList<>();
             leagueIDs.add(leagueID);
             League league = leagueDataAccessObject.getLeagues(leagueIDs).get(0);

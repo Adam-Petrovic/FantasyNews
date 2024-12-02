@@ -6,7 +6,9 @@ import interface_adapter.draft_words.DraftViewModel;
 import usecase.to_draft.ToDraftOutputBoundary;
 import usecase.to_draft.ToDraftOutputData;
 
-
+/**
+ * Presenter for To Draft.
+ */
 public class ToDraftPresenter implements ToDraftOutputBoundary {
     private final ViewManagerModel viewManagerModel;
     private final DraftViewModel draftViewModel;
@@ -16,16 +18,6 @@ public class ToDraftPresenter implements ToDraftOutputBoundary {
         this.draftViewModel = draftViewModel;
     }
 
-//    @Override
-//    public void showDraft(ToDraftOutputData toDraftOutputData) {
-//        final DraftState draftState = draftViewModel.getState();
-//        draftState.setUser(toDraftOutputData.getUser());
-//        this.draftViewModel.setState(draftState);
-//        this.draftViewModel.firePropertyChanged();
-//
-//        viewManagerModel.setState(draftViewModel.getViewName());
-//        viewManagerModel.firePropertyChanged();
-//    }
     @Override
     public void execute(ToDraftOutputData output) {
         final DraftState draftState = draftViewModel.getState();

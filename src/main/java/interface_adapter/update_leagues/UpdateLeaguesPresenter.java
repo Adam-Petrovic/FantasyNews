@@ -6,6 +6,9 @@ import interface_adapter.to_league.LeagueViewModel;
 import usecase.update_leagues.UpdateLeaguesOutputBoundary;
 import usecase.update_leagues.UpdateLeaguesOutputData;
 
+/**
+ * Presenter.
+ */
 public class UpdateLeaguesPresenter implements UpdateLeaguesOutputBoundary {
     private LeagueViewModel leagueViewModel;
     private ViewManagerModel viewManagerModel;
@@ -21,7 +24,7 @@ public class UpdateLeaguesPresenter implements UpdateLeaguesOutputBoundary {
         leagueState.setLeagues(updateLeaguesOutputData.getUserLeagueList());
         leagueState.setUsername(updateLeaguesOutputData.getUsername());
 
-        //setting viewModel to state
+        // Setting viewModel to state
         leagueViewModel.setState(leagueState);
         leagueViewModel.firePropertyChanged();
 

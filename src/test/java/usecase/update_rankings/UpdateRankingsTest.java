@@ -52,7 +52,7 @@ public class UpdateRankingsTest {
         };
 
         UpdateRankingsInputBoundary interactor = new UpdateRankingsInteractor(guardianDataAccessObject,
-                successPresenter, leagueRepository, userRepository);
+                successPresenter, leagueRepository);
         interactor.execute(inputData);
 
     }

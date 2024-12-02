@@ -1,5 +1,8 @@
 package usecase.draft_words;
 
+/**
+ * Input data for draft words.
+ */
 public class DraftWordsInputData {
     private final String username;
     private final Integer categoryNum;
@@ -13,17 +16,35 @@ public class DraftWordsInputData {
         this.leagueID = leagueID;
     }
 
+    /**
+     * Getter for username.
+     * @return Username.
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * Getter for category number.
+     * @return Category number.
+     */
     public Integer getCategoryNum() {
         return categoryNum;
     }
 
+    /**
+     * Getter for new word.
+     * @return New word.
+     */
     public String getNewWord() {
         return newWord;
     }
 
-    public String getLeagueID() {return leagueID;}
+    /**
+     * Getter for LeagueID.
+     * @return LeagueID.
+     */
+    public String getLeagueID() {
+        return leagueID;
+    }
 }
