@@ -3,8 +3,8 @@ package interface_adapter.update_leagues;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.to_league.LeagueState;
 import interface_adapter.to_league.LeagueViewModel;
-import use_case.update_leagues.UpdateLeaguesOutputBoundary;
-import use_case.update_leagues.UpdateLeaguesOutputData;
+import usecase.update_leagues.UpdateLeaguesOutputBoundary;
+import usecase.update_leagues.UpdateLeaguesOutputData;
 
 public class UpdateLeaguesPresenter implements UpdateLeaguesOutputBoundary {
     private LeagueViewModel leagueViewModel;

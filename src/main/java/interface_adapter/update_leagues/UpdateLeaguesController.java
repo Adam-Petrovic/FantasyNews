@@ -1,7 +1,7 @@
 package interface_adapter.update_leagues;
 
-import use_case.update_leagues.UpdateLeaguesInputBoundary;
-import use_case.update_leagues.UpdateLeaguesInputData;
+import usecase.update_leagues.UpdateLeaguesInputBoundary;
+import usecase.update_leagues.UpdateLeaguesInputData;
 
 public class UpdateLeaguesController {
     private UpdateLeaguesInputBoundary updateLeaguesInteractor;

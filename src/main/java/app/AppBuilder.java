@@ -61,62 +61,60 @@ import interface_adapter.update_points.UpdatePointsController;
 import interface_adapter.update_points.UpdatePointsPresenter;
 import interface_adapter.update_rankings.UpdateRankingsController;
 import interface_adapter.update_rankings.UpdateRankingsPresenter;
-import use_case.to_friends.FriendsInputBoundary;
-import use_case.to_friends.FriendsInteractor;
-import use_case.to_friends.FriendsOutputBoundary;
-import use_case.add_new_friend.AddNewFriendInputBoundary;
-import use_case.add_new_friend.AddNewFriendInteractor;
-import use_case.add_new_friend.AddNewFriendOutputBoundary;
-import use_case.add_word.AddWordInputBoundary;
-import use_case.add_word.AddWordInteractor;
-import use_case.add_word.AddWordOutputBoundary;
+import usecase.to_friends.FriendsInputBoundary;
+import usecase.to_friends.FriendsInteractor;
+import usecase.to_friends.FriendsOutputBoundary;
+import usecase.add_new_friend.AddNewFriendInputBoundary;
+import usecase.add_new_friend.AddNewFriendInteractor;
+import usecase.add_new_friend.AddNewFriendOutputBoundary;
+import usecase.addWord.AddWordInputBoundary;
+import usecase.addWord.AddWordInteractor;
+import usecase.addWord.AddWordOutputBoundary;
 
-import use_case.draft_words.DraftWordsInputBoundary;
-import use_case.draft_words.DraftWordsInteractor;
-import use_case.draft_words.DraftWordsOutputBoundary;
-import use_case.to_draft.ToDraftInputBoundary;
-import use_case.to_draft.ToDraftInteractor;
-import use_case.to_draft.ToDraftOutputBoundary;
+import usecase.draft_words.DraftWordsInputBoundary;
+import usecase.draft_words.DraftWordsInteractor;
+import usecase.draft_words.DraftWordsOutputBoundary;
+import usecase.to_draft.ToDraftInputBoundary;
+import usecase.to_draft.ToDraftInteractor;
+import usecase.to_draft.ToDraftOutputBoundary;
 
-import use_case.award_league_points.AwardLeaguePointsInputBoundary;
-import use_case.award_league_points.AwardLeaguePointsInteractor;
+import usecase.award_league_points.AwardLeaguePointsInputBoundary;
+import usecase.award_league_points.AwardLeaguePointsInteractor;
 
-import use_case.goHome.GoHomeOutputBoundary;
-import use_case.login.LoginInputBoundary;
-import use_case.login.LoginInteractor;
-import use_case.login.LoginOutputBoundary;
-import use_case.logout.LogoutInputBoundary;
-import use_case.logout.LogoutInteractor;
-import use_case.logout.LogoutOutputBoundary;
-import use_case.round_league_points.RoundLeaguePointsInputBoundary;
-import use_case.round_league_points.RoundLeaguePointsInteractor;
-import use_case.signup.SignupInputBoundary;
-import use_case.signup.SignupInteractor;
-import use_case.signup.SignupOutputBoundary;
-import use_case.solo_play.SoloPlayInputBoundary;
-import use_case.solo_play.SoloPlayInteractor;
-import use_case.solo_play.SoloPlayOutputBoundary;
-import use_case.to_league.LeagueOutputBoundary;
-import use_case.to_league_actions.ToLeagueActionsInputBoundary;
-import use_case.to_league_actions.ToLeagueActionsInteractor;
-import use_case.to_league_actions.ToLeagueActionsOutputBoundary;
-import use_case.to_rankings.RankingsOutputBoundary;
-import use_case.updatePointsForLeague.UpdatePointsForLeagueDataAccessObject;
-import use_case.updatePointsForLeague.UpdatePointsForLeagueInputBoundary;
-import use_case.updatePointsForLeague.UpdatePointsForLeagueInteractor;
-import use_case.update_leagues.UpdateLeaguesInputBoundary;
-import use_case.update_leagues.UpdateLeaguesInteractor;
-import use_case.update_leagues.UpdateLeaguesOutputBoundary;
-import use_case.update_rankings.UpdateRankingsInputBoundary;
-import use_case.update_rankings.UpdateRankingsInteractor;
-import use_case.update_rankings.UpdateRankingsOutputBoundary;
-import use_case.update_solo_points.UpdatePointsInputBoundary;
-import use_case.update_solo_points.UpdatePointsInteractor;
-import use_case.update_solo_points.UpdatePointsOutputBoundary;
+import usecase.goHome.GoHomeOutputBoundary;
+import usecase.login.LoginInputBoundary;
+import usecase.login.LoginInteractor;
+import usecase.login.LoginOutputBoundary;
+import usecase.logout.LogoutInputBoundary;
+import usecase.logout.LogoutInteractor;
+import usecase.logout.LogoutOutputBoundary;
+import usecase.round_league_points.RoundLeaguePointsInputBoundary;
+import usecase.round_league_points.RoundLeaguePointsInteractor;
+import usecase.signup.SignupInputBoundary;
+import usecase.signup.SignupInteractor;
+import usecase.signup.SignupOutputBoundary;
+import usecase.solo_play.SoloPlayInputBoundary;
+import usecase.solo_play.SoloPlayInteractor;
+import usecase.solo_play.SoloPlayOutputBoundary;
+import usecase.to_league.LeagueOutputBoundary;
+import usecase.to_league_actions.ToLeagueActionsInputBoundary;
+import usecase.to_league_actions.ToLeagueActionsInteractor;
+import usecase.to_league_actions.ToLeagueActionsOutputBoundary;
+import usecase.to_rankings.RankingsOutputBoundary;
+import usecase.updatePointsForLeague.UpdatePointsForLeagueDataAccessObject;
+import usecase.updatePointsForLeague.UpdatePointsForLeagueInputBoundary;
+import usecase.updatePointsForLeague.UpdatePointsForLeagueInteractor;
+import usecase.update_leagues.UpdateLeaguesInputBoundary;
+import usecase.update_leagues.UpdateLeaguesInteractor;
+import usecase.update_leagues.UpdateLeaguesOutputBoundary;
+import usecase.update_rankings.UpdateRankingsInputBoundary;
+import usecase.update_rankings.UpdateRankingsInteractor;
+import usecase.update_rankings.UpdateRankingsOutputBoundary;
+import usecase.update_solo_points.UpdatePointsInputBoundary;
+import usecase.update_solo_points.UpdatePointsInteractor;
+import usecase.update_solo_points.UpdatePointsOutputBoundary;
 
-//import entity.*;
-//import interface_adapter.*;
-//import use_case.*;
+
 import view.*;
 
 /**
@@ -200,7 +198,7 @@ public class AppBuilder {
         final ToDraftOutputBoundary draftPresenter = new ToDraftPresenter(viewManagerModel, draftViewModel);
         final ToDraftInputBoundary draftInteractor = new ToDraftInteractor(draftPresenter, leagueDataAccessObject);
         final ToDraftController controller = new ToDraftController(draftInteractor);
-        loggedInView.setDraftController(controller);
+        leagueActionsView.setDraftController(controller);
         return this;
     }
     /**
@@ -450,18 +448,6 @@ public class AppBuilder {
      * Adds the Change Password Use Case to the application.
      * @return this builder
      */
-//    public AppBuilder addChangePasswordUseCase() {
-//        final ChangePasswordOutputBoundary changePasswordOutputBoundary =
-//                new ChangePasswordPresenter(loggedInViewModel);
-//
-//        final ChangePasswordInputBoundary changePasswordInteractor =
-//                new ChangePasswordInteractor(userDataAccessObject, changePasswordOutputBoundary, userFactory);
-//
-//        final ChangePasswordController changePasswordController =
-//                new ChangePasswordController(changePasswordInteractor);
-//        loggedInView.setChangePasswordController(changePasswordController);
-//        return this;
-//    }
 
     /**
      * Adds the Logout Use Case to the application.

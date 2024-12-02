@@ -9,7 +9,7 @@ import java.util.HashMap;
 public class League {
     private final String id;
     private final ArrayList<String> users;
-    private final HashMap<String, String[]> data;
+    private HashMap<String, String[]> data;
     private ArrayList<User> rankings;
     private ArrayList<User> liveRankings;
     private ArrayList<User> historicalRankings;
@@ -27,6 +27,7 @@ public class League {
         for (String user : users) {
             data.put(user, Constants.DEFAULT_WORDS);
         }
+        this.userObjArr = makeUserObjArray(data);
     }
 
     public League(String id, ArrayList<String> users) {
@@ -67,6 +68,10 @@ public class League {
 
     public HashMap<String, String[]> getData() {
         return data;
+    }
+
+    public void setData(HashMap<String, String[]> data) {
+        this.data = data;
     }
 
     public String getId() {

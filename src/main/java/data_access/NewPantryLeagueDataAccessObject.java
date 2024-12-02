@@ -6,16 +6,16 @@ import okhttp3.*;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import use_case.to_league_actions.ToLeagueActionsLeagueDataAccessInterface;
+import usecase.to_league_actions.ToLeagueActionsLeagueDataAccessInterface;
 
-import use_case.draft_words.DraftWordsLeagueDataAccessInterface;
-import use_case.to_draft.ToDraftLeagueDataAccessInterface;
+import usecase.draft_words.DraftWordsLeagueDataAccessInterface;
+import usecase.to_draft.ToDraftLeagueDataAccessInterface;
 
-import use_case.award_league_points.AwardLeaguePointsDataAccessInterface;
-import use_case.round_league_points.RoundLeaguePointsDataAccessObject;
+import usecase.award_league_points.AwardLeaguePointsDataAccessInterface;
+import usecase.round_league_points.RoundLeaguePointsDataAccessObject;
 
-import use_case.update_leagues.UpdateLeaguesLeagueDataAccessInterface;
-import use_case.update_rankings.UpdateRankingsLeagueDataAccessInterface;
+import usecase.update_leagues.UpdateLeaguesLeagueDataAccessInterface;
+import usecase.update_rankings.UpdateRankingsLeagueDataAccessInterface;
 
 import java.io.File;
 import java.io.FileNotFoundException;

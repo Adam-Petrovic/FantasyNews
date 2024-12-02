@@ -1,13 +1,7 @@
 package interface_adapter.to_rankings;
 
 import interface_adapter.ViewManagerModel;
-import interface_adapter.solo_play.SoloPlayState;
-import interface_adapter.to_league.LeagueState;
-import interface_adapter.to_rankings.RankingsViewModel;
-import use_case.solo_play.SoloPlayOutputData;
-import use_case.to_rankings.RankingsOutputBoundary;
-import use_case.to_rankings.RankingsOutputData;
-import use_case.update_rankings.UpdateRankingsOutputData;
+import usecase.to_rankings.RankingsOutputBoundary;
 
 public class RankingsPresenter implements RankingsOutputBoundary {
     private final ViewManagerModel viewManagerModel;

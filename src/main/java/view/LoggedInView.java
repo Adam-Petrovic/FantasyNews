@@ -33,7 +33,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private UpdateLeaguesController updateLeaguesController;
     private RankingsController rankingsController;
 
-    private ToDraftController toDraftController;
     private FriendsController friendsController;
 
 
@@ -43,7 +42,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private final JButton toLeague;
     private final JButton toRankings;
     private final JButton addFriends;
-    private final JButton draft;
 
     public LoggedInView(LoggedInViewModel loggedInViewModel) {
         this.loggedInViewModel = loggedInViewModel;
@@ -67,9 +65,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
       
         addFriends = new JButton("Friends");
         buttons.add(addFriends);
-
-        draft = new JButton("Draft");
-        buttons.add(draft);
 
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -129,17 +124,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 }
         );
 
-        draft.addActionListener(
-                // This creates an anonymous subclass of ActionListener and instantiates it.
-                evt -> {
-                    if (evt.getSource().equals(draft)) {
-                        toDraftController.execute(loggedInViewModel.getState().getUsername(), "Enter New League ID");
-
-                    }
-                }
-        );
-
-
         this.add(greeting);
         this.add(buttons);
     }
@@ -172,9 +156,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         this.friendsController = friendsController;
     }
 
-    public void setDraftController(ToDraftController toDraftController){
-        this.toDraftController = toDraftController;
-    }
 
     public void setUpdateLeaguesController(UpdateLeaguesController updateLeaguesController){
         this.updateLeaguesController = updateLeaguesController;

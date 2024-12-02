@@ -1,7 +1,7 @@
 package interface_adapter.solo_play;
 
-import use_case.solo_play.SoloPlayInputBoundary;
-import use_case.solo_play.SoloPlayInputData;
+import usecase.solo_play.SoloPlayInputBoundary;
+import usecase.solo_play.SoloPlayInputData;
 
 public class SoloPlayController {
     private final SoloPlayInputBoundary soloPlayUseCaseInteractor;

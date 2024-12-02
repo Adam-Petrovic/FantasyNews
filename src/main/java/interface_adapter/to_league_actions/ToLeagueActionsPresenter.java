@@ -1,11 +1,10 @@
 package interface_adapter.to_league_actions;
 
-import data_access.Constants;
 import interface_adapter.ViewManagerModel;
 import interface_adapter.to_league.LeagueState;
 import interface_adapter.to_league.LeagueViewModel;
-import use_case.to_league_actions.ToLeagueActionsOutputBoundary;
-import use_case.to_league_actions.ToLeagueActionsOutputData;
+import usecase.to_league_actions.ToLeagueActionsOutputBoundary;
+import usecase.to_league_actions.ToLeagueActionsOutputData;
 
 public class ToLeagueActionsPresenter implements ToLeagueActionsOutputBoundary {
     private LeagueActionsViewModel leagueActionsViewModel;
@@ -23,6 +22,7 @@ public class ToLeagueActionsPresenter implements ToLeagueActionsOutputBoundary {
     public void prepareSuccessView(ToLeagueActionsOutputData toLeagueActionsOutputData) {
         LeagueActionsState leagueActionsState = this.leagueActionsViewModel.getState();
         leagueActionsState.setLeague(toLeagueActionsOutputData.getLeague());
+        leagueActionsState.setUsername(toLeagueActionsOutputData.getUsername());
         leagueActionsViewModel.setState(leagueActionsState);
         leagueActionsViewModel.firePropertyChanged();
 

@@ -1,9 +1,12 @@
 package interface_adapter.to_friends;
 
 import interface_adapter.ViewManagerModel;
-import use_case.to_friends.FriendsOutputBoundary;
-import use_case.to_friends.FriendsOutputData;
+import usecase.to_friends.FriendsOutputBoundary;
+import usecase.to_friends.FriendsOutputData;
 
+/**
+ * Presenter for switching to the friends view.
+ */
 public class FriendsPresenter implements FriendsOutputBoundary {
     private final ViewManagerModel viewManagerModel;
     private final FriendsViewModel friendsViewModel;
@@ -13,6 +16,7 @@ public class FriendsPresenter implements FriendsOutputBoundary {
         this.friendsViewModel = friendsViewModel;
     }
 
+    @Override
     public void execute(FriendsOutputData friendsOutputData) {
         final FriendsState friendsState = friendsViewModel.getState();
         friendsState.setUser(friendsOutputData.getUser());
