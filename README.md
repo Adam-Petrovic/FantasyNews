@@ -35,14 +35,14 @@ Users are also able to add friends and view live and historical rankings for any
 3. **User Story 3: Add friends: Yibing Xia**  
    Users may add other users as friends. Optionally, users can click on a friend to see a 1v1 comparison between their points; results include win, lose, or tie.
 
-4. **User Story 4: Drafting: Alexandros Pratsos**  
-   
+4. **User Story 4: Selecting Words: Alexandros Pratsos**  
+   Users are able to select words that they want to use, both in Solo Play mode and in League Play mode. These words are stored to the cloud.
 
 5. **User Story 5: Rankings: Hugo Fuhrer**  
    Users can track rankings for any league in real time while also seeing how each league player has done historically.
 
 6. **User Story 6: Store Data: Team**  
-   
+   Users are able to store any changes they make to the cloud. Thus users' actions are saved and persist over multiple logins. 
 ---
 
 ### Installation
