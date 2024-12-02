@@ -1,8 +1,8 @@
 package interface_adapter.to_league;
 
-import entity.League;
-
 import java.util.ArrayList;
+
+import entity.League;
 
 public class LeagueState {
     private ArrayList<String> leagueIDs;
