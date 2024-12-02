@@ -1,84 +1,75 @@
 package view;
 
-import data_access.Constants;
-import entity.League;
-import entity.User;
-import interface_adapter.award_league_points.AwardLeaguePointsController;
-import interface_adapter.go_home.GoHomeController;
-import interface_adapter.signup.SignupState;
-import interface_adapter.to_friends.FriendsState;
-import interface_adapter.to_league.LeagueState;
-import interface_adapter.to_league.LeagueViewModel;
-import interface_adapter.to_league_actions.ToLeagueActionsController;
-import interface_adapter.to_league.LeagueState;
-import interface_adapter.to_league.LeagueViewModel;
-import interface_adapter.update_league_points.UpdateLeaguePointsController;
-import interface_adapter.update_leagues.UpdateLeaguesController;
-
-import javax.swing.*;
-import java.awt.*;
+// Standard library imports
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.TimerTask;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+import javax.swing.*;
 
-public class LeagueView  extends JPanel implements ActionListener, PropertyChangeListener {
-    //controllers & stuff
+import entity.League;
+
+import interface_adapter.award_league_points.AwardLeaguePointsController;
+import interface_adapter.go_home.GoHomeController;
+import interface_adapter.to_league.LeagueState;
+import interface_adapter.to_league.LeagueViewModel;
+import interface_adapter.to_league_actions.ToLeagueActionsController;
+import interface_adapter.update_leagues.UpdateLeaguesController;
+
+/**
+ * League View.
+ */
+public class LeagueView extends JPanel implements ActionListener, PropertyChangeListener {
+    // controllers & stuff
     private final LeagueViewModel leagueViewModel;
     private GoHomeController goHomeController;
     private UpdateLeaguesController updateLeaguesController;
     private ToLeagueActionsController toLeagueActionsController;
     private AwardLeaguePointsController awardLeaguePointsController;
 
-    //visuals
+    // visuals
 
-    //bottom panel
+    // bottom panel
     private JPanel functionsPanel;
 
-    //create league panel
+    // create league panel
     private JTextField createLeagueID;
     private JButton createLeagueButton;
 
-    //join league panel
+    // join league panel
     private JTextField joinLeagueID;
     private JButton joinLeagueButton;
 
-    //go home & functions
+    // go home & functions
     private JButton goHomeButton;
 
-    //viewLeague panel
+    // viewLeague panel
     private JButton viewLeagueButton;
     private JTextField viewLeagueID;
 
-    ArrayList<League> leagues;
+    private ArrayList<League> leagues;
 
     public LeagueView(LeagueViewModel leagueViewModel) {
         this.leagueViewModel = leagueViewModel;
         this.leagueViewModel.addPropertyChangeListener(this);
-        this.leagues = (leagueViewModel.getState().getLeagues());
+        this.leagues = leagueViewModel.getState().getLeagues();
 
-        //create new league stuff
+        // create new league stuff
         createLeagueID = new JTextField("Enter New League ID");
         createLeagueButton = new JButton("Create New League");
 
-        //join league stuff
+        // join league stuff
         joinLeagueID = new JTextField("Enter League ID");
         joinLeagueButton = new JButton("Join League");
 
-        //go home stuff
+        // go home stuff
         goHomeButton = new JButton("←");
 
-        //see league stuff
+        // see league stuff
         this.viewLeagueButton = new JButton("View League");
         this.viewLeagueID = new JTextField("Enter League ID");
 
@@ -104,7 +95,7 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
             }
         }, 0, 1, TimeUnit.DAYS);
 
-        //button listeners
+        // button listeners
         createLeagueButton.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(createLeagueButton)) {
@@ -133,7 +124,6 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
                 }
         );
 
-
         viewLeagueButton.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(viewLeagueButton)) {
@@ -158,17 +148,16 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
         }
 
         this.leagues = leagueViewModel.getState().getLeagues();
-        for (League league : this.leagues){
+        for (League league : this.leagues) {
             awardLeaguePointsController.roundUp(league.getId(), league.getUserObjArr());
         }
     }
 
-
-    public void setGoHomeController(GoHomeController controller){
+    public void setGoHomeController(GoHomeController controller) {
         this.goHomeController = controller;
     }
 
-    public void setUpdateLeaguesController(UpdateLeaguesController updateLeaguesController){
+    public void setUpdateLeaguesController(UpdateLeaguesController updateLeaguesController) {
         this.updateLeaguesController = updateLeaguesController;
     }
 
@@ -176,7 +165,7 @@ public class LeagueView  extends JPanel implements ActionListener, PropertyChang
         this.toLeagueActionsController = controller;
     }
 
-    public void setAwardLeaguePointsController (AwardLeaguePointsController awardLeaguePointsController){
+    public void setAwardLeaguePointsController(AwardLeaguePointsController awardLeaguePointsController) {
         this.awardLeaguePointsController = awardLeaguePointsController;
     }
 }
