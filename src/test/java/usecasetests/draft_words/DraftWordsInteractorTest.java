@@ -23,8 +23,8 @@ public class DraftWordsInteractorTest {
         users.add("a");
         League league = leagueFactory.create("a", users);
 
-        ArrayList<League> leagueArrayList = new ArrayList<League>();
-        leagueArrayList.add(league);
+//        ArrayList<League> leagueArrayList = new ArrayList<League>();
+//        leagueArrayList.add(league);
 
         ((InMemoryLeagueDataAccessObject) leagueRepo).save(league);
 
@@ -61,6 +61,36 @@ public class DraftWordsInteractorTest {
             @Override
             public void prepareFailView(String errorMessage){
                 assertEquals("Your word is not long enough. Must be over 4 characters.", errorMessage);
+            }
+        };
+
+        DraftWordsInputBoundary interactor = new DraftWordsInteractor(successPresenter, leagueRepo);
+        interactor.execute(in);
+    }
+
+    @Test
+    void failTestSameWord(){
+        DraftWordsInputData in = new DraftWordsInputData("a", 0, "Default 2", "a");
+        DraftWordsLeagueDataAccessInterface leagueRepo = new InMemoryLeagueDataAccessObject();
+
+        LeagueFactory leagueFactory = new LeagueFactory();
+        ArrayList<String> users = new ArrayList<>();
+        users.add("a");
+        users.add("b");
+
+        League league = leagueFactory.create("a", users);
+
+        ((InMemoryLeagueDataAccessObject) leagueRepo).save(league);
+
+        DraftWordsOutputBoundary successPresenter = new DraftWordsOutputBoundary() {
+            @Override
+            public void showDraftedWords(DraftWordsOutputData draftWordsOutputData) {
+                fail("Use case failure is unexpected");
+            }
+
+            @Override
+            public void prepareFailView(String errorMessage){
+                assertEquals("Your word has already been drafted.", errorMessage);
             }
         };
 
