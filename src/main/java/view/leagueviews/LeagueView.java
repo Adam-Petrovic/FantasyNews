@@ -152,8 +152,10 @@ public class LeagueView extends JPanel implements ActionListener, PropertyChange
         }
 
         this.leagues = leagueViewModel.getState().getLeagues();
-        for (League league : this.leagues) {
-            awardLeaguePointsController.roundUp(league.getId(), league.getUserObjArr());
+        if (this.leagues != null) {
+            for (League league : this.leagues) {
+                awardLeaguePointsController.roundUp(league.getId(), league.getUserObjArr());
+            }
         }
     }
 
