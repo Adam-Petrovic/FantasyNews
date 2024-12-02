@@ -4,6 +4,7 @@ import data_access.Constants;
 import entity.League;
 import entity.User;
 import interface_adapter.go_home.GoHomeController;
+import interface_adapter.to_draft.ToDraftController;
 import interface_adapter.update_league_points.UpdateLeaguePointsController;
 import interface_adapter.to_league_actions.LeagueActionsViewModel;
 
@@ -19,6 +20,7 @@ public class LeagueActionsView extends JPanel implements ActionListener, Propert
     private final LeagueActionsViewModel leagueActionsViewModel;
     private GoHomeController goHomeController;
     private UpdateLeaguePointsController updateLeaguePointsController;
+    private ToDraftController toDraftController;
 
     //go home & functions
     private JPanel functionsPanel;
@@ -62,7 +64,11 @@ public class LeagueActionsView extends JPanel implements ActionListener, Propert
 
         draftButton.addActionListener(
                 evt -> {
-                    if(evt.getSource().equals(draftButton)) {
+                    if (evt.getSource().equals(draftButton)) {
+                        String name = leagueActionsViewModel.getState().getUsername();
+                        String leagueID = leagueActionsViewModel.getState().getLeague().getId();
+                        toDraftController.execute(name, leagueID);
+
                     }
                 }
         );
@@ -132,5 +138,9 @@ public class LeagueActionsView extends JPanel implements ActionListener, Propert
 
     public void setUpdatePointsForLeagueController(UpdateLeaguePointsController controller) {
         this.updateLeaguePointsController = controller;
+    }
+
+    public void setDraftController(ToDraftController toDraftController){
+        this.toDraftController = toDraftController;
     }
 }
