@@ -1,6 +1,6 @@
 package interfaceadapter.friendsuserstory.to_friends;
 
-import data_access.Constants;
+import dataaccess.Constants;
 import interfaceadapter.ViewModel;
 
 /**

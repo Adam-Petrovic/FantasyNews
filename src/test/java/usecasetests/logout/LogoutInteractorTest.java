@@ -1,6 +1,6 @@
 package usecasetests.logout;
 
-import data_access.InMemoryUserDataAccessObject;
+import dataaccess.InMemoryUserDataAccessObject;
 import entity.CommonUserFactory;
 import entity.User;
 import entity.UserFactory;

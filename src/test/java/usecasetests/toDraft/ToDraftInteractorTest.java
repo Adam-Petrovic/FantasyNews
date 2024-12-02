@@ -1,7 +1,7 @@
 package usecasetests.toDraft;
 
 
-import data_access.InMemoryLeagueDataAccessObject;
+import dataaccess.InMemoryLeagueDataAccessObject;
 import entity.*;
 import org.junit.jupiter.api.Test;
 import usecase.selectwordsuserstory.to_draft.*;

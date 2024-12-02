@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-import data_access.Constants;
+import dataaccess.Constants;
 import entity.League;
 import entity.User;
 import interfaceadapter.leagueuserstory.to_league.LeagueState;

@@ -9,7 +9,7 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import data_access.Constants;
+import dataaccess.Constants;
 import interfaceadapter.selectwordsuserstory.draft_words.DraftState;
 import interfaceadapter.selectwordsuserstory.draft_words.DraftViewModel;
 import interfaceadapter.selectwordsuserstory.draft_words.DraftWordsController;

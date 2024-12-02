@@ -1,6 +1,6 @@
 package usecasetests.solo_play;
 
-import data_access.InMemoryUserDataAccessObject;
+import dataaccess.InMemoryUserDataAccessObject;
 import entity.CommonUser;
 import entity.CommonUserFactory;
 import entity.User;

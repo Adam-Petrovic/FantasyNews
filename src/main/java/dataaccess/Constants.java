@@ -1,4 +1,4 @@
-package data_access;
+package dataaccess;
 
 public class Constants {
     public static final String[] CATEGORIES = {"Sports", "Film", "Politics", "Environment", "Wildcard"};

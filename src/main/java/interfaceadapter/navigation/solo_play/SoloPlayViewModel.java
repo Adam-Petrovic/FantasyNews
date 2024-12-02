@@ -1,6 +1,6 @@
 package interfaceadapter.navigation.solo_play;
 
-import data_access.Constants;
+import dataaccess.Constants;
 import interfaceadapter.ViewModel;
 
 public class SoloPlayViewModel extends ViewModel<SoloPlayState> {

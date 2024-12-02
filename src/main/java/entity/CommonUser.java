@@ -2,7 +2,7 @@ package entity;
 
 import java.util.*;
 
-import data_access.Constants;
+import dataaccess.Constants;
 
 /**
  * A simple implementation of the User interface.

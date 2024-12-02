@@ -1,10 +1,9 @@
-package data_access;
+package dataaccess;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import entity.League;

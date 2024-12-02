@@ -1,6 +1,6 @@
 package entitytests.UserTests;
 
-import data_access.Constants;
+import dataaccess.Constants;
 import entity.CommonUser;
 import entity.CommonUserFactory;
 import entity.User;

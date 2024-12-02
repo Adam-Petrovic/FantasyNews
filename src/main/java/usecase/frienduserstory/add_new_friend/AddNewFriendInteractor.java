@@ -3,8 +3,8 @@ package usecase.frienduserstory.add_new_friend;
 import java.util.HashMap;
 import java.util.Map;
 
-import data_access.Constants;
-import data_access.GuardianDataAccessObject;
+import dataaccess.Constants;
+import dataaccess.GuardianDataAccessObject;
 import entity.User;
 import usecase.frienduserstory.to_friends.FriendsUserDataAccessInterface;
 

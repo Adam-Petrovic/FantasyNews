@@ -1,6 +1,6 @@
 package interfaceadapter.navigation.loggedIn;
 
-import data_access.Constants;
+import dataaccess.Constants;
 import interfaceadapter.ViewModel;
 
 /**

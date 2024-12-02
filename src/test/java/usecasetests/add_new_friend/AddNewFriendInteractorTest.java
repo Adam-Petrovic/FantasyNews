@@ -1,7 +1,7 @@
 package usecasetests.add_new_friend;
 
-import data_access.InMemoryUserDataAccessObject;
-import data_access.GuardianDataAccessObject;
+import dataaccess.InMemoryUserDataAccessObject;
+import dataaccess.GuardianDataAccessObject;
 import entity.CommonUserFactory;
 import entity.User;
 import entity.UserFactory;

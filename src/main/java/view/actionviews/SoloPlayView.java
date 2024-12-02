@@ -12,7 +12,7 @@ import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
-import data_access.Constants;
+import dataaccess.Constants;
 import entity.User;
 import interfaceadapter.selectwordsuserstory.add_word.AddWordController;
 import interfaceadapter.navigation.go_home.GoHomeController;

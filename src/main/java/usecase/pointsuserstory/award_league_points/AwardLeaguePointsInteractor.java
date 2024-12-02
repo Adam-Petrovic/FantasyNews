@@ -2,7 +2,7 @@ package usecase.pointsuserstory.award_league_points;
 
 import java.util.ArrayList;
 
-import data_access.Constants;
+import dataaccess.Constants;
 import entity.User;
 
 public class AwardLeaguePointsInteractor implements AwardLeaguePointsInputBoundary {
