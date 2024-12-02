@@ -4,7 +4,12 @@ package usecasetests.toDraft;
 import dataaccess.InMemoryLeagueDataAccessObject;
 import entity.*;
 import org.junit.jupiter.api.Test;
-import usecase.selectwordsuserstory.to_draft.*;
+import usecase.selectwordsuserstory.to_draft.ToDraftInputData;
+import usecase.selectwordsuserstory.to_draft.ToDraftLeagueDataAccessInterface;
+import usecase.selectwordsuserstory.to_draft.ToDraftOutputBoundary;
+import usecase.selectwordsuserstory.to_draft.ToDraftOutputData;
+import usecase.selectwordsuserstory.to_draft.ToDraftInputBoundary;
+import usecase.selectwordsuserstory.to_draft.ToDraftInteractor;
 
 import java.util.ArrayList;
 
@@ -27,9 +32,16 @@ public class ToDraftInteractorTest {
         leagueArrayList.add(league);
         ((InMemoryLeagueDataAccessObject) toDraftLeagueDataAccessInterface).save(league);
 
+        ToDraftOutputData data = new ToDraftOutputData("b", "b", new String[] {"b"});
+        assertEquals(data.getUsername(), "b");
+        assertEquals(data.getLeagueID(), "b");
+        assertEquals(data.getWords()[0], "b");
+
         ToDraftOutputBoundary presenter = new ToDraftOutputBoundary() {
             @Override
             public void execute(ToDraftOutputData toDraftOutputData) {
+
+
                 assertEquals(toDraftOutputData.getUsername(), "a");
                 assertEquals(toDraftOutputData.getLeagueID(), "a");
                 String[] exp = {"Default 1", "Default 2", "Default 3", "Default 4", "Default 5", "0"};
