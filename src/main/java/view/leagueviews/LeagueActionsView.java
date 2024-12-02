@@ -6,16 +6,21 @@ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.util.ArrayList;
 
-import javax.swing.*;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 // Application-specific imports
 import data_access.Constants;
 import entity.League;
 import entity.User;
-import interfaceadapter.navigation.go_home.GoHomeController;
-import interfaceadapter.selectwordsuserstory.to_draft.ToDraftController;
 import interfaceadapter.leagueuserstory.to_league_actions.LeagueActionsViewModel;
+import interfaceadapter.navigation.go_home.GoHomeController;
 import interfaceadapter.pointsuserstory.update_league_points.UpdateLeaguePointsController;
+import interfaceadapter.selectwordsuserstory.to_draft.ToDraftController;
 
 /**
  * League Actions View.
@@ -93,22 +98,27 @@ public class LeagueActionsView extends JPanel implements ActionListener, Propert
 
     }
 
+    /**
+     * Sets the controller responsible for handling navigation to the home view.
+     *
+     * @param controller the {@link GoHomeController} instance to be used for navigation.
+     */
     public void setGoHomeController(GoHomeController controller) {
         this.goHomeController = controller;
     }
 
     /**
      * Make league scroll pane.
-     * @param league league.
+     * @param fakeLeague league.
      * @return scroll pane.
      */
-    public JScrollPane makeLeagueScrollPane(League league) {
+    public JScrollPane makeLeagueScrollPane(League fakeLeague) {
         JScrollPane leagueScrollPane = new JScrollPane();
         String[] columnNames = makeColumns();
 
-        updateLeaguePointsController.execute(league.getId(), league.getUserObjArr());
+        updateLeaguePointsController.execute(fakeLeague.getId(), fakeLeague.getUserObjArr());
 
-        String[][] info = makeInfo(league);
+        String[][] info = makeInfo(fakeLeague);
 
         JTable leagueTable = new JTable(info, columnNames);
         leagueTable.setDefaultEditor(Object.class, null);
@@ -128,8 +138,8 @@ public class LeagueActionsView extends JPanel implements ActionListener, Propert
         return c;
     }
 
-    private String[][] makeInfo(League league) {
-        ArrayList<User> usrObj = league.getUserObjArr();
+    private String[][] makeInfo(League fakeLeague) {
+        ArrayList<User> usrObj = fakeLeague.getUserObjArr();
 
         String[][] info = new String[usrObj.size()][Constants.NUM_CATEGORIES * 2 + 1];
         for (int i = 0; i < usrObj.size(); i++) {
@@ -147,11 +157,21 @@ public class LeagueActionsView extends JPanel implements ActionListener, Propert
         return info;
     }
 
+    /**
+     * Sets the controller responsible for updating the points for a league.
+     *
+     * @param controller the {@link UpdateLeaguePointsController} instance to be used for updating league points.
+     */
     public void setUpdatePointsForLeagueController(UpdateLeaguePointsController controller) {
         this.updateLeaguePointsController = controller;
     }
 
-    public void setDraftController(ToDraftController toDraftController) {
-        this.toDraftController = toDraftController;
+    /**
+     * Sets the controller responsible for handling the drafting process in a league.
+     *
+     * @param conroller the {@link ToDraftController} instance to be used for drafting actions.
+     */
+    public void setDraftController(ToDraftController conroller) {
+        this.toDraftController = conroller;
     }
 }

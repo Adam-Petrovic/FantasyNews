@@ -9,16 +9,20 @@ import java.util.ArrayList;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-import javax.swing.*;
+
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import entity.League;
-
-import interfaceadapter.pointsuserstory.award_league_points.AwardLeaguePointsController;
-import interfaceadapter.navigation.go_home.GoHomeController;
 import interfaceadapter.leagueuserstory.to_league.LeagueState;
 import interfaceadapter.leagueuserstory.to_league.LeagueViewModel;
 import interfaceadapter.leagueuserstory.to_league_actions.ToLeagueActionsController;
 import interfaceadapter.leagueuserstory.update_leagues.UpdateLeaguesController;
+import interfaceadapter.navigation.go_home.GoHomeController;
+import interfaceadapter.pointsuserstory.award_league_points.AwardLeaguePointsController;
 
 /**
  * League View.
@@ -153,19 +157,40 @@ public class LeagueView extends JPanel implements ActionListener, PropertyChange
         }
     }
 
+    /**
+     * Sets the controller responsible for navigating back to the home view.
+     *
+     * @param controller the {@link GoHomeController} to be set.
+     */
     public void setGoHomeController(GoHomeController controller) {
         this.goHomeController = controller;
     }
 
+    /**
+     * Sets the controller responsible for updating leagues.
+     *
+     * @param updateLeaguesController the {@link UpdateLeaguesController} to be set.
+     */
     public void setUpdateLeaguesController(UpdateLeaguesController updateLeaguesController) {
         this.updateLeaguesController = updateLeaguesController;
     }
 
+    /**
+     * Sets the controller responsible for navigating to the league actions view.
+     *
+     * @param controller the {@link ToLeagueActionsController} to be set.
+     */
     public void setToLeagueActionsController(ToLeagueActionsController controller) {
         this.toLeagueActionsController = controller;
     }
 
+    /**
+     * Sets the controller responsible for awarding points in the league.
+     *
+     * @param awardLeaguePointsController the {@link AwardLeaguePointsController} to be set.
+     */
     public void setAwardLeaguePointsController(AwardLeaguePointsController awardLeaguePointsController) {
         this.awardLeaguePointsController = awardLeaguePointsController;
     }
+
 }
