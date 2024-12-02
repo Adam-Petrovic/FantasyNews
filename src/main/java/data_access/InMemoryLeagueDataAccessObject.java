@@ -13,6 +13,11 @@ import usecase.rankingsuserstory.update_rankings.UpdateRankingsLeagueDataAccessI
 import usecase.selectwordsuserstory.draft_words.DraftWordsLeagueDataAccessInterface;
 import usecase.selectwordsuserstory.to_draft.ToDraftLeagueDataAccessInterface;
 
+/**
+ * The InMemoryLeagueDataAccessObject class provides an in-memory implementation of
+ * several league-related data access interfaces. It manages league information,
+ * and facilitates conversion of league data to JSON format.
+ */
 public class InMemoryLeagueDataAccessObject implements UpdateRankingsLeagueDataAccessInterface,
         DraftWordsLeagueDataAccessInterface, UpdateLeaguesLeagueDataAccessInterface, ToDraftLeagueDataAccessInterface,
                                                        ToLeagueActionsLeagueDataAccessInterface {
@@ -56,6 +61,13 @@ public class InMemoryLeagueDataAccessObject implements UpdateRankingsLeagueDataA
         return league;
     }
 
+    /**
+     * Retrieves a league by its unique ID.
+     *
+     * @param leagueID the ID of the league to retrieve.
+     * @return the League object corresponding to the provided ID, or {@code null}
+     *         if no league exists with the given ID.
+     */
     public League getLeague(String leagueID) {
         return leagues.get(leagueID);
     }
@@ -76,6 +88,13 @@ public class InMemoryLeagueDataAccessObject implements UpdateRankingsLeagueDataA
         return words;
     }
 
+    /**
+     * Converts a list of League objects into a JSON representation.
+     *
+     * @param leagues the list of League objects to convert.
+     * @return a JSONObject representing the league data, where each league is
+     *         mapped by its ID and includes associated users and data.
+     */
     public static JSONObject leaguesToJSON(ArrayList<League> leagues) {
         JSONObject leaguesJSON = new JSONObject();
         for (League league : leagues) {
@@ -86,7 +105,6 @@ public class InMemoryLeagueDataAccessObject implements UpdateRankingsLeagueDataA
             for (String key : data.keySet()) {
                 dataJSON.put(key, data.get(key));
             }
-
 
             JSONObject leagueJSON = new JSONObject();
             leagueJSON.put("data", dataJSON);
@@ -105,28 +123,4 @@ public class InMemoryLeagueDataAccessObject implements UpdateRankingsLeagueDataA
         String[] words = data.get(username);
         return words;
     }
-
-//    public ArrayList<League> JSONtoLeagues(JSONObject allLeagueData) {
-//        for(String leagueID : allLeagueData.keySet()) {
-//            //gets league data
-//            JSONObject leagueData = allLeagueData.getJSONObject(leagueID);
-//            ArrayList<String> usernames = toArrayList(leagueData.getJSONArray(USERS));
-//            JSONObject jsonData = leagueData.getJSONObject(DATA);
-//            HashMap<String, String[]> finalData = new HashMap<>();
-//
-//            //creates data hashmap
-//            for(int i = 0; i < usernames.size(); i++) {
-//                String[] words = toStringArray(jsonData.getJSONArray(usernames.get(i)));
-//                finalData.put(usernames.get(i), words);
-//            }
-//            leagues.add(new League(leagueID, usernames, finalData));
-//        }
-//    }
-//    public <T> ArrayList<T> toArrayList(JSONArray jsonArray){
-//        ArrayList<T> arrayList = new ArrayList<>();
-//        for(int i = 0; i < jsonArray.length(); i++){
-//            arrayList.add((T) jsonArray.get(i));
-//        }
-//        return arrayList;
-//    }
 }
