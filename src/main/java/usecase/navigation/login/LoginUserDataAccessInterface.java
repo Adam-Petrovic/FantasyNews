@@ -1,6 +1,6 @@
 package usecase.navigation.login;
 
-import entity.User;
+import entity.Users.User;
 
 /**
  * DAO for the Login Use Case.
