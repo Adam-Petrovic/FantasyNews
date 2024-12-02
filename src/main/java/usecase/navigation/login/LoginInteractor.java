@@ -1,6 +1,6 @@
 package usecase.navigation.login;
 
-import entity.User;
+import entity.Users.User;
 
 /**
  * The Login Interactor.

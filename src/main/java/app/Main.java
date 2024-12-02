@@ -43,7 +43,7 @@ public class Main {
                                             .build();
 
 
-        application.pack();
+        application.setSize(2000,2000);
         application.setVisible(true);
 
     }
