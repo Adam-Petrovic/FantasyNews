@@ -60,17 +60,6 @@ public class PantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataAcce
     }
 
     @Override
-    public ArrayList<String> getLeagueUsers(String leagueID) {
-        return null;
-    }
-
-    @Override
-    public HashMap<String, String[]> getData(String leagueID) {
-        return null;
-    }
-
-    @Override
-
     public String[] getWords(String username, String leagueID) {
         JSONObject obj = get();
         JSONObject league = obj.getJSONObject(leagueID);

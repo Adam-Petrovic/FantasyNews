@@ -67,6 +67,7 @@ import usecase.frienduserstory.to_friends.FriendsOutputBoundary;
 import usecase.frienduserstory.add_new_friend.AddNewFriendInputBoundary;
 import usecase.frienduserstory.add_new_friend.AddNewFriendInteractor;
 import usecase.frienduserstory.add_new_friend.AddNewFriendOutputBoundary;
+import usecase.rankingsuserstory.update_rankings.UpdateRankingsGuardianDataAccessInterface;
 import usecase.selectwordsuserstory.addWord.AddWordInputBoundary;
 import usecase.selectwordsuserstory.addWord.AddWordInteractor;
 import usecase.selectwordsuserstory.addWord.AddWordOutputBoundary;
@@ -360,8 +361,9 @@ public class AppBuilder {
                 rankingsViewModel);
 
         try {
-            final GuardianDataAccessObject guardianDataAccessObject = makeGuardianDataAccessObject();
-            final UpdateRankingsInputBoundary updateRankingsInteractor = new UpdateRankingsInteractor(guardianDataAccessObject, updateRankingsPresenter, leagueDataAccessObject);
+            //final GuardianDataAccessObject guardianDataAccessObject = makeGuardianDataAccessObject();
+            final UpdateRankingsGuardianDataAccessInterface updateRankingsGuardianDataAccessInterface = makeGuardianDataAccessObject();
+            final UpdateRankingsInputBoundary updateRankingsInteractor = new UpdateRankingsInteractor(updateRankingsGuardianDataAccessInterface, updateRankingsPresenter, leagueDataAccessObject);
             final UpdateRankingsController updateRankingsController = new UpdateRankingsController(updateRankingsInteractor);
             rankingsView.setUpdateRankingsController(updateRankingsController);
             loggedInView.setToRankingsController(rankingsController);

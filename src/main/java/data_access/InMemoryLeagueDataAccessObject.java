@@ -18,18 +18,6 @@ public class InMemoryLeagueDataAccessObject implements UpdateRankingsLeagueDataA
 
     private final Map<String, League> leagues = new HashMap<>();
 
-
-    @Override
-    public ArrayList<String> getLeagueUsers(String leagueID) {
-        return null;
-    }
-
-
-    @Override
-    public HashMap<String, String[]> getData(String leagueID) {
-        return null;
-    }
-
     @Override
     public void save(League league) {
         leagues.put(league.getId(), league);

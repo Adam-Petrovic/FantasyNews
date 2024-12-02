@@ -1,7 +1,6 @@
 package usecase.rankingsuserstory.update_rankings;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 import entity.League;
 
@@ -10,23 +9,6 @@ import entity.League;
  * managing league data required for updating user rankings.
  */
 public interface UpdateRankingsLeagueDataAccessInterface {
-
-    /**
-     * Retrieves a list of usernames associated with a specific league.
-     *
-     * @param leagueID the unique identifier of the league
-     * @return an {@code ArrayList} of usernames belonging to the specified league
-     */
-    ArrayList<String> getLeagueUsers(String leagueID);
-
-    /**
-     * Retrieves league-related data for a specified league.
-     *
-     * @param leagueID the unique identifier of the league
-     * @return a {@code Map} where each key is a username and the corresponding value is
-     *         an array of strings representing league-related data
-     */
-    Map<String, String[]> getData(String leagueID);
 
     /**
      * Saves the specified {@code League} object to the data store.
@@ -43,5 +25,4 @@ public interface UpdateRankingsLeagueDataAccessInterface {
      */
     ArrayList<League> getLeagues(ArrayList<String> leagueID);
 }
-
 
