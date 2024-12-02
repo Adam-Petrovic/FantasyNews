@@ -7,7 +7,7 @@ import entity.League;
 import entity.LeagueFactory;
 import entity.User;
 import org.junit.Test;
-import usecase.to_league_actions.*;
+import usecase.leagueuserstory.to_league_actions.*;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;

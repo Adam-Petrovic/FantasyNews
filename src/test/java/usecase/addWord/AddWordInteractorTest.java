@@ -5,7 +5,8 @@ import entity.CommonUserFactory;
 import entity.User;
 import entity.UserFactory;
 import org.junit.jupiter.api.Test;
-import usecase.solo_play.SoloPlayUserDataAccessInterface;
+import usecase.selectwordsuserstory.addWord.*;
+import usecase.navigation.solo_play.SoloPlayUserDataAccessInterface;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class AddWordInteractorTest {

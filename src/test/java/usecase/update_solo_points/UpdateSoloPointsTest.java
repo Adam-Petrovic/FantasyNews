@@ -5,6 +5,7 @@ import data_access.GuardianDataAccessObject;
 import entity.CommonUser;
 import entity.User;
 import org.junit.jupiter.api.Test;
+import usecase.pointsuserstory.update_solo_points.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

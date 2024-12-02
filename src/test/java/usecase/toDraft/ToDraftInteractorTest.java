@@ -4,7 +4,7 @@ package usecase.toDraft;
 import data_access.InMemoryLeagueDataAccessObject;
 import entity.*;
 import org.junit.jupiter.api.Test;
-import usecase.to_draft.*;
+import usecase.selectwordsuserstory.to_draft.*;
 
 import java.util.ArrayList;
 

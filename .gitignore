@@ -39,10 +39,10 @@ build/
 .DS_Store
 
 ### Our API TOKEN! ###
-guardianAPIToken.txt
+src/main/resources/apikeys/guardianAPIToken.txt
 
 ### Pantry API Key ###
 pantryAPIkey.txt
 pantryAPIkeyLeague.txt
-leagueKey.txt
-userKey.txt
+src/main/resources/apikeys/leagueKey.txt
+src/main/resources/apikeys/userKey.txt

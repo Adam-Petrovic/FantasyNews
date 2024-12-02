@@ -9,8 +9,8 @@ import java.time.LocalDate;
 
 import org.json.JSONObject;
 
-import usecase.updatePointsForLeague.UpdatePointsForLeagueDataAccessObject;
-import usecase.update_solo_points.UpdateSoloPlayPointsDataAccessInterface;
+import usecase.pointsuserstory.updatePointsForLeague.UpdatePointsForLeagueDataAccessObject;
+import usecase.pointsuserstory.update_solo_points.UpdateSoloPlayPointsDataAccessInterface;
 
 public class GuardianDataAccessObject implements UpdateSoloPlayPointsDataAccessInterface,
         UpdatePointsForLeagueDataAccessObject {

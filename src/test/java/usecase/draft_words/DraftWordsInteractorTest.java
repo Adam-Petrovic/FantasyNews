@@ -4,6 +4,8 @@ import data_access.InMemoryLeagueDataAccessObject;
 import entity.League;
 import entity.LeagueFactory;
 import org.junit.jupiter.api.Test;
+import usecase.selectwordsuserstory.draft_words.*;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
