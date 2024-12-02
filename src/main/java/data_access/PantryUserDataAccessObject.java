@@ -130,7 +130,6 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
                 return responseBody;
             }
             else {
-                System.out.println("couldn't get user data");
                 throw new RuntimeException("couldn't get user data");
             }
         }
@@ -211,7 +210,6 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
                 System.out.println("saved user data");
             }
             else {
-                System.out.println("failed to save user data");
                 throw new RuntimeException("failed to save user: " + response.message());
             }
         }
