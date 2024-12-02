@@ -5,12 +5,7 @@ import java.awt.event.ActionListener;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 
@@ -103,6 +98,11 @@ public class DraftView extends JPanel implements ActionListener, PropertyChangeL
 
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
+        final DraftState state = (DraftState) evt.getNewValue();
+        if (state.getDraftError() != null) {
+            JOptionPane.showMessageDialog(this, state.getDraftError());
+        }
+
         String[] words = draftViewModel.getState().getWords();
         System.out.println(words);
         String[][] wordsArray = {words};

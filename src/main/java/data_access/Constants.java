@@ -17,4 +17,5 @@ public class Constants {
     public static final int SUCCESS_CODE = 200;
     public static final int TIME = 3;
     public static final int TEXT_FIELD_LENGTH = 10;
+    public static final int MIN_WORD_LENGTH = 3;
 }

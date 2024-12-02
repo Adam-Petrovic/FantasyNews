@@ -11,6 +11,7 @@ public class DraftState {
     private String leagueID;
     private String[] words;
     private String inputtedWord;
+    private String draftError;
 
     /**
      * Getter for user.
@@ -90,5 +91,21 @@ public class DraftState {
      */
     public String getInputtedWord() {
         return inputtedWord;
+    }
+
+    /**
+     * Setter for errorMessage.
+     * @param errorMessage The error message to set.
+     */
+    public void setDraftError(String errorMessage) {
+        this.draftError = errorMessage;
+    }
+
+    /**
+     * Getter for error message.
+     * @return The error message to get.
+     */
+    public String getDraftError() {
+        return draftError;
     }
 }

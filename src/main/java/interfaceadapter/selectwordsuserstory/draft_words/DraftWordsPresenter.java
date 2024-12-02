@@ -26,4 +26,12 @@ public class DraftWordsPresenter implements DraftWordsOutputBoundary {
         this.viewManagerModel.setState(draftViewModel.getViewName());
         this.viewManagerModel.firePropertyChanged();
     }
+
+    @Override
+    public void prepareFailView(String errorMessage){
+        final DraftState draftState = draftViewModel.getState();
+        draftState.setDraftError(errorMessage);
+        draftViewModel.firePropertyChanged();
+    }
+
 }

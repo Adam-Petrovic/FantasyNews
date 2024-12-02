@@ -36,6 +36,31 @@ public class DraftWordsInteractorTest {
                 assertArrayEquals(draftWordsOutputData.getWords(), newWords);
                 assertEquals(exp, "soccer");
             }
+
+            @Override
+            public void prepareFailView(String errorMessage){
+                fail("Use case failure is unexpected");
+            }
+        };
+
+        DraftWordsInputBoundary interactor = new DraftWordsInteractor(successPresenter, leagueRepo);
+        interactor.execute(in);
+    }
+
+    void failTest(){
+        DraftWordsInputData in = new DraftWordsInputData("a", 0, "a", "a");
+        DraftWordsLeagueDataAccessInterface leagueRepo = new InMemoryLeagueDataAccessObject();
+
+        DraftWordsOutputBoundary successPresenter = new DraftWordsOutputBoundary() {
+            @Override
+            public void showDraftedWords(DraftWordsOutputData draftWordsOutputData) {
+                fail("Use case failure is unexpected");
+            }
+
+            @Override
+            public void prepareFailView(String errorMessage){
+                assertEquals("Your word is not long enough. Must be over 4 characters.", errorMessage);
+            }
         };
 
         DraftWordsInputBoundary interactor = new DraftWordsInteractor(successPresenter, leagueRepo);
