@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import entity.League;
@@ -122,5 +123,20 @@ public class InMemoryLeagueDataAccessObject implements UpdateRankingsLeagueDataA
         HashMap<String, String[]> data = league.getData();
         String[] words = data.get(username);
         return words;
+    }
+
+    @Override
+    public ArrayList<String> getAllWords(String leagueID) {
+        League league = this.leagues.get(leagueID);
+        HashMap<String, String[]> data = league.getData();
+
+        ArrayList<String> allWords = new ArrayList<>();
+        for (String user : data.keySet()) {
+            String[] wordData = data.get(user);
+            for (String word : wordData) {
+                allWords.add(word);
+            }
+        }
+        return allWords;
     }
 }

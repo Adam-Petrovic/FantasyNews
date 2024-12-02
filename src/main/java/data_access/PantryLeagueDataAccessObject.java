@@ -70,6 +70,21 @@ public class PantryLeagueDataAccessObject implements UpdateLeaguesLeagueDataAcce
     }
 
     @Override
+    public ArrayList<String> getAllWords(String leagueID) {
+        JSONObject obj = get();
+        JSONObject league = obj.getJSONObject(leagueID);
+        JSONObject data = league.getJSONObject(DATA);
+        ArrayList<String> allWords = new ArrayList<>();
+        for (String user : data.keySet()) {
+            String[] wordData = toStringArray((JSONArray) data.get(user));
+            for (String word : wordData) {
+                allWords.add(word);
+            }
+        }
+        return allWords;
+    }
+
+    @Override
     public String[] draftWord(String username, Integer categoryNum, String newWord, String leagueID) {
         JSONObject obj = get();
         JSONObject league = obj.getJSONObject(leagueID);
