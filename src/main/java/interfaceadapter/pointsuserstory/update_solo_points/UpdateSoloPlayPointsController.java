@@ -4,6 +4,9 @@ import entity.User;
 import usecase.pointsuserstory.update_solo_points.UpdateSoloPlayPointsInputBoundary;
 import usecase.pointsuserstory.update_solo_points.UpdateSoloPlayPointsInputData;
 
+/**
+ * Controller for updating points in solo play mode.
+ */
 public class UpdateSoloPlayPointsController {
     private final UpdateSoloPlayPointsInputBoundary updatePointsUseCaseInteractor;
 

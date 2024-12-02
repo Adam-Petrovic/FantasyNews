@@ -2,6 +2,9 @@ package usecase.navigation.solo_play;
 
 import entity.User;
 
+/**
+ * Output data for solo play use case.
+ */
 public class SoloPlayOutputData {
 
     private final User user;

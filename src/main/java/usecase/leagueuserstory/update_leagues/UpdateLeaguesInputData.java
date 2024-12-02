@@ -15,14 +15,26 @@ public class UpdateLeaguesInputData {
         this.join = join;
     }
 
+    /**
+     * Returns user's name.
+     * @return username.
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * Returns the league's ID.
+     * @return leagueID.
+     */
     public String getLeagueID() {
         return leagueID;
     }
 
+    /**
+     * Returns a boolean indicating if the action is join.
+     * @return join.
+     */
     public boolean isJoin() {
         return join;
     }

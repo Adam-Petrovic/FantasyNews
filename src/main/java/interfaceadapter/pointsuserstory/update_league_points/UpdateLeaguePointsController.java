@@ -6,6 +6,9 @@ import entity.User;
 import usecase.pointsuserstory.updatePointsForLeague.UpdatePointsForLeagueInputBoundary;
 import usecase.pointsuserstory.updatePointsForLeague.UpdatePointsForLeagueInputData;
 
+/**
+ * Controller for updating points for league.
+ */
 public class UpdateLeaguePointsController {
 
     private UpdatePointsForLeagueInputBoundary updateLeaguePointsInteractor;

@@ -2,6 +2,9 @@ package usecase.navigation.solo_play;
 
 import entity.User;
 
+/**
+ * Data access interface for solo play use case.
+ */
 public interface SoloPlayUserDataAccessInterface {
     /**
      * Gets the user based on the username.

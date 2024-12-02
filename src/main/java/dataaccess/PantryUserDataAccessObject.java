@@ -167,7 +167,6 @@ public class PantryUserDataAccessObject implements SignupUserDataAccessInterface
         return false;
     }
 
-
     @Override
     public String getCurrentUsername() {
         return this.currentUsername;

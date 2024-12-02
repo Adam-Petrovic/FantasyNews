@@ -29,7 +29,7 @@ public class DraftWordsPresenter implements DraftWordsOutputBoundary {
     }
 
     @Override
-    public void prepareFailView(String errorMessage){
+    public void prepareFailView(String errorMessage) {
         final DraftState draftState = draftViewModel.getState();
         draftState.setDraftError(errorMessage);
         draftViewModel.firePropertyChanged();

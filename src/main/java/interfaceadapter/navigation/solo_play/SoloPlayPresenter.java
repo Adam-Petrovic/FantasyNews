@@ -4,6 +4,9 @@ import interfaceadapter.ViewManagerModel;
 import usecase.navigation.solo_play.SoloPlayOutputBoundary;
 import usecase.navigation.solo_play.SoloPlayOutputData;
 
+/**
+ * Presenter for solo play use case.
+ */
 public class SoloPlayPresenter implements SoloPlayOutputBoundary {
 
     private final ViewManagerModel viewManagerModel;

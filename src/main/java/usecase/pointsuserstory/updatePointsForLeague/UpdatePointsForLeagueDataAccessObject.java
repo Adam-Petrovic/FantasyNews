@@ -1,5 +1,8 @@
 package usecase.pointsuserstory.updatePointsForLeague;
 
+/**
+ * DAO for updating points for league use case.
+ */
 public interface UpdatePointsForLeagueDataAccessObject {
     /**
      * Gets the point for a category.

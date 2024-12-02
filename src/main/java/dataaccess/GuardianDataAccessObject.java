@@ -13,6 +13,9 @@ import usecase.pointsuserstory.updatePointsForLeague.UpdatePointsForLeagueDataAc
 import usecase.pointsuserstory.update_solo_points.UpdateSoloPlayPointsDataAccessInterface;
 import usecase.rankingsuserstory.update_rankings.UpdateRankingsGuardianDataAccessInterface;
 
+/**
+ * Data access object to fetch data from guardian api.
+ */
 public class GuardianDataAccessObject implements UpdateSoloPlayPointsDataAccessInterface,
         UpdatePointsForLeagueDataAccessObject, UpdateRankingsGuardianDataAccessInterface {
 

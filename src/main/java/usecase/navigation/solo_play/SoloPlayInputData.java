@@ -1,5 +1,8 @@
 package usecase.navigation.solo_play;
 
+/**
+ * Input data for solo play use case.
+ */
 public class SoloPlayInputData {
 
     private final String username;

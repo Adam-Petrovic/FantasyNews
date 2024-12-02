@@ -3,6 +3,9 @@ package interfaceadapter.navigation.solo_play;
 import usecase.navigation.solo_play.SoloPlayInputBoundary;
 import usecase.navigation.solo_play.SoloPlayInputData;
 
+/**
+ * Controller for solo play use case.
+ */
 public class SoloPlayController {
     private final SoloPlayInputBoundary soloPlayUseCaseInteractor;
 

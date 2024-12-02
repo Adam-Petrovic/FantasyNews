@@ -10,7 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-
 import interfaceadapter.friendsuserstory.to_friends.FriendsController;
 import interfaceadapter.navigation.loggedIn.LoggedInState;
 import interfaceadapter.navigation.loggedIn.LoggedInViewModel;
@@ -33,7 +32,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
     private RankingsController rankingsController;
 
     private FriendsController friendsController;
-
 
     private final JLabel greeting;
     private final JButton logOut;
@@ -65,22 +63,7 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
         addFriends = new JButton("Friends");
         buttons.add(addFriends);
 
-
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-
-//        changePassword.addActionListener(
-//                // This creates an anonymous subclass of ActionListener and instantiates it.
-//                evt -> {
-//                    if (evt.getSource().equals(changePassword)) {
-//                        final LoggedInState currentState = loggedInViewModel.getState();
-//
-//                        this.changePasswordController.execute(
-//                                currentState.getUsername(),
-//                                currentState.getPassword()
-//                        );
-//                    }
-//                }
-//        );
 
         soloPlay.addActionListener(
                 evt -> {
@@ -107,7 +90,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                 }
         );
 
-
         toRankings.addActionListener(
                 evt -> {
                     if (evt.getSource().equals(toRankings)) {
@@ -122,7 +104,6 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
                     }
                 }
         );
-
         this.add(greeting);
         this.add(buttons);
     }
@@ -140,23 +121,51 @@ public class LoggedInView extends JPanel implements PropertyChangeListener {
 
     }
 
+    /**
+     * Sets logoutController field to the parameter's value.
+     * @param logoutController logout controller.
+     */
     public void setLogoutController(LogoutController logoutController) {
         this.logoutController = logoutController;
     }
 
-    public void setSoloPlayController(SoloPlayController soloPlayController) {this.soloPlayController = soloPlayController;
+    /**
+     * Sets soloPlayController field to the parameter's value.
+     * @param soloPlayController soloplay controller.
+     */
+    public void setSoloPlayController(SoloPlayController soloPlayController) {
+        this.soloPlayController = soloPlayController;
     }
 
-    public void setToLeagueController(LeagueController toLeagueController) {this.leagueController = toLeagueController;}
-
-    public void setToRankingsController(RankingsController toRankingsController) {this.rankingsController = toRankingsController;}
-
-    public void setAddFriendsController(FriendsController friendsController) {
-        this.friendsController = friendsController;
+    /**
+     * Sets leagueController field to the parameter's value.
+     * @param toLeagueController league controller.
+     */
+    public void setToLeagueController(LeagueController toLeagueController) {
+        this.leagueController = toLeagueController;
     }
 
+    /**
+     * Sets rankingsController field to the parameter's value.
+     * @param toRankingsController rankings controller.
+     */
+    public void setToRankingsController(RankingsController toRankingsController) {
+        this.rankingsController = toRankingsController;
+    }
 
-    public void setUpdateLeaguesController(UpdateLeaguesController updateLeaguesController){
+    /**
+     * Sets friendsController field to the parameter's value.
+     * @param toFriendsController friends controller.
+     */
+    public void setAddFriendsController(FriendsController toFriendsController) {
+        this.friendsController = toFriendsController;
+    }
+
+    /**
+     * Sets updateLeaguesController field to the parameter's value.
+     * @param updateLeaguesController update leagues controller.
+     */
+    public void setUpdateLeaguesController(UpdateLeaguesController updateLeaguesController) {
         this.updateLeaguesController = updateLeaguesController;
     }
 

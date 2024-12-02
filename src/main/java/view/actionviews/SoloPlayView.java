@@ -20,6 +20,9 @@ import interfaceadapter.navigation.solo_play.SoloPlayState;
 import interfaceadapter.navigation.solo_play.SoloPlayViewModel;
 import interfaceadapter.pointsuserstory.update_solo_points.UpdateSoloPlayPointsController;
 
+/**
+ * The view for solo play use case.
+ */
 public class SoloPlayView extends JPanel implements PropertyChangeListener {
     private final SoloPlayViewModel soloPlayViewModel;
     private AddWordController addWordController;

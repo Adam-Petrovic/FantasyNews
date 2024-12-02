@@ -2,6 +2,9 @@ package interfaceadapter.navigation.go_home;
 
 import usecase.navigation.goHome.GoHomeOutputBoundary;
 
+/**
+ * Controller for go home button.
+ */
 public class GoHomeController {
     private final GoHomeOutputBoundary goHomePresenter;
 

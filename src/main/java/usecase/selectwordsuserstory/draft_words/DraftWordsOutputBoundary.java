@@ -11,7 +11,7 @@ public interface DraftWordsOutputBoundary {
     void showDraftedWords(DraftWordsOutputData draftWordsOutputData);
 
     /**
-     * Fail view when drafting words fails
+     * Fail view when drafting words fails.
      * @param errorMessage The error message displayed
      */
     void prepareFailView(String errorMessage);
