@@ -15,7 +15,8 @@ public class UpdateSoloPointsTest {
         User user = new CommonUser("Adam", "madA", word);
         UpdatePointsInputData inputData = new UpdatePointsInputData(user);
 
-        GuardianDataAccessObject guardianDataAccessObject = new GuardianDataAccessObject("PUT API KEY HERE");
+        GuardianDataAccessObject guardianDataAccessObject
+                = new GuardianDataAccessObject("c7dda92e-78d1-440d-a3b7-ee3d27ee35be");
 
 
         UpdatePointsOutputBoundary successPresenter = new UpdatePointsOutputBoundary() {
