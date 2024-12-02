@@ -351,7 +351,7 @@ public class AppBuilder {
 
         try {
             final GuardianDataAccessObject guardianDataAccessObject = makeGuardianDataAccessObject();
-            final UpdateRankingsInputBoundary updateRankingsInteractor = new UpdateRankingsInteractor(guardianDataAccessObject, updateRankingsPresenter, leagueDataAccessObject, userDataAccessObject);
+            final UpdateRankingsInputBoundary updateRankingsInteractor = new UpdateRankingsInteractor(guardianDataAccessObject, updateRankingsPresenter, leagueDataAccessObject);
             final UpdateRankingsController updateRankingsController = new UpdateRankingsController(updateRankingsInteractor);
             rankingsView.setUpdateRankingsController(updateRankingsController);
             loggedInView.setToRankingsController(rankingsController);
