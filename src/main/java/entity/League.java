@@ -1,7 +1,5 @@
 package entity;
 
-import entity.User;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
