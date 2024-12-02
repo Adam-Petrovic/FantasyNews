@@ -1,9 +1,6 @@
 package entity;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import data_access.Constants;
 
@@ -43,9 +40,9 @@ public class CommonUser implements User {
     public CommonUser(String name, String password, String[] terms) {
         this.name = name;
         this.password = password;
-        createWordMap(terms);
         this.leagueIDs = new ArrayList<>();
-        this.leagueWords = Constants.DEFAULT_WORDS;
+        this.leagueWords = terms;
+        createWordMap(terms);
     }
 
     private void createWordMap() {
