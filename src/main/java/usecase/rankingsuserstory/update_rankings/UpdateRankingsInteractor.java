@@ -5,7 +5,6 @@ import java.util.Comparator;
 import java.util.Map;
 
 import data_access.Constants;
-import data_access.GuardianDataAccessObject;
 import entity.League;
 import entity.User;
 
@@ -18,15 +17,15 @@ import entity.User;
  * and uses a presenter to output the updated rankings.
  */
 public class UpdateRankingsInteractor implements UpdateRankingsInputBoundary {
-    private final GuardianDataAccessObject guardianDataAccessObject;
+    private final UpdateRankingsGuardianDataAccessInterface guardianDataAccessInterface;
     private final UpdateRankingsOutputBoundary updateRankingsPresenter;
     private final UpdateRankingsLeagueDataAccessInterface leagueDataAccessInterface;
 
-    public UpdateRankingsInteractor(GuardianDataAccessObject guardianDataAccessObject,
+    public UpdateRankingsInteractor(UpdateRankingsGuardianDataAccessInterface guardianDataAccessInterface,
                                     UpdateRankingsOutputBoundary updateRankingsPresenter,
                                     UpdateRankingsLeagueDataAccessInterface leagueDataAccessInterface) {
 
-        this.guardianDataAccessObject = guardianDataAccessObject;
+        this.guardianDataAccessInterface = guardianDataAccessInterface;
         this.updateRankingsPresenter = updateRankingsPresenter;
         this.leagueDataAccessInterface = leagueDataAccessInterface;
     }
@@ -52,7 +51,7 @@ public class UpdateRankingsInteractor implements UpdateRankingsInputBoundary {
             int total = 0;
             User user = users.get(j);
             for (int index = 0; index < Constants.NUM_CATEGORIES; index++) {
-                total += guardianDataAccessObject.getPointsForCategory(words[index]);
+                total += guardianDataAccessInterface.getPointsForCategory(words[index]);
             }
             user.setLiveLeaguePoints(total);
             user.setLeaguePoints((int) Float.parseFloat(words[Constants.NUM_CATEGORIES]));
