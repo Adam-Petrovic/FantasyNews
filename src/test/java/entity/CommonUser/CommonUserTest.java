@@ -1,7 +1,7 @@
-package entity.CommonUser;
+package entity.CommonUserTest;
 
 import data_access.Constants;
-import entity.Users.CommonUser;
+import entity.CommonUser;
 import org.junit.Test;
 
 import java.util.HashMap;

@@ -9,4 +9,10 @@ public interface DraftWordsOutputBoundary {
      * @param draftWordsOutputData The drafted words.
      */
     void showDraftedWords(DraftWordsOutputData draftWordsOutputData);
+
+    /**
+     * Fail view when drafting words fails
+     * @param errorMessage The error message displayed
+     */
+    void prepareFailView(String errorMessage);
 }
