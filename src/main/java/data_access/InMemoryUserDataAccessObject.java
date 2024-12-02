@@ -16,6 +16,7 @@ import usecase.update_rankings.UpdateRankingsLeagueDataAccessInterface;
 import usecase.update_rankings.UpdateRankingsUserDataAccessInterface;
 import usecase.update_leagues.UpdateLeaguesUserDataAccessInterface;
 
+import usecase.to_league_actions.ToLeagueActionsUserDataAccessInterface;
 
 /**
  * In-memory implementation of the DAO for storing user data. This implementation does
@@ -28,7 +29,8 @@ public class InMemoryUserDataAccessObject implements SignupUserDataAccessInterfa
         SoloPlayUserDataAccessInterface,
         FriendsUserDataAccessInterface,
         UpdateRankingsUserDataAccessInterface,
-        UpdateLeaguesUserDataAccessInterface {
+        UpdateLeaguesUserDataAccessInterface,
+        ToLeagueActionsUserDataAccessInterface {
 
     private final Map<String, User> users = new HashMap<>();
 

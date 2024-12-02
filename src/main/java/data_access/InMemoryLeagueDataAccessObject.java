@@ -9,6 +9,9 @@ import usecase.to_draft.ToDraftLeagueDataAccessInterface;
 import usecase.update_rankings.UpdateRankingsLeagueDataAccessInterface;
 import entity.User;
 import usecase.update_leagues.UpdateLeaguesLeagueDataAccessInterface;
+import usecase.to_league_actions.ToLeagueActionsLeagueDataAccessInterface;
+import usecase.update_leagues.UpdateLeaguesLeagueDataAccessInterface;
+import usecase.update_rankings.UpdateRankingsLeagueDataAccessInterface;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,8 +19,8 @@ import java.util.Map;
 import data_access.Constants;
 
 public class InMemoryLeagueDataAccessObject implements UpdateRankingsLeagueDataAccessInterface,
-        DraftWordsLeagueDataAccessInterface, UpdateLeaguesLeagueDataAccessInterface, ToDraftLeagueDataAccessInterface {
-
+        DraftWordsLeagueDataAccessInterface, UpdateLeaguesLeagueDataAccessInterface, ToDraftLeagueDataAccessInterface,
+                                                       ToLeagueActionsLeagueDataAccessInterface {
 
     private final Map<String, League> leagues = new HashMap<>();
 
