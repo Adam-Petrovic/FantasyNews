@@ -2,7 +2,7 @@ package usecase.solo_play;
 
 import entity.User;
 
-public class SoloPlayInteractor implements SoloPlayInputBoundary{
+public class SoloPlayInteractor implements SoloPlayInputBoundary {
     private final SoloPlayOutputBoundary soloPlayPresenter;
     private final SoloPlayUserDataAccessInterface userDataAccessObject;
 
@@ -11,7 +11,6 @@ public class SoloPlayInteractor implements SoloPlayInputBoundary{
         this.soloPlayPresenter = soloPlayPresenter;
         this.userDataAccessObject = userDataAccessObject;
     }
-
 
     @Override
     public void execute(SoloPlayInputData soloPlayInputData) {

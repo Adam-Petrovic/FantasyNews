@@ -8,11 +8,11 @@ import usecase.goHome.GoHomeOutputBoundary;
 public class GoHomePresenter implements GoHomeOutputBoundary {
     private final LoggedInViewModel loggedInViewModel;
     private final ViewManagerModel viewManagerModel;
+
     public GoHomePresenter(ViewManagerModel viewManagerModel, LoggedInViewModel loggedInViewModel) {
         this.loggedInViewModel = loggedInViewModel;
         this.viewManagerModel = viewManagerModel;
     }
-
 
     @Override
     public void execute() {

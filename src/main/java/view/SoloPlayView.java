@@ -1,24 +1,29 @@
 package view;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+
 import data_access.Constants;
 import entity.User;
+import interface_adapter.add_word.AddWordController;
 import interface_adapter.go_home.GoHomeController;
 import interface_adapter.solo_play.SoloPlayState;
 import interface_adapter.solo_play.SoloPlayViewModel;
-import interface_adapter.add_word.AddWordController;
-import interface_adapter.to_league.LeagueController;
-import interface_adapter.update_points.UpdatePointsController;
-
-import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
+import interface_adapter.update_solo_points.UpdateSoloPlayPointsController;
 
 public class SoloPlayView extends JPanel implements PropertyChangeListener {
     private final SoloPlayViewModel soloPlayViewModel;
     private AddWordController addWordController;
-    private UpdatePointsController updatePointsConroller;
+    private UpdateSoloPlayPointsController updatePointsConroller;
     private JScrollPane jScrollPane;
     private JTable wordsTable;
     private User user;
@@ -38,7 +43,7 @@ public class SoloPlayView extends JPanel implements PropertyChangeListener {
         JButton goHomeButton = new JButton("←");
         userOptions.add(goHomeButton);
 
-        JTextField wordInput = new JTextField(10);
+        JTextField wordInput = new JTextField(Constants.TEXT_FIELD_LENGTH);
         userOptions.add(wordInput);
 
         JButton addWord = new JButton("Add");
@@ -46,7 +51,6 @@ public class SoloPlayView extends JPanel implements PropertyChangeListener {
 
         JButton updateScores = new JButton("Update");
         userOptions.add(updateScores);
-
 
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         this.add(jScrollPane);
@@ -78,11 +82,8 @@ public class SoloPlayView extends JPanel implements PropertyChangeListener {
         );
 
         wordInput.getDocument().addDocumentListener(new DocumentListener() {
-
             private void documentListenerHelper() {
-                final SoloPlayState currentState = soloPlayViewModel.getState();
-                currentState.setInputtedWord(wordInput.getText());
-                soloPlayViewModel.setState(currentState);
+                documentListener(soloPlayViewModel, wordInput);
             }
 
             @Override
@@ -102,6 +103,12 @@ public class SoloPlayView extends JPanel implements PropertyChangeListener {
         });
     }
 
+    private static void documentListener(SoloPlayViewModel soloPlayViewModel, JTextField wordInput) {
+        final SoloPlayState currentState = soloPlayViewModel.getState();
+        currentState.setInputtedWord(wordInput.getText());
+        soloPlayViewModel.setState(currentState);
+    }
+
     @Override
     public void propertyChange(PropertyChangeEvent evt) {
 
@@ -111,7 +118,7 @@ public class SoloPlayView extends JPanel implements PropertyChangeListener {
 
         Integer[] selectedCell = soloPlayViewModel.getState().getSelectedCell();
 
-        if (! selectedCell[0].equals(-1) && ! selectedCell[1].equals(-1)) {
+        if (!selectedCell[0].equals(-1) && !selectedCell[1].equals(-1)) {
             wordsEntry[selectedCell[0]][selectedCell[1]] = soloPlayViewModel.getState().getInputtedWord();
         }
 
@@ -121,18 +128,27 @@ public class SoloPlayView extends JPanel implements PropertyChangeListener {
         jScrollPane.setViewportView(wordsTable);
     }
 
+    /**
+     * Sets the add word controller.
+     * @param controller the add word controller
+     */
     public void setAddWordController(AddWordController controller) {
         this.addWordController = controller;
     }
 
-
-    public void setUpdatePointsConroller(UpdatePointsController controller) {
+    /**
+     * Sets the update points controller.
+     * @param controller update points controller
+     */
+    public void setUpdatePointsConroller(UpdateSoloPlayPointsController controller) {
         this.updatePointsConroller = controller;
     }
 
-    public void setGoHomeController(GoHomeController goHomeController){
+    /**
+     * Sets the go home controller.
+     * @param goHomeController the go home controller
+     */
+    public void setGoHomeController(GoHomeController goHomeController) {
         this.goHomeController = goHomeController;
     }
-
-
 }

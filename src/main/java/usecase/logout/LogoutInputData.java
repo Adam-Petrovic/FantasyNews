@@ -10,6 +10,10 @@ public class LogoutInputData {
         this.username = username;
     }
 
+    /**
+     * Gets the username.
+     * @return the username
+     */
     public String getUsername() {
         return username;
     }

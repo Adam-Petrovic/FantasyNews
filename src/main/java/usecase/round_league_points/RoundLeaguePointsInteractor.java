@@ -1,8 +1,8 @@
 package usecase.round_league_points;
 
-import entity.User;
-
 import java.util.ArrayList;
+
+import entity.User;
 
 public class RoundLeaguePointsInteractor implements RoundLeaguePointsInputBoundary {
 

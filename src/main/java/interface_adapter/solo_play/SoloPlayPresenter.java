@@ -15,7 +15,6 @@ public class SoloPlayPresenter implements SoloPlayOutputBoundary {
         this.soloPlayViewModel = soloPlayViewModel;
     }
 
-
     @Override
     public void showSoloPlay(SoloPlayOutputData outputData) {
         final SoloPlayState soloPlayState = soloPlayViewModel.getState();

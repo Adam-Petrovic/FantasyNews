@@ -10,5 +10,11 @@ public class SoloPlayOutputData {
         this.user = user;
     }
 
-    public User getUser() { return this.user; }
+    /**
+     * Gets the user.
+     * @return the user
+     */
+    public User getUser() {
+        return this.user;
+    }
 }

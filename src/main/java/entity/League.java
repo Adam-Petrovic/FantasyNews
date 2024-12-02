@@ -59,7 +59,6 @@ public class League {
     private ArrayList<User> makeUserObjArray(HashMap<String, String[]> data) {
         ArrayList<User> users = new ArrayList<>();
          for (String user : data.keySet()) {
-             System.out.println(data.get(user).length);
              User user1 = new CommonUser(user, "", data.get(user));
              users.add(user1);
          }

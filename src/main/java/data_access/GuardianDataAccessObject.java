@@ -8,14 +8,15 @@ import java.net.http.HttpResponse;
 import java.time.LocalDate;
 
 import org.json.JSONObject;
-import usecase.updatePointsForLeague.UpdatePointsForLeagueDataAccessObject;
-import usecase.update_solo_points.UpdatePointsDataAccessInterface;
 
-public class GuardianDataAccessObject implements UpdatePointsDataAccessInterface, UpdatePointsForLeagueDataAccessObject {
+import usecase.updatePointsForLeague.UpdatePointsForLeagueDataAccessObject;
+import usecase.update_solo_points.UpdateSoloPlayPointsDataAccessInterface;
+
+public class GuardianDataAccessObject implements UpdateSoloPlayPointsDataAccessInterface,
+        UpdatePointsForLeagueDataAccessObject {
 
     private final String apiKey;
     private final HttpClient client;
-
 
     public GuardianDataAccessObject(String apiKey) {
         this.apiKey = apiKey;
@@ -23,16 +24,15 @@ public class GuardianDataAccessObject implements UpdatePointsDataAccessInterface
     }
 
     private int countApperances(String word) {
-        try{
+        try {
             JSONObject response = fetchArticles(word).getJSONObject("response");
             return response.getInt("total");
         }
 
-        catch (IOException | InterruptedException e) {
+        catch (IOException | InterruptedException exception) {
             return 0;
         }
     }
-
 
     private JSONObject fetchArticles(String query) throws IOException, InterruptedException {
         // Construct the URL with parameters
@@ -41,8 +41,6 @@ public class GuardianDataAccessObject implements UpdatePointsDataAccessInterface
                 + getPreviousDay()
                 + "&q=" + searchTerm
                 + "&api-key=" + apiKey;
-
-        System.out.println(url);
 
         // Build the HTTP request
         HttpRequest request = HttpRequest.newBuilder()
@@ -53,17 +51,18 @@ public class GuardianDataAccessObject implements UpdatePointsDataAccessInterface
         // Send the request and handle the response
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 
-        if (response.statusCode() == 200) {
+        if (response.statusCode() == Constants.SUCCESS_CODE) {
             // Parse and return the JSON response
             return new JSONObject(response.body());
-        } else {
+        }
+        else {
             // Print error message and return null if the request fails
             System.err.println("Error " + response.statusCode() + ": " + response.body());
             return null;
         }
     }
 
-    private String getPreviousDay(){
+    private String getPreviousDay() {
         return LocalDate.now().minusDays(1).toString();
     }
 

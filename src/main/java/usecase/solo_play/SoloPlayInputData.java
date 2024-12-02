@@ -8,7 +8,11 @@ public class SoloPlayInputData {
         this.username = username;
     }
 
-    String getUsername() {
+    /**
+     * Gets the username.
+     * @return the username
+     */
+    public String getUsername() {
         return username;
     }
 

@@ -1,4 +1,4 @@
-package use_case.to_league_actions;
+package usecase.to_league_actions;
 
 import data_access.InMemoryLeagueDataAccessObject;
 import data_access.InMemoryUserDataAccessObject;
@@ -7,7 +7,7 @@ import entity.League;
 import entity.LeagueFactory;
 import entity.User;
 import org.junit.Test;
-import use_case.update_leagues.*;
+import usecase.to_league_actions.*;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;

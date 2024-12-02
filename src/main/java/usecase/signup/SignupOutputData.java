@@ -14,10 +14,18 @@ public class SignupOutputData {
         this.useCaseFailed = useCaseFailed;
     }
 
+    /**
+     * Gets the username.
+     * @return the username
+     */
     public String getUsername() {
         return username;
     }
 
+    /**
+     * If the usecase has had an error/failed in any way.
+     * @return true if failed; false otherwise
+     */
     public boolean isUseCaseFailed() {
         return useCaseFailed;
     }

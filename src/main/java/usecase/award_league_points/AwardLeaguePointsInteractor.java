@@ -1,11 +1,11 @@
 package usecase.award_league_points;
 
+import java.util.ArrayList;
+
 import data_access.Constants;
 import entity.User;
 
-import java.util.ArrayList;
-
-public class AwardLeaguePointsInteractor implements AwardLeaguePointsInputBoundary{
+public class AwardLeaguePointsInteractor implements AwardLeaguePointsInputBoundary {
     private AwardLeaguePointsDataAccessInterface awardLeaguePointsDataAccessInterface;
 
     public AwardLeaguePointsInteractor(AwardLeaguePointsDataAccessInterface dataAccessInterface) {
@@ -18,7 +18,10 @@ public class AwardLeaguePointsInteractor implements AwardLeaguePointsInputBounda
 
         for (String category : Constants.CATEGORIES) {
             String userWithMostPoints = getUserWithMostPoints(users, category);
-            awardLeaguePointsDataAccessInterface.updatePointsForUser(awardLeaguePointsInputData.getLeagueID(), userWithMostPoints, users.size());
+            awardLeaguePointsDataAccessInterface
+                    .updatePointsForUser(awardLeaguePointsInputData.getLeagueID(),
+                                            userWithMostPoints,
+                                            users.size());
         }
 
     }
@@ -26,8 +29,8 @@ public class AwardLeaguePointsInteractor implements AwardLeaguePointsInputBounda
     private String getUserWithMostPoints(ArrayList<User> users, String category) {
         String userWithMostPoints = users.get(0).getName();
         int maxPoints = users.get(0).getPointsForCategory(category);
-        for(User user : users) {
-            if(user.getPointsForCategory(category) >= maxPoints) {
+        for (User user : users) {
+            if (user.getPointsForCategory(category) >= maxPoints) {
                 userWithMostPoints = user.getName();
                 maxPoints = user.getPointsForCategory(category);
             }

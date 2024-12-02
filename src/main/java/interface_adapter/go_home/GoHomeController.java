@@ -9,7 +9,10 @@ public class GoHomeController {
         this.goHomePresenter = goHomePresenter;
     }
 
-    public void execute(){
+    /**
+     * Tells the presenter to execute the function.
+     */
+    public void execute() {
         this.goHomePresenter.execute();
     }
 }
