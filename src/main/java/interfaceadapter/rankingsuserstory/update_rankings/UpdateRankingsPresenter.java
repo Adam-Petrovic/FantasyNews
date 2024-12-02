@@ -27,6 +27,7 @@ public class UpdateRankingsPresenter implements UpdateRankingsOutputBoundary {
         RankingsState rankingsState = rankingsViewModel.getState();
 
         rankingsState.setLeague(outputData.getLeague());
+        rankingsState.setErrorMessage(null);
         rankingsState.getLeague().setLiveRankings(outputData.getLiveRankings());
         rankingsState.getLeague().setHistoricalRankings(outputData.getHistoricalRankings());
 
