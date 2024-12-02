@@ -28,6 +28,9 @@ public class DraftWordsInteractor implements DraftWordsInputBoundary {
         if (newWord.length() <= Constants.MIN_WORD_LENGTH) {
             draftWordsPresenter.prepareFailView("Your word is not long enough. Must be over 4 characters.");
         }
+        else if (draftWordsLeagueDataAccessInterface.getAllWords(leagueID).contains(newWord)) {
+            draftWordsPresenter.prepareFailView("Your word has already been drafted.");
+        }
         else {
             String[] words = draftWordsLeagueDataAccessInterface.draftWord(name, num, newWord, leagueID);
             final DraftWordsOutputData outputData = new DraftWordsOutputData(words);
