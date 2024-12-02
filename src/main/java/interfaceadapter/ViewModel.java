@@ -22,14 +22,26 @@ public class ViewModel<T> {
         this.viewName = viewName;
     }
 
+    /**
+     * Return a string representing the view's name.
+     * @return a string representing the view's name.
+     */
     public String getViewName() {
         return this.viewName;
     }
 
+    /**
+     * Return a generic data type representing the view's current state.
+     * @return a generic data type representing the view's current state.
+     */
     public T getState() {
         return this.state;
     }
 
+    /**
+     * Sets the current state to the parameter's value.
+     * @param state the updated state.
+     */
     public void setState(T state) {
         this.state = state;
     }

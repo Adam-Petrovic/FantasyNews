@@ -1,11 +1,13 @@
 package entity;
 
-import data_access.Constants;
-
-import java.io.Console;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import data_access.Constants;
+
+/**
+ * The league entity.
+ */
 public class League {
     private final String id;
     private final ArrayList<String> users;
@@ -14,12 +16,15 @@ public class League {
     private ArrayList<User> liveRankings;
     private ArrayList<User> historicalRankings;
     private ArrayList<User> userObjArr = new ArrayList<>();
-    public ArrayList<String> getUsers() {
-        return users;
+
+    public League(String id, ArrayList<String> users, HashMap<String, String[]> data) {
+        this.id = id;
+        this.users = users;
+        this.data = data;
+        this.userObjArr = makeUserObjArray(data);
     }
 
-    //for testing
-    public League(){
+    public League() {
         this.id = "meow";
         this.users = new ArrayList<>();
         users.add("hiii");
@@ -40,63 +45,110 @@ public class League {
         this.userObjArr = makeUserObjArray(data);
     }
 
-    public void setWords(String user, String[] words){
+    /**
+     * Return an arraylist of String representing users.
+     * @return users.
+     */
+    public ArrayList<String> getUsers() {
+        return users;
+    }
+
+    /**
+     * Sets the data field to user and words pairs, and sets the userObjArr.
+     * @param user String of username
+     * @param words String array of words
+     */
+    public void setWords(String user, String[] words) {
         this.data.put(user, words);
         this.userObjArr = makeUserObjArray(data);
     }
 
+    /**
+     * Return an arraylist of Users.
+     * @return userObjArr.
+     */
     public ArrayList<User> getUserObjArr() {
         return userObjArr;
     }
 
-    public League(String id, ArrayList<String> users, HashMap<String, String[]> data) {
-        this.id = id;
-        this.users = users;
-        this.data = data;
-        this.userObjArr = makeUserObjArray(data);
+    private ArrayList<User> makeUserObjArray(HashMap<String, String[]> leagueData) {
+        ArrayList<User> leagueUsers = new ArrayList<>();
+        for (String user : leagueData.keySet()) {
+            System.out.println(leagueData.get(user).length);
+            User user1 = new CommonUser(user, "", leagueData.get(user));
+            leagueUsers.add(user1);
+        }
+        return leagueUsers;
     }
 
-    private ArrayList<User> makeUserObjArray(HashMap<String, String[]> data) {
-        ArrayList<User> users = new ArrayList<>();
-         for (String user : data.keySet()) {
-             User user1 = new CommonUser(user, "", data.get(user));
-             users.add(user1);
-         }
-         return users;
-    }
-
+    /**
+     * Return a HashMap of data.
+     * @return data.
+     */
     public HashMap<String, String[]> getData() {
         return data;
     }
 
+    /**
+     * Sets the value for the data field.
+     * @param data data.
+     */
     public void setData(HashMap<String, String[]> data) {
         this.data = data;
     }
 
+    /**
+     * Return the id field.
+     * @return id.
+     */
     public String getId() {
         return id;
     }
 
-    public void setRankings(ArrayList<User> rankings){
+    /**
+     * Sets the rankings field to the parameter's value.
+     * @param rankings rankings.
+     */
+    public void setRankings(ArrayList<User> rankings) {
         this.rankings = rankings;
     }
 
-    public void setLiveRankings(ArrayList<User> liveRankings){
+    /**
+     * Sets the liveRankings field to the parameter's value.
+     * @param liveRankings live rankings.
+     */
+    public void setLiveRankings(ArrayList<User> liveRankings) {
         this.liveRankings = liveRankings;
     }
 
-    public void setHistoricalRankings(ArrayList<User> historicalRankings){
+    /**
+     * Sets the historicalRankings field to the parameter's value.
+     * @param historicalRankings historical rankings.
+     */
+    public void setHistoricalRankings(ArrayList<User> historicalRankings) {
         this.historicalRankings = historicalRankings;
     }
 
-    public ArrayList<User> getRankings(){
+    /**
+     * Returns the value of rankings.
+     * @return rankings.
+     */
+    public ArrayList<User> getRankings() {
         return rankings;
     }
 
+    /**
+     * Returns the value of live rankings.
+     * @return liveRankings.
+     */
     public ArrayList<User> getLiveRankings() {
         return liveRankings;
     }
 
+    /**
+     * Returns the value of historical rankings.
+     * @return historicalRankings.
+     */
     public ArrayList<User> getHistoricalRankings() {
         return historicalRankings;
     }
