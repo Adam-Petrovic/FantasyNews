@@ -4,11 +4,16 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import entity.User;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import entity.League;
 import usecase.leagueuserstory.to_league_actions.ToLeagueActionsLeagueDataAccessInterface;
 import usecase.leagueuserstory.update_leagues.UpdateLeaguesLeagueDataAccessInterface;
+import usecase.pointsuserstory.award_league_points.AwardLeaguePointsDataAccessInterface;
+import usecase.pointsuserstory.round_league_points.RoundLeaguePointsDataAccessObject;
+import usecase.pointsuserstory.updatePointsForLeague.UpdatePointsForLeagueDataAccessObject;
 import usecase.rankingsuserstory.update_rankings.UpdateRankingsLeagueDataAccessInterface;
 import usecase.selectwordsuserstory.draft_words.DraftWordsLeagueDataAccessInterface;
 import usecase.selectwordsuserstory.to_draft.ToDraftLeagueDataAccessInterface;
@@ -20,7 +25,8 @@ import usecase.selectwordsuserstory.to_draft.ToDraftLeagueDataAccessInterface;
  */
 public class InMemoryLeagueDataAccessObject implements UpdateRankingsLeagueDataAccessInterface,
         DraftWordsLeagueDataAccessInterface, UpdateLeaguesLeagueDataAccessInterface, ToDraftLeagueDataAccessInterface,
-                                                       ToLeagueActionsLeagueDataAccessInterface {
+                                                       ToLeagueActionsLeagueDataAccessInterface,
+        AwardLeaguePointsDataAccessInterface, RoundLeaguePointsDataAccessObject, UpdatePointsForLeagueDataAccessObject {
 
     private final Map<String, League> leagues = new HashMap<>();
 
@@ -137,5 +143,20 @@ public class InMemoryLeagueDataAccessObject implements UpdateRankingsLeagueDataA
             }
         }
         return allWords;
+    }
+
+    @Override
+    public void updatePointsForUser(String leagueID, String name, int numUsers) {
+
+    }
+
+    @Override
+    public void roundPoints(String leagueID, ArrayList<User> users) {
+
+    }
+
+    @Override
+    public int getPointsForCategory(String category) {
+        return 0;
     }
 }
