@@ -1,5 +1,8 @@
 package usecase.draft_words;
 
+/**
+ * Output data for draft use case.
+ */
 public class DraftWordsOutputData {
     private String[] words;
 
@@ -7,6 +10,10 @@ public class DraftWordsOutputData {
         this.words = words;
     }
 
+    /**
+     * Getter for drafted words.
+     * @return Drafted words.
+     */
     public String[] getWords() {
         return words;
     }

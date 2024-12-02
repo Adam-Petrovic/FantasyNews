@@ -1,6 +1,13 @@
 package usecase.addWord;
 
+/**
+ * Output boundary interface for add word use case.
+ */
 public interface AddWordOutputBoundary {
-    public void execute(AddWordOutputData addWordOutputData);
+    /**
+     * Execute method for output boundary.
+     * @param addWordOutputData Output data.
+     */
+    void execute(AddWordOutputData addWordOutputData);
 
 }
